@@ -1,0 +1,224 @@
+/* Definição geral da página */
+.body-cadastro {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3498DB;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+
+/* Container principal */
+.signup-container-cadastro {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    min-height: 400px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin:35px;
+}
+
+/* Divisão central */
+.signup-divider-cadastro {
+    width: 1.2px;
+    background-color: #3498DB;
+    height: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+
+/* Lado esquerdo - Logo */
+.signup-left-panel-cadastro {
+    width: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+}
+
+/* Estilo da imagem do painel esquerdo */
+.signup-logo-cadastro {
+    width: 200px;
+    height: auto;
+    margin-bottom: 25px;
+    margin-left: 25px;
+}
+
+/* Lado direito - Formulário */
+.signup-right-panel-cadastro {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signup-title-cadastro {
+    color: #3498DB;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Estilo do formulário */
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.label-cadastro {
+    width: 90%;
+    font-size: 12px;
+    color: #3498DB;
+    text-align: left;
+    margin:1px;
+}
+
+.input-cadastro[type="text"],
+.input-cadastro[type="email"],
+.input-cadastro[type="tel"],
+.input-cadastro[type="password"] {
+    width: calc(100% - 40px);
+    padding: 8px;
+    margin-bottom: 7px;
+    border: 2px solid #3498DB;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.button-cadastro {
+    width: calc(100% - 60px);
+    padding: 10px;
+    background-color: #3498DB;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.button-cadastro:hover {
+    background-color: #196292;
+}
+
+/* Estilo do logo UFMS no rodapé */
+.signup-ufms-logo-cadastro {
+    width: 60px;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 768px) {
+    .signup-container-cadastro {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .signup-divider-cadastro {
+        display: none;
+    }
+
+    .signup-left-panel-cadastro,
+    .signup-right-panel-cadastro {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signup-logo-cadastro {
+        margin-top: -5px;
+        margin-bottom: -30px;
+        width: 90px;
+    }
+
+    .signup-right-panel-cadastro h2 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .signup-right-panel-cadastro {
+        padding: 20px;
+    }
+
+    .input-cadastro[type="text"],
+    .input-cadastro[type="email"],
+    .input-cadastro[type="tel"],
+    .input-cadastro[type="password"],
+    .button-cadastro {
+        width: calc(100% - 30%);
+        font-size: 12px;
+        padding:7px;
+    }
+
+    .label-cadastro {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .signup-ufms-logo-cadastro {
+        width: 50px;
+        margin-top: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .signup-right-panel-cadastro h2 {
+        font-size: 16px;
+    }
+
+    .input-cadastro[type="text"],
+    .input-cadastro[type="email"],
+    .input-cadastro[type="tel"],
+    .input-cadastro[type="password"],
+    .button-cadastro {
+        width: calc(100% - 35%);
+        font-size: 12px;
+        padding:7px;
+    }
+
+    .label-cadastro {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .signup-logo-cadastro {
+        margin-top: -20px;
+        margin-bottom: -10px;
+        width: 90px;
+    }
+
+    .signup-ufms-logo-cadastro {
+        width: 40px;
+        margin-top: 5px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

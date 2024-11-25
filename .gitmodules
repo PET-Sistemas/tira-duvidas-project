@@ -1,0 +1,6 @@
+[submodule "back-tira"]
+	path = back-tira
+	url = https://github.com/Gabriel-Sena-1/back-tira
+[submodule "front-tira"]
+	path = front-tira
+	url = https://github.com/Gabriel-Sena-1/front-tira.git

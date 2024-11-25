@@ -1,0 +1,134 @@
+/* MeusDados.css */
+.meus-dados-container {
+    width: 100%;
+    height: 100%;
+}
+
+.meus-dados-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff;
+    border-bottom: 2px solid #dad9d9;
+}
+
+.logo-meus-dados {
+    width: 80px;
+    margin-left: 10px;
+}
+
+.title-meus-dados {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #008CBA;
+}
+
+
+.translucent-background {
+    width: 100%;
+    height: 130px;
+    background-color: rgba(70, 209, 255, 0.25); /* Fundo azul translúcido */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 2px solid #dad9d9;
+
+}
+
+.user-info {
+    width: 15%; /* Ajusta o tamanho da div para alinhar à esquerda */
+    text-align: left; /* Alinha o conteúdo à esquerda */
+}
+
+.user-profile-pic {
+    position: absolute;
+    top: 75%; /* Move a imagem para que metade dela fique sobreposta à div */
+    left: 46%;
+    transform: translateY(-50%); /* Centraliza verticalmente metade da imagem */
+}
+
+.user-profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.meus-dados-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px; /* Ajuste para afastar o conteúdo da imagem de perfil */
+}
+
+.edit-profile-button {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px; /* Distância maior entre o botão e a imagem */
+    width: 150px;
+    text-align: center;
+    justify-content: center;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+
+.edit-icon {
+    width: 16px; /* Ajuste o tamanho do ícone conforme necessário */
+    height: 16px;
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+    transition: text-shadow 0.3s;
+    text-shadow: 0px 0px 6px rgba(0, 140, 186, 0.6);
+}
+
+.edit-profile-button:hover {
+    background-color: #fff; /* Torna o fundo branco no hover */
+    color: #008CBA; /* Muda a cor do texto e ícone para azul */
+    text-shadow: 0px 0px 6px rgba(0, 140, 186, 0.6); /* Sombra azul no texto e ícone */
+}
+
+.user-info {
+    margin-top: 20px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.user-info strong {
+    color: #008CBA; /* Cor azul para os rótulos */
+    margin-right: 100px; /* Adiciona espaço à direita do rótulo */
+    min-width: 70px; /* Define uma largura mínima para alinhar melhor os rótulos */
+}
+
+.user-info span {
+    color: #333; /* Cor cinza escuro para as informações do usuário */
+}
+
+
+.titulo-dados-pessoais{
+    color: #008CBA;
+}
+
+.back-button {
+    background-color: #008CBA;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 50px;
+    width: 140px;
+    text-align: center;
+    
+}

@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    container_name: tira_duvidas_db
+    environment:
+      POSTGRES_USER: tira_duvidas_back
+      POSTGRES_PASSWORD: tira_duvidas_back   # Changed to match original docker-compose
+      POSTGRES_DB: tira_duvidas_back
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tira_duvidas_back"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: back-tiraduvidas
+      dockerfile: Dockerfile
+    container_name: tira_duvidas_api
+    environment:
+      NODE_ENV: development
+      APP_PORT: 4001
+      APP_NAME: "NestJS API"
+      API_PREFIX: api
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_TYPE: postgres
+      DATABASE_USER: tira_duvidas_back
+      DATABASE_PASSWORD: tira_duvidas_back   # Changed to match db password
+      DATABASE_NAME: tira_duvidas_back
+      RUN_MIGRATIONS: "true"
+    ports:
+      - "4001:4001"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./back-tiraduvidas:/usr/src/app
+      - /usr/src/app/node_modules
+    command: >
+      sh -c "
+        echo 'Waiting for database connection...' &&
+        while ! nc -z db 5432; do
+          sleep 1
+        done &&
+        echo 'Database connected!' &&
+        npm run migration:run &&
+        npm run start:dev
+      "
+
+  frontend:
+    build:
+      context: front
+      dockerfile: Dockerfile
+    container_name: tira_duvidas_frontend
+    ports:
+      - "3000:3000"  # Mudando para porta 3000 que é padrão do Vite
+    volumes:
+      - ./front:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:4001/api  # Adicionando URL da API
+    depends_on:
+      - api
+
+volumes:
+  db-data:
+  

@@ -1,0 +1,241 @@
+/* Definição geral da página */
+.body-login {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #3498DB;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Container principal */
+.container {
+  display: flex;
+  flex-direction: row; /* Exibe os painéis lado a lado em telas grandes */
+  width: 700px;
+  min-height: 450px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden; /* Evita quebra de layout */
+}
+
+/* Divisão central (linha) */
+.divider {
+  width: 1.2px;
+  background-color: #3498DB;
+  height: 90%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+/* Lado esquerdo - Logo e Título */
+.left-panel {
+  width: 50%; /* Define o lado esquerdo com 50% em telas grandes */
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Estilo da imagem do painel esquerdo */
+.logo {
+  width: 200px;
+  height: auto;
+  margin-bottom: 25px;
+  margin-left: 10px;
+}
+
+/* Lado direito - Formulário de login */
+.right-panel {
+  width: 50%; /* Define o lado direito com 50% em telas grandes */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel h2 {
+  color: #3498DB;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Estilo do formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Garante que o form use todo o espaço disponível no painel */
+}
+
+.label-login {
+  width: 90%;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #3498DB;
+  text-align: left;
+}
+
+input[type="email"], input[type="password"] {
+  width: calc(100% - 40px); /* Subtrai o padding dos lados para evitar cortes */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2px solid #3498DB;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+button {
+  width: calc(100% - 60px); /* Subtrai o padding dos lados para o botão */
+  padding: 10px;
+  background-color: #3498DB;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #1972b5;
+}
+
+/* Estilo do logo UFMS no rodapé */
+.ufms-logo {
+  width: 60px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-message {
+  color: #008000;
+  background-color: #e6ffe6;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.error-message {
+  color: #ff0000;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Media Queries para tornar o design responsivo */
+
+/* Telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+  /* Ajusta o tamanho do container */
+  .container {
+    flex-direction: column; /* Coloca os painéis em coluna */
+    width: 100%; /* Ajusta a largura */
+    height: auto;
+    align-items: center; /* Centraliza os itens no modo responsivo */
+    justify-content: center;
+  }
+
+  /* Remove a linha divisória */
+  .divider {
+    display: none;
+  }
+
+  /* Ajusta o tamanho dos painéis para 100% */
+  .left-panel, .right-panel {
+    width: 100%; /* Ambos os painéis ocupam 100% da largura */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo */
+    align-items: center;
+  }
+
+  /* Ajusta o tamanho da logo no painel esquerdo */
+  .logo {
+    width: 120px;
+    margin: 0px;
+  }
+
+  .right-panel h2{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  /* Ajusta o padding do painel direito */
+  .right-panel {
+    padding: 10px;
+  }
+
+  /* Ajusta o tamanho do botão e dos inputs */
+  input[type="email"], input[type="password"] {
+    width: calc(100% - 30%); /* Inputs ocupam toda a largura */
+  }
+  
+  .label-login {
+    width: 100%;
+    font-size: 40px;
+    margin-bottom: 5px;
+    color: #3498DB;
+    text-align: center;
+  }
+
+  button {
+    width: calc(100% - 30%); /* Botão ocupa toda a largura */
+  }
+}
+
+/* Telas menores que 480px (celulares menores) */
+@media (max-width: 480px) {
+  /* Ajusta o tamanho do cabeçalho */
+  header {
+    font-size: 18px;
+  }
+
+  .right-panel h2{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  /* Ajusta o tamanho do botão e inputs */
+  input[type="email"], input[type="password"] {
+    width: calc(100% - 40%); /* Inputs ocupam toda a largura */
+    font-size: 13px;
+  }
+
+  button {
+    width: calc(100% - 40%); /* Botão ocupa toda a largura */
+  }
+  .label-login {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #3498DB;
+    text-align: center;
+  }
+
+  /* Ajusta o tamanho da logo */
+  .logo {
+    width: 120px;
+    margin: 0px;
+  }
+
+
+  
+  
+}
