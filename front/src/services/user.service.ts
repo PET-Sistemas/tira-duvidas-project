@@ -1,7 +1,7 @@
 import { CreateUserDTO } from "../dtos/user/create-user.dto";
 import { LoginDTO } from "../dtos/user/login.dto";
 
-export function createUser(data: CreateUserDTO) {
+export function register(data: CreateUserDTO) {
     return fetch('http://localhost:4001/api/user/', {
         method: 'POST',
         body: JSON.stringify(data),
