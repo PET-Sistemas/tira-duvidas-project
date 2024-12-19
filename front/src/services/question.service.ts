@@ -13,18 +13,24 @@ export function createQuestion(data: CreateQuestionDTO) {
 
 export async function allQuestion() {
     const response = await fetch('http://localhost:4001/api/question/', { method: 'GET' });
-    const users = await response.json();
-    return users;
+    const questions = await response.json();
+    return questions;
 }
 
 export async function getQuestion(id:string) {
     const response = await fetch(`http://localhost:4001/api/question/${id}`, { method: 'GET' });
-    const users = await response.json();
-    return users;
+    const question = await response.json();
+    return question;
+}
+
+export async function getQuestionByTitle(title:string) {
+    const response = await fetch(`http://localhost:4001/api/question/title/${title}`, { method: 'GET' });
+    const question = await response.json();
+    return question;
 }
 
 export async function deleteQuestion(id:string) {
     const response = await fetch(`http://localhost:4001/api/question/${id}`, { method: 'DELETE' });
-    const users = await response.json();
-    return users;
+    const question = await response.json();
+    return question;
 }
