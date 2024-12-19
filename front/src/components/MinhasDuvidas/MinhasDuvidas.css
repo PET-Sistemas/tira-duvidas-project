@@ -1,0 +1,216 @@
+/* Container geral */
+.container-duvidas {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+  
+  .minhas-duvidas-header {
+    display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px;
+        background-color: #fff; 
+        border-bottom: 2px solid #dad9d9;
+    }
+
+    .profile-btn {
+        margin-left: 200px;
+        margin-right: 40px;
+        display: flex;
+        align-items: center;
+      }
+
+    .user-profile-img{
+        width: 40px;
+        height: 40px;
+    }
+
+  .titulo-pagina {
+    text-align: center;
+    color: #3498DB;
+    font-size: 1.3rem;
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+  
+  /* Cartões */
+  .card-duvida {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #3498DB;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    margin-left: 40px;
+    margin-right: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  .card-duvida:hover {
+    background-color: #eef6ff;
+  }
+  
+  /* Ícones */
+  .icon-container {
+    margin: 15px;
+    flex: 0 0 50px;
+  }
+  
+  .icon-situacao {
+    width: 40px;
+    height: 40px;
+  }
+  
+  /* Conteúdo da dúvida */
+  .content {
+    flex: 1;
+  }
+  
+  .titulo-duvida {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .descricao-duvida {
+    font-size: 0.8rem;
+    color: #555;
+    margin: 5px 0 0 0;
+  }
+  
+  /* Informações da dúvida */
+  .info-duvida {
+    text-align: right;
+    font-size: 0.7rem;
+  }
+
+
+  .minhas-duvidas-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .minhas-duvidas-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .minhas-duvidas-nav-link-sobre {
+    color: #008CBA;
+    text-decoration: none;
+    margin-left: 60px;
+    margin-right: 30px;
+    font-size: 14px;
+    width: 8%;
+  }
+  .minhas-duvidas-nav-link-perguntas {
+    color: #008CBA;
+    text-decoration: none;
+    margin-right: 60px;
+    font-size: 14px;
+  }
+  
+  .minhas-duvidas-search-bar {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .minhas-duvidas-search-input {
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid #3498DB;
+    width: 500px;
+  
+  }
+  
+  .minhas-duvidas-search-btn {
+    width: 10%;
+    background-color: white;
+    color: #3498DB;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  .filtrar-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    margin: 10px 40px;
+    margin-top: 0;
+  }
+  
+  .filtrar-btn {
+    color: #3498DB;
+    width: auto;
+    padding: 8px 12px;
+    background-color: #fff;
+    border: 1px solid #3498DB;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 0;
+  }
+  
+  .filtrar-btn:hover {
+    background-color: #4ea1fb29;
+  }
+  
+  
+  .filtro-container {
+    top: 155px;
+  position: absolute;
+  right: 25px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.filtro-container select {
+margin-top: 10px;
+  width: 85%;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.button-filter{
+    width: 85%;
+    padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.filtro-container button {
+font-size:small;
+  background-color: #3498DB;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filtro-container button:hover {
+  background-color: #0056b3;
+}
+
+.filter-icon-profile{
+    width: 12px; 
+    height: 12px;
+    margin-right: 8px; 
+    transition: text-shadow 0.3s;
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.6);
+}

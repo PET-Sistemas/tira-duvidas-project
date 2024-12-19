@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Logar.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import ufmsLogo from '../ufms-logo.png';
+import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
+import ufmsLogo from '../ufms-logo.png'; // Logo da UFMS
+import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/user.service.ts';
 
-function Logar() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccessMessage('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
+  setSuccessMessage('');
+  
+  try {
+    const response = await login({ email, password });
+    const data = await response.json();
     
-    try {
-      const response = await login({ email, password });
-      const data = await response.json();
-      
-      if (data.message) {
-        setSuccessMessage(data.message);
-      }
-    } catch (err) {
-      setError(err.message || 'Ocorreu um erro durante o login');
-    }
-  };
+    if (data.status == "success") {
+      setSuccessMessage(data.message);
+    }else
+      setError(data.message);
+  } catch (err) {
+    setError(err.message || 'Ocorreu um erro durante o login');
+  }
+};
+
+function Logar() {
+  const navigate = useNavigate();
 
   return (
     <div className='body-login'>
@@ -33,33 +32,21 @@ function Logar() {
         <div className="left-panel">
           <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo" />
         </div>
-        <div className="divider"></div>
+        <div className="divider"></div> {/* Linha divisória */}
+        
         <div className="right-panel">
-          <h2>Login</h2>
+          <h2>Entrar</h2>
           {error && <div className="error-message">{error}</div>}
           {successMessage && <div className="success-message">{successMessage}</div>}
           <form onSubmit={handleSubmit}>
             <label className='label-login'>Email:</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="email@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+            <input type="email" name="email" placeholder="email@email.com" />
             <label className='label-login'>Senha:</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">Entrar</button>
+            <input type="password" name="password" placeholder="••••••••" />
+            {/*<button type="submit">Entrar</button> */}
+            <button onClick={() => navigate('/minhas-duvidas')} className="btn-submit">Entrar</button>
           </form>
-          <img src={ufmsLogo} alt="UFMS Logo" className="ufms-logo" />
+          <img src={ufmsLogo} alt="UFMS Logo" className="ufms-logo" /> {/* Logo UFMS */}
         </div>
       </div>
     </div>

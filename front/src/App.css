@@ -1,38 +1,154 @@
-.App {
-  text-align: center;
+/* Estilo global */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Cabeçalho */
+.app-home-header {
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+    background-color: #fff; 
+    border-bottom: 2px solid #dad9d9;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app-home-logo {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-home-nav {
   display: flex;
-  flex-direction: column;
   align-items: center;
+}
+
+.app-home-nav-link {
+  color: #3498DB;
+  text-decoration: none;
+  margin-right: 60px;
+  font-size: 14px;
+}
+
+.app-home-search-bar {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.app-home-search-input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid #3498DB;
+  width: 500px;
+
+}
+
+.app-home-search-btn {
+  width: 10%;
+  background-color: white;
+  color: #3498DB;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-left: 6px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+/* Botões de login/cadastro */
+.app-home-btn-login {
+  background-color: #3498DB;
+  color: #f9f9f9;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border: 2px solid #3498DB;
+}
+.app-home-btn-signup {
+  background-color: #fff;
+  color: #3498DB;
+  border: 2px solid #3498DB;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 4px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+/* Categorias */
+.app-home-categories {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  margin: 10;
 }
 
-.App-link {
-  color: #61dafb;
+.container-categories{
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-home-category {
+  padding: 10px 20px;
+  background-color: #fcfcfcc3;
+  border: 1px solid #3498DB;
+  border-radius: 4px;
+  color: #3498DB;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dúvidas Frequentes */
+.app-home-faq {
+  padding: 20px;
+}
+
+.app-home-faq-title {
+  text-align: center;
+  font-size: 20px;
+  color: #3498DB;
+  margin-bottom: 20px;
+}
+
+.app-home-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.app-home-faq-item {
+  border: 1px solid #3498DB;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.app-home-faq-img {
+  width: 40px;
+  height:30px;
+}
+
+.app-home-faq-description{
+  font-size: 14px;
+  color:#5b5b5b;
+}
+
+.app-home-faq-question{
+  font-size: 16px;
+}
+
+.Logo-Titulo{
+  justify-content: space-between;
+  align-items: center;
+
 }

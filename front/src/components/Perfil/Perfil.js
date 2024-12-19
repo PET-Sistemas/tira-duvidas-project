@@ -43,7 +43,7 @@ function PerfilUsuario() {
 
       <div className="meus-dados-content">
         <button className="edit-profile-button">
-          <img src={editIcon} alt="Edit Icon" className="edit-icon" />
+          <img src={editIcon} alt="Edit Icon" className="edit-icon-profile" />
           Editar Dados
         </button>
         <div className="user-info">

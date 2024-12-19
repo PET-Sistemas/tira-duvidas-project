@@ -1,44 +1,57 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/Login/Logar.js';
 import Signup from './components/Cadastrar/Cadastro.js';
 import CadastroDuvidas from './components/CadastrarDuvidas/CadastroDuvidas.js';
 import PerfilUsuario from './components/Perfil/Perfil.js';
+import MinhasDuvidas from './components/MinhasDuvidas/MinhasDuvidas.js';
+import './App.css'; 
+import tiraDuvidasLogo from './components/Logo-Tira-Dúvidas-removebg.png';
 
 function App() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   return (
-    <div className="App">
-      {/* Exibe os botões apenas se a rota atual não for /login, /signup, /cadastroduvidas ou /perfil */}
-      {location.pathname !== '/login' && 
-       location.pathname !== '/signup' && 
-       location.pathname !== '/cadastroduvidas' && 
-       location.pathname !== '/perfil' && (
-        <div>
-          <button className="btn-login" onClick={() => navigate('/login')}>
-            Ir para Login
-          </button>
-          <button className="btn-signup" onClick={() => navigate('/signup')} style={{ marginLeft: '10px' }}>
-            Ir para Cadastro
-          </button>
-          <button className="btn-cadastroduvidas" onClick={() => navigate('/cadastroduvidas')} style={{ marginLeft: '10px' }}>
-            Ir para Cadastro de Dúvida
-          </button>
-          <button className="btn-perfil" onClick={() => navigate('/perfil')} style={{ marginLeft: '10px' }}>
-            Ir para Perfil
-          </button>
-        </div>
-      )}
+    <div className="app-home">
+      <header className="app-home-header">
+        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+        <nav className="app-home-nav">
+          <a href="#sobre" className="app-home-nav-link">Sobre nós</a>
+          <a href="#perguntas-frequentes" className="app-home-nav-link">Perguntas Frequentes</a>
+          <div className="app-home-search-bar">
+            <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" />
+            <button className="app-home-search-btn">Buscar</button>
+          </div>
+          <button onClick={() => navigate('/login')} className="app-home-btn-login">Entrar</button>
+          <button onClick={() => navigate('/signup')} className="app-home-btn-signup">Cadastrar-se</button>
+        </nav>
+      </header>
 
-      {/* Configura os roteamentos */}
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/cadastroduvidas" element={<CadastroDuvidas />} />
-        <Route path="/perfil" element={<PerfilUsuario />} />
-      </Routes>
+      <div className='container-categories'>
+      <div className="app-home-categories">
+        <button className="app-home-category">Categoria1</button>
+        <button className="app-home-category">Categoria2</button>
+        <button className="app-home-category">Categoria3</button>
+        <button className="app-home-category">Categoria4</button>
+        <button className="app-home-category">Categoria5</button>
+      </div>
+      </div>
+
+      <main id="perguntas-frequentes" className="app-home-faq">
+        <h2 className="app-home-faq-title">Dúvidas Frequentes</h2>
+        <div className="app-home-faq-grid">
+          {[...Array(6)].map((_, i) => (
+            <div className="app-home-faq-item" key={i}>
+              <div className='Logo-Titulo'>
+              <img src={tiraDuvidasLogo} alt="Ícone da dúvida" className="app-home-faq-img" />
+              <h3 className="app-home-faq-question">Título da Pergunta</h3> </div>
+              <p className="app-home-faq-description">
+                Descrição da pergunta bem detalhada com muitos detalhes mesmo, que vai ficar ao lado da imagem padrão ou a anexada pelo usuário.
+              </p>
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
@@ -46,7 +59,14 @@ function App() {
 function AppWrapper() {
   return (
     <Router>
-      <App />
+      <Routes>
+        <Route path="/" element={<App />} /> {/* Página inicial */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/cadastroduvidas" element={<CadastroDuvidas />} />
+        <Route path="/perfil" element={<PerfilUsuario />} />
+        <Route path="/minhas-duvidas" element={<MinhasDuvidas />} />
+      </Routes>
     </Router>
   );
 }

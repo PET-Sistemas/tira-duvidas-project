@@ -27,7 +27,7 @@ function CadastroDuvidas() {
           <img
             src={userProfilePic ? userProfilePic : defaultProfilePic}
             alt="Foto de Perfil"
-            className="user-profile-pic"
+            className="user-profile-pic-signup"
           />
         </div>
       </header>

@@ -120,24 +120,6 @@ button:hover {
   margin-right: auto;
 }
 
-.success-message {
-  color: #008000;
-  background-color: #e6ffe6;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.error-message {
-  color: #ff0000;
-  background-color: #ffe6e6;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
 /* Media Queries para tornar o design responsivo */
 
 /* Telas menores que 768px (tablets e celulares) */
@@ -234,7 +216,6 @@ button:hover {
     width: 120px;
     margin: 0px;
   }
-
 
   
   
