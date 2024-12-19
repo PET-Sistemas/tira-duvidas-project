@@ -13,18 +13,18 @@ export function createCategory(data: CreateCategoryDTO) {
 
 export async function allCategory() {
     const response = await fetch('http://localhost:4001/api/category/', { method: 'GET' });
-    const users = await response.json();
-    return users;
+    const categories = await response.json();
+    return categories;
 }
 
 export async function getCategory(id:string) {
     const response = await fetch(`http://localhost:4001/api/category/${id}`, { method: 'GET' });
-    const users = await response.json();
-    return users;
+    const category = await response.json();
+    return category;
 }
 
 export async function deleteCategory(id:string) {
     const response = await fetch(`http://localhost:4001/api/category/${id}`, { method: 'DELETE' });
-    const users = await response.json();
-    return users;
+    const category = await response.json();
+    return category;
 }
