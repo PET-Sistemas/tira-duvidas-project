@@ -25,9 +25,16 @@ export class QuestionController {
     return this.questionService.findAll();
   }
 
+  // Busca por id
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOneById(@Param('id') id: number) {
     return this.questionService.findOne({ id });
+  }
+
+  // Busca por título (alterei o nome do método para distinguir as rotas)
+  @Get('title/:title')
+  findByTitle(@Param('title') title: string) {
+    return this.questionService.findMany({ title });
   }
 
   @Patch(':id')
