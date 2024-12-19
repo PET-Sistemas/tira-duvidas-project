@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './components/Login/Logar.js';
 import Signup from './components/Cadastrar/Cadastro.js';
@@ -7,9 +7,29 @@ import PerfilUsuario from './components/Perfil/Perfil.js';
 import MinhasDuvidas from './components/MinhasDuvidas/MinhasDuvidas.js';
 import './App.css'; 
 import tiraDuvidasLogo from './components/Logo-Tira-Dúvidas-removebg.png';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  
+  console.log(sessionStorage.getItem('username'));
+
+  useEffect(() => {
+    // Verifica se há um username armazenado no sessionStorage
+    const storedUsername = sessionStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Remove o username do sessionStorage e redefine o estado
+    sessionStorage.removeItem('username');
+    setUsername('');
+    navigate('/');
+  };
+
 
   return (
     <div className="app-home">
@@ -22,8 +42,20 @@ function App() {
             <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" />
             <button className="app-home-search-btn">Buscar</button>
           </div>
-          <button onClick={() => navigate('/login')} className="app-home-btn-login">Entrar</button>
-          <button onClick={() => navigate('/signup')} className="app-home-btn-signup">Cadastrar-se</button>
+          
+          {username ? (
+          // Exibe o nome do usuário se estiver logado
+          <div className="app-home-user-info">
+            <span className="app-home-username">Olá, {username}!</span>
+            <button onClick={handleLogout} className="app-home-btn-logout">Sair</button>
+          </div>
+        ) : (
+          // Exibe os botões de login e cadastro se o usuário não estiver logado
+          <>
+            <button onClick={() => navigate('/login')} className="app-home-btn-login">Entrar</button>
+            <button onClick={() => navigate('/signup')} className="app-home-btn-signup">Cadastrar-se</button>
+          </>
+        )}
         </nav>
       </header>
 

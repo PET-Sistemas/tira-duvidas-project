@@ -60,6 +60,61 @@ display: flex;
   border-radius: 8px;
 }
 
+.app-home-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espaçamento entre os itens do menu */
+}
+
+.app-home-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Espaçamento entre a barra de pesquisa e o botão */
+}
+
+.app-home-btn-login, .app-home-btn-signup {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.app-home-btn-login:hover, .app-home-btn-signup:hover {
+  background-color: #0056b3; /* Cor ao passar o mouse */
+}
+
+.app-home-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre o nome do usuário e o botão "Sair" */
+}
+
+.app-home-username {
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+}
+
+.app-home-btn-logout {
+  padding: 5px 12px; /* Tamanho reduzido */
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px; /* Fonte menor */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.app-home-btn-logout:hover {
+  background-color: #d32f2f; /* Cor ao passar o mouse */
+}
+
 /* Botões de login/cadastro */
 .app-home-btn-login {
   background-color: #3498DB;
