@@ -126,6 +126,23 @@
     margin-bottom: 20px;
 }
 
+.success-message {
+    color: #008000;
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .error-message {
+    color: #ff0000;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
 /* Media Queries para responsividade */
 @media (max-width: 768px) {
     .signup-container-cadastro {
