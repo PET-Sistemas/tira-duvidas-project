@@ -95,7 +95,7 @@ input[type="email"], input[type="password"] {
   font-size: 14px;
 }
 
-button {
+.btn-submit {
   width: calc(100% - 60px); /* Subtrai o padding dos lados para o botão */
   padding: 10px;
   background-color: #3498DB;
@@ -107,7 +107,7 @@ button {
   margin-top: 10px;
 }
 
-button:hover {
+.btn-submit:hover {
   background-color: #1972b5;
 }
 
@@ -118,23 +118,6 @@ button:hover {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.success-message {
-  color: #008000;
-  background-color: #e6ffe6;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-.error-message {
-  color: #ff0000;
-  background-color: #ffe6e6;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 15px;
-  text-align: center;
 }
 
 /* Media Queries para tornar o design responsivo */

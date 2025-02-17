@@ -1,131 +1,198 @@
-import React, { useState, useEffect } from 'react';
-import './MinhasDuvidas.css';
-import naoAvaliadoIcon from '../NaoAvaliado.png';
-import bemAvaliadoIcon from '../BemAvaliado.png';
-import malAvaliadoIcon from '../MalAvaliado.png';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import defaultProfilePic from '../default-profile.png';
-import FilterIcon from '../filtrar.png'; 
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Importando useNavigate
+import "./MinhasDuvidas.css";
+import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
+import defaultProfilePic from "../default-profile.png";
+import FilterIcon from "../filtrar.png";
 
 function MinhasDuvidas() {
   const [duvidas, setDuvidas] = useState([]);
-  const [duvidasFiltradas, setDuvidasFiltradas] = useState([]);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [filtro, setFiltro] = useState('crescente'); // Estado para o filtro
+  const [filtro, setFiltro] = useState("");
+  const [search, setSearch] = useState("");
+  const [filteredDoubts, setFilteredDoubts] = useState([]);
+  const navigate = useNavigate(); // Para navegação programática
 
   useEffect(() => {
-    // Simula a busca de dados do backend
     const mockDuvidas = [
-      { id: 1, titulo: 'Dúvida 1', descricao: 'Descrição 1', situacao: 'Não Avaliado', data: '27-06-2024', respostas: 0 },
-      { id: 2, titulo: 'Dúvida 2', descricao: 'Descrição 2', situacao: 'Satisfatório', data: '26-06-2024', respostas: 1 },
-      { id: 3, titulo: 'Dúvida 3', descricao: 'Descrição 3', situacao: 'Insatisfatório', data: '25-06-2024', respostas: 1 },
+      {
+        id: 1,
+        title: "Dúvida 1",
+        description: "Descrição 1",
+        category: "Geral",
+        status: "pendente",
+        date: "2024-06-27T10:00:00",
+        respostas: 0,
+      },
+      {
+        id: 2,
+        title: "Dúvida 2",
+        description: "Descrição 2",
+        category: "Técnico",
+        status: "respondida",
+        date: "2024-06-26T15:30:00",
+        respostas: 1,
+      },
+      {
+        id: 3,
+        title: "Dúvida 3",
+        description: "Descrição 3",
+        category: "Segurança",
+        status: "insatisfeito",
+        date: "2024-06-25T09:15:00",
+        respostas: 1,
+      },
     ];
     setDuvidas(mockDuvidas);
-    setDuvidasFiltradas(mockDuvidas); // Inicializa com as dúvidas sem filtro
+    setFilteredDoubts(mockDuvidas);
   }, []);
 
-  // Função para retornar o ícone correto, precisa da lógica da situação
-  const getIcon = (situacao) => {
-    switch (situacao) {
-      case 'Não Avaliado':
-        return naoAvaliadoIcon;
-      case 'Satisfatório':
-        return bemAvaliadoIcon;
-      case 'Insatisfatório':
-        return malAvaliadoIcon;
-      default:
-        return naoAvaliadoIcon;
-    }
-  };
-
-  // Função para alternar a visibilidade do filtro
   const toggleFiltroVisivel = () => {
     setFiltroVisivel(!filtroVisivel);
   };
 
-  // Função para lidar com a mudança no filtro
-  const handleFiltroChange = (event) => {
-    setFiltro(event.target.value);
+  const handleFiltroChange = (e) => {
+    setFiltro(e.target.value);
   };
 
-  // Função para aplicar o filtro
-  const aplicarFiltro = () => {
-    let novasDuvidas = [...duvidas]; // Cria uma cópia das dúvidas
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
 
-    // Aplica a lógica de filtragem ou ordenação
-    if (filtro === 'crescente') {
-      novasDuvidas.sort((a, b) => a.respostas - b.respostas); // Ordena por respostas em ordem crescente
-    } else if (filtro === 'decrescente') {
-      novasDuvidas.sort((a, b) => b.respostas - a.respostas); // Ordena por respostas em ordem decrescente
-    } else if (filtro === 'bemAvaliado') {
-      novasDuvidas = novasDuvidas.filter((duvida) => duvida.situacao === 'Satisfatório');
-    } else if (filtro === 'malAvaliado') {
-      novasDuvidas = novasDuvidas.filter((duvida) => duvida.situacao === 'Insatisfatório');
-    } else if (filtro === 'naoAvaliado') {
-      novasDuvidas = novasDuvidas.filter((duvida) => duvida.situacao === 'Não Avaliado');
+  const aplicarFiltro = () => {
+    let result = [...duvidas];
+
+    // Filtrar por busca
+    if (search) {
+      result = result.filter((duvida) =>
+        duvida.title.toLowerCase().includes(search.toLowerCase()) ||
+        duvida.description.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
-    setDuvidasFiltradas(novasDuvidas); // Atualiza as dúvidas filtradas
+    // Filtrar por status
+    if (filtro === "respondidas") {
+      result = result.filter((duvida) => duvida.status === "respondida");
+    } else if (filtro === "naoRespondidas") {
+      result = result.filter((duvida) => duvida.status !== "respondida");
+    }
+
+    // Ordenar por data de publicação
+    if (filtro === "crescente") {
+      result.sort((a, b) => new Date(a.date) - new Date(b.date)); // Mais antigo primeiro
+    } else if (filtro === "decrescente") {
+      result.sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recente primeiro
+    }
+
+    setFilteredDoubts(result);
   };
 
   return (
-    <div className="container-duvidas">
+    <div className="minhas-duvidas">
       <header className="minhas-duvidas-header">
-        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
         <nav className="minhas-duvidas-nav">
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
           <a href="#sobre" className="minhas-duvidas-nav-link-sobre">Sobre nós</a>
-          <a href="#perguntas-frequentes" className="minhas-duvidas-nav-link-perguntas">Perguntas Frequentes</a>
-          <div className="minhas-duvidas-search-bar">
-            <input type="text" placeholder="Pesquisar dúvidas..." className="minhas-duvidas-search-input" />
-            <button className="minhas-duvidas-search-btn">Buscar</button>
-          </div>
+          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
           </a>
         </nav>
       </header>
 
-      <h2 className="titulo-pagina">Minhas Dúvidas</h2>
-    
-    <div className='filtrar-container'>      
-        <button className="filtrar-btn" onClick={toggleFiltroVisivel}> 
-        <img src={FilterIcon} alt="Filter Icon" className="filter-icon-profile" />
-        Filtrar</button>
+      <div className="filtrar-container">
+        <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
+          <img src={FilterIcon} alt="Filter Icon" className="filter-icon-profile" />
+          Filtrar
+        </button>
 
         {filtroVisivel && (
-        <div className="filtro-container">
-          <select onChange={handleFiltroChange} value={filtro}>
-            <option value="crescente">Crescente</option>
-            <option value="decrescente">Decrescente</option>
-            <option value="bemAvaliado">Bem Avaliado</option>
-            <option value="malAvaliado">Mal Avaliado</option>
-            <option value="naoAvaliado">Não Avaliado</option>
-          </select>
-          <button onClick={aplicarFiltro} className='button-filter'>Aplicar filtro</button>
-        </div>
-      )}
-    </div>
-    
+          <div className="filtro-container">
+            <input
+              type="text"
+              placeholder="Buscar por palavra"
+              value={search}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+            <select onChange={handleFiltroChange} value={filtro}>
+              <option value="">Selecione um filtro</option>
+              <option value="crescente">Mais antigos</option>
+              <option value="decrescente">Mais recentes</option>
+              <option value="respondidas">Respondidas</option>
+              <option value="naoRespondidas">Não Respondidas</option>
+            </select>
+            <button onClick={aplicarFiltro} className="button-filter">Aplicar filtro</button>
+          </div>
+        )}
+      </div>
 
-      {duvidasFiltradas.map((duvida) => (
-        <div key={duvida.id} className="card-duvida">
-          <div className="icon-container">
-            <img src={getIcon(duvida.situacao)} alt="Situação" className="icon-situacao" />
-          </div>
-          <div className="content">
-            <h3 className="titulo-duvida">{duvida.titulo}</h3>
-            <p className="descricao-duvida">{duvida.descricao}</p>
-          </div>
-          <div className="info-duvida">
-            <p><strong>{duvida.data}</strong></p>
-            <p><strong>{duvida.situacao}</strong></p>
-            <p><strong>{duvida.respostas} resposta(s)</strong></p>
-          </div>
+      <section className="section-minhas-duvidas">
+        <div className="doubt-list-minhas-duvidas">
+          {filteredDoubts.length > 0 ? (
+            filteredDoubts.map((duvida) => (
+              <div className="doubt-card-container-minhas-duvidas" key={duvida.id}>
+                <DoubtCard doubt={duvida} />
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma dúvida encontrada.</p>
+          )}
         </div>
-      ))}
+      </section>
     </div>
   );
 }
 
+const DoubtCard = ({ doubt }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/duvida/${doubt.id}`, { state: { doubt } });
+  };
+
+  const getStatusClass = (status) => {
+    if (status === "insatisfeito") return "status-insatisfeito";
+    if (status === "pendente") return "status-pendente";
+    if (status === "respondida") return "status-respondida";
+    return "";
+  };
+
+  const getStatusIcon = (status) => {
+    if (status === "insatisfeito") return "❌";
+    if (status === "pendente") return "⚠️";
+    if (status === "respondida") return "✅";
+    return "";
+  };
+
+  return (
+    <div
+      className={`doubt-card-minhas-duvidas ${getStatusClass(doubt.status)}`}
+      onClick={handleClick}
+      style={{ cursor: "pointer" }} // Para indicar que o card é clicável
+    >
+      <div className="doubt-card-header-minhas-duvidas">
+        <span className="status-icon">{getStatusIcon(doubt.status)}</span>
+        <div className="doubt-main-info-minhas-duvidas">
+          <h3 className="doubt-title-minhas-duvidas">{doubt.title}</h3>
+          <p className="doubt-description-minhas-duvidas">{doubt.description}</p>
+          <p className="doubt-situation-minhas-duvidas">
+            <strong>Situação:</strong> {doubt.status}
+          </p>
+        </div>
+      </div>
+      <div className="doubt-additional-info-minhas-duvidas">
+        <p>
+          <strong>Categoria:</strong> {doubt.category}
+        </p>
+        <p>
+          <strong>Data:</strong> {new Date(doubt.date).toLocaleString()}
+        </p>
+        <p>
+          <strong>Respostas:</strong> {doubt.respostas}
+        </p>
+      </div>
+    </div>
+  );
+};
 export default MinhasDuvidas;

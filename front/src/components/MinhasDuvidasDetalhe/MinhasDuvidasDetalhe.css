@@ -1,0 +1,132 @@
+/* Estilos para a página de detalhes da dúvida */
+.duvida-detalhada {
+  width: 100%;
+  height: 100%;
+}
+
+.duvida-detalhada-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.minhas-duvidas-nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+.logo-cadasroDuvidas {
+  height: 40px;
+}
+
+.minhas-duvidas-nav-link-sobre {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #3498DB;
+  font-weight: bold;
+}
+
+.titulo-pagina {
+  flex-grow: 1;
+  text-align: center;
+  color: #3498DB;
+}
+
+.profile-btn {
+  margin-right: 10px;
+}
+
+.user-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.duvida-info,
+.resposta {
+  border: 1px solid #3498DB;
+  padding: 15px;
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+.duvida-info h3,
+.resposta h3 {
+  color: #3498DB;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.h3{
+  color:#3498DB;
+}
+.avaliacao {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  grid-gap:10px;
+}
+
+.btn-satisfatoria {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-insatisfatoria {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-satisfatoria:hover {
+  background-color: #218838;
+}
+
+.btn-insatisfatoria:hover {
+  background-color: #c82333;
+}
+
+.feedback-container {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feedback-input {
+  width: 50%;
+  height: 100px;
+  padding: 8px;
+  border: 1px solid #3498DB;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: none;
+}
+
+.btn-enviar-feedback {
+  margin-top: 10px;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  background-color: #3498DB;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 10%;
+}
+
+.btn-enviar-feedback:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,86 @@
+.container-questionador{
+    margin: 0;
+    padding: 0;
+}
+
+.perfil-questionador-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff; 
+    border-bottom: 2px solid #dad9d9;
+}
+.logo-painel-questionador{
+    width: 80px;
+    margin-left: 10px;
+}
+  
+.painel-questionador-titulo-header{
+    text-align: center;   
+}
+
+.painel-questionador-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    color: #3498DB;
+  }
+
+.painel-questionador-card {
+    position: relative;
+    margin:auto;
+    margin-top: 60px;
+    width: 400px;
+    height: 300px;
+    justify-content: space-between;
+    border: 2px solid #3498DB; 
+    border-radius: 10px;
+    background: #fff;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.painel-questionador-lista {
+    list-style: none; /* Remove os pontos da lista */
+    padding: 0;
+    margin:0;
+    color: #3498DB;
+}
+
+.painel-questionador-item {
+    padding: 12px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.18rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd; 
+    cursor: pointer;
+}
+
+.painel-questionador-item:last-child {
+    border-bottom: none; /* Remove a linha do último item */
+}
+
+.painel-questionador-item:hover {
+    background: #f5f5f5; /* Efeito ao passar o mouse */
+}
+
+.painel-questionador-sair{
+    width: 100%;
+    padding: 5px;
+    margin-top: 100px;
+    border: none;
+    background: none;
+    color: #E92B37;
+    font-size: 1.18rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.painel-questionador-sair:hover {
+    background: #f5f5f5; /* Efeito ao passar o mouse */
+}

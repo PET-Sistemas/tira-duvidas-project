@@ -29,23 +29,24 @@ function PerfilUsuario() {
   const fotoPerfil = usuario.fotoPerfil || defaultProfilePic;
 
   return (
-    <div className="meus-dados-container">
+    <div className="dados-container">
       <header className="meus-dados-header">
         <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-meus-dados" />
         <h1 className='title-meus-dados'>Meus Dados Pessoais</h1>
       </header>
 
+      <div className='meus-dados-container'>
       <div className="translucent-background">
         <div className="user-profile-pic">
           <img src={fotoPerfil} alt="Foto de Perfil" />
         </div>
+        <button className="edit-profile-button">
+          <img src={editIcon} alt="Edit Icon" className="edit-icon-profile" />
+          <p>Editar Dados</p>
+        </button>
       </div>
 
       <div className="meus-dados-content">
-        <button className="edit-profile-button">
-          <img src={editIcon} alt="Edit Icon" className="edit-icon-profile" />
-          Editar Dados
-        </button>
         <div className="user-info">
           <p><strong className='titulo-dados-pessoais'>Nome:</strong> {usuario.nome || 'N/A'}</p>
           <p><strong className='titulo-dados-pessoais'>Email:</strong> {usuario.email || 'N/A'}</p>
@@ -53,6 +54,7 @@ function PerfilUsuario() {
           <p><strong className='titulo-dados-pessoais'>CPF:</strong> {usuario.cpf || 'N/A'}</p>
         </div>
         <button className="back-button">VOLTAR</button>
+      </div>
       </div>
     </div>
   );
