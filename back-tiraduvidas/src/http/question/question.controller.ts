@@ -31,6 +31,12 @@ export class QuestionController {
     return this.questionService.findOne({ id });
   }
 
+  // Busca por id
+  @Get('user/:questionerId')
+  findManyById(@Param('questionerId') questionerId: number) {
+    return this.questionService.findMany({ questionerId });
+  }
+
   // Busca por título (alterei o nome do método para distinguir as rotas)
   @Get('title/:title')
   findByTitle(@Param('title') title: string) {
