@@ -42,10 +42,10 @@ function CadastroDuvidas() {
     // Dados de exemplo para o questioner e moderator
     const questionerId = sessionStorage.getItem('id'); // Substitua pelo ID real do questionador
     const moderatorId = 1; // Substitua pelo ID real do moderador
-    const status = 'active'; // Status inicial da dúvida
+    const status = 'Não respondida'; // Status inicial da dúvida
 
     const newQuestion = {
-      title: selectedCategory, // Suponha que a categoria seja o título (modifique conforme necessário)
+      title,  // Suponha que a categoria seja o título (modifique conforme necessário)
       description,
       questionerId,
       moderatorId,

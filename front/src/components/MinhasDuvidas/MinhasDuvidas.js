@@ -21,26 +21,28 @@ function MinhasDuvidas() {
         if (!questionerId) {
           throw new Error("Usuário não autenticado");
         }
-
-          const response = await fetch(
-            `http://localhost:4001/api/question/user/${questionerId}`
-          );
-          
+  
+        const response = await fetch(
+          `http://localhost:4001/api/question/user/${questionerId}`
+        );
+  
         if (!response.ok) {
           throw new Error("Falha ao carregar dúvidas");
         }
         const data = await response.json();
+        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
         setDuvidas(data);
-        setFilteredDoubts(data); // Alterando para setFilteredDoubts
+        setFilteredDoubts(data);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchDuvidas();
   }, []);
+  
 
   useEffect(() => {
     setFilteredDoubts(duvidas); // Ajustando para duvidas
