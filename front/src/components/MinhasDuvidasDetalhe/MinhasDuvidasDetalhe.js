@@ -65,7 +65,7 @@ function MinhasDuvidasDetalhe() {
         <h3>{doubt.title}</h3>
         <p>{doubt.description}</p>
         <p><strong>Categoria:</strong> {doubt.category}</p>
-        <p><strong>Data:</strong> {new Date(doubt.date).toLocaleString()}</p>
+        <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString('pt-BR')}</p>
       </section>
 
       <section className="resposta">
@@ -81,7 +81,7 @@ function MinhasDuvidasDetalhe() {
 
       {doubt.status !== "pendente" && (
         <section className="feedback">
-          <h3>Avaliação</h3>
+          <h3 className="avaliacao-titulo">Avaliação</h3>
 
           {feedback ? (
             <div className="feedback-container">

@@ -51,7 +51,7 @@
 .resposta {
   border: 1px solid #3498DB;
   padding: 15px;
-  margin-top: 50px;
+  margin-top: 20px;
   border-radius: 8px;
 }
 
@@ -70,6 +70,7 @@
   justify-content: center;
   margin-top: 10px;
   grid-gap:10px;
+  width: 50%;
 }
 
 .btn-satisfatoria {
@@ -98,15 +99,16 @@
   background-color: #c82333;
 }
 
-.feedback-container {
-  margin-top: 15px;
+.feedback {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 50%;
 }
 
 .feedback-input {
-  width: 50%;
+  width: 100%;
+  margin-top: 5%;
   height: 100px;
   padding: 8px;
   border: 1px solid #3498DB;
@@ -116,7 +118,6 @@
 }
 
 .btn-enviar-feedback {
-  margin-top: 10px;
   color: white;
   padding: 8px 12px;
   border: none;
@@ -124,9 +125,23 @@
   background-color: #3498DB;
   border-radius: 4px;
   font-size: 14px;
-  width: 10%;
+  width: 50%;
 }
 
 .btn-enviar-feedback:hover {
   background-color: #0056b3;
+}
+
+.avaliacao-titulo{
+  color: #3498DB;
+  font-size: 1.17em;
+  font-weight: bold;
+  unicode-bidi: isolate;
+  margin-bottom: 0;
+}
+
+.feedback-container.{
+  display: flex;
+  justify-content: center;
+  align-items: ;
 }
