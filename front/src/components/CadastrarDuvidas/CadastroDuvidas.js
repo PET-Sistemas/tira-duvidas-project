@@ -12,6 +12,7 @@ function CadastroDuvidas() {
   const [categories, setCategories] = useState([]); // Inicializar como array vazio
   const [selectedCategory, setSelectedCategory] = useState('');
   const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,9 +56,9 @@ function CadastroDuvidas() {
       await createQuestion(newQuestion); // Chamada ao serviço de criação
       alert('Dúvida cadastrada com sucesso!');
       // Limpa os campos após o cadastro
+      setTitle('');
       setSelectedCategory('');
       setDescription('');
-
       navigate("/");
       
     } catch (error) {
@@ -96,7 +97,17 @@ function CadastroDuvidas() {
             ))}
           </select>
         </div>
+       
         <div className="cadastro-duvida-form-group">
+        <label className='cadastro-duvida-label' htmlFor="descricao">Título:</label>
+        <input
+            id="titulo"
+            type="text"
+            className="cadastro-duvida-titulo"
+            placeholder="Título"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
           <label className='cadastro-duvida-label' htmlFor="descricao">Descrição:</label>
           <textarea
             id="descricao"
