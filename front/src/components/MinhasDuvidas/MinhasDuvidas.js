@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./MinhasDuvidas.css";
+import naoAvaliadoIcon from "../NaoAvaliado.png";
+import bemAvaliadoIcon from "../BemAvaliado.png";
+import malAvaliadoIcon from "../MalAvaliado.png";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import FilterIcon from "../filtrar.png";
@@ -10,7 +12,6 @@ function MinhasDuvidas() {
   const [filteredDoubts, setFilteredDoubts] = useState([]); // Renomeando para filteredDoubts
   const [filtroVisivel, setFiltroVisivel] = useState(false);
   const [filtro, setFiltro] = useState("crescente");
-  const [search, setSearch] = useState(""); // Definindo a variável search
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -21,11 +22,10 @@ function MinhasDuvidas() {
         if (!questionerId) {
           throw new Error("Usuário não autenticado");
         }
-  
+
         const response = await fetch(
-          `http://localhost:4001/api/question/user/${questionerId}`
+          `http://localhost:8080/api/question/user/${questionerId}`
         );
-  
         if (!response.ok) {
           throw new Error("Falha ao carregar dúvidas");
         }
@@ -39,14 +39,22 @@ function MinhasDuvidas() {
         setLoading(false);
       }
     };
-  
+
     fetchDuvidas();
   }, []);
-  
 
-  useEffect(() => {
-    setFilteredDoubts(duvidas); // Ajustando para duvidas
-  }, [duvidas]);
+  const getIcon = (situacao) => {
+    switch (situacao) {
+      case "Não Avaliado":
+        return naoAvaliadoIcon;
+      case "Satisfatório":
+        return bemAvaliadoIcon;
+      case "Insatisfatório":
+        return malAvaliadoIcon;
+      default:
+        return naoAvaliadoIcon;
+    }
+  };
 
   const toggleFiltroVisivel = () => {
     setFiltroVisivel(!filtroVisivel);
@@ -61,32 +69,27 @@ function MinhasDuvidas() {
   };
 
   const aplicarFiltro = () => {
-    let result = [...duvidas];
+    let novasDuvidas = [...duvidas];
 
-    // Filtrar por busca
-    if (search) {
-      result = result.filter(
-        (duvida) =>
-          duvida.title.toLowerCase().includes(search.toLowerCase()) ||
-          duvida.description.toLowerCase().includes(search.toLowerCase())
+    if (filtro === "crescente") {
+      novasDuvidas.sort((a, b) => a.respostas - b.respostas);
+    } else if (filtro === "decrescente") {
+      novasDuvidas.sort((a, b) => b.respostas - a.respostas);
+    } else if (filtro === "bemAvaliado") {
+      novasDuvidas = novasDuvidas.filter(
+        (duvida) => duvida.situacao === "Satisfatório"
+      );
+    } else if (filtro === "malAvaliado") {
+      novasDuvidas = novasDuvidas.filter(
+        (duvida) => duvida.situacao === "Insatisfatório"
+      );
+    } else if (filtro === "naoAvaliado") {
+      novasDuvidas = novasDuvidas.filter(
+        (duvida) => duvida.situacao === "Não Avaliado"
       );
     }
 
-    // Filtrar por status
-    if (filtro === "respondidas") {
-      result = result.filter((duvida) => duvida.status === "respondida");
-    } else if (filtro === "naoRespondidas") {
-      result = result.filter((duvida) => duvida.status !== "respondida");
-    }
-
-    // Ordenar por data de publicação
-    if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.date) - new Date(b.date)); // Mais antigo primeiro
-    } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recente primeiro
-    }
-
-    setFilteredDoubts(result); // Alterando para setFilteredDoubts
+    setDuvidasFiltradas(novasDuvidas);
   };
 
   if (loading) {
@@ -100,17 +103,42 @@ function MinhasDuvidas() {
   return (
     <div className="minhas-duvidas">
       <header className="minhas-duvidas-header">
+        <img
+          src={tiraDuvidasLogo}
+          alt="Tira Dúvidas Logo"
+          className="logo-cadasroDuvidas"
+        />
         <nav className="minhas-duvidas-nav">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-          <a href="#sobre" className="minhas-duvidas-nav-link-sobre">Sobre nós</a>
-          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
+          <a href="#sobre" className="minhas-duvidas-nav-link-sobre">
+            Sobre nós
+          </a>
+          <a
+            href="#perguntas-frequentes"
+            className="minhas-duvidas-nav-link-perguntas"
+          >
+            Perguntas Frequentes
+          </a>
+          <div className="minhas-duvidas-search-bar">
+            <input
+              type="text"
+              placeholder="Pesquisar dúvidas..."
+              className="minhas-duvidas-search-input"
+            />
+            <button className="minhas-duvidas-search-btn">Buscar</button>
+          </div>
           <a href="/perfil" className="profile-btn">
-            <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
+            <img
+              src={defaultProfilePic}
+              alt="icon-profile"
+              className="user-profile-img"
+            />
           </a>
         </nav>
       </header>
 
-      <div className="filtrar-container">
+      <h2 className="titulo-pagina">Minhas Dúvidas</h2>
+
+      <div className='filtrar-container'>
         <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
           <img src={FilterIcon} alt="Filter Icon" className="filter-icon-profile" />
           Filtrar
@@ -132,24 +160,45 @@ function MinhasDuvidas() {
               <option value="respondidas">Respondidas</option>
               <option value="naoRespondidas">Não Respondidas</option>
             </select>
-            <button onClick={aplicarFiltro} className="button-filter">Aplicar filtro</button>
+            <button onClick={aplicarFiltro} className="button-filter">
+              Aplicar filtro
+            </button>
           </div>
         )}
       </div>
 
-      <section className="section-minhas-duvidas">
-        <div className="doubt-list-minhas-duvidas">
-          {filteredDoubts.length > 0 ? (
-            filteredDoubts.map((duvida) => (
-              <div className="doubt-card-container-minhas-duvidas" key={duvida.id}>
-                <DoubtCard doubt={duvida} />
-              </div>
-            ))
-          ) : (
-            <p>Nenhuma dúvida encontrada.</p>
-          )}
-        </div>
-      </section>
+      {duvidasFiltradas.length === 0 ? (
+        <div className="sem-duvidas">Nenhuma dúvida encontrada</div>
+      ) : (
+        duvidasFiltradas.map((duvida) => (
+          <div key={duvida.id} className="card-duvida">
+            <div className="icon-container">
+              <img
+                src={getIcon(duvida.status)}
+                alt="Situação"
+                className="icon-situacao"
+              />
+            </div>
+            <div className="content">
+              <h3 className="titulo-duvida">{duvida.title}</h3>
+              <p className="descricao-duvida">{duvida.description}</p>
+            </div>
+            <div className="info-duvida">
+              <p>
+                <strong>
+                  {new Date(duvida.createdAt).toLocaleDateString("pt-BR")}
+                </strong>
+              </p>
+              <p>
+                <strong>{duvida.status}</strong>
+              </p>
+              <p>
+                <strong>{1} resposta(s)</strong>
+              </p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
