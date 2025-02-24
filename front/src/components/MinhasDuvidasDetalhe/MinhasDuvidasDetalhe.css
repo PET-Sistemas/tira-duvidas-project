@@ -140,8 +140,8 @@
   margin-bottom: 0;
 }
 
-.feedback-container.{
+.feedback-container{
   display: flex;
   justify-content: center;
-  align-items: ;
+  align-items: center;
 }

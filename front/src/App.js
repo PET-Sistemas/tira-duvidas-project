@@ -13,6 +13,7 @@ import tiraDuvidasLogo from './components/Logo-Tira-Dúvidas-removebg.png';
 import { allQuestion, getQuestionByTitle } from './services/question.service.ts';
 import { allCategory } from './services/category.service.ts';
 import MinhasDuvidasDetalhe from './components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js';
+import ResponderDuvidasDetalhe from './components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js';
 
 function App() {
   const navigate = useNavigate();
@@ -142,6 +143,8 @@ function AppWrapper() {
         <Route path="/painel-questionador" element={<PainelQuestionador />} />
         <Route path="/painel-respondente" element={<PainelRespondente />} />
         <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
+        <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
+
       </Routes>
     </Router>
   );

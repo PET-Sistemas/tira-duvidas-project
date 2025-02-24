@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MinhasDuvidas.css";
 import naoAvaliadoIcon from "../NaoAvaliado.png";
 import bemAvaliadoIcon from "../BemAvaliado.png";
@@ -9,11 +10,13 @@ import FilterIcon from "../filtrar.png";
 
 function MinhasDuvidas() {
   const [duvidas, setDuvidas] = useState([]);
-  const [filteredDoubts, setFilteredDoubts] = useState([]); // Renomeando para filteredDoubts
+  const [filteredDoubts, setFilteredDoubts] = useState([]);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
   const [filtro, setFiltro] = useState("crescente");
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDuvidas = async () => {
@@ -30,7 +33,6 @@ function MinhasDuvidas() {
           throw new Error("Falha ao carregar dúvidas");
         }
         const data = await response.json();
-        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
         setDuvidas(data);
         setFilteredDoubts(data);
       } catch (err) {
@@ -42,31 +44,6 @@ function MinhasDuvidas() {
 
     fetchDuvidas();
   }, []);
-
-  const getIcon = (situacao) => {
-    switch (situacao) {
-      case "Não Avaliado":
-        return naoAvaliadoIcon;
-      case "Satisfatório":
-        return bemAvaliadoIcon;
-      case "Insatisfatório":
-        return malAvaliadoIcon;
-      default:
-        return naoAvaliadoIcon;
-    }
-  };
-
-  const toggleFiltroVisivel = () => {
-    setFiltroVisivel(!filtroVisivel);
-  };
-
-  const handleFiltroChange = (e) => {
-    setFiltro(e.target.value);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-  };
 
   const aplicarFiltro = () => {
     let novasDuvidas = [...duvidas];
@@ -89,159 +66,73 @@ function MinhasDuvidas() {
       );
     }
 
-    setDuvidasFiltradas(novasDuvidas);
+    setFilteredDoubts(novasDuvidas);
   };
 
-  if (loading) {
-    return <div>Carregando...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="minhas-duvidas">
       <header className="minhas-duvidas-header">
-        <img
-          src={tiraDuvidasLogo}
-          alt="Tira Dúvidas Logo"
-          className="logo-cadasroDuvidas"
-        />
+        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadastroDuvidas" />
         <nav className="minhas-duvidas-nav">
-          <a href="#sobre" className="minhas-duvidas-nav-link-sobre">
-            Sobre nós
-          </a>
-          <a
-            href="#perguntas-frequentes"
-            className="minhas-duvidas-nav-link-perguntas"
-          >
-            Perguntas Frequentes
-          </a>
+          <a href="#sobre">Sobre nós</a>
+          <a href="#perguntas-frequentes">Perguntas Frequentes</a>
           <div className="minhas-duvidas-search-bar">
             <input
               type="text"
               placeholder="Pesquisar dúvidas..."
-              className="minhas-duvidas-search-input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="minhas-duvidas-search-btn">Buscar</button>
+            <button onClick={aplicarFiltro}>Buscar</button>
           </div>
-          <a href="/perfil" className="profile-btn">
-            <img
-              src={defaultProfilePic}
-              alt="icon-profile"
-              className="user-profile-img"
-            />
+          <a href="/perfil">
+            <img src={defaultProfilePic} alt="Perfil" className="user-profile-img" />
           </a>
         </nav>
       </header>
 
-      <h2 className="titulo-pagina">Minhas Dúvidas</h2>
+      <h2>Minhas Dúvidas</h2>
 
-      <div className='filtrar-container'>
-        <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
-          <img src={FilterIcon} alt="Filter Icon" className="filter-icon-profile" />
-          Filtrar
+      <div className="filtrar-container">
+        <button className="filtrar-btn" onClick={() => setFiltroVisivel(!filtroVisivel)}>
+          <img src={FilterIcon} alt="Filtrar" className="filter-icon" /> Filtrar
         </button>
 
         {filtroVisivel && (
           <div className="filtro-container">
-            <input
-              type="text"
-              placeholder="Buscar por palavra"
-              value={search}
-              onChange={handleSearchChange}
-              className="search-input"
-            />
-            <select onChange={handleFiltroChange} value={filtro}>
-              <option value="">Selecione um filtro</option>
+            <select onChange={(e) => setFiltro(e.target.value)} value={filtro}>
               <option value="crescente">Mais antigos</option>
               <option value="decrescente">Mais recentes</option>
-              <option value="respondidas">Respondidas</option>
-              <option value="naoRespondidas">Não Respondidas</option>
+              <option value="bemAvaliado">Bem Avaliadas</option>
+              <option value="malAvaliado">Mal Avaliadas</option>
+              <option value="naoAvaliado">Não Avaliadas</option>
             </select>
-            <button onClick={aplicarFiltro} className="button-filter">
-              Aplicar filtro
-            </button>
+            <button onClick={aplicarFiltro}>Aplicar filtro</button>
           </div>
         )}
       </div>
 
-      {duvidasFiltradas.length === 0 ? (
+      {filteredDoubts.length === 0 ? (
         <div className="sem-duvidas">Nenhuma dúvida encontrada</div>
       ) : (
-        duvidasFiltradas.map((duvida) => (
+        filteredDoubts.map((duvida) => (
           <div key={duvida.id} className="card-duvida">
-            <div className="icon-container">
-              <img
-                src={getIcon(duvida.status)}
-                alt="Situação"
-                className="icon-situacao"
-              />
-            </div>
-            <div className="content">
-              <h3 className="titulo-duvida">{duvida.title}</h3>
-              <p className="descricao-duvida">{duvida.description}</p>
-            </div>
-            <div className="info-duvida">
-              <p>
-                <strong>
-                  {new Date(duvida.createdAt).toLocaleDateString("pt-BR")}
-                </strong>
-              </p>
-              <p>
-                <strong>{duvida.status}</strong>
-              </p>
-              <p>
-                <strong>{1} resposta(s)</strong>
-              </p>
-            </div>
+            <img src={duvida.situacao === "Satisfatório" ? bemAvaliadoIcon : duvida.situacao === "Insatisfatório" ? malAvaliadoIcon : naoAvaliadoIcon} alt="Situação" />
+            <h3>{duvida.title}</h3>
+            <p>{duvida.description}</p>
+            <p>
+              <strong>{new Date(duvida.createdAt).toLocaleDateString("pt-BR")}</strong>
+            </p>
+            <p><strong>{duvida.situacao}</strong></p>
+            <p><strong>{duvida.respostas} resposta(s)</strong></p>
           </div>
         ))
       )}
     </div>
   );
 }
-
-const DoubtCard = ({ doubt }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/duvida/${doubt.id}`, { state: { doubt } });
-  };
-
-  const getStatusClass = (status) => {
-    if (status === "insatisfeito") return "status-insatisfeito";
-    if (status === "pendente") return "status-pendente";
-    if (status === "respondida") return "status-respondida";
-    return "";
-  };
-
-  const getStatusIcon = (status) => {
-    if (status === "insatisfeito") return "❌";
-    if (status === "pendente") return "⚠️";
-    if (status === "respondida") return "✅";
-    return "❓";
-  };
-
-  return (
-    <div className={`doubt-card-minhas-duvidas ${getStatusClass(doubt.status)}`} onClick={handleClick}
-    style={{ cursor: "pointer" }}>
-      <div className="doubt-card-header-minhas-duvidas">
-      <span className="status-icon">{getStatusIcon(doubt.status)}</span>
-        <div className="doubt-main-info-minhas-duvidas">
-          <h3 className="doubt-title-minhas-duvidas">{doubt.title}</h3>
-          <p className="doubt-description-minhas-duvidas">{doubt.description}</p>
-          <p className="doubt-situation-minhas-duvidas"><strong>Situação:</strong> {doubt.status}</p>
-        </div>
-      </div>
-      <div className="doubt-additional-info-minhas-duvidas">
-        <p><strong>Categoria:</strong> {doubt.category}</p>
-        <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString('pt-BR')}</p>
-        <p> <strong>Respostas:</strong> {doubt.respostas} </p>
-      </div>
-    </div>
-  );
-};
 
 export default MinhasDuvidas;
