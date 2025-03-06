@@ -96,6 +96,11 @@ function MinhasDuvidas() {
   if (error) {
     return <div>{error}</div>;
   }
+  
+  const translate = {
+    active: 'ativo',
+    inactive: 'inativo'
+  }
 
   return (
     <div className="minhas-duvidas">
@@ -183,7 +188,7 @@ const DoubtCard = ({ doubt }) => {
         <div className="doubt-main-info-minhas-duvidas">
           <h3 className="doubt-title-minhas-duvidas">{doubt.title}</h3>
           <p className="doubt-description-minhas-duvidas">{doubt.description}</p>
-          <p className="doubt-situation-minhas-duvidas"><strong>Situação:</strong> {doubt.status}</p>
+          <p className="doubt-situation-minhas-duvidas"><strong>Situação:</strong> {translate[doubt.status]}</p>
         </div>
       </div>
       <div className="doubt-additional-info-minhas-duvidas">

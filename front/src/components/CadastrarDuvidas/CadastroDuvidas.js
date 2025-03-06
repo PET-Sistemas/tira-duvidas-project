@@ -36,13 +36,18 @@ function CadastroDuvidas() {
     fetchCategories();
   }, []);
 
+  const translate = {
+    active: 'ativo',
+    inactive: 'inativo'
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Dados de exemplo para o questioner e moderator
     const questionerId = sessionStorage.getItem('id'); // Substitua pelo ID real do questionador
     const moderatorId = 1; // Substitua pelo ID real do moderador
-    const status = 'Não respondida'; // Status inicial da dúvida
+    const status = 'active'; // Status inicial da dúvida
 
     const newQuestion = {
       title,  // Suponha que a categoria seja o título (modifique conforme necessário)
