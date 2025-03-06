@@ -1,0 +1,40 @@
+{
+  "name": "tira-duvidas-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "migration:run": "typeorm migration:run",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "start:dev": "react-scripts start",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.7",
+    "browserify-zlib": "^0.2.0",
+    "https-browserify": "^1.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1",
+    "react-scripts": "^5.0.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "typeorm": "^0.3.20",
+    "web-vitals": "^2.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PET-Sistemas/tira-duvidas-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PET-Sistemas/tira-duvidas-project/issues"
+  },
+  "homepage": "https://github.com/PET-Sistemas/tira-duvidas-project#readme",
+  "description": ""
+}

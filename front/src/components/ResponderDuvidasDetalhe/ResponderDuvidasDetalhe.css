@@ -1,0 +1,222 @@
+/* Define que tudo ocupa 100% da largura */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* HEADER RESPONSIVO */
+  .responder-duvida-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+    flex-wrap: wrap;
+    
+  }
+  
+  /* LOGO */
+  .logo-cadasroDuvidas {
+    max-width: 200px; /* Garante ajuste proporcional */
+    height: auto;
+  }
+  
+  /* NAVBAR FLEXÍVEL */
+  .responder-duvidas-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  /* Título Centralizado */
+  .titulo-pagina {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  /* Ícone de Perfil */
+  .profile-btn img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+  
+  /* ORGANIZAÇÃO DO CONTEÚDO */
+  .container {
+    width: 90%;  /* Ocupa 90% da tela */
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  /* BOX DA DÚVIDA */
+  .duvida-info {
+    height: 20vh;
+    width: 90%;
+    border: 1px solid #3498DB;
+    padding: 15px;
+    margin: 20px auto; /* Centraliza horizontalmente */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: left; /* Mantém o alinhamento do texto */
+    overflow-y: auto;
+    
+    display: flex; /* Organiza elementos em coluna */
+    flex-direction: column;
+    justify-content: space-between; 
+}
+.duvida-info-footer {
+    margin-top: auto; /* Empurra para o final */
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+  
+  /* ÁREA DE RESPOSTA */
+  .resposta {
+    height: 30vh;
+    width: 90%;
+    border: 1px solid #3498DB;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* TEXTAREA DA RESPOSTA */
+  .resposta-input {
+    height: 100%;
+    width: 100%;
+    min-height: 120px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    resize: vertical;
+    padding: 10px;
+  }
+  
+  /* BOTÃO DE ENVIO */
+  .btn-enviar {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 1.5%;
+    background-color: #3498DB;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .btn-enviar:hover {
+    background-color: #217dbb;
+  }
+
+  .responder{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* RESPONSIVIDADE */
+  @media screen and (max-width: 1024px) {
+    .container {
+        width: 95%;
+    }
+
+    .duvida-info {
+        height: 25vh; /* Ajusta a altura da dúvida */
+        width: 95%;
+    }
+
+    .resposta {
+        height: 35vh; /* Ajusta a altura da resposta */
+        width: 95%;
+    }
+
+    .titulo-pagina {
+        font-size: 20px;
+    }
+
+    .profile-btn img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .responder-duvida-header {
+        flex-direction: column; /* Empilha os itens */
+        align-items: center;
+        text-align: center;
+    }
+
+    .responder-duvidas-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .titulo-pagina {
+        font-size: 18px;
+    }
+
+    .logo-cadasroDuvidas {
+        max-width: 140px;
+    }
+
+    .profile-btn img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        width: 98%;
+        padding: 10px;
+    }
+
+    .titulo-pagina {
+        font-size: 16px;
+    }
+
+    .btn-enviar {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .resposta-input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .duvida-info {
+        height: auto;
+        min-height: 18vh;
+        padding: 10px;
+    }
+
+    .resposta {
+        height: auto;
+        min-height: 20vh;
+        padding: 10px;
+    }
+
+    .duvida-info-footer {
+        font-size: 12px; /* Ajusta tamanho do rodapé */
+        padding-top: 8px;
+    }
+}

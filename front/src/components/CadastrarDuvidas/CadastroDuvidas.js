@@ -47,7 +47,7 @@ function CadastroDuvidas() {
     // Dados de exemplo para o questioner e moderator
     const questionerId = sessionStorage.getItem('id'); // Substitua pelo ID real do questionador
     const moderatorId = 1; // Substitua pelo ID real do moderador
-    const status = 'active'; // Status inicial da dúvida
+    const status = 'not_answered'; // Status inicial da dúvida
 
     const newQuestion = {
       title,  // Suponha que a categoria seja o título (modifique conforme necessário)
@@ -65,7 +65,7 @@ function CadastroDuvidas() {
       setSelectedCategory('');
       setDescription('');
       navigate("/");
-      
+
     } catch (error) {
       console.error('Erro ao cadastrar dúvida:', error);
       alert('Erro ao cadastrar dúvida. Tente novamente.');
@@ -102,7 +102,7 @@ function CadastroDuvidas() {
             ))}
           </select>
         </div>
-       
+
         <div className="cadastro-duvida-form-group">
         <label className='cadastro-duvida-label' htmlFor="descricao">Título:</label>
         <input

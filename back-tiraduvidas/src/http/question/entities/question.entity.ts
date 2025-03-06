@@ -31,7 +31,7 @@ export class Question {
   @Column({ name: 'moderator_id' })
   moderatorId: number;
 
-  @Column({ type: 'enum', enum: QuestionStatus })
+  @Column({ type: 'enum', enum: QuestionStatus, default: QuestionStatus.NOT_ANSWERED })
   status: QuestionStatus;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

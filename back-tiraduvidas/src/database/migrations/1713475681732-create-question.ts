@@ -4,8 +4,8 @@ export class createQuestion1713475681732 implements MigrationInterface {
     name = 'createQuestion1713475681732'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "public"."questions_status_enum" AS ENUM('active', 'inactive')`);
-        await queryRunner.query(`CREATE TABLE "questions" ("id" SERIAL NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "questioner_id" integer NOT NULL, "moderator_id" integer NOT NULL, "status" "public"."questions_status_enum" NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "PK_08a6d4b0f49ff300bf3a0ca60ac" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."questions_status_enum" AS ENUM('not_answered', 'unsatisfactory', 'satisfactory')`);
+        await queryRunner.query(`CREATE TABLE "questions" ("id" SERIAL NOT NULL, "title" text NOT NULL, "description" text NOT NULL, "questioner_id" integer NOT NULL, "moderator_id" integer NOT NULL, "status" "public"."questions_status_enum" NOT NULL DEFAULT 'not_answered', "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "PK_08a6d4b0f49ff300bf3a0ca60ac" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "questions_categories_categories" ("questionsId" integer NOT NULL, "categoriesId" integer NOT NULL, CONSTRAINT "PK_f684f674d408aef9d44af1e1c8c" PRIMARY KEY ("questionsId", "categoriesId"))`);
         await queryRunner.query(`CREATE INDEX "IDX_97c90e910fb9de0f0f04dc7015" ON "questions_categories_categories" ("questionsId") `);
         await queryRunner.query(`CREATE INDEX "IDX_4916181ebb291d641db25f6514" ON "questions_categories_categories" ("categoriesId") `);
@@ -26,5 +26,4 @@ export class createQuestion1713475681732 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "questions"`);
         await queryRunner.query(`DROP TYPE "public"."questions_status_enum"`);
     }
-
 }

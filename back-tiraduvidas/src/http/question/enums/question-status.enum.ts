@@ -1,4 +1,6 @@
 export enum QuestionStatus {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
+  NOT_ANSWERED = 'not_answered',
+  UNSATISFACTORY = 'unsatisfactory',
+  SATISFACTORY = 'satisfactory',
 }
+

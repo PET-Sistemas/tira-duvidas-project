@@ -43,6 +43,12 @@ export class QuestionController {
     return this.questionService.findMany({ title });
   }
 
+  // Busca por status 
+  @Get('status/:status')
+  findByStatus(@Param('status') status: string) {
+    return this.questionService.findMany({ status });
+  }
+  
   @Patch(':id')
   update(
     @Param('id') id: string,
