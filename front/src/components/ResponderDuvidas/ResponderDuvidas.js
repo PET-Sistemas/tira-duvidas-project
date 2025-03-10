@@ -1,58 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ResponderDuvidas.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import FilterIcon from "../filtrar.png";
 
 const ResponderDuvidas = () => {
-
-  const doubts = [
-    {
-      title: "Como funciona o cadastro?",
-      description: "Gostaria de saber como criar um cadastro no sistema.",
-      user: "João Silva",
-      category: "Cadastro",
-      status: "respondida",
-      date: "2023-01-10T10:00:00",
-    },
-    {
-      title: "Erro ao acessar minha conta",
-      description: "Estou tentando acessar minha conta, mas aparece uma mensagem de erro.",
-      user: "Maria Oliveira",
-      category: "Conta",
-      status: "pendente",
-      date: "2023-01-12T15:30:00",
-    },
-    {
-      title: "Como redefinir minha senha?",
-      description: "Esqueci minha senha e não sei como redefini-la. Preciso de ajuda.",
-      user: "Carlos Pereira",
-      category: "Segurança",
-      status: "respondida",
-      date: "2023-01-11T09:15:00",
-    },
-    {
-      title: "Aplicativo não abre",
-      description: "O aplicativo fecha sozinho ao tentar abrir. O que posso fazer?",
-      user: "Ana Souza",
-      category: "Erro Técnico",
-      status: "insatisfeito",
-      date: "2023-01-09T18:45:00",
-    },
-    {
-      title: "Qual o prazo para respostas?",
-      description: "Gostaria de saber em quanto tempo as dúvidas são respondidas.",
-      user: "Pedro Santos",
-      category: "Informação Geral",
-      status: "respondida",
-      date: "2023-01-08T14:00:00",
-    },
-  ];
-
+  const [duvidas, setDuvidas] = useState([]);
+  const [filteredDoubts, setFilteredDoubts] = useState([]);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
   const [filtro, setFiltro] = useState("");
   const [search, setSearch] = useState("");
-  const [filteredDoubts, setFilteredDoubts] = useState(doubts);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDuvidas = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/question/");
+        if (!response.ok) {
+          throw new Error("Falha ao carregar dúvidas");
+        }
+        const data = await response.json();
+        setDuvidas(data);
+        setFilteredDoubts(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDuvidas();
+  }, []);
 
   const toggleFiltroVisivel = () => {
     setFiltroVisivel(!filtroVisivel);
@@ -66,45 +45,40 @@ const ResponderDuvidas = () => {
     setSearch(e.target.value);
   };
 
-    
   const aplicarFiltro = () => {
-    let result = [...doubts];
+    let result = [...duvidas];
 
-    // Filtrar por busca
     if (search) {
-      result = result.filter((doubt) =>
-        doubt.title.toLowerCase().includes(search.toLowerCase()) ||
-        doubt.description.toLowerCase().includes(search.toLowerCase())
+      result = result.filter(
+        (duvida) =>
+          duvida.title.toLowerCase().includes(search.toLowerCase()) ||
+          duvida.description.toLowerCase().includes(search.toLowerCase())
       );
     }
 
-    // Filtrar por status
-    if (filtro === "respondidas") {
-      result = result.filter((doubt) => doubt.status === "respondida");
-    } else if (filtro === "naoRespondidas") {
-      result = result.filter((doubt) => doubt.status !== "respondida");
-    }
-
-    // Ordenar por data de publicação
     if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.date) - new Date(b.date)); // Mais antigo primeiro
+      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recente primeiro
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (filtro === "naoRespondidas") {
+      result = result.filter((doubt) => doubt.status === "naoRespondidas");
+    } else if (filtro === "respondidas") {
+      result = result.filter((doubt) => doubt.status === "respondidas");
     }
 
     setFilteredDoubts(result);
   };
-  
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
-    
     <div className="responder-duvidas">
       <header className="responder-duvidas-header">
         <nav className="responder-duvidas-nav">
-        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
           <a href="#sobre" className="responder-duvidas-nav-link-sobre">Sobre nós</a>
           <h2 className="titulo-pagina">Responder Dúvidas</h2>
-
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
           </a>
@@ -119,31 +93,23 @@ const ResponderDuvidas = () => {
 
         {filtroVisivel && (
           <div className="filtro-container">
-            <input
-              type="text"
-              placeholder="Buscar por palavra"
-              value={search}
-              onChange={handleSearchChange}
-              className="search-input"
-            />
+            <input type="text" placeholder="Buscar por palavra" value={search} onChange={handleSearchChange} className="search-input" />
             <select onChange={handleFiltroChange} value={filtro}>
               <option value="">Selecione um filtro</option>
               <option value="crescente">Mais antigos</option>
               <option value="decrescente">Mais recentes</option>
-              <option value="respondidas">Respondidas</option>
               <option value="naoRespondidas">Não Respondidas</option>
+              <option value="respondidas">Respondidas</option>
             </select>
-            <button onClick={aplicarFiltro} className="button-filter">
-              Aplicar filtro
-            </button>
+            <button onClick={aplicarFiltro} className="button-filter">Aplicar filtro</button>
           </div>
         )}
       </div>
 
       <section>
         <div className="doubt-list-responder">
-          {filteredDoubts && filteredDoubts.length > 0 ? (
-            filteredDoubts.map((doubt, index) => <DoubtCard key={index} doubt={doubt} />)
+          {filteredDoubts.length > 0 ? (
+            filteredDoubts.map((doubt) => <DoubtCard key={doubt.id} doubt={doubt} />)
           ) : (
             <p>Nenhuma dúvida encontrada.</p>
           )}
@@ -164,42 +130,26 @@ const DoubtCard = ({ doubt }) => {
   const getStatusIcon = (status) => {
     if (status === "insatisfeito") return "❌";
     if (status === "pendente") return "⚠️";
-    if (status === "respondida") return "✅";
+    if (status === "active") return "✅";
     return "";
-  };
-
-  const handleResponder = (id) => {
-    console.log(`Responder dúvida com ID: ${id}`);
   };
 
   return (
     <div className={`doubt-card-responder ${getStatusClass(doubt.status)}`}>
       <div className="doubt-card-header-responder">
-        {/* Ícone de status à esquerda */}
         <span className="status-icon">{getStatusIcon(doubt.status)}</span>
-        
-        {/* Informações principais no centro */}
         <div className="doubt-main-info-responder">
-          <h3 className="doubt-title-responder">{doubt.title}</h3> {/* Título acima */}
-          <p className="doubt-description-responder">{doubt.description}</p> {/* Descrição abaixo */}
+          <h3 className="doubt-title-responder">{doubt.title}</h3>
+          <p className="doubt-description-responder">{doubt.description}</p>
           <p className="doubt-situation-responder">
-            <strong>Situação:</strong> {doubt.status}
+            <strong>Status:</strong> {doubt.status}
           </p>
-          <button onClick={() => handleResponder(doubt.id)} className="responder-btn"> Responder </button>        
         </div>
       </div>
-      
-      {/* Informações adicionais à direita */}
       <div className="doubt-additional-info-responder">
-        <p>
-          <strong>Usuário:</strong> {doubt.user}
-        </p>
-        <p>
-          <strong>Categoria:</strong> {doubt.category}
-        </p>
-        <p>
-          <strong>Data:</strong> {new Date(doubt.date).toLocaleString()}
-        </p>
+        <p><strong>Usuário:</strong> {doubt.questionerId}</p>
+        <p><strong>Categoria:</strong> {doubt.category}</p>
+        <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}</p>
       </div>
     </div>
   );
