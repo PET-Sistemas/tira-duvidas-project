@@ -144,6 +144,7 @@ function AppWrapper() {
         <Route path="/painel-respondente" element={<PainelRespondente />} />
         <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
         <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
+        <Route path="/responder-duvidas/:id" element={<ResponderDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
 
       </Routes>
     </Router>

@@ -6,7 +6,7 @@ import defaultProfilePic from "../default-profile.png";
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
-  const doubt = location.state?.doubt;
+  const doubt = location.state?.doubt; // A dúvida vem através do state
 
   // Estado para armazenar a resposta
   const [response, setResponse] = useState("");
@@ -31,11 +31,9 @@ function ResponderDuvidasDetalhe() {
     <div className="responder-duvidas">
       <header className="responder-duvida-header">
         <nav className="responder-duvidas-nav">
-        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
           <a href="#sobre" className="responder-duvidas-nav-link-sobre">Sobre nós</a>
           <h2 className="titulo-pagina">Responder Dúvidas</h2>
-
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
           </a>
@@ -46,29 +44,29 @@ function ResponderDuvidasDetalhe() {
         <h3>{doubt.title}</h3>
         <p>{doubt.description}</p>
         <div className="duvida-info-footer">
-            <p><strong>Categoria:</strong> {doubt.category}</p>
-            <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
-            </div>
+          <p><strong>Categoria:</strong> {doubt.category}</p>
+          <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
+        </div>
       </section>
 
       <section className="responder">
-  <h3>Responder</h3>
-  {responseSent ? (
-    <p className="resposta-enviada">Resposta enviada com sucesso!</p>
-  ) : (
-    <div className="resposta"> {/* Alterado para "resposta" */}
-      <textarea
-        className="resposta-input"
-        placeholder="Digite sua resposta aqui..."
-        value={response}
-        onChange={(e) => setResponse(e.target.value)}
-      />
-    </div>
-  )}
-  <button className="btn-enviar" onClick={handleSendResponse}>
-        Enviar Resposta
-      </button>
-</section>
+        <h3>Responder</h3>
+        {responseSent ? (
+          <p className="resposta-enviada">Resposta enviada com sucesso!</p>
+        ) : (
+          <div className="resposta">
+            <textarea
+              className="resposta-input"
+              placeholder="Digite sua resposta aqui..."
+              value={response}
+              onChange={(e) => setResponse(e.target.value)}
+            />
+          </div>
+        )}
+        <button className="btn-enviar" onClick={handleSendResponse}>
+          Enviar Resposta
+        </button>
+      </section>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import "./ResponderDuvidas.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import FilterIcon from "../filtrar.png";
+import { Link } from "react-router-dom"; // Importando Link do React Router 
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
@@ -134,6 +135,10 @@ const DoubtCard = ({ doubt }) => {
     return "";
   };
 
+  const handleResponder = (id) => {
+    console.log('Responder dúvida com ID: ${id}');
+  };
+
   return (
     <div className={`doubt-card-responder ${getStatusClass(doubt.status)}`}>
       <div className="doubt-card-header-responder">
@@ -144,6 +149,8 @@ const DoubtCard = ({ doubt }) => {
           <p className="doubt-situation-responder">
             <strong>Status:</strong> {doubt.status}
           </p>
+          {doubt.status !== "respondida" && ( <Link to={{ pathname: `/responder-duvidas/${doubt.id}` }} 
+          state={{ doubt }} className="responder-btn"> Responder </Link> )}  
         </div>
       </div>
       <div className="doubt-additional-info-responder">
