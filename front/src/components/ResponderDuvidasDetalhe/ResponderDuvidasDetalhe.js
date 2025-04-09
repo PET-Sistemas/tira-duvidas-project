@@ -16,15 +16,52 @@ function ResponderDuvidasDetalhe() {
     return <p>Dúvida não encontrada.</p>;
   }
 
-  const handleSendResponse = () => {
+  const handleSendResponse = async () => {
     if (response.trim() === "") {
       alert("Por favor, escreva uma resposta antes de enviar.");
       return;
     }
 
-    // Simulação de envio (substituir por requisição para API)
-    console.log("Resposta enviada:", response);
-    setResponseSent(true);
+    try {
+      // Atualiza o status da questão para "respondido"
+      const updateResponse = await fetch(`http://localhost:8080/api/question/${doubt.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ 
+          id: doubt.id, 
+          title: doubt.title, 
+          description: doubt.description, 
+          questionerId: doubt.questionerId, 
+          moderatorId: doubt.moderatorId, 
+          status: 'answered'
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error('Falha ao atualizar o status da dúvida: ' + updateResponse.status);
+      }
+
+      console.log("Resposta enviada: ", response);
+      console.log("Status da dúvida atualizado para 'answered'");
+      setResponseSent(true);
+
+      // Aqui você pode também enviar a resposta para outro endpoint se necessário
+      // const responseSend = await fetch("http://localhost:8080/api/answers", {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ answer: response, questionId: doubt.id }),
+      // });
+
+    } catch (error) {
+      console.error("Erro ao atualizar a dúvida:", error);
+      alert("Ocorreu um erro ao enviar a resposta. Por favor, tente novamente.");
+    }
+
   };
 
   return (
