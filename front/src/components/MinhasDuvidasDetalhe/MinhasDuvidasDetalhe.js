@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import "./MinhasDuvidasDetalhe.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
+import { getAnswers }  from '../../services/answers.service.ts';
+import { allAnswers } from '../../services/answers.service.ts';
+
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -12,6 +15,9 @@ function MinhasDuvidasDetalhe() {
   const [feedbackType, setFeedbackType] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (doubt) {
@@ -24,6 +30,25 @@ function MinhasDuvidasDetalhe() {
         setFeedbackType(savedFeedbackType);
       }
     }
+
+    const fetchAsnwer = async () => {
+      try {
+        const questionerId = sessionStorage.getItem("id");
+        if (!questionerId) {
+          throw new Error("Usuário não autenticado");
+        }
+
+        const response = await getAnswers(doubt.id);
+
+        setAnswer(response.description);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAsnwer();
   }, [doubt]);
 
   if (!doubt) {
@@ -70,20 +95,20 @@ function MinhasDuvidasDetalhe() {
 
       <section className="resposta">
         <h3>Resposta</h3>
-        {doubt.status === "pendente" ? (
+        {doubt.status === "not_answered" ? (
           <p>Ainda não há resposta para esta dúvida.</p>
         ) : (
           <>
-            <p>Esta é a resposta para a dúvida...</p>
+            <p>{answer}</p>
           </>
         )}
       </section>
 
-      {doubt.status !== "pendente" && (
+      {doubt.status !== "not_answered" && (
         <section className="feedback">
           <h3 className="avaliacao-titulo">Avaliação</h3>
 
-          {feedback ? (
+          {!feedback ? (
             <div className="feedback-container">
               <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
                 {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}

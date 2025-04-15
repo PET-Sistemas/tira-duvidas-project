@@ -28,9 +28,10 @@ function MinhasDuvidas() {
   
         if (!response.ok) {
           throw new Error("Falha ao carregar dúvidas");
-        }
+        } 
         const data = await response.json();
         console.log("Dados recebidos da API:", data); // Log dos dados recebidos
+
         setDuvidas(data);
         setFilteredDoubts(data);
       } catch (err) {
