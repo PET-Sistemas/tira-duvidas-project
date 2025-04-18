@@ -5,6 +5,7 @@ import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import { getAnswers }  from '../../services/answers.service.ts';
 import { allAnswers } from '../../services/answers.service.ts';
+import { createFeedback } from '../../services/feedback.service.ts';
 
 
 function MinhasDuvidasDetalhe() {
@@ -15,7 +16,7 @@ function MinhasDuvidasDetalhe() {
   const [feedbackType, setFeedbackType] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -40,7 +41,7 @@ function MinhasDuvidasDetalhe() {
 
         const response = await getAnswers(doubt.id);
 
-        setAnswer(response.description);
+        setAnswer(response);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -72,7 +73,24 @@ function MinhasDuvidasDetalhe() {
 
     //setShowFeedbackInput(false);
 
-    
+    const feedbackSend = createFeedback({
+      userId: sessionStorage.getItem("id"),
+      answerId: answer.id,
+      justification: feedback,
+      status: feedbackType,
+    })
+    console.log(sessionStorage.getItem("id"));
+    console.log(answer.id);
+    console.log(feedback);
+    console.log(feedbackType);
+
+    if (!feedbackSend) {
+      throw new Error('Falha ao enviar o feedback: ' + feedbackSend);
+    }
+    alert("Feedback enviado com sucesso!");
+    setFeedback("");
+    setFeedbackType("");
+    setShowFeedbackInput(false);
   };
 
   return (
@@ -101,7 +119,7 @@ function MinhasDuvidasDetalhe() {
           <p>Ainda não há resposta para esta dúvida.</p>
         ) : (
           <>
-            <p>{answer}</p>
+            <p>{answer.description}</p>
           </>
         )}
       </section>
@@ -112,7 +130,7 @@ function MinhasDuvidasDetalhe() {
 
           {feedback ? (
             <div className="feedback-container">
-              <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
+              <p className="feedback-visualizacao"><strong>Feedback: </strong> {feedback}</p>
             </div>
 
             // <div className="feedback-container">
@@ -123,8 +141,8 @@ function MinhasDuvidasDetalhe() {
             // </div>
           ) : (
             <div className="avaliacao">
-              <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("Satisfatória")}>👍 Satisfatória</button>
-              <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("Insatisfatória")}>👎 Insatisfatória</button>
+              <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("satisfactory")}>👍 Satisfatória</button>
+              <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("unsatisfactory")}>👎 Insatisfatória</button>
             </div>
           )}
 

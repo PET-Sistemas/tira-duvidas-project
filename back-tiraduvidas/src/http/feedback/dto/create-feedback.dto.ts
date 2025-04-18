@@ -17,5 +17,5 @@ export class CreateFeedbackDto {
 
   @ApiProperty({ description: 'Situação da pergunta' })
   @IsEnum(FeedbackStatus)
-  situation: FeedbackStatus;
+  status: FeedbackStatus;
 }
