@@ -20,16 +20,16 @@ function MinhasDuvidasDetalhe() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (doubt) {
-      // Recupera do localStorage se já houver uma avaliação salva
-      const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
-      const savedFeedbackType = localStorage.getItem(`feedbackType_${doubt.id}`);
+    // if (doubt) {
+    //   // Recupera do localStorage se já houver uma avaliação salva
+    //   const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
+    //   const savedFeedbackType = localStorage.getItem(`feedbackType_${doubt.id}`);
 
-      if (savedFeedback && savedFeedbackType) {
-        setFeedback(savedFeedback);
-        setFeedbackType(savedFeedbackType);
-      }
-    }
+    //   if (savedFeedback && savedFeedbackType) {
+    //     setFeedback(savedFeedback);
+    //     setFeedbackType(savedFeedbackType);
+    //   } 
+    // }
 
     const fetchAsnwer = async () => {
       try {
@@ -67,10 +67,12 @@ function MinhasDuvidasDetalhe() {
     }
 
     // Salva no localStorage para persistência
-    localStorage.setItem(`feedback_${doubt.id}`, feedback);
-    localStorage.setItem(`feedbackType_${doubt.id}`, feedbackType);
+    // localStorage.setItem(`feedback_${doubt.id}`, feedback);
+    // localStorage.setItem(`feedbackType_${doubt.id}`, feedbackType);
 
-    setShowFeedbackInput(false);
+    //setShowFeedbackInput(false);
+
+    
   };
 
   return (
@@ -108,13 +110,17 @@ function MinhasDuvidasDetalhe() {
         <section className="feedback">
           <h3 className="avaliacao-titulo">Avaliação</h3>
 
-          {!feedback ? (
+          {feedback ? (
             <div className="feedback-container">
-              <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
-                {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
-              </button>
               <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
             </div>
+
+            // <div className="feedback-container">
+            // <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
+            //   {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
+            // </button>
+            // <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
+            // </div>
           ) : (
             <div className="avaliacao">
               <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("Satisfatória")}>👍 Satisfatória</button>
