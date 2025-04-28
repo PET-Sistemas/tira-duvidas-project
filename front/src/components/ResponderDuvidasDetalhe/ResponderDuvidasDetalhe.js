@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import "./ResponderDuvidasDetalhe.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
+import { createAnswers } from '../../services/answers.service.ts';
+
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
@@ -22,11 +24,24 @@ function ResponderDuvidasDetalhe() {
       return;
     }
 
-    try {
-      // Atualiza o status da questão para "respondido"
+    try {      
+      // Salva a resposta no backend
+      const responseSend = await createAnswers({  
+        questionId: doubt.id,
+        respondentId: sessionStorage.getItem("id"),
+        auditorId: doubt.moderatorId,
+        description: response,
+        status: "active"
+      })
+
+      if(!responseSend.ok) {
+        throw new Error('Falha ao enviar a resposta: ' + responseSend.status);
+      }
+
+      // Atualiza o status da questão para "respondido" no backend
       const updateResponse = await fetch(`http://localhost:8080/api/question/${doubt.id}`, {
         method: "PATCH",
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           id: doubt.id, 
           title: doubt.title, 
           description: doubt.description, 
@@ -44,19 +59,9 @@ function ResponderDuvidasDetalhe() {
         throw new Error('Falha ao atualizar o status da dúvida: ' + updateResponse.status);
       }
 
-      console.log("Resposta enviada: ", response);
-      console.log("Status da dúvida atualizado para 'answered'");
+      alert("Resposta enviada com sucesso!");
       setResponseSent(true);
-
-      // Aqui você pode também enviar a resposta para outro endpoint se necessário
-      // const responseSend = await fetch("http://localhost:8080/api/answers", {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ answer: response, questionId: doubt.id }),
-      // });
-
+      console.log("Resposta enviada: ", responseSend.json());
     } catch (error) {
       console.error("Erro ao atualizar a dúvida:", error);
       alert("Ocorreu um erro ao enviar a resposta. Por favor, tente novamente.");

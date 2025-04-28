@@ -3,6 +3,10 @@ import { useLocation } from "react-router-dom";
 import "./MinhasDuvidasDetalhe.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
+import { getAnswers }  from '../../services/answers.service.ts';
+import { allAnswers } from '../../services/answers.service.ts';
+import { createFeedback } from '../../services/feedback.service.ts';
+import { getFeedbacks } from '../../services/feedback.service.ts';
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -12,18 +16,49 @@ function MinhasDuvidasDetalhe() {
   const [feedbackType, setFeedbackType] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
+  const [answer, setAnswer] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (doubt) {
-      // Recupera do localStorage se já houver uma avaliação salva
-      const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
-      const savedFeedbackType = localStorage.getItem(`feedbackType_${doubt.id}`);
+    setFeedback("");
+    setFeedbackType("");
 
-      if (savedFeedback && savedFeedbackType) {
-        setFeedback(savedFeedback);
-        setFeedbackType(savedFeedbackType);
+    // if (doubt) {
+    //   // Recupera do localStorage se já houver uma avaliação salva
+    //   const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
+    //   const savedFeedbackType = localStorage.getItem(`feedbackType_${doubt.id}`);
+
+    //   if (savedFeedback && savedFeedbackType) {
+    //     setFeedback(savedFeedback);
+    //     setFeedbackType(savedFeedbackType);
+    //   } 
+    // }
+
+    const fetchAsnwer = async () => {
+      try {
+        const questionerId = sessionStorage.getItem("id");
+        if (!questionerId) {
+          throw new Error("Usuário não autenticado");
+        }
+
+        const answerResp = await getAnswers(doubt.id);
+        setAnswer(answerResp);
+
+        const feedbackResp = await getFeedbacks(answerResp.id);
+ 
+        if (feedbackResp) {
+          setFeedbackType(feedbackResp.status);
+          setFeedback(feedbackResp.justification);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+
+    fetchAsnwer();
   }, [doubt]);
 
   if (!doubt) {
@@ -42,9 +77,22 @@ function MinhasDuvidasDetalhe() {
     }
 
     // Salva no localStorage para persistência
-    localStorage.setItem(`feedback_${doubt.id}`, feedback);
-    localStorage.setItem(`feedbackType_${doubt.id}`, feedbackType);
+    // localStorage.setItem(`feedback_${doubt.id}`, feedback);
+    // localStorage.setItem(`feedbackType_${doubt.id}`, feedbackType);
 
+    //setShowFeedbackInput(false);
+
+    const feedbackSend = createFeedback({
+      userId: sessionStorage.getItem("id"),
+      answerId: answer.id,
+      justification: feedback,
+      status: feedbackType,
+    })
+
+    if (!feedbackSend) {
+      throw new Error('Falha ao enviar o feedback: ' + feedbackSend);
+    }
+    alert("Feedback enviado com sucesso!");
     setShowFeedbackInput(false);
   };
 
@@ -70,30 +118,34 @@ function MinhasDuvidasDetalhe() {
 
       <section className="resposta">
         <h3>Resposta</h3>
-        {doubt.status === "pendente" ? (
+        {doubt.status === "not_answered" ? (
           <p>Ainda não há resposta para esta dúvida.</p>
         ) : (
           <>
-            <p>Esta é a resposta para a dúvida...</p>
+            <p>{answer.description}</p>
           </>
         )}
       </section>
 
-      {doubt.status !== "pendente" && (
+      {doubt.status !== "not_answered" && (
         <section className="feedback">
           <h3 className="avaliacao-titulo">Avaliação</h3>
 
           {feedback ? (
             <div className="feedback-container">
-              <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
-                {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
-              </button>
-              <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
+              <p className="feedback-visualizacao"><strong>Feedback: </strong> {feedback}</p>
             </div>
+
+            // <div className="feedback-container">
+            // <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
+            //   {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
+            // </button>
+            // <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
+            // </div>
           ) : (
             <div className="avaliacao">
-              <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("Satisfatória")}>👍 Satisfatória</button>
-              <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("Insatisfatória")}>👎 Insatisfatória</button>
+              <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("satisfactory")}>👍 Satisfatória</button>
+              <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("unsatisfactory")}>👎 Insatisfatória</button>
             </div>
           )}
 

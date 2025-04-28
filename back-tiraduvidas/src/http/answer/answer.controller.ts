@@ -30,6 +30,12 @@ export class AnswerController {
     return this.answerService.findOne(id);
   }
 
+  // Busca por questão
+  @Get('question/:questionId')
+  findManyById(@Param('questionId') questionId: number) {
+    return this.answerService.findMany({ questionId });
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAnswerDto: UpdateAnswerDto) {
     return this.answerService.update(updateAnswerDto);

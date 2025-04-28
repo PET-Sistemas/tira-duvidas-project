@@ -1,4 +1,4 @@
 export enum FeedbackStatus {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
+  SATISFECTORY = 'satisfactory',
+  UNSATISFECTORY = 'unsatisfactory',
 }

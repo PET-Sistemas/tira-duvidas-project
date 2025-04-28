@@ -15,22 +15,36 @@ export async function allAnswers() {
   const response = await fetch("http://localhost:8080/api/answers/", {
     method: "GET",
   });
-  const users = await response.json();
-  return users;
+
+  if (!response.ok) {
+    throw new Error("Falha ao carregar respostas");
+  }
+
+  const answers = await response.json();
+  return answers;
 }
 
 export async function getAnswers(id: string) {
-  const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
+  const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
     method: "GET",
   });
-  const users = await response.json();
-  return users;
+
+  if (!response.ok) {
+    throw new Error("Falha ao carregar respostas");
+  }
+  const answers = await response.json();
+  return answers[0];
 }
 
 export async function deleteAnswers(id: string) {
   const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
     method: "DELETE",
   });
-  const users = await response.json();
-  return users;
+  
+  if (!response.ok) {
+    throw new Error("Falha ao deletar respostas");
+  }
+
+  const answers = await response.json();
+  return answers;
 }

@@ -26,8 +26,8 @@ export class Feedback {
   @Column({ type: 'text', name: 'justification' })
   justification: string;
 
-  @Column({ type: 'enum', enum: FeedbackStatus, name: 'situation' })
-  situation?: FeedbackStatus;
+  @Column({ type: 'enum', enum: FeedbackStatus, name: 'status' })
+  status?: FeedbackStatus;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;

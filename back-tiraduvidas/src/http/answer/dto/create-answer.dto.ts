@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsString, IsEnum } from 'class-validator';
+import { AnswerStatus } from '../enums/answer-status.enum';
 
 export class CreateAnswerDto {
   @ApiProperty({ description: 'ID da dúvida a que se refere a resposta' })
@@ -17,4 +18,8 @@ export class CreateAnswerDto {
   @ApiProperty({ description: 'Descrição da resposta' })
   @IsString()
   description: string;
+
+  @ApiProperty({ description: 'Status da dúvida' })
+  @IsEnum(AnswerStatus)
+  status: AnswerStatus;
 }
