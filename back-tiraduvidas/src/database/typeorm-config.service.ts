@@ -18,6 +18,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       synchronize: this.configService.get('database.synchronize'),
       dropSchema: false,
       keepConnectionAlive: true,
+      migrationsRun: true,
       logging: this.configService.get('app.nodeEnv') !== 'production',
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/migrations/**/*{.ts,.js}'],

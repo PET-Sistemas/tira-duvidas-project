@@ -1,4 +1,5 @@
 export enum AnswerStatus {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
+  SATISFACTORY = 'satisfactory',
+  UNSATISFACTORY = 'unsatisfactory',
+  PENDING = 'pending',
 }
