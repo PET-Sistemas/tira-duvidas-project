@@ -190,7 +190,7 @@ const DoubtCard = ({ doubt }) => {
       <div className="doubt-additional-info-minhas-duvidas">
         <p><strong>Categoria:</strong> {doubt.category}</p>
         <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString('pt-BR')}</p>
-        <p> <strong>Respostas:</strong> {doubt.respostas} </p>
+        <p> <strong>Status:</strong> {doubt.status} </p>
       </div>
     </div>
   );
