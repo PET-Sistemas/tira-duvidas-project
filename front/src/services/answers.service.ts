@@ -25,7 +25,7 @@ export async function allAnswers() {
 }
 
 export async function getAnswers(id: string) {
-  const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
+  const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
     method: "GET",
   });
 
@@ -33,13 +33,14 @@ export async function getAnswers(id: string) {
     throw new Error("Falha ao carregar respostas");
   }
   const answers = await response.json();
-  return answers;
+  return answers[0];
 }
 
 export async function deleteAnswers(id: string) {
   const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
     method: "DELETE",
   });
+  
   if (!response.ok) {
     throw new Error("Falha ao deletar respostas");
   }

@@ -6,7 +6,7 @@ import defaultProfilePic from "../default-profile.png";
 import { getAnswers }  from '../../services/answers.service.ts';
 import { allAnswers } from '../../services/answers.service.ts';
 import { createFeedback } from '../../services/feedback.service.ts';
-
+import { getFeedbacks } from '../../services/feedback.service.ts';
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -21,6 +21,9 @@ function MinhasDuvidasDetalhe() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setFeedback("");
+    setFeedbackType("");
+
     // if (doubt) {
     //   // Recupera do localStorage se já houver uma avaliação salva
     //   const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
@@ -39,9 +42,15 @@ function MinhasDuvidasDetalhe() {
           throw new Error("Usuário não autenticado");
         }
 
-        const response = await getAnswers(doubt.id);
+        const answerResp = await getAnswers(doubt.id);
+        setAnswer(answerResp);
 
-        setAnswer(response);
+        const feedbackResp = await getFeedbacks(answerResp.id);
+
+        if (feedbackResp) {
+          setFeedbackType(feedbackResp.status);
+          setFeedback(feedbackResp.justification);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -79,17 +88,11 @@ function MinhasDuvidasDetalhe() {
       justification: feedback,
       status: feedbackType,
     })
-    console.log(sessionStorage.getItem("id"));
-    console.log(answer.id);
-    console.log(feedback);
-    console.log(feedbackType);
 
     if (!feedbackSend) {
       throw new Error('Falha ao enviar o feedback: ' + feedbackSend);
     }
     alert("Feedback enviado com sucesso!");
-    setFeedback("");
-    setFeedbackType("");
     setShowFeedbackInput(false);
   };
 

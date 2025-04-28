@@ -30,7 +30,7 @@ export class AnswerController {
     return this.answerService.findOne(id);
   }
 
-  // Busca por id
+  // Busca por questão
   @Get('question/:questionId')
   findManyById(@Param('questionId') questionId: number) {
     return this.answerService.findMany({ questionId });

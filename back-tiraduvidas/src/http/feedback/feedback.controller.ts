@@ -30,6 +30,12 @@ export class FeedbackController {
     return this.feedbackService.findOne({ id });
   }
 
+  @Get('answer/:answerId')
+  findManyById(@Param('answerId') answerId: number) {
+    return this.feedbackService.findMany({ answerId });
+  }
+
+
   @Patch(':id')
   update(
     @Param('id') id: string,
