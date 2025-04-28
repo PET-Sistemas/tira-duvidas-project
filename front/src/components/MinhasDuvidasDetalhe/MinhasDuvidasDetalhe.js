@@ -46,7 +46,7 @@ function MinhasDuvidasDetalhe() {
         setAnswer(answerResp);
 
         const feedbackResp = await getFeedbacks(answerResp.id);
-
+ 
         if (feedbackResp) {
           setFeedbackType(feedbackResp.status);
           setFeedback(feedbackResp.justification);

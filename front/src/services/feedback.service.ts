@@ -25,7 +25,7 @@ export async function allFeedbacks() {
 }
 
 export async function getFeedbacks(id: string) {
-  const response = await fetch(`http://localhost:8080/api/feedback/${id}`, {
+  const response = await fetch(`http://localhost:8080/api/feedback/answer/${id}`, {
     method: "GET",
   });
 
@@ -33,7 +33,8 @@ export async function getFeedbacks(id: string) {
     throw new Error("Falha ao carregar feedbacks");
   }
   const feedback = await response.json();
-  return feedback;
+
+  return feedback[0];
 }
 
 export async function deleteFeedbacks(id: string) {
