@@ -114,16 +114,23 @@ function App() {
         <div className="app-home-faq-grid">
           {/* Renderiza as perguntas dinamicamente */}
           {questions.map((question) => (
-            <div className="app-home-faq-item" key={question.id}>
-              <div className='Logo-Titulo'>
-                <img src={tiraDuvidasLogo} alt="Ícone da dúvida" className="app-home-faq-img" />
-                <h3 className="app-home-faq-question">{question.title}</h3>
+            question.status !== 'answered' && (
+              <div className="app-home-faq-item" key={question.id}>
+                <div className='Logo-Titulo'>
+                  <img src={tiraDuvidasLogo} alt="Ícone da dúvida" className="app-home-faq-img" />
+                  <h3 className="app-home-faq-question">{question.title}</h3>
+                </div>
+                <p className="app-home-faq-description">
+                  {question.description}
+                </p>
+                <button 
+                  onClick={() => navigate(`/responder-duvidas/${question.id}`, { state: { doubt: question } })} 
+                  className="app-home-btn-responder"
+                >
+                  Responder
+                </button>
               </div>
-              <p className="app-home-faq-description">
-                {question.description}
-              </p>
-              <button onClick={() => navigate(`/responder-duvidas/${question.id}`, { state: { doubt: question } } ) } className="app-home-btn-responder">Responder</button>
-            </div>
+            )
           ))}
         </div>
       </main>
