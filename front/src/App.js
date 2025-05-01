@@ -14,6 +14,7 @@ import { allQuestion, getQuestionByTitle } from './services/question.service.ts'
 import { allCategory } from './services/category.service.ts';
 import MinhasDuvidasDetalhe from './components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js';
 import ResponderDuvidasDetalhe from './components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js';
+import ProtectedRoute from './components/Login/ProtectedRoute.js';
 
 function App() {
   const navigate = useNavigate();
@@ -57,12 +58,13 @@ function App() {
   };
 
   const handleLogout = () => {
-    // Remove o username do sessionStorage e redefine o estado
+    // Remove o username e o id do sessionStorage, redefine o estado e redireciona para a tela de login
     sessionStorage.removeItem('username');
+    sessionStorage.removeItem('id');
     setUsername('');
-    navigate('/');
+    navigate('/login');
   };
-
+  
   return (
     <div className="app-home">
       <header className="app-home-header">
@@ -120,7 +122,7 @@ function App() {
               <p className="app-home-faq-description">
                 {question.description}
               </p>
-              <button>Responder</button>
+              <button onClick={() => navigate(`/responder-duvidas/${question.id}`, { state: { doubt: question } } ) } className="app-home-btn-responder">Responder</button>
             </div>
           ))}
         </div>
@@ -133,22 +135,92 @@ function AppWrapper() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<App />} /> {/* Página inicial */}
+        {/* Rotas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/cadastroduvidas" element={<CadastroDuvidas />} />
-        <Route path="/perfil" element={<PerfilUsuario />} />
-        <Route path="/minhas-duvidas" element={<MinhasDuvidas />} />
-        <Route path="/responder-duvidas" element={<ResponderDuvidas />} />
-        <Route path="/painel-questionador" element={<PainelQuestionador />} />
-        <Route path="/painel-respondente" element={<PainelRespondente />} />
-        <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
-        <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
-        <Route path="/responder-duvidas/:id" element={<ResponderDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
+        
+        {/* Rotas protegidas */}
+        <Route path="/" element={
+          <ProtectedRoute>
+            <App />
+          </ProtectedRoute>
+        } />
 
+        <Route path="/cadastroduvidas" element={
+          <ProtectedRoute>
+            <CadastroDuvidas />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/perfil" element={
+          <ProtectedRoute>
+            <PerfilUsuario />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/minhas-duvidas" element={
+          <ProtectedRoute>
+            <MinhasDuvidas />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/responder-duvidas" element={
+          <ProtectedRoute>
+            <ResponderDuvidas />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/painel-questionador" element={
+          <ProtectedRoute>
+            <PainelQuestionador />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/painel-respondente" element={
+          <ProtectedRoute>
+            <PainelRespondente />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/duvida/:id" element={
+          <ProtectedRoute>
+            <MinhasDuvidasDetalhe />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/responder-duvidas-detalhe" element={
+          <ProtectedRoute>
+            <ResponderDuvidasDetalhe />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/responder-duvidas/:id" element={
+          <ProtectedRoute>
+            <ResponderDuvidasDetalhe />
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );
+
+  // return (
+  //   <Router>
+  //     <Routes>
+  //       <Route path="/" element={<App />} /> {/* Página inicial */}
+  //       <Route path="/login" element={<Login />} />
+  //       <Route path="/signup" element={<Signup />} />
+  //       <Route path="/cadastroduvidas" element={<CadastroDuvidas />} />
+  //       <Route path="/perfil" element={<PerfilUsuario />} />
+  //       <Route path="/minhas-duvidas" element={<MinhasDuvidas />} />
+  //       <Route path="/responder-duvidas" element={<ResponderDuvidas />} />
+  //       <Route path="/painel-questionador" element={<PainelQuestionador />} />
+  //       <Route path="/painel-respondente" element={<PainelRespondente />} />
+  //       <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
+  //       <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
+  //       <Route path="/responder-duvidas/:id" element={<ResponderDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
+  //     </Routes>
+  //   </Router>
+  // );
 }
 
 export default AppWrapper;

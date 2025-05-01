@@ -30,7 +30,7 @@ function Logar() {
         sessionStorage.setItem('username', data.user.firstName);
 
         setTimeout(() => {
-          navigate('/'); 
+          navigate('/');
         }, 1000); 
       }
     } catch (err) {
