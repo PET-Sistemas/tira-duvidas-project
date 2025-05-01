@@ -23,7 +23,7 @@ function ResponderDuvidasDetalhe() {
   const verifyAnswer = async () => {
     try {
       const answerResp = await getAnswers(doubt.id);
-      console.log(answerResp);
+
       if (answerResp) {
         setAlreadyAnswered(true);
       }
@@ -42,7 +42,6 @@ function ResponderDuvidasDetalhe() {
     }
 
     try {
-      console.log("oiiiiiiiii");
       // Salva a resposta no backend
       const responseSend = await createAnswers({
         questionId: doubt.id,
