@@ -149,8 +149,8 @@ const DoubtCard = ({ doubt }) => {
           <p className="doubt-situation-responder">
             <strong>Status:</strong> {doubt.status}
           </p>
-          {doubt.status !== "respondida" && ( <Link to={{ pathname: `/responder-duvidas/${doubt.id}` }} 
-          state={{ doubt }} className="responder-btn"> Responder </Link> )}  
+          {doubt.status !== "respondida" && ( <Link to={{ pathname: `/responder-duvidas/${doubt.id}` }}
+          state={{ doubt }} className="responder-btn"> Responder </Link> )}
         </div>
       </div>
       <div className="doubt-additional-info-responder">

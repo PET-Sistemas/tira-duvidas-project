@@ -64,7 +64,7 @@ function App() {
     setUsername('');
     navigate('/login');
   };
-
+  
   return (
     <div className="app-home">
       <header className="app-home-header">
@@ -122,7 +122,7 @@ function App() {
               <p className="app-home-faq-description">
                 {question.description}
               </p>
-              <button>Responder</button>
+              <button onClick={() => navigate(`/responder-duvidas/${question.id}`, { state: { doubt: question } } ) } className="app-home-btn-responder">Responder</button>
             </div>
           ))}
         </div>
