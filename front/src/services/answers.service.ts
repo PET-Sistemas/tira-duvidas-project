@@ -28,11 +28,13 @@ export async function getAnswers(id: string) {
   const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
     method: "GET",
   });
-
+  
   if (!response.ok) {
     throw new Error("Falha ao carregar respostas");
   }
+
   const answers = await response.json();
+  
   return answers[0];
 }
 

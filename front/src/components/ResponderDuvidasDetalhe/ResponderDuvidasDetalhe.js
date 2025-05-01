@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "./ResponderDuvidasDetalhe.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import { createAnswers } from '../../services/answers.service.ts';
+import { getAnswers }  from '../../services/answers.service.ts';
 
 
 function ResponderDuvidasDetalhe() {
@@ -13,20 +14,37 @@ function ResponderDuvidasDetalhe() {
   // Estado para armazenar a resposta
   const [response, setResponse] = useState("");
   const [responseSent, setResponseSent] = useState(false);
+  const [alreadyAnswered, setAlreadyAnswered] = useState(false);
 
   if (!doubt) {
     return <p>Dúvida não encontrada.</p>;
   }
 
+  const verifyAnswer = async () => {
+    try {
+      const answerResp = await getAnswers(doubt.id);
+      console.log(answerResp);
+      if (answerResp) {
+        setAlreadyAnswered(true);
+      }
+    } catch (err) {
+      console.error("Erro ao verificar resposta:", err);
+      alert("Ocorreu um erro ao verificar a resposta. Por favor, tente novamente.");
+    }
+  };
+
+  verifyAnswer();
+  
   const handleSendResponse = async () => {
     if (response.trim() === "") {
       alert("Por favor, escreva uma resposta antes de enviar.");
       return;
     }
 
-    try {      
+    try {
+      console.log("oiiiiiiiii");
       // Salva a resposta no backend
-      const responseSend = await createAnswers({  
+      const responseSend = await createAnswers({
         questionId: doubt.id,
         respondentId: sessionStorage.getItem("id"),
         auditorId: doubt.moderatorId,
@@ -66,7 +84,6 @@ function ResponderDuvidasDetalhe() {
       console.error("Erro ao atualizar a dúvida:", error);
       alert("Ocorreu um erro ao enviar a resposta. Por favor, tente novamente.");
     }
-
   };
 
   return (
@@ -91,7 +108,13 @@ function ResponderDuvidasDetalhe() {
         </div>
       </section>
 
-      <section className="responder">
+      {alreadyAnswered ? (
+        <section className="resposta">
+          <h3>Resposta</h3>
+          <p>Esta dúvida já foi respondida.</p>
+        </section>
+      ) : (
+        <section className="responder">
         <h3>Responder</h3>
         {responseSent ? (
           <p className="resposta-enviada">Resposta enviada com sucesso!</p>
@@ -108,7 +131,8 @@ function ResponderDuvidasDetalhe() {
         <button className="btn-enviar" onClick={handleSendResponse}>
           Enviar Resposta
         </button>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
