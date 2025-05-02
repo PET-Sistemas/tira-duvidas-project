@@ -72,7 +72,6 @@ function App() {
         <nav className="app-home-nav">
           <a href="#" onClick={()=> navigate("/cadastroduvidas")} className="app-home-nav-link">Cadastrar dúvida</a>
           <a href="#sobre" className="app-home-nav-link">Sobre nós</a>
-          <a href="#perguntas-frequentes" className="app-home-nav-link">Perguntas Frequentes</a>
           <div className="app-home-search-bar">
             <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" />
             <button className="app-home-search-btn">Buscar</button>

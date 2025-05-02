@@ -35,7 +35,7 @@ function MinhasDuvidasDetalhe() {
     //   } 
     // }
 
-    const fetchAsnwer = async () => {
+    const fetchAsnwerAndFeedback = async () => {
       try {
         const questionerId = sessionStorage.getItem("id");
         if (!questionerId) {
@@ -58,7 +58,7 @@ function MinhasDuvidasDetalhe() {
       }
     };
 
-    fetchAsnwer();
+    fetchAsnwerAndFeedback();
   }, [doubt]);
 
   if (!doubt) {
@@ -67,7 +67,7 @@ function MinhasDuvidasDetalhe() {
 
   const handleFeedbackClick = (type) => {
     setShowFeedbackInput(true);
-    setFeedbackType(type);
+    setFeedbackType(type);     
   };
 
   const handleSendFeedback = () => {
