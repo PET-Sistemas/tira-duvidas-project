@@ -64,7 +64,21 @@ function App() {
     setUsername('');
     navigate('/login');
   };
-  
+
+  const searchQuestion = async () => {
+    const valor = document.getElementById('searchInput').value;
+    
+    if (valor === "") {
+      // Se o campo de pesquisa estiver vazio, recarrega todas as perguntas
+      const fetchedQuestions = await allQuestion();
+      setQuestions(fetchedQuestions);
+    } else {
+      // Caso contrário, busca perguntas que correspondem ao título
+      const filteredQuestions = await getQuestionByTitle(valor);
+      setQuestions(filteredQuestions);
+    }
+  };
+
   return (
     <div className="app-home">
       <header className="app-home-header">
@@ -73,8 +87,8 @@ function App() {
           <a href="#" onClick={()=> navigate("/cadastroduvidas")} className="app-home-nav-link">Cadastrar dúvida</a>
           <a href="#sobre" className="app-home-nav-link">Sobre nós</a>
           <div className="app-home-search-bar">
-            <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" />
-            <button className="app-home-search-btn">Buscar</button>
+            <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" id="searchInput"/>
+            <button onClick={searchQuestion} className="app-home-search-btn">Buscar</button>
           </div>
           
           {username ? (
