@@ -42,7 +42,8 @@ function MinhasDuvidasDetalhe() {
           throw new Error("Usuário não autenticado");
         }
 
-        const answerResp = await getAnswers(doubt.id);
+        const response = await getAnswers(doubt.id);
+        const answerResp = response[response.length - 1];
         setAnswer(answerResp);
 
         const feedbackResp = await getFeedbacks(answerResp.id);
@@ -70,7 +71,7 @@ function MinhasDuvidasDetalhe() {
     setFeedbackType(type);     
   };
 
-  const handleSendFeedback = () => {
+  const handleSendFeedback = async() => {
     if (feedback.trim() === "") {
       alert("Por favor, escreva seu feedback antes de enviar.");
       return;
@@ -94,6 +95,29 @@ function MinhasDuvidasDetalhe() {
     }
     alert("Feedback enviado com sucesso!");
     setShowFeedbackInput(false);
+
+    if(feedbackType === "unsatisfactory") {
+      // Atualiza o status da questão para "não respondido" no backend
+      const updateResponse = await fetch(`http://localhost:8080/api/question/${doubt.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          id: doubt.id, 
+          title: doubt.title, 
+          description: doubt.description, 
+          questionerId: doubt.questionerId, 
+          moderatorId: doubt.moderatorId, 
+          status: 'not_answered'
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error('Falha ao atualizar o status da dúvida: ' + updateResponse.status);
+      }
+    }
   };
 
   return (

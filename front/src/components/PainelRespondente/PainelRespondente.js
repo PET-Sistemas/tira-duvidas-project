@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './PainelRespondente.css';
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
+import { useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../default-profile.png'; // Imagem padrão
 
 import imgCard1 from '../DuvidasRespondidas.png';

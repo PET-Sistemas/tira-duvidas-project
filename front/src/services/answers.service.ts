@@ -25,6 +25,10 @@ export async function allAnswers() {
 }
 
 export async function getAnswers(id: string) {
+  if (!id || isNaN(Number(id))) {
+    throw new Error("ID inválido para buscar respostas.");
+  }
+  
   const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
     method: "GET",
   });
@@ -35,7 +39,7 @@ export async function getAnswers(id: string) {
 
   const answers = await response.json();
   
-  return answers[0];
+  return answers;
 }
 
 export async function deleteAnswers(id: string) {
