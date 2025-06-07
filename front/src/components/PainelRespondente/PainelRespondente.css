@@ -1,85 +1,261 @@
-.container-respondente{
+.container-respondente {
     margin: 0;
     padding: 0;
 }
 
+/* --- HEADER --- */
 .perfil-respondente-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px;
-    background-color: #fff; 
-    border-bottom: 2px solid #dad9d9;
-}
-.logo-painel-respondente{
-    width: 80px;
-    margin-left: 10px;
-}
-  
-.painel-respondente-titulo-header{
-    text-align: center;   
+    padding: 16px 24px;
+    background: linear-gradient(to right, #FFFFFF, #B6E2FF);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.header-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+    flex-wrap: nowrap;
+    width: 70%;
+}
+
+.logo-painel-respondente {
+    height: auto;
+    width: 14%;      /* aumentou de 12% para 14% */
+    min-width: 50px; /* aumentou de 40px para 50px */
+    max-width: 80px; /* aumentou de 60px para 80px */
+}
+
+.header-nav {
+    display: flex;
+    gap: 3vw;
+    flex-wrap: wrap;
+}
+
+.header-link {
+    text-decoration: none;
+    color: #0188B5;
+    font-weight: 600;
+    font-size: 1.2vw;
+    white-space: nowrap;
+}
+
+.header-link:hover {
+    text-decoration: underline;
+}
+
+.header-direita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 20%;
+}
+
+.icone-perfil {
+    height: auto;
+    width: 35%; 
+    max-width: 45px;       
+    min-width: 25px;      
+  
+    border-radius: 50%;
+    object-fit: cover;
+}
+.ola-user {
+    font-size: 1vw;
+    color: #0188B5;
+    font-weight: 500;
+}
+
+/* TÍTULO CENTRAL FIXO */
 .painel-respondente-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
     color: #3498DB;
-  }
-
-.painel-respondente-card {
-    margin:auto;
-    margin-top: 60px;
-    width: 400px;
-    height: 325px;
-    justify-content: space-between;
-    border: 2px solid #3498DB; 
-    border-radius: 10px;
-    background: #fff;
-    padding: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 1.4vw;
 }
 
-.painel-respondente-lista {
-    list-style: none; /* Remove os pontos da lista */
-    padding: 0;
-    margin:0;
+/*Main*/
+
+.painel-main {
+    padding: 20px;
+    text-align: center;
+}
+
+.painel-titulo {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
     color: #3498DB;
 }
 
-.painel-respondente-item {
-    padding: 12px;
-    margin-top: 2px;
-    margin-bottom: 10px;
+.painel-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.painel-card {
+    width: 246px;
+    height: 246px;
+    background: linear-gradient(135deg, #3498DB, #005187);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.painel-card:hover {
+    background: linear-gradient(135deg, #5dade2, #1a6fa5); /* tom mais claro */
+}
+
+.card-img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12%;
+}
+
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
     text-align: center;
-    font-size: 1.18rem;
-    font-weight: bold;
-    border-bottom: 1px solid #ddd; 
+}
+
+.logout-button {
+    background-color: transparent;
+    border: 2px solid red;
+    color: red;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.painel-respondente-item:last-child {
-    border-bottom: none; /* Remove a linha do último item */
+.logout-button:hover {
+    background-color: red;
+    color: white;
 }
 
-.painel-respondente-item:hover {
-    background: #f5f5f5; /* Efeito ao passar o mouse */
+/*Footer*/
+.footer-respondente {
+    background-color: #005187;
+    padding: 20px;
+    color: white;
+    margin-top: 40px;
 }
 
-.painel-respondente-sair {
-    width: 100%;
-    padding: 5px;
-    margin-top: 5px;
-    border: none;
-    background: none;
-    color: #E92B37;
-    font-size: 1.18rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
+.footer-conteudo {
+  display: flex;
+  justify-content: flex-end; /* tudo alinhado à direita */
+  align-items: center;
 }
 
-.painel-respondente-sair:hover {
-    background: #f5f5f5; /* Efeito ao passar o mouse */
+.footer-logo {
+    max-width: 4%;   
+    max-height: 4%;   
+    object-fit: contain;
 }
+/*RESPONSIVIDADE*/
+@media (max-width: 768px) {
+    .perfil-respondente-header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        padding: 4% 5%;
+    }
+
+    .header-esquerda {
+        flex-direction: row;
+        align-items: center;
+        gap: 4%;
+        width: 70%;
+    }
+
+    .logo-painel-respondente {
+        width: 18%;
+        min-width: 50px;
+        max-width: 80px;
+    }
+
+    .header-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 5%;
+        flex-wrap: nowrap;
+    }
+
+    .header-link {
+        font-size: 3.5vw;
+        white-space: nowrap;
+    }
+
+    .header-direita {
+        width: 30%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icone-perfil {
+        width: 45%;
+    }
+
+    .ola-user {
+        font-size: 3vw;
+    }
+
+    .painel-respondente-title {
+        font-size: 3.2vw;
+    }
+
+    /* MAIN - cards em coluna */
+    .painel-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 5vw;
+    }
+
+    .painel-card {
+        width: 70%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .card-img {
+        width: 15%;
+        height: auto;
+        margin-bottom: 8%;
+    }
+
+    .card-title {
+        font-size: 4vw;
+    }
+
+    .logout-button {
+        width: 70%;
+        font-size: 4vw;
+        padding: 3% 0;
+    }
+
+    .footer-conteudo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+    .footer-logo {
+    width:  65%;
+    height: auto;
+}
+}
+
