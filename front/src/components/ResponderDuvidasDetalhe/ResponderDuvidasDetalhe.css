@@ -71,16 +71,36 @@
     display: flex; /* Organiza elementos em coluna */
     flex-direction: column;
     justify-content: space-between; 
-}
-.duvida-info-footer {
-    margin-top: auto; /* Empurra para o final */
-    font-size: 14px;
-    color: #666;
-    border-top: 1px solid #ccc;
-    padding-top: 10px;
-}
+  }
+
+  .duvida-info-footer {
+      margin-top: auto; /* Empurra para o final */
+      font-size: 14px;
+      color: #666;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+  }
   
   /* ÁREA DE RESPOSTA */
+  .respostas-anteriores {
+    height: 30vh;
+    width: 90%;
+    border: 1px solid #3498DB;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+  }
+
+  .resposta-anterior {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
   .resposta {
     height: 30vh;
     width: 90%;

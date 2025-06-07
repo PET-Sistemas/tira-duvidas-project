@@ -15,25 +15,31 @@ function ResponderDuvidasDetalhe() {
   const [response, setResponse] = useState("");
   const [responseSent, setResponseSent] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
+  const [answers, setAnswers] = useState([]);
+
+  useEffect(() => {
+    const verifyAnswer = async () => {
+      try {
+        const questionStatus = doubt.status;
+        const answerResp = await getAnswers(doubt.id);
+        setAnswers(answerResp);
+
+        if (answerResp && questionStatus === "answered") {
+          setAlreadyAnswered(true);
+        }
+      } catch (err) {
+        console.error("Erro ao verificar resposta:", err);
+        alert("Ocorreu um erro ao verificar a resposta. Por favor, tente novamente.");
+      }
+    };
+
+    verifyAnswer();
+  }, [doubt.id]);
 
   if (!doubt) {
     return <p>Dúvida não encontrada.</p>;
   }
-
-  const verifyAnswer = async () => {
-    try {
-      const answerResp = await getAnswers(doubt.id);
-
-      if (answerResp) {
-        setAlreadyAnswered(true);
-      }
-    } catch (err) {
-      console.error("Erro ao verificar resposta:", err);
-      alert("Ocorreu um erro ao verificar a resposta. Por favor, tente novamente.");
-    }
-  };
-
-  verifyAnswer();
+  
   
   const handleSendResponse = async () => {
     if (response.trim() === "") {
@@ -107,6 +113,25 @@ function ResponderDuvidasDetalhe() {
         </div>
       </section>
 
+      {answers.length > 0 ? (
+        <section className="respostas-anteriores">
+          <h3>Respostas Anteriores</h3>
+          {answers.map((answer) => (
+            <div key={answer.id} className="resposta-anterior">
+              <p>{answer.description}</p>
+              <p><strong>Respondido por:</strong> {answer.respondentId}</p>
+              <p><strong>Status:</strong> {answer.status}</p>
+            </div>
+          ))}
+        </section>
+        ) : (
+          <section className="respostas-anteriores">
+            <h3>Respostas Anteriores</h3>
+            <p>Esta dúvida ainda não possui respostas anteriores.</p>
+          </section>
+        )
+      },
+
       {alreadyAnswered ? (
         <section className="resposta">
           <h3>Resposta</h3>
@@ -114,7 +139,7 @@ function ResponderDuvidasDetalhe() {
         </section>
       ) : (
         <section className="responder">
-        <h3>Responder</h3>
+        <h3>Responder</h3> 
         {responseSent ? (
           <p className="resposta-enviada">Resposta enviada com sucesso!</p>
         ) : (
