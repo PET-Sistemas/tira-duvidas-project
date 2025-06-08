@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "migration:run": "typeorm migration:run",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+  "build": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+  "test": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts test",
+    "migration:run": "typeorm migration:run",
+
     "start:dev": "react-scripts start",
     "eject": "react-scripts eject"
   },
