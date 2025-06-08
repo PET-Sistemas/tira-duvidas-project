@@ -15,7 +15,9 @@ import { allCategory } from './services/category.service.ts';
 import MinhasDuvidasDetalhe from './components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js';
 import ResponderDuvidasDetalhe from './components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js';
 import ProtectedRoute from './components/Login/ProtectedRoute.js';
-
+import logoUfms from './components/logo-ufms.png';
+import ilustracaoPergunta from './components/ilustracao-pergunta.png';
+import fotoprofile from './components/Vector (1).png';
 function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -82,20 +84,19 @@ function App() {
   return (
     <div className="app-home">
       <header className="app-home-header">
-        <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-        <nav className="app-home-nav">
-          <a href="#" onClick={()=> navigate("/cadastroduvidas")} className="app-home-nav-link">Cadastrar dúvida</a>
-          <a href="#sobre" className="app-home-nav-link">Sobre nós</a>
-          <div className="app-home-search-bar">
-            <input type="text" placeholder="Pesquisar dúvidas..." className="app-home-search-input" id="searchInput"/>
-            <button onClick={searchQuestion} className="app-home-search-btn">Buscar</button>
-          </div>
-          
+        <div className="items-header">
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+          <a href="#sobre" className="app-sobre-nav-link">Sobre nós</a>
+        </div>
+
+        <nav className="app-home-nav">          
           {username ? (
             // Exibe o nome do usuário se estiver logado
             <div className="app-home-user-info">
+              <button onClick={() => navigate("/painel-questionador")} className="app-home-btn-profile">
+                <img src={fotoprofile} alt="Foto de perfil" className="w-10 h-10 rounded-full object-cover" />
+              </button>             
               <span className="app-home-username">Olá, {username}!</span>
-              <button onClick={handleLogout} className="app-home-btn-logout">Sair</button>
             </div>
           ) : (
             // Exibe os botões de login e cadastro se o usuário não estiver logado
@@ -122,31 +123,25 @@ function App() {
         </div>
       </div>
 
-      <main id="perguntas-frequentes" className="app-home-faq">
-        <h2 className="app-home-faq-title">Dúvidas Frequentes</h2>
-        <div className="app-home-faq-grid">
-          {/* Renderiza as perguntas dinamicamente */}
-          {questions.map((question) => (
-            question.status !== 'answered' && (
-              <div className="app-home-faq-item" key={question.id}>
-                <div className='Logo-Titulo'>
-                  <img src={tiraDuvidasLogo} alt="Ícone da dúvida" className="app-home-faq-img" />
-                  <h3 className="app-home-faq-question">{question.title}</h3>
-                </div>
-                <p className="app-home-faq-description">
-                  {question.description}
-                </p>
-                <button 
-                  onClick={() => navigate(`/responder-duvidas/${question.id}`, { state: { doubt: question } })} 
-                  className="app-home-btn-responder"
-                >
-                  Responder
-                </button>
-              </div>
-            )
-          ))}
-        </div>
-      </main>
+        <div className="welcome-container">
+      <div className="welcome-content">
+        <h1>
+          Bem-vindo ao<br />
+          <span>Tira Dúvidas</span>
+        </h1>
+        <p>
+          Envie perguntas, obtenha respostas<br />
+          e compartilhe conhecimento
+        </p>
+          <button onClick={() => navigate("/cadastroduvidas")} className="app-home-nav-link">Cadastrar dúvida</button>
+      </div>
+      <div className="welcome-illustration">
+        <img src={ilustracaoPergunta} alt="Pessoa com ponto de interrogação" />
+      </div>
+    </div>
+     <footer>
+        <img src={logoUfms} alt="Logo UFMS" />
+      </footer>
     </div>
   );
 }

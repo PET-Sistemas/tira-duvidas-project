@@ -11,8 +11,7 @@ display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 4px;
-    background-color: #fff; 
-    border-bottom: 2px solid #dad9d9;
+  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
 }
 
 .app-home-logo {
@@ -30,6 +29,12 @@ display: flex;
   text-decoration: none;
   margin-right: 60px;
   font-size: 14px;
+}
+
+.app-sobre-nav-link{
+  color: #3498DB;
+  margin-left: 2%;
+
 }
 
 .app-home-search-bar {
@@ -72,23 +77,12 @@ display: flex;
   font-size: 14px;
   border: 2px solid #3498DB;
 }
-.app-home-btn-signup {
-  background-color: #fff;
-  color: #3498DB;
-  border: 2px solid #3498DB;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 4px;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
 
 
 /* Categorias */
 .app-home-categories {
   display: flex;
   justify-content: center;
-  gap: 10px;
   margin: 10;
 }
 
@@ -97,6 +91,11 @@ display: flex;
   margin-right: 20px;
 }
 
+.items-header{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 .app-home-category {
   padding: 10px 20px;
   background-color: #fcfcfcc3;
@@ -151,4 +150,108 @@ display: flex;
   justify-content: space-between;
   align-items: center;
 
+}
+
+/* src/components/WelcomeScreen.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+  color: #003366;
+}
+
+.welcome-container {
+  display: flex;
+  justify-content: center;
+}
+
+.welcome-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5% 10% 10% 1%;
+}
+
+.welcome-content h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #004080;
+}
+
+.welcome-content h1 span {
+  color: #0066cc;
+}
+
+.welcome-content p {
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.welcome-content button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.welcome-content button:hover {
+  background-color: #0066cc;
+}
+
+.welcome-illustration {
+  align-items: center;
+  display:flex;
+}
+
+.welcome-illustration img {
+  max-width: 300px;
+  height: auto;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem; /* altura do rodapé, responsiva via rem */
+  background-color: #004990;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10;
+}
+
+footer img {
+  height: 3rem;
+  object-fit: contain;
+  margin: 1%;
+
+}
+
+.app-home-btn-profile {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.app-home-btn-profile img {
+  width: 40px;  /* ou responsivo com unidades relativas */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.app-home-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* opcional, centraliza */
+}
+
+.app-home-username{
+  text-align: center;
 }
