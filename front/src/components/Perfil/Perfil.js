@@ -5,8 +5,11 @@ import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png'; // Logo do Tir
 import defaultProfilePic from '../default-profile.png'; // Imagem padrão
 import editIcon from '../Vector-edit.png'; // Ícone de edição
 import { getUserById } from '../../services/user.service.ts';
+import { useNavigate } from 'react-router-dom';
 
 function PerfilUsuario() {
+  const navigate = useNavigate();
+
   const [usuario, setUsuario] = useState({
     nome: '',
     email: '',
@@ -68,7 +71,7 @@ function PerfilUsuario() {
           <p><strong className='titulo-dados-pessoais'>Telefone:</strong> {usuario.telefone || 'N/A'}</p>
           <p><strong className='titulo-dados-pessoais'>CPF:</strong> {usuario.cpf || 'N/A'}</p>
         </div>
-        <button className="back-button">VOLTAR</button>
+        <button className="back-button" onClick={() => navigate(-1)}>Voltar</button>
       </div>
       </div>
     </div>
