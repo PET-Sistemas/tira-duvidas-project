@@ -1,6 +1,6 @@
 export class CreateFeedbackDTO {
-    userId: number
-    answerId: number
-    justification: string
-    status: string
+    userId?: number | undefined
+    answerId?: number | undefined
+    justification?: string | undefined
+    status?: string | undefined
 }

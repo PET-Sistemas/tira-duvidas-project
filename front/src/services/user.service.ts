@@ -23,6 +23,17 @@ export function login(data: LoginDTO) {
   });
 }
 
+export async function getUserById(id: string){
+  const response = await fetch(`http://localhost:8080/api/user/${id}`, {
+    method: "GET",
+  });
+  if (!response.ok) {
+    throw new Error("User not found");
+  }
+  const user = await response.json();
+  return user;
+}
+
 export async function allUser() {
   const response = await fetch("http://localhost:8080/api/user/", {
     method: "GET",

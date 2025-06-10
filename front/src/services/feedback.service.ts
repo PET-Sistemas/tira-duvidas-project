@@ -1,4 +1,4 @@
-import { CreateFeedbackDTO } from "../dtos/feedback/create-feedback.dto.ts";
+import { CreateFeedbackDTO } from "../dtos/feedback/create-feedback.dto.js";
 
 export function createFeedback(data: CreateFeedbackDTO) {
   return fetch("http://localhost:8080/api/feedback/", {

@@ -1,7 +1,7 @@
 export class CreateQuestionDTO {
-    title: string
-    description: string
-    questionerId: number
-    moderatorId: number
-    status: string
+    title?: string | undefined
+    description?: string | undefined
+    questionerId?: number | undefined
+    moderatorId?: number | undefined
+    status?: string | undefined
 }
