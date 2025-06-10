@@ -14,6 +14,7 @@ function CadastroDuvidas() {
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
+  const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     // Busca a foto de perfil do banco de dados (simulação)
@@ -104,6 +105,11 @@ function CadastroDuvidas() {
         </div>
 
         <div className="cadastro-duvida-form-group">
+        {showErrors && (
+          <div className="cadastro-duvida-errors">
+            <p className="cadastro-duvida-error-text">Por favor, preencha todos os campos.</p>
+          </div>
+        )}
         <label className='cadastro-duvida-label' htmlFor="descricao">Título:</label>
         <input
             id="titulo"
@@ -123,12 +129,18 @@ function CadastroDuvidas() {
           />
         </div>
         <div className="cadastro-duvida-buttons">
-          <button type="button" className="cadastro-duvida-button cadastro-duvida-cancel">
+          <button type="button" className="cadastro-duvida-button cadastro-duvida-cancel" onClick={() => navigate(-1)}>
             Cancelar
           </button>
+          {!title && !description ? (
+            <button type="submit" className="cadastro-duvida-button" disabled>
+            Salvar
+            </button>
+          ) : (
           <button type="submit" className="cadastro-duvida-button cadastro-duvida-save">
             Salvar
           </button>
+          )}
         </div>
       </form>
       <footer className="cadastro-duvida-footer">
