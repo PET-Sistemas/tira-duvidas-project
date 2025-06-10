@@ -41,3 +41,18 @@ export async function allUser() {
   const users = await response.json();
   return users;
 }
+
+export async function updateUser(id: string, data: Partial<CreateUserDTO>) {
+  const response = await fetch(`http://localhost:8080/api/user/${parseInt(id)}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    const errorData = await response.json(); // Captura detalhes do erro
+    throw new Error(errorData.message || "Failed to update user");
+  }
+  return await response.json();
+}
