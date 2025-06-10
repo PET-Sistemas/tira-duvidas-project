@@ -1,6 +1,6 @@
 export class CreateAnswersDTO {
-    questionId: number
-    respondentId: number
-    auditorId: number
-    description: string
+    questionId?: number | undefined
+    respondentId?: number | undefined
+    auditorId?: number | undefined
+    description?: string | undefined
 }

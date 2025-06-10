@@ -4,6 +4,7 @@ import './Perfil.css';
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
 import defaultProfilePic from '../default-profile.png'; // Imagem padrão
 import editIcon from '../Vector-edit.png'; // Ícone de edição
+import { getUserById } from '../../services/user.service.ts';
 
 function PerfilUsuario() {
   const [usuario, setUsuario] = useState({
@@ -15,14 +16,28 @@ function PerfilUsuario() {
   });
 
   useEffect(() => {
-    // Busca as informações do usuário no banco de dados
-    axios.get('/api/usuario-perfil')
-      .then(response => {
-        setUsuario(response.data);
+    const fetchUserData = async () => {
+
+      // Busca as informações do usuário no banco de dados
+      const userId = sessionStorage.getItem('id'); // Obtém o ID do usuário do sessionStorage
+      if (!userId) {
+        console.error('Usuário não autenticado');
+        return;
+      }
+
+      const response = await getUserById(userId);
+      console.log('Dados do usuário:', response);
+      
+      setUsuario({
+        nome: response.firstName || 'N/A',
+        email: response.email || 'N/A',
+        telefone: response.phone || 'N/A',
+        cpf: response.cpf || 'N/A',
+        fotoPerfil: response.fotoPerfil || 'N/A'
       })
-      .catch(error => {
-        console.error('Erro ao buscar informações do usuário:', error);
-      });
+    };
+
+    fetchUserData();
   }, []);
 
   // Define a imagem de perfil para exibir (usa a foto do banco ou a imagem padrão)

@@ -1,4 +1,4 @@
-import { CreateAnswersDTO } from "../dtos/answers/create-answers.dto.ts";
+import { CreateAnswersDTO } from "../dtos/answers/create-answers.dto.js";
 
 export function createAnswers(data: CreateAnswersDTO) {
   return fetch("http://localhost:8080/api/answers/", {

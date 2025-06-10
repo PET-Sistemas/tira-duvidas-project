@@ -1,4 +1,4 @@
-import { CreateCategoryDTO } from "../dtos/category/create-category.dto.ts";
+import { CreateCategoryDTO } from "../dtos/category/create-category.dto.js";
 
 export function createCategory(data: CreateCategoryDTO) {
   return fetch("http://localhost:8080/api/category/", {
