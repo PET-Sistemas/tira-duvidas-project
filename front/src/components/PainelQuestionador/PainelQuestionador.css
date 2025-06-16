@@ -1,86 +1,262 @@
-.container-questionador{
+.container-painel-questionador {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
 }
 
-.perfil-questionador-header {
+.painel-questionador-main {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+.painel-questionador-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px;
-    background-color: #fff; 
-    border-bottom: 2px solid #dad9d9;
-}
-.logo-painel-questionador{
-    width: 80px;
-    margin-left: 10px;
-}
-  
-.painel-questionador-titulo-header{
-    text-align: center;   
+    padding: 16px 24px;
+    background: linear-gradient(to right, #FFFFFF, #B6E2FF);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-.painel-questionador-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+.painel-questionador-header-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 3vw;
+    flex-wrap: nowrap;
+    width: 70%;
+}
+
+.logo-painel-questionador {
+    height: auto;
+    width: 14%;
+    min-width: 50px;
+    max-width: 80px;
+}
+
+.painel-questionador-header-nav {
+    display: flex;
+    gap: 3vw;
+    flex-wrap: wrap;
+}
+
+.painel-questionador-header-link {
+    text-decoration: none;
+    color: #0188B5;
+    font-weight: 600;
+    font-size: 1.2vw;
     white-space: nowrap;
+}
+
+.painel-questionador-header-link:hover {
+    text-decoration: underline;
+}
+
+.painel-questionador-header-direita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 20%;
+}
+
+.painel-questionador-icone-perfil {
+    height: auto;
+    width: 35%;
+    max-width: 45px;
+    min-width: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.painel-questionador-ola-user {
+    font-size: 1vw;
+    color: #0188B5;
+    font-weight: 500;
+}
+
+.painel-questionador-main {
+    padding: 20px;
+    text-align: center;
+}
+
+.painel-questionador-titulo {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
     color: #3498DB;
-  }
+}
+
+.painel-questionador-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
 
 .painel-questionador-card {
-    position: relative;
-    margin:auto;
-    margin-top: 60px;
-    width: 400px;
-    height: 300px;
-    justify-content: space-between;
-    border: 2px solid #3498DB; 
-    border-radius: 10px;
-    background: #fff;
-    padding: 16px;
+    width: 246px;
+    height: 246px;
+    background: linear-gradient(135deg, #3498DB, #005187);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.painel-questionador-lista {
-    list-style: none; /* Remove os pontos da lista */
-    padding: 0;
-    margin:0;
-    color: #3498DB;
+.painel-questionador-card:hover {
+    background: linear-gradient(135deg, #5dade2, #1a6fa5);
 }
 
-.painel-questionador-item {
-    padding: 12px;
-    margin-top: 2px;
-    margin-bottom: 10px;
+.painel-questionador-card-img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 12%;
+}
+
+.painel-questionador-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
     text-align: center;
-    font-size: 1.18rem;
-    font-weight: bold;
-    border-bottom: 1px solid #ddd; 
+}
+
+.painel-questionador-logout-button {
+    background-color: transparent;
+    border: 2px solid red;
+    color: red;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    max-width: 120px;
+    min-width: 90px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.painel-questionador-item:last-child {
-    border-bottom: none; /* Remove a linha do último item */
+.painel-questionador-logout-button:hover {
+    background-color: red;
+    color: white;
 }
 
-.painel-questionador-item:hover {
-    background: #f5f5f5; /* Efeito ao passar o mouse */
+.painel-questionador-footer {
+    background-color: #005187;
+    padding: 20px;
+    color: white;
+    margin-top: 40px;
 }
 
-.painel-questionador-sair{
-    width: 100%;
-    padding: 5px;
-    margin-top: 100px;
-    border: none;
-    background: none;
-    color: #E92B37;
-    font-size: 1.18rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
+.painel-questionador-footer-conteudo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-.painel-questionador-sair:hover {
-    background: #f5f5f5; /* Efeito ao passar o mouse */
+.painel-questionador-footer-logo {
+    max-width: 4%;
+    max-height: 4%;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .painel-questionador-header {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        padding: 4% 5%;
+    }
+
+    .painel-questionador-header-esquerda {
+        flex-direction: row;
+        align-items: center;
+        gap: 4%;
+        width: 70%;
+    }
+
+    .logo-painel-questionador {
+        width: 18%;
+        min-width: 50px;
+        max-width: 80px;
+    }
+
+    .painel-questionador-header-nav {
+        display: flex;
+        flex-direction: row;
+        gap: 5%;
+        flex-wrap: nowrap;
+    }
+
+    .painel-questionador-header-link {
+        font-size: 3.5vw;
+        white-space: nowrap;
+    }
+
+    .painel-questionador-header-direita {
+        width: 30%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .painel-questionador-icone-perfil {
+        width: 45%;
+    }
+
+    .painel-questionador-ola-user {
+        font-size: 3vw;
+    }
+
+    .painel-questionador-titulo {
+        font-size: 1.5rem;
+    }
+
+    .painel-questionador-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 5vw;
+    }
+
+    .painel-questionador-card {
+        width: 70%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .painel-questionador-card-img {
+        width: 15%;
+        height: auto;
+        margin-bottom: 8%;
+    }
+
+    .painel-questionador-card-title {
+        font-size: 4vw;
+    }
+
+    .painel-questionador-logout-button {
+        width: 70%;
+        font-size: 4vw;
+        padding: 3% 0;
+    }
+
+    .painel-questionador-footer-conteudo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .painel-questionador-footer-logo {
+        width: 65%;
+        height: auto;
+    }
 }
