@@ -4,7 +4,7 @@ import './PainelRespondente.css';
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
 import { useNavigate } from 'react-router-dom';
 import defaultProfilePic from '../default-profile.png'; // Imagem padrão
-
+import logoUfms from '../logo-ufms.png';
 import imgCard1 from '../DuvidasRespondidas.png';
 import imgCard2 from '../ResponderDuvidas.png';
 import imgCard3 from '../MinhasDuvidas.png';
@@ -12,6 +12,7 @@ import imgCard4 from '../DadosPessoais.png';
 import ufmsLogo from '../ufms-logo.png';
 
 function PainelRespondente() {
+
   return (
     <div className="container-respondente">
       <header className="perfil-respondente-header">
@@ -62,13 +63,11 @@ function PainelRespondente() {
           </a>
         </div>
 
-        <button className="logout-button">Logout</button>
+        <button className="painel-respondente-logout-button">Logout</button>
       </main>
 
-      <footer className="footer-respondente">
-        <div className="footer-conteudo">
-          <img src={ufmsLogo} alt="Logo rodapé" className="footer-logo" />
-        </div>
+      <footer>
+        <img src={logoUfms} alt="Logo UFMS" />
       </footer>
     </div>
   );

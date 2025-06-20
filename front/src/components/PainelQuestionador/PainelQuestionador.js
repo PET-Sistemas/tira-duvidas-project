@@ -5,7 +5,7 @@ import './PainelQuestionador.css';
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
 import defaultProfilePic from '../default-profile.png';
 import ufmsLogo from '../ufms-logo.png';
-
+import logoUfms from '../logo-ufms.png';
 import imgCard1 from '../MinhasDuvidas.png';
 import imgCard2 from '../DadosPessoais.png';
 
@@ -63,10 +63,8 @@ function PainelQuestionador() {
                 </button>
             </main>
 
-            <footer className="painel-questionador-footer">
-                <div className="painel-questionador-footer-conteudo">
-                    <img src={ufmsLogo} alt="Logo rodapé" className="painel-questionador-footer-logo" />
-                </div>
+            <footer>
+                <img src={logoUfms} alt="Logo UFMS" />
             </footer>
         </div>
     );

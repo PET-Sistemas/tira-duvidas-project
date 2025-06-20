@@ -99,8 +99,8 @@
 }
 
 .painel-questionador-card {
-    width: 246px;
-    height: 246px;
+    width: 18%;
+    height: 12rem;
     background: linear-gradient(135deg, #3498DB, #005187);
     border-radius: 12px;
     display: flex;
@@ -152,24 +152,7 @@
     color: white;
 }
 
-.painel-questionador-footer {
-    background-color: #005187;
-    padding: 20px;
-    color: white;
-    margin-top: 40px;
-}
 
-.painel-questionador-footer-conteudo {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.painel-questionador-footer-logo {
-    max-width: 4%;
-    max-height: 4%;
-    object-fit: contain;
-}
 
 @media (max-width: 768px) {
     .painel-questionador-header {
@@ -248,15 +231,23 @@
         padding: 3% 0;
     }
 
-    .painel-questionador-footer-conteudo {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 10px;
-    }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem; /* altura do rodapé, responsiva via rem */
+  background-color: #004990;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10;
+}
 
-    .painel-questionador-footer-logo {
-        width: 65%;
-        height: auto;
-    }
+footer img {
+  height: 3rem;
+  object-fit: contain;
+  margin: 1%;
+
+}
 }
