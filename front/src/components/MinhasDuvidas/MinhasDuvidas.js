@@ -4,6 +4,8 @@ import "./MinhasDuvidas.css";
 import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import FilterIcon from "../filtrar.png";
+import logoUfms from '../logo-ufms.png';
+
 
 function MinhasDuvidas() {
   const [duvidas, setDuvidas] = useState([]);
@@ -100,17 +102,19 @@ function MinhasDuvidas() {
   
 
   return (
+    
     <div className="minhas-duvidas">
       <header className="minhas-duvidas-header">
         <nav className="minhas-duvidas-nav">
           <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
           <a href="#sobre" className="minhas-duvidas-nav-link-sobre">Sobre nós</a>
-          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
           </a>
         </nav>
       </header>
+      <div className="bodyminhasduvidas">
+        <h2 className="titulo-pagina">Minhas Dúvidas</h2>
 
       <div className="filtrar-container">
         <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
@@ -153,6 +157,10 @@ function MinhasDuvidas() {
         </div>
       </section>
     </div>
+    <footer>
+        <img src={logoUfms} alt="Logo UFMS" />
+      </footer>
+       </div>
   );
 }
 
@@ -172,8 +180,8 @@ const DoubtCard = ({ doubt }) => {
 
   const getStatusIcon = (status) => {
     if (status === "insatisfeito") return "❌";
-    if (status === "pendente") return "⚠️";
-    if (status === "respondida") return "✅";
+    if (status === "not_answered") return "⚠️";
+    if (status === "answered") return "✅";
     return "❓";
   };
 

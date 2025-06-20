@@ -6,8 +6,10 @@
     display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 0px;
   width: 100%;
+        background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+
     }
 
     .responder-duvidas-nav {
@@ -24,15 +26,8 @@
     }
     
     .responder-duvidas-nav-link-sobre {
-      font-size: 14px;
-      margin-left: 30px;
       color: #3498DB;
-      text-decoration: none;
-      border:1px solid #3498DB;  
-      border-radius: 8px;
-      padding: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
+    margin-left: 2%;
      }
 
      .responder-duvidas-nav-link-sobre:hover {
@@ -57,8 +52,9 @@
       margin-right: 20px;
     }
   
-.filtrar-container{
-    margin: 15px;
+.filtrar-container {
+    margin: 1%;
+    margin-right: 3.5%;
     position: relative;
 }
 
@@ -69,9 +65,12 @@
   right: 0px;
 }
 
-.search-input{
-  margin-top: 8px;
-  width: 80%;
+.search-input {
+    margin-top: 8px;
+    width: 75%;
+    height: 80%;
+    padding: 3%;
+    border-radius: 4px;
 }
 
   .filter-btn {
@@ -105,11 +104,13 @@
     display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #0c7ac4;
+  border-radius: 4px;
   padding: 16px;
   margin-bottom: 16px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 5% ;
+margin-left: 5% ;
   }
   
   .doubt-card-responder.highlight {
@@ -132,7 +133,7 @@
   gap: 16px;
 }
 .status-icon {
-  font-size: 24px;
+  font-size: 2rem;
   margin-right: 8px;
 }
 
@@ -170,12 +171,14 @@ section{
 }
 
 .responder-btn{
-  background-color: #3498DB;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  padding:5px;
-  width: 100px;
+    background-color: #3498DB;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 7%;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
 }

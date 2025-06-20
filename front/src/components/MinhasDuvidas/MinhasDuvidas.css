@@ -9,8 +9,9 @@
   display: flex;
 align-items: center;
 justify-content: space-between;
-border-bottom: 1px solid #ccc;
+border-bottom: 0px;
 width: 100%;
+
   }
 
   .minhas-duvidas-nav {
@@ -19,6 +20,8 @@ width: 100%;
     justify-content: space-between;
     width: 100%;
     padding: 10px 20px;
+      background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+
   }
   
   .logo-cadasroDuvidas {
@@ -27,17 +30,11 @@ width: 100%;
   }
   
   .minhas-duvidas-nav-link-sobre {
-    font-size: 14px;
-    margin-left: 30px;
     color: #3498DB;
-    text-decoration: none;
-    border:1px solid #3498DB;  
-    border-radius: 8px;
-    padding: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    margin-left: 2%;
    }
 
+ 
   
   .titulo-pagina {
     position: absolute;
@@ -80,8 +77,8 @@ width: 100%;
 }
 
 .icon-situacao {
-  width: 40px;
-  height: 40px;
+  width: 2%;
+  height: 2%;
 }
 
 /* Conteúdo da dúvida */
@@ -147,6 +144,7 @@ width: 100%;
   align-items: end;
   margin: 10px 40px;
   margin-top: 0;
+  
 }
 
 .filtrar-btn {
@@ -155,18 +153,36 @@ width: 100%;
   padding: 8px 12px;
   background-color: #fff;
   border: 1px solid #3498DB;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   margin-top: 0;
-  margin-right: 5px;
+  margin-right: 5%;
 }
 
 .filtrar-btn:hover {
   background-color: #4ea1fb29;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem; /* altura do rodapé, responsiva via rem */
+  background-color: #004990;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 10;
+}
 
+footer img {
+  height: 3rem;
+  object-fit: contain;
+  margin: 1%;
+
+}
 .filtro-container {
   top: 155px;
 position: absolute;
@@ -223,13 +239,16 @@ gap: 10px;
 }
 
 .doubt-card-container-minhas-duvidas{
-border: 1px solid #ccc;
-border-radius: 8px;
+  background-color: #fff;
+border: 1px solid #0c7ac4;
+border-radius: 4px;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 margin-bottom: 16px;
-border-radius: 8px;
 padding: 16px;
 justify-content: center;
+margin-right: 5% ;
+margin-left: 5% ;
+
 }
 .doubt-card-minhas-duvidas {
 display: flex;
