@@ -4,6 +4,8 @@ import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../default-profile.png";
 import FilterIcon from "../filtrar.png";
 import { Link } from "react-router-dom"; // Importando Link do React Router 
+import logoUfms from '../logo-ufms.png';
+
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
@@ -79,12 +81,12 @@ const ResponderDuvidas = () => {
         <nav className="responder-duvidas-nav">
           <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
           <a href="#sobre" className="responder-duvidas-nav-link-sobre">Sobre nós</a>
-          <h2 className="titulo-pagina">Responder Dúvidas</h2>
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
           </a>
         </nav>
       </header>
+          <h2 className="titulo-pagina">Responder Dúvidas</h2>
 
       <div className="filtrar-container">
         <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
@@ -116,6 +118,9 @@ const ResponderDuvidas = () => {
           )}
         </div>
       </section>
+      <footer>
+        <img src={logoUfms} alt="Logo UFMS" />
+      </footer>
     </div>
   );
 };
@@ -130,8 +135,8 @@ const DoubtCard = ({ doubt }) => {
 
   const getStatusIcon = (status) => {
     if (status === "insatisfeito") return "❌";
-    if (status === "pendente") return "⚠️";
-    if (status === "active") return "✅";
+    if (status === "not_answered") return "⚠️";
+    if (status === "answered") return "✅";
     return "";
   };
 
@@ -147,7 +152,6 @@ const DoubtCard = ({ doubt }) => {
           <h3 className="doubt-title-responder">{doubt.title}</h3>
           <p className="doubt-description-responder">{doubt.description}</p>
           <p className="doubt-situation-responder">
-            <strong>Status:</strong> {doubt.status}
           </p>
           {doubt.status !== "respondida" && ( <Link to={{ pathname: `/responder-duvidas/${doubt.id}` }}
           state={{ doubt }} className="responder-btn"> Responder </Link> )}
@@ -157,6 +161,7 @@ const DoubtCard = ({ doubt }) => {
         <p><strong>Usuário:</strong> {doubt.questionerId}</p>
         <p><strong>Categoria:</strong> {doubt.category}</p>
         <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}</p>
+        <p><strong>Status:</strong> {doubt.status}</p>
       </div>
     </div>
   );

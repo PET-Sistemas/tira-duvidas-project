@@ -1,9 +1,4 @@
 /* Define que tudo ocupa 100% da largura */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
   
   /* HEADER RESPONSIVO */
   .responder-duvida-header {
