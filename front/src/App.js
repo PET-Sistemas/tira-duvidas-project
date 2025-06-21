@@ -18,6 +18,8 @@ import ProtectedRoute from './components/Login/ProtectedRoute.js';
 import logoUfms from './components/logo-ufms.png';
 import ilustracaoPergunta from './components/ilustracao-pergunta.png';
 import fotoprofile from './components/Vector (1).png';
+import SobreNos from './components/SobreNos/SobreNos.js';
+
 function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -86,7 +88,7 @@ function App() {
       <header className="app-home-header">
         <div className="items-header">
           <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-          <a href="#sobre" className="app-sobre-nav-link">Sobre nós</a>
+          <a href="sobrenos" className="app-sobre-nav-link">Sobre nós</a>
         </div>
 
         <nav className="app-home-nav">          
@@ -212,6 +214,12 @@ function AppWrapper() {
         <Route path="/responder-duvidas/:id" element={
           <ProtectedRoute>
             <ResponderDuvidasDetalhe />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/sobrenos" element={
+          <ProtectedRoute>
+            <SobreNos />
           </ProtectedRoute>
         } />
       </Routes>

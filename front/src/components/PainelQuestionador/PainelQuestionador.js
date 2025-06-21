@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PainelQuestionador.css';
-
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
 import defaultProfilePic from '../default-profile.png';
 import ufmsLogo from '../ufms-logo.png';
