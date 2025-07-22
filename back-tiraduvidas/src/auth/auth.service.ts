@@ -46,7 +46,7 @@ export class AuthService {
         role: user.role,
       });
 
-      return { token, message:" realizado com sucesso.", user: user };
+      return { token, message:"Login realizado com sucesso.", user: user };
     }
 
     throw new HttpException(
