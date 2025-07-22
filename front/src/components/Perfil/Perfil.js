@@ -94,10 +94,6 @@ function PerfilUsuario() {
           <div className="user-profile-pic">
             <img src={fotoPerfil} alt="Foto de Perfil" />
           </div>
-          <button className="edit-profile-button" onClick={() => setIsEditing(true)}>
-            <img src={editIcon} alt="Edit Icon" className="edit-icon-profile" />
-            <p>Editar Dados</p>
-          </button>
         </div>  
 
         {isEditing ? (
@@ -143,18 +139,23 @@ function PerfilUsuario() {
                 onChange={(e) => setTelefone(e.target.value)}
               />     
               <button className="save-button">Salvar</button>
+              <button className="back-button" onClick={() => setIsEditing(false)}>Cancelar</button>
             </form>
           </div>
         ) : (
           <div className="meus-dados-content">
             <div className="user-info">
+              <button className="edit-profile-button" onClick={() => setIsEditing(true)}>
+                <img src={editIcon} alt="Edit Icon" className="edit-icon-profile" />
+                <p>Editar Dados</p>
+              </button>
               <p><strong className='titulo-dados-pessoais'>Primeiro Nome:</strong> {usuario.firstName || 'N/A'}</p>
               <p><strong className='titulo-dados-pessoais'>Sobrenome:</strong> {usuario.lastName || 'N/A'}</p>
               <p><strong className='titulo-dados-pessoais'>Email:</strong> {usuario.email || 'N/A'}</p>
               <p><strong className='titulo-dados-pessoais'>Telefone:</strong> {usuario.phone || 'N/A'}</p>
               <p><strong className='titulo-dados-pessoais'>CPF:</strong> {usuario.cpf || 'N/A'}</p>
             </div>
-            <button className="back-button" onClick={() => navigate('/')}>Página Inicial</button>
+            <button className="back-button" onClick={() => navigate(-1)}>Voltar  </button>
           </div>
         )}
       </div>

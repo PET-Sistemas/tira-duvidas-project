@@ -87,7 +87,9 @@ function App() {
     <div className="app-home">
       <header className="app-home-header">
         <div className="items-header">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+          <a href="/" className="app-home-logo-link">
+            <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+          </a>
           <a href="sobrenos" className="app-sobre-nav-link">Sobre nós</a>
         </div>
 
