@@ -86,7 +86,7 @@ function PerfilUsuario() {
     <div className="dados-container">
       <header className="meus-dados-header">
         <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-meus-dados" />
-        <h1 className='title-meus-dados'>Meus Dados Pessoais</h1>
+        <h1 className='title-meus-dados'>Meus Dados</h1>
       </header>
 
       <div className='meus-dados-container'>
@@ -155,7 +155,7 @@ function PerfilUsuario() {
               <p><strong className='titulo-dados-pessoais'>Telefone:</strong> {usuario.phone || 'N/A'}</p>
               <p><strong className='titulo-dados-pessoais'>CPF:</strong> {usuario.cpf || 'N/A'}</p>
             </div>
-            <button className="back-button" onClick={() => navigate(-1)}>Voltar  </button>
+            <button className="back-button" onClick={() => navigate(-1)}>Voltar</button>
           </div>
         )}
       </div>
