@@ -106,7 +106,10 @@ function MinhasDuvidas() {
     <div className="minhas-duvidas">
       <header className="minhas-duvidas-header">
         <nav className="minhas-duvidas-nav">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+          <a href="/" className="app-home-logo-link">
+            <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+          </a>
+
           <a href="#sobre" className="minhas-duvidas-nav-link-sobre">Sobre nós</a>
           <a href="/perfil" className="profile-btn">
             <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
