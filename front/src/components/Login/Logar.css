@@ -1,10 +1,13 @@
 /* Definição geral da página */
 .body-login {
-  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #3498DB;
-  color: #fff;
+  /*background-color: #3498DB;*/
+  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
+  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
+  background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+  /*background: linear-gradient(to bottom, #6ec1e4 0%, #003366 100%);*/
+  /*color: #fff;*/
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,59 +18,110 @@
 /* Container principal */
 .container {
   display: flex;
-  flex-direction: row; /* Exibe os painéis lado a lado em telas grandes */
-  width: 700px;
-  min-height: 450px;
+  flex-direction: row;
+  width: 400px;         /* Reduzido para um comprimento menor */
+  max-width: 95vw;      /* Responsivo para telas pequenas */
+  min-height: 520px;
   background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow: hidden; /* Evita quebra de layout */
+  margin: 60px auto;
+  overflow: hidden;
+  align-items: center;  /* Alinha verticalmente os painéis */
+  justify-content: center; /* Alinha horizontalmente */
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+  z-index: -1;
+  filter: blur(20px);
+  border-radius: 30px;
 }
 
 /* Divisão central (linha) */
 .divider {
   width: 1.2px;
   background-color: #3498DB;
-  height: 90%;
+  /*height: 90%;*/
+  height: 80%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 20px;
+  /*margin-top: 20px;*/
+  /*top: 5%;*/
+  top: 10%;
 }
 
 /* Lado esquerdo - Logo e Título */
-.left-panel {
-  width: 50%; /* Define o lado esquerdo com 50% em telas grandes */
-  background-color: #fff;
+.left-panel{
+  width: 50%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  padding: 20px;
+  align-items: center;    /* Centraliza horizontalmente */
+  justify-content: center;/* Centraliza verticalmente */
+  padding: 30px 10px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;           /* Garante centralização vertical */
 }
 
 /* Estilo da imagem do painel esquerdo */
 .logo {
-  width: 200px;
+  /*width: 200px;*/
+  width: 250px;
   height: auto;
-  margin-bottom: 25px;
-  margin-left: 10px;
+  margin-top: 50px;
+  /*margin-bottom: 25px;*/
+  margin-bottom: 30px;
+  /*margin-left: 10px;*/
+}
+
+/* Estilos para o texto de descrição e footer no painel esquerdo */
+.description-text {
+  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+  font-weight: bold;
+  color: #2c7bb1; 
+  line-height: 1.5;
+  margin-bottom: auto; /* Empurra o footer para baixo */
+  margin-top: 20px; /* Espaço acima do texto de descrição */
+  padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
+}
+
+.footer-text {
+  font-size: 0.85em; /* Tamanho da fonte */
+  color: #2c7bb1; 
+  margin-top: auto; /* Empurra para o final da seção */
+  padding-bottom: 20px; /* Espaço acima da borda inferior do container */
+  font-weight: bold;
 }
 
 /* Lado direito - Formulário de login */
 .right-panel {
-  width: 50%; /* Define o lado direito com 50% em telas grandes */
-  padding: 40px;
+  width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;    /* Centraliza horizontalmente */
+  justify-content: center;/* Centraliza verticalmente */
+  padding: 30px 10px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;           /* Garante centralização vertical */
 }
 
 .right-panel h2 {
   color: #3498DB;
   text-align: center;
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
+  margin-bottom: 40px;
+  font-size: 2.5em; /* Tamanho da fonte do título */
+  font-weight: bold;
 }
 
 /* Estilo do formulário */
@@ -75,9 +129,129 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Garante que o form use todo o espaço disponível no painel */
+  width: 100%;
 }
 
+/* Wrapper para os inputs com ícones */
+.input-field {
+  position: relative;
+  width: 80%;
+  margin: 0 auto 15px auto;
+  display: block;
+}
+
+/* Estilo do ícone dentro do input */
+.input-field .input-icon {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-field .input-icon img {
+  width: 18px;   /* tamanho consistente */
+  height: 18px;
+}
+
+/* Estilos para input de email e senha (com ícones) */
+input[type="email"]{
+  width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
+  padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
+  margin-bottom: 10px; /* Seu valor */
+  border: 4px solid #2b98e0; /* Sua borda */
+  border-radius: 8px; /* Seu border-radius */
+  font-size: 14px; /* Seu font-size */
+  outline: none; /* Remove o contorno azul ao focar */
+  box-sizing: border-box;
+  line-height: 1.2; /* Garante que padding e border não adicionem à largura total */
+}
+input[type="password"]{
+  width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
+  padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
+  margin-bottom: 10px; /* Seu valor */
+  border: 4px solid #2b98e0; /* Sua borda */
+  border-radius: 8px; /* Seu border-radius */
+  font-size: 14px; /* Seu font-size */
+  outline: none; /* Remove o contorno azul ao focar */
+  box-sizing: border-box;
+  line-height: 1.2; /* Garante que padding e border não adicionem à largura total */
+}
+
+input[type="email"]::placeholder {
+  color: #999; 
+}
+
+input[type="password"]::placeholder {
+  color: #999; 
+  font-size: 14px; 
+  text-align: left; 
+  padding-top: 100px; 
+}
+
+
+
+/* Estilo para o link "Esqueci minha senha" */
+form .forgot-password { /* A regra continua dentro do form */
+  font-size: 14px;
+  color: #FF0000; /* Cor vermelha como na imagem */
+  text-decoration: none;
+  align-self:normal; /* Alinha à direita dentro do form */
+  margin-left: 242px;
+  margin-top: -20px; /* Ajuste para aproximar do input de senha */
+  margin-bottom: 10px; /* Espaço antes do botão */
+}
+
+/* Estilo para o botão de login */
+.btn-submit { /* Classe do seu botão */
+  width: 23%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
+  padding: 13px; /* Seu padding */
+  background-color: #3498DB; /* Sua cor */
+  color: #fff;
+  border: none;
+  border-radius: 6px; /* Seu border-radius */
+  font-size: 16px; /* Seu font-size */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px; /* Seu margin-top */
+  box-sizing: border-box; /* Garante que padding não adicione à largura total */
+  transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-submit:hover {
+  background-color: #1972b5; /* Sua cor de hover */
+}
+
+/* Estilo para o texto "Não tem uma conta? Cadastre-se" */
+.register-text {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.register-text .register-link {
+  color: #3498DB;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-text .register-link:hover {
+  text-decoration: underline;
+}
+
+/* Estilo do logo UFMS no rodapé */
+.ufms-logo {
+  width: 60px; /* Sua largura */
+  margin-top: 20px; /* Seu margin-top */
+  display: block; /* Garante que margin-left/right auto funcionem */
+  margin-left: auto; /* Seu margin-left auto */
+  margin-right: auto; /* Seu margin-right auto */
+  opacity: 0.8; /* Mantido para ser mais fiel à imagem de referência */
+}
+
+/*
 .label-login {
   width: 90%;
   font-size: 14px;
@@ -88,37 +262,38 @@ form {
 
 input[type="email"], input[type="password"] {
   width: calc(100% - 40px); /* Subtrai o padding dos lados para evitar cortes */
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 2px solid #3498DB;
-  border-radius: 10px;
-  font-size: 14px;
+  /*padding: 10px;
+  /*margin-bottom: 15px;
+  /*border: 2px solid #3498DB;
+  /*border-radius: 10px;
+  /*font-size: 14px;
 }
-
+/*
 button {
   width: calc(100% - 60px); /* Subtrai o padding dos lados para o botão */
-  padding: 10px;
-  background-color: #3498DB;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
+  /*padding: 10px;*/
+  /*background-color: #3498DB; */
+  /*color: #fff;*/
+  /*border: none;*/
+  /*border-radius: 10px;*/
+  /*font-size: 16px;*/
+  /*cursor: pointer;*/
+  /*margin-top: 10px;*/
+/*}*/
+/*
 button:hover {
   background-color: #1972b5;
-}
+}*/
 
 /* Estilo do logo UFMS no rodapé */
+/*
 .ufms-logo {
   width: 60px;
   margin-top: 20px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
+}*/
 
 .success-message {
   color: #008000;
