@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import './PainelQuestionador.css';
 import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import defaultProfilePic from '../default-profile.png';
+import fotoprofile from '../Vector (1).png';
 import ufmsLogo from '../ufms-logo.png';
 import logoUfms from '../logo-ufms.png';
 import imgCard1 from '../MinhasDuvidas.png';
 import imgCard2 from '../DadosPessoais.png';
 
 function PainelQuestionador() {
+    const [username, setUsername] = useState('');
+    
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -17,30 +19,42 @@ function PainelQuestionador() {
         navigate('/login');
     };
 
+    useEffect(() => {
+        // Verifica se há um username armazenado no sessionStorage
+        const storedUsername = sessionStorage.getItem('username');
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+    }, []);
+
     return (
         <div className="container-painel-questionador">
-            <header className="painel-questionador-header">
-                <div className="painel-questionador-header-esquerda">
-                    <img
-                        src={tiraDuvidasLogo}
-                        alt="Tira Dúvidas Logo"
-                        className="logo-painel-questionador"
-                    />
-                    <nav className="painel-questionador-header-nav">
-                        <a href="/" className="painel-questionador-header-link">
-                            Início
-                        </a>
-                        <a href="/sobre" className="painel-questionador-header-link">
-                            Sobre Nós
-                        </a>
-                    </nav>
+            <header className="app-home-header-painelq">
+                <div className="items-header-painel-questionador">
+                <a href="/" className="app-home-logo-link">
+                    <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+                </a>
+                <a href="sobrenos" className="app-sobre-nav-link">Sobre nós</a>
                 </div>
 
-                <div className="painel-questionador-header-direita">
-                    <img src={defaultProfilePic} alt="Perfil" className="painel-questionador-icone-perfil" />
-                    <span className="painel-questionador-ola-user">Olá username</span>
-                </div>
-            </header>
+                <nav className="app-home-nav-painelq">          
+                {username ? (
+                    // Exibe o nome do usuário se estiver logad
+                    <div className="app-home-user-info">
+                    <button onClick={() => navigate("/painel-questionador")} className="app-home-btn-profile">
+                        <img src={fotoprofile} alt="Foto de perfil" className="w-10 h-10 rounded-full object-cover" />
+                    </button>             
+                    <span className="app-home-username">Olá, {username}!</span>
+                    </div>
+                ) : (
+                    // Exibe os botões de login e cadastro se o usuário não estiver logado
+                    <>
+                    <button onClick={() => navigate('/login')} className="app-home-btn-login">Entrar</button>
+                    <button onClick={() => navigate('/signup')} className="app-home-btn-signup">Cadastrar-se</button>
+                    </>
+                )}
+                </nav>
+      </header>
 
             <main className="painel-questionador-main">
                 <h1 className="painel-questionador-titulo">Painel do Usuário</h1>
