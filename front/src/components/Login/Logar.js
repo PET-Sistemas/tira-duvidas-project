@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './Logar.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import cadeado from '../cadeado.png';
-import arroba from '../arroba.png';
-import ufmsLogo from '../ufms-logo.png';
+import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png';
+import cadeado from '../../utils/images/cadeado.png';
+import arroba from '../../utils/images/arroba.png';
+import ufmsLogo from '../../utils/images/ufms-logo.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../../services/user.service.ts';
 
@@ -84,7 +84,7 @@ function Logar() {
               onChange={(e) => setPassword(e.target.value)}
             />
             </div>
-            <a href ="#" className="forgot-password">Esqueci minha senha</a> {/* Link para recuperação de senha */}
+            <a href="/esqueci-minha-senha" className="forgot-password">Esqueci minha senha</a> {/* Link para recuperação de senha */}
             <button type="submit" className="btn-submit">Entrar</button>
           </form>
           {/* Texto "Não tem uma conta? Cadastre-se" */}

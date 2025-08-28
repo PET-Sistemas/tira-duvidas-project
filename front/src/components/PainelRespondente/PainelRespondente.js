@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './PainelRespondente.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import { useNavigate } from 'react-router-dom';
-import defaultProfilePic from '../default-profile.png'; // Imagem padrão
-import logoUfms from '../logo-ufms.png';
-import imgCard1 from '../DuvidasRespondidas.png';
-import imgCard2 from '../ResponderDuvidas.png';
-import imgCard3 from '../MinhasDuvidas.png';
-import imgCard4 from '../DadosPessoais.png';
-import ufmsLogo from '../ufms-logo.png';
+import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png';
+import defaultProfilePic from '../../utils/images/default-profile.png'; // Imagem padrão
+import logoUfms from '../../utils/images/logo-ufms.png';
+import imgCard1 from '../../utils/images/DuvidasRespondidas.png';
+import imgCard2 from '../../utils/images/ResponderDuvidas.png';
+import imgCard3 from '../../utils/images/MinhasDuvidas.png';
+import imgCard4 from '../../utils/images/DadosPessoais.png';
 
 function PainelRespondente() {
 

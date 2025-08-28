@@ -1,0 +1,321 @@
+/* Definição geral da página */
+.body-esqueci-minha-senha {
+  margin: 0;
+  padding: 0;
+  /*background-color: #3498DB;*/
+  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
+  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
+  background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+  /*background: linear-gradient(to bottom, #6ec1e4 0%, #003366 100%);*/
+  /*color: #fff;*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Container principal */
+.container-esqueci-minha-senha {
+  display: flex;
+  flex-direction: row;
+  width: 1000px;         /* Reduzido para um comprimento menor */
+  max-width: 95vw;      /* Responsivo para telas pequenas */
+  min-height: 520px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 60px auto;
+  overflow: hidden;
+  align-items: center;  /* Alinha verticalmente os painéis */
+  justify-content: center; /* Alinha horizontalmente */
+}
+
+.container-esqueci-minha-senha::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+  z-index: -1;
+  filter: blur(20px);
+  border-radius: 30px;
+}
+
+/* Divisão central (linha) */
+.divider-esqueci-minha-senha {
+  width: 1.2px;
+  background-color: #3498DB;
+  /*height: 90%;*/
+  height: 80%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /*margin-top: 20px;*/
+  /*top: 5%;*/
+  top: 10%;
+}
+
+/* Lado esquerdo - Logo e Título */
+.left-panel-esqueci-minha-senha{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Centraliza horizontalmente */
+  justify-content: center;/* Centraliza verticalmente */
+  padding: 30px 10px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;           /* Garante centralização vertical */
+}
+
+/* Estilo da imagem do painel esquerdo */
+.logo-esqueci-minha-senha {
+  /*width: 200px;*/
+  width: 250px;
+  height: auto;
+  margin-top: 50px;
+  /*margin-bottom: 25px;*/
+  margin-bottom: 30px;
+  /*margin-left: 10px;*/
+}
+
+/* Estilos para o texto de descrição e footer no painel esquerdo */
+.description-text-esqueci-minha-senha {
+  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+  font-weight: bold;
+  color: #2c7bb1; 
+  line-height: 1.5;
+  margin-bottom: auto; /* Empurra o footer para baixo */
+  margin-top: 20px; /* Espaço acima do texto de descrição */
+  padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
+}
+
+.footer-text-esqueci-minha-senha {
+  font-size: 0.85em; /* Tamanho da fonte */
+  color: #2c7bb1; 
+  margin-top: auto; /* Empurra para o final da seção */
+  padding-bottom: 20px; /* Espaço acima da borda inferior do container */
+  font-weight: bold;
+}
+
+/* Lado direito - Formulário de login */
+.right-panel-esqueci-minha-senha {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* Centraliza horizontalmente */
+  justify-content: center;/* Centraliza verticalmente */
+  padding: 30px 10px;
+  box-sizing: border-box;
+  text-align: center;
+  height: 100%;           /* Garante centralização vertical */
+}
+
+.right-panel-esqueci-minha-senha h2 {
+  color: #3498DB;
+  text-align: center;
+  /*margin-bottom: 30px;*/
+  margin-bottom: 40px;
+  font-size: 2.5em; /* Tamanho da fonte do título */
+  font-weight: bold;
+}
+
+/* Estilo do formulário */
+.form-esqueci-minha-senha {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Wrapper para os inputs com ícones */
+.input-field-esqueci-minha-senha {
+  position: relative;
+  width: 80%;
+  margin: 0 auto 15px auto;
+  display: block;
+}
+
+/* Estilo do ícone dentro do input */
+.input-field-esqueci-minha-senha .input-icon-esqueci-minha-senha {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-field-esqueci-minha-senha .input-icon-esqueci-minha-senha img {
+  width: 18px;   /* tamanho consistente */
+  height: 18px;
+}
+
+/* Estilos para input de email e senha (com ícones) */
+.input-esqueci-minha-senha[type="email"]{
+  width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
+  padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
+  margin-bottom: 10px; /* Seu valor */
+  border: 4px solid #2b98e0; /* Sua borda */
+  border-radius: 8px; /* Seu border-radius */
+  font-size: 14px; /* Seu font-size */
+  outline: none; /* Remove o contorno azul ao focar */
+  box-sizing: border-box;
+  line-height: 1.2; /* Garante que padding e border não adicionem à largura total */
+}
+
+.input-esqueci-minha-senha[type="email"]::placeholder {
+  color: #999; 
+}
+
+/* Estilo para o botão de enviar */
+.button-esqueci-minha-senha { /* Classe do seu botão */
+  width: 40%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
+  padding: 13px; /* Seu padding */
+  background-color: #3498DB; /* Sua cor */
+  color: #fff;
+  border: none;
+  border-radius: 6px; /* Seu border-radius */
+  font-size: 14px; /* Seu font-size */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px; /* Seu margin-top */
+  box-sizing: border-box; /* Garante que padding não adicione à largura total */
+  transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.button-group-esqueci-minha-senha {
+  display: flex;
+  gap: 10px; /* espaço entre os botões */
+  justify-content: center; /* opcional, centraliza os botões */
+  flex-wrap: wrap; /* permite quebra de linha em telas pequenas */
+}
+
+/* Estilo do logo UFMS no rodapé */
+.ufms-logo-esqueci-minha-senha {
+  width: 60px; /* Sua largura */
+  margin-top: 20px; /* Seu margin-top */
+  display: block; /* Garante que margin-left/right auto funcionem */
+  margin-left: auto; /* Seu margin-left auto */
+  margin-right: auto; /* Seu margin-right auto */
+  opacity: 0.8; /* Mantido para ser mais fiel à imagem de referência */
+}
+
+.success-message-esqueci-minha-senha {
+  color: #008000;
+  background-color: #e6ffe6;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.error-message-esqueci-minha-senha {
+  color: #ff0000;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Media Queries para tornar o design responsivo */
+
+/* Telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+  /* Ajusta o tamanho do container */
+  .container-esqueci-minha-senha {
+    flex-direction: column; /* Coloca os painéis em coluna */
+    width: 100%; /* Ajusta a largura */
+    height: auto;
+    align-items: center; /* Centraliza os itens no modo responsivo */
+    justify-content: center;
+  }
+
+  /* Remove a linha divisória */
+  .divider-esqueci-minha-senha {
+    display: none;
+  }
+
+  /* Ajusta o tamanho dos painéis para 100% */
+  .left-panel-esqueci-minha-senha, .right-panel-esqueci-minha-senha {
+    width: 100%; /* Ambos os painéis ocupam 100% da largura */
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo */
+    align-items: center;
+  }
+
+  /* Ajusta o tamanho da logo no painel esquerdo */
+  .logo-esqueci-minha-senha {
+    width: 120px;
+    margin: 0px;
+  }
+
+  .right-panel-esqueci-minha-senha h2{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  /* Ajusta o padding do painel direito */
+  .right-panel-esqueci-minha-senha {
+    padding: 10px;
+  }
+
+  /* Ajusta o tamanho do botão e dos inputs */
+  .input-esqueci-minha-senha[type="email"], input[type="password"] {
+    width: calc(100% - 30%); /* Inputs ocupam toda a largura */
+  }
+  
+  .label-esqueci-minha-senha {
+    width: 100%;
+    font-size: 40px;
+    margin-bottom: 5px;
+    color: #3498DB;
+    text-align: center;
+  }
+
+  .button-esqueci-minha-senha {
+    width: calc(100% - 30%); /* Botão ocupa toda a largura */
+  }
+}
+
+/* Telas menores que 480px (celulares menores) */
+@media (max-width: 480px) {
+  /* Ajusta o tamanho do cabeçalho */
+  .header-esqueci-minha-senha {
+    font-size: 18px;
+  }
+
+  .right-panel-esqueci-minha-senha h2{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+
+  /* Ajusta o tamanho do botão e inputs */
+  .input-esqueci-minha-senha[type="email"], input[type="password"] {
+    width: calc(100% - 40%); /* Inputs ocupam toda a largura */
+    font-size: 13px;
+  }
+
+  .button-esqueci-minha-senha {
+    width: calc(100% - 40%); /* Botão ocupa toda a largura */
+  }
+  .label-login-esqueci-minha-senha {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #3498DB;
+    text-align: center;
+  }
+
+  /* Ajusta o tamanho da logo */
+  .logo-esqueci-minha-senha {
+    width: 120px;
+    margin: 0px;
+  }
+}

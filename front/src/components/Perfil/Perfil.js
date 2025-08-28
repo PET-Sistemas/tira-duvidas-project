@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Perfil.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
-import defaultProfilePic from '../default-profile.png'; // Imagem padrão
-import editIcon from '../Vector-edit.png'; // Ícone de edição
+import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
+import defaultProfilePic from '../../utils/images/default-profile.png'; // Imagem padrão
+import editIcon from '../../utils/images/Vector-edit.png'; // Ícone de edição
 import { getUserById } from '../../services/user.service.ts';
 import { updateUser } from '../../services/user.service.ts';
 import { useNavigate } from 'react-router-dom';

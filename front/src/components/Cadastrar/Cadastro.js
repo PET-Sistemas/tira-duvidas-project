@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Cadastro.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png';
-import ufmsLogo from '../ufms-logo.png';
+import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png';
+import ufmsLogo from '../../utils/images/ufms-logo.png';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../services/user.service.ts';
 import { splitName } from '../../utils/nomeSobrenome.js';
