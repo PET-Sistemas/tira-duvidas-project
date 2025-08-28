@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './CadastroDuvidas.css';
-import tiraDuvidasLogo from '../Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
-import defaultProfilePic from '../default-profile.png'; // Ícone de imagem vazia
-import ufmsLogo from '../ufms-logo.png'; // Logo da UFMS
+import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
+import defaultProfilePic from '../../utils/images/default-profile.png'; // Ícone de imagem vazia
+import ufmsLogo from '../../utils/images/ufms-logo.png'; // Logo da UFMS
 import { createQuestion } from '../../services/question.service.ts';
 import { allCategory } from '../../services/category.service.ts';
 import { useNavigate } from 'react-router-dom';

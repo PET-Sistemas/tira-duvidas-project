@@ -1,7 +1,7 @@
 .container-painel-questionador {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -10,26 +10,47 @@
     flex: 1;
     padding: 20px;
     text-align: center;
+  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+
 }
 
-.painel-questionador-header {
-    display: flex;
+.app-home-header-painelq{
+display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
-    background: linear-gradient(to right, #FFFFFF, #B6E2FF);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: relative;
+    padding: 4px;
+  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
 }
 
-.painel-questionador-header-esquerda {
-    display: flex;
-    align-items: center;
-    gap: 3vw;
-    flex-wrap: nowrap;
-    width: 70%;
+.app-home-logo {
+  font-size: 24px;
+  font-weight: bold;
 }
+
+.app-home-nav {
+  display: flex;
+  align-items: center;
+}
+
+.app-home-nav-link {
+  color: #3498DB;
+  text-decoration: none;
+  margin-right: 60px;
+  font-size: 14px;
+}
+
+.app-sobre-nav-link{
+  color: #3498DB;
+  margin-left: 2%;
+
+}
+
+.items-header-painel-questionador{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 
 .logo-painel-questionador {
     height: auto;
@@ -82,27 +103,31 @@
 .painel-questionador-main {
     padding: 20px;
     text-align: center;
+
 }
 
 .painel-questionador-titulo {
-    font-size: 1.8rem;
+    font-size: 200%;
     margin-bottom: 30px;
     color: #3498DB;
 }
 
 .painel-questionador-cards {
+    height: max-content;
     display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
     margin-bottom: 40px;
+    height: 50%;
+    align-items: center;
 }
 
 .painel-questionador-card {
-    width: 18%;
-    height: 12rem;
+    width: 15%;
+    height: 65%;
     background: linear-gradient(135deg, #3498DB, #005187);
-    border-radius: 12px;
+    border-radius:4px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,8 +149,8 @@
 }
 
 .painel-questionador-card-title {
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.3rem;
+    font-weight:500;
     text-align: center;
 }
 
@@ -133,14 +158,14 @@
     background-color: transparent;
     border: 2px solid red;
     color: red;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     padding: 8px 15px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    max-width: 120px;
-    min-width: 90px;
+    width: 8%;
+    height: 6%;
     box-sizing: border-box;
     text-align: center;
     overflow: hidden;
@@ -236,7 +261,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 3.5rem; /* altura do rodapé, responsiva via rem */
+  height: 3.5%; /* altura do rodapé, responsiva via rem */
   background-color: #004990;
   display: flex;
   justify-content: flex-end;

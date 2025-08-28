@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./MinhasDuvidas.css";
-import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../default-profile.png";
-import FilterIcon from "../filtrar.png";
-import logoUfms from '../logo-ufms.png';
+import tiraDuvidasLogo from "../../utils/images/Logo-Tira-Dúvidas-removebg.png";
+import defaultProfilePic from "../../utils/images/default-profile.png";
+import FilterIcon from "../../utils/images/filtrar.png";
+import logoUfms from '../../utils/images/logo-ufms.png';
 
 
 function MinhasDuvidas() {

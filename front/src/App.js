@@ -9,16 +9,17 @@ import ResponderDuvidas from './components/ResponderDuvidas/ResponderDuvidas.js'
 import PainelQuestionador from './components/PainelQuestionador/PainelQuestionador.js';
 import PainelRespondente from './components/PainelRespondente/PainelRespondente.js';
 import './App.css'; 
-import tiraDuvidasLogo from './components/Logo-Tira-Dúvidas-removebg.png';
+import tiraDuvidasLogo from './utils/images/Logo-Tira-Dúvidas-removebg.png';
 import { allQuestion, getQuestionByTitle } from './services/question.service.ts';
 import { allCategory } from './services/category.service.ts';
 import MinhasDuvidasDetalhe from './components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js';
 import ResponderDuvidasDetalhe from './components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js';
 import ProtectedRoute from './components/Login/ProtectedRoute.js';
-import logoUfms from './components/logo-ufms.png';
-import ilustracaoPergunta from './components/ilustracao-pergunta.png';
-import fotoprofile from './components/Vector (1).png';
+import logoUfms from './utils/images/logo-ufms.png';
+import ilustracaoPergunta from './utils/images/ilustracao-pergunta.png';
+import fotoprofile from './utils/images/Vector.png';
 import SobreNos from './components/SobreNos/SobreNos.js';
+import EsqueciMinhaSenha from './components/EsqueciMinhaSenha/EsqueciMinhaSenha.js';
 
 function App() {
   const navigate = useNavigate();
@@ -157,6 +158,7 @@ function AppWrapper() {
         {/* Rotas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
         
         {/* Rotas protegidas */}
         <Route path="/" element={

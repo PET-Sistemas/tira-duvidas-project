@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./SobreNos.css";
-import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
-import logoUfms from '../logo-ufms.png';
-import fotoprofile from '../Vector (1).png';
-import integrante1 from "../integrante1.jpg";
-import integrante2 from "../integrante2.jpg";
-import integrante3 from "../integrante3.jpg";
-import integrante4 from "../integrante4.jpg";
-import integrante5 from "../integrante5.jpg";
+import tiraDuvidasLogo from "../../utils/images/Logo-Tira-Dúvidas-removebg.png";
+import logoUfms from '../../utils/images/logo-ufms.png';
+import fotoprofile from '../../utils/images/Vector.png';
+import integrante1 from "../../utils/images/integrante1.jpg";
+import integrante2 from "../../utils/images/integrante2.jpg";
+import integrante3 from "../../utils/images/integrante3.jpg";
+import integrante4 from "../../utils/images/integrante4.jpg";
+import integrante5 from "../../utils/images/integrante5.jpg";
 
 const integrantes = [
   {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./MinhasDuvidasDetalhe.css";
-import tiraDuvidasLogo from "../Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../default-profile.png";
+import tiraDuvidasLogo from "../../utils/images/Logo-Tira-Dúvidas-removebg.png";
+import defaultProfilePic from "../../utils/images/default-profile.png";
 import { getAnswers }  from '../../services/answers.service.ts';
 import { allAnswers } from '../../services/answers.service.ts';
 import { createFeedback } from '../../services/feedback.service.ts';
