@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 /* Estilo global */
 body {
   margin: 0;
@@ -19,7 +20,7 @@ body {
   font-weight: bold;
 }
 
-.app-home-logo img {
+.logo-cadasroDuvidas {
   width: 7rem;
 }
 
@@ -32,12 +33,22 @@ body {
   color: #3498db;
   text-decoration: none;
   margin-right: 60px;
-  font-size: 14px;
 }
 
 .app-sobre-nav-link {
   color: #3498db;
   margin-left: 2%;
+}
+
+.app-sobre-nav-link i{
+  font-size: 1.2rem;
+  margin-right: 3px;
+}
+
+.app-sobre-nav-link{
+  font-size: 0.93rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
 }
 
 .app-home-search-bar {
@@ -94,9 +105,10 @@ body {
 
 .items-header {
   display: flex;
-  align-items: center;
+  align-items:center;
   width: 100%;
 }
+
 .app-home-category {
   padding: 10px 20px;
   background-color: #fcfcfcc3;

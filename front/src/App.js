@@ -103,14 +103,14 @@ function App() {
               className="logo-cadasroDuvidas"
             />
           </a>
-          <a href="cadastroduvidas" class="app-sobre-nav-link">
-            <i class="bi bi-house-door-fill"></i>Início
+          <a href="cadastroduvidas" className="app-sobre-nav-link">
+            <i className="bi bi-house-door-fill"></i>Início
           </a>
-          <a href="sobrenos" class="app-sobre-nav-link">
-            <i class="bi bi-people-fill"></i>Sobre nós
+          <a href="sobrenos" className="app-sobre-nav-link">
+            <i className="bi bi-people-fill"></i>Sobre nós
           </a>
-          <a href="minhas-duvidas" class="app-sobre-nav-link">
-            <i class="bi bi-patch-question-fill"></i>Minhas dúvidas
+          <a href="minhas-duvidas" className="app-sobre-nav-link">
+            <i className="bi bi-patch-question-fill"></i>Minhas dúvidas
           </a>
         </div>
         <nav className="app-home-nav">
@@ -140,7 +140,8 @@ function App() {
               </button>
               <button
                 onClick={() => navigate("/signup")}
-                className="app-home-btn-signup"
+                className="app-home-b
+                tn-signup"
               >
                 Cadastrar-se
               </button>
