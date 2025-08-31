@@ -7,10 +7,10 @@ body {
 
 /* Cabeçalho */
 .app-home-header {
-display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
   background: linear-gradient(to right, #f8f9fd, #b9ddf9);
 }
 
@@ -19,22 +19,25 @@ display: flex;
   font-weight: bold;
 }
 
+.app-home-logo img {
+  width: 7rem;
+}
+
 .app-home-nav {
   display: flex;
   align-items: center;
 }
 
 .app-home-nav-link {
-  color: #3498DB;
+  color: #3498db;
   text-decoration: none;
   margin-right: 60px;
   font-size: 14px;
 }
 
-.app-sobre-nav-link{
-  color: #3498DB;
+.app-sobre-nav-link {
+  color: #3498db;
   margin-left: 2%;
-
 }
 
 .app-home-search-bar {
@@ -46,15 +49,14 @@ display: flex;
 .app-home-search-input {
   padding: 8px;
   border-radius: 8px;
-  border: 2px solid #3498DB;
+  border: 2px solid #3498db;
   width: 500px;
-
 }
 
 .app-home-search-btn {
   width: 10%;
   background-color: white;
-  color: #3498DB;
+  color: #3498db;
   border: none;
   padding: 8px;
   cursor: pointer;
@@ -67,7 +69,7 @@ display: flex;
 
 /* Botões de login/cadastro */
 .app-home-btn-login {
-  background-color: #3498DB;
+  background-color: #3498db;
   color: #f9f9f9;
   border: none;
   border-radius: 4px;
@@ -75,9 +77,8 @@ display: flex;
   margin-left: 20px;
   margin-bottom: 10px;
   font-size: 14px;
-  border: 2px solid #3498DB;
+  border: 2px solid #3498db;
 }
-
 
 /* Categorias */
 .app-home-categories {
@@ -86,12 +87,12 @@ display: flex;
   margin: 10;
 }
 
-.container-categories{
+.container-categories {
   margin-left: 20px;
   margin-right: 20px;
 }
 
-.items-header{
+.items-header {
   display: flex;
   align-items: center;
   width: 100%;
@@ -99,9 +100,9 @@ display: flex;
 .app-home-category {
   padding: 10px 20px;
   background-color: #fcfcfcc3;
-  border: 1px solid #3498DB;
+  border: 1px solid #3498db;
   border-radius: 4px;
-  color: #3498DB;
+  color: #3498db;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -114,7 +115,7 @@ display: flex;
 .app-home-faq-title {
   text-align: center;
   font-size: 20px;
-  color: #3498DB;
+  color: #3498db;
   margin-bottom: 20px;
 }
 
@@ -125,7 +126,7 @@ display: flex;
 }
 
 .app-home-faq-item {
-  border: 1px solid #3498DB;
+  border: 1px solid #3498db;
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -134,29 +135,28 @@ display: flex;
 
 .app-home-faq-img {
   width: 40px;
-  height:30px;
+  height: 30px;
 }
 
-.app-home-faq-description{
+.app-home-faq-description {
   font-size: 14px;
-  color:#5b5b5b;
+  color: #5b5b5b;
 }
 
-.app-home-faq-question{
+.app-home-faq-question {
   font-size: 16px;
 }
 
-.Logo-Titulo{
+.Logo-Titulo {
   justify-content: space-between;
   align-items: center;
-
 }
 
 /* src/components/WelcomeScreen.css */
 .app-home {
   height: 100%;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background: linear-gradient(to right, #f8f9fd, #b9ddf9);
   color: #003366;
 }
@@ -174,24 +174,20 @@ display: flex;
 }
 
 .welcome-content h1 {
-  font-size: 2rem;
+  font-size: 2.18rem;
   margin-bottom: 10px;
   color: #004080;
 }
 
-.welcome-content h1 span {
-  color: #0066cc;
-}
-
 .welcome-content p {
-  font-size: 0.95rem;
+  font-size: 1.25rem;
   margin-bottom: 20px;
-  color: #333;
+  color: #005187;
 }
 
 .welcome-content button {
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 1.55rem;
   background-color: #004080;
   color: white;
   border: none;
@@ -205,7 +201,7 @@ display: flex;
 
 .welcome-illustration {
   align-items: center;
-  display:flex;
+  display: flex;
 }
 
 .welcome-illustration img {
@@ -230,7 +226,6 @@ footer img {
   height: 3rem;
   object-fit: contain;
   margin: 1%;
-
 }
 
 .app-home-btn-profile {
@@ -241,7 +236,7 @@ footer img {
 }
 
 .app-home-btn-profile img {
-  width: 40px;  /* ou responsivo com unidades relativas */
+  width: 40px; /* ou responsivo com unidades relativas */
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
@@ -253,6 +248,6 @@ footer img {
   align-items: center; /* opcional, centraliza */
 }
 
-.app-home-username{
+.app-home-username {
   text-align: center;
 }
