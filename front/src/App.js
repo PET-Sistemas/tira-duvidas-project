@@ -103,7 +103,7 @@ function App() {
               className="logo-cadasroDuvidas"
             />
           </a>
-          <a href="cadastroduvidas" className="app-sobre-nav-link">
+          <a href="/" className="app-sobre-nav-link">
             <i className="bi bi-house-door-fill"></i>Início
           </a>
           <a href="sobrenos" className="app-sobre-nav-link">

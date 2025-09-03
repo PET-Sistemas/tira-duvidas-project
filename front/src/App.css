@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
 }
 
 /* Cabeçalho */
@@ -12,7 +13,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 4px;
-  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
 }
 
 .app-home-logo {

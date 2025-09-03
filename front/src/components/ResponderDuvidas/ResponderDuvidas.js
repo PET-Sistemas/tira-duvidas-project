@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./ResponderDuvidas.css";
+import "../global.css";
 import tiraDuvidasLogo from "../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../utils/images/default-profile.png";
 import FilterIcon from "../../utils/images/filtrar.png";
-import { Link } from "react-router-dom"; // Importando Link do React Router 
-import logoUfms from '../../utils/images/logo-ufms.png';
-
+import { Link } from "react-router-dom"; // Importando Link do React Router
+import logoUfms from "../../utils/images/logo-ufms.png";
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
@@ -77,26 +77,53 @@ const ResponderDuvidas = () => {
 
   return (
     <div className="responder-duvidas">
-      <header className="responder-duvidas-header">
-        <nav className="responder-duvidas-nav">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
-          <a href="#sobre" className="responder-duvidas-nav-link-sobre">Sobre nós</a>
+      <header className="header-global">
+        <nav className="header-global-nav">
+          <a href="/" className="app-home-logo-link">
+            <img
+              src={tiraDuvidasLogo}
+              alt="Tira Dúvidas Logo"
+              className="logo-cadasroDuvidas"
+            />
+          </a>
+
+          <a href="/" className="nav-bar-item">
+            <i className="bi bi-house-door-fill"></i>Início
+          </a>
+          <a href="sobrenos" className="nav-bar-item">
+            <i className="bi bi-people-fill"></i>Sobre nós
+          </a>
+
           <a href="/perfil" className="profile-btn">
-            <img src={defaultProfilePic} alt="icon-profile" className="user-profile-img" />
+            <img
+              src={defaultProfilePic}
+              alt="icon-profile"
+              className="user-profile-img"
+            />
           </a>
         </nav>
       </header>
-          <h2 className="titulo-pagina">Responder Dúvidas</h2>
+      <h2 className="titulo-pagina">Responder Dúvidas</h2>
 
       <div className="filtrar-container">
         <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
-          <img src={FilterIcon} alt="Filter Icon" className="filter-icon-profile" />
+          <img
+            src={FilterIcon}
+            alt="Filter Icon"
+            className="filter-icon-profile"
+          />
           Filtrar
         </button>
 
         {filtroVisivel && (
           <div className="filtro-container">
-            <input type="text" placeholder="Buscar por palavra" value={search} onChange={handleSearchChange} className="search-input" />
+            <input
+              type="text"
+              placeholder="Buscar por palavra"
+              value={search}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
             <select onChange={handleFiltroChange} value={filtro}>
               <option value="">Selecione um filtro</option>
               <option value="crescente">Mais antigos</option>
@@ -104,7 +131,9 @@ const ResponderDuvidas = () => {
               <option value="naoRespondidas">Não Respondidas</option>
               <option value="respondidas">Respondidas</option>
             </select>
-            <button onClick={aplicarFiltro} className="button-filter">Aplicar filtro</button>
+            <button onClick={aplicarFiltro} className="button-filter">
+              Aplicar filtro
+            </button>
           </div>
         )}
       </div>
@@ -112,7 +141,9 @@ const ResponderDuvidas = () => {
       <section>
         <div className="doubt-list-responder">
           {filteredDoubts.length > 0 ? (
-            filteredDoubts.map((doubt) => <DoubtCard key={doubt.id} doubt={doubt} />)
+            filteredDoubts.map((doubt) => (
+              <DoubtCard key={doubt.id} doubt={doubt} />
+            ))
           ) : (
             <p>Nenhuma dúvida encontrada.</p>
           )}
@@ -141,7 +172,7 @@ const DoubtCard = ({ doubt }) => {
   };
 
   const handleResponder = (id) => {
-    console.log('Responder dúvida com ID: ${id}');
+    console.log("Responder dúvida com ID: ${id}");
   };
 
   return (
@@ -151,17 +182,32 @@ const DoubtCard = ({ doubt }) => {
         <div className="doubt-main-info-responder">
           <h3 className="doubt-title-responder">{doubt.title}</h3>
           <p className="doubt-description-responder">{doubt.description}</p>
-          <p className="doubt-situation-responder">
-          </p>
-          {doubt.status !== "respondida" && ( <Link to={{ pathname: `/responder-duvidas/${doubt.id}` }}
-          state={{ doubt }} className="responder-btn"> Responder </Link> )}
+          <p className="doubt-situation-responder"></p>
+          {doubt.status !== "respondida" && (
+            <Link
+              to={{ pathname: `/responder-duvidas/${doubt.id}` }}
+              state={{ doubt }}
+              className="responder-btn"
+            >
+              {" "}
+              Responder{" "}
+            </Link>
+          )}
         </div>
       </div>
       <div className="doubt-additional-info-responder">
-        <p><strong>Usuário:</strong> {doubt.questionerId}</p>
-        <p><strong>Categoria:</strong> {doubt.category}</p>
-        <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}</p>
-        <p><strong>Status:</strong> {doubt.status}</p>
+        <p>
+          <strong>Usuário:</strong> {doubt.questionerId}
+        </p>
+        <p>
+          <strong>Categoria:</strong> {doubt.category}
+        </p>
+        <p>
+          <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}
+        </p>
+        <p>
+          <strong>Status:</strong> {doubt.status}
+        </p>
       </div>
     </div>
   );
