@@ -2,17 +2,12 @@
 .body-login {
   margin: 0;
   padding: 0;
-  /*background-color: #3498DB;*/
-  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
-  /*background: linear-gradient(to right, #2c7bb1, #4da4e4, #66b6eb);*/
-  background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
-  /*background: linear-gradient(to bottom, #6ec1e4 0%, #003366 100%);*/
-  /*color: #fff;*/
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
+  background: var(--gradiente-card);
 }
 
 /* Container principal */
@@ -22,7 +17,7 @@
   width: 400px;         /* Reduzido para um comprimento menor */
   max-width: 95vw;      /* Responsivo para telas pequenas */
   min-height: 520px;
-  background-color: #fff;
+  background: var(--gradiente-fundo);
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -135,7 +130,7 @@ form {
 /* Wrapper para os inputs com ícones */
 .input-field {
   position: relative;
-  width: 80%;
+  width: 90%;
   margin: 0 auto 15px auto;
   display: block;
 }
@@ -155,17 +150,7 @@ form {
 }
 
 /* Estilos para input de email e senha (com ícones) */
-input[type="email"]{
-  width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
-  padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
-  margin-bottom: 10px; /* Seu valor */
-  border: 4px solid #2b98e0; /* Sua borda */
-  border-radius: 8px; /* Seu border-radius */
-  font-size: 14px; /* Seu font-size */
-  outline: none; /* Remove o contorno azul ao focar */
-  box-sizing: border-box;
-  line-height: 1.2; /* Garante que padding e border não adicionem à largura total */
-}
+input[type="email"],
 input[type="password"]{
   width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
   padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
@@ -197,7 +182,7 @@ form .forgot-password { /* A regra continua dentro do form */
   color: #FF0000; /* Cor vermelha como na imagem */
   text-decoration: none;
   align-self:normal; /* Alinha à direita dentro do form */
-  margin-left: 242px;
+  margin-left: 180px;
   margin-top: -20px; /* Ajuste para aproximar do input de senha */
   margin-bottom: 10px; /* Espaço antes do botão */
 }

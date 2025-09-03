@@ -1,36 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import Login from './components/Login/Logar.js';
-import Signup from './components/Cadastrar/Cadastro.js';
-import CadastroDuvidas from './components/CadastrarDuvidas/CadastroDuvidas.js';
-import PerfilUsuario from './components/Perfil/Perfil.js';
-import MinhasDuvidas from './components/MinhasDuvidas/MinhasDuvidas.js';
-import ResponderDuvidas from './components/ResponderDuvidas/ResponderDuvidas.js';
-import PainelQuestionador from './components/PainelQuestionador/PainelQuestionador.js';
-import PainelRespondente from './components/PainelRespondente/PainelRespondente.js';
-import './App.css'; 
-import tiraDuvidasLogo from './utils/images/Logo-Tira-Dúvidas-removebg.png';
-import { allQuestion, getQuestionByTitle } from './services/question.service.ts';
-import { allCategory } from './services/category.service.ts';
-import MinhasDuvidasDetalhe from './components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js';
-import ResponderDuvidasDetalhe from './components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js';
-import ProtectedRoute from './components/Login/ProtectedRoute.js';
-import logoUfms from './utils/images/logo-ufms.png';
-import ilustracaoPergunta from './utils/images/ilustracao-pergunta.png';
-import fotoprofile from './utils/images/Vector.png';
-import SobreNos from './components/SobreNos/SobreNos.js';
-import EsqueciMinhaSenha from './components/EsqueciMinhaSenha/EsqueciMinhaSenha.js';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import Login from "./components/Login/Logar.js";
+import Signup from "./components/Cadastrar/Cadastro.js";
+import CadastroDuvidas from "./components/CadastrarDuvidas/CadastroDuvidas.js";
+import PerfilUsuario from "./components/Perfil/Perfil.js";
+import MinhasDuvidas from "./components/MinhasDuvidas/MinhasDuvidas.js";
+import ResponderDuvidas from "./components/ResponderDuvidas/ResponderDuvidas.js";
+import PainelQuestionador from "./components/PainelQuestionador/PainelQuestionador.js";
+import PainelRespondente from "./components/PainelRespondente/PainelRespondente.js";
+import "./App.css";
+import tiraDuvidasLogo from "./utils/images/Logo-Tira-Dúvidas-removebg.png";
+import {
+  allQuestion,
+  getQuestionByTitle,
+} from "./services/question.service.ts";
+import { allCategory } from "./services/category.service.ts";
+import MinhasDuvidasDetalhe from "./components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js";
+import ResponderDuvidasDetalhe from "./components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js";
+import ProtectedRoute from "./components/Login/ProtectedRoute.js";
+import logoUfms from "./utils/images/logo-ufms.png";
+import ilustracaoPergunta from "./utils/images/ilustracao-pergunta.png";
+import fotoprofile from "./utils/images/Vector.png";
+import SobreNos from "./components/SobreNos/SobreNos.js";
+import EsqueciMinhaSenha from "./components/EsqueciMinhaSenha/EsqueciMinhaSenha.js";
 
 function App() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [questions, setQuestions] = useState([]); // Estado para armazenar as perguntas
   const [categories, setCategories] = useState([]); // Estado para armazenar as categorias
   const [selectedCategory, setSelectedCategory] = useState(null); // Estado para armazenar a categoria selecionada
 
   useEffect(() => {
     // Verifica se há um username armazenado no sessionStorage
-    const storedUsername = sessionStorage.getItem('username');
+    const storedUsername = sessionStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
     }
@@ -43,7 +51,7 @@ function App() {
         setCategories(fetchedCategories); // Atualiza o estado das categorias
         setQuestions(fetchedQuestions); // Atualiza o estado das perguntas
       } catch (error) {
-        console.error('Erro ao buscar categorias ou perguntas:', error);
+        console.error("Erro ao buscar categorias ou perguntas:", error);
       }
     };
 
@@ -55,24 +63,24 @@ function App() {
     setSelectedCategory(categoryName); // Atualiza a categoria selecionada
     try {
       // Chama a API para buscar perguntas que correspondem ao título da categoria
-      const filteredQuestions = await getQuestionByTitle(categoryName); 
+      const filteredQuestions = await getQuestionByTitle(categoryName);
       setQuestions(filteredQuestions); // Atualiza o estado das perguntas filtradas
     } catch (error) {
-      console.error('Erro ao filtrar perguntas:', error);
+      console.error("Erro ao filtrar perguntas:", error);
     }
   };
 
   const handleLogout = () => {
     // Remove o username e o id do sessionStorage, redefine o estado e redireciona para a tela de login
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('id');
-    setUsername('');
-    navigate('/login');
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    setUsername("");
+    navigate("/login");
   };
 
   const searchQuestion = async () => {
-    const valor = document.getElementById('searchInput').value;
-    
+    const valor = document.getElementById("searchInput").value;
+
     if (valor === "") {
       // Se o campo de pesquisa estiver vazio, recarrega todas as perguntas
       const fetchedQuestions = await allQuestion();
@@ -89,25 +97,54 @@ function App() {
       <header className="app-home-header">
         <div className="items-header">
           <a href="/" className="app-home-logo-link">
-            <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo-cadasroDuvidas" />
+            <img
+              src={tiraDuvidasLogo}
+              alt="Tira Dúvidas Logo"
+              className="logo-cadasroDuvidas"
+            />
           </a>
-          <a href="sobrenos" className="app-sobre-nav-link">Sobre nós</a>
+          <a href="/" className="app-sobre-nav-link">
+            <i className="bi bi-house-door-fill"></i>Início
+          </a>
+          <a href="sobrenos" className="app-sobre-nav-link">
+            <i className="bi bi-people-fill"></i>Sobre nós
+          </a>
+          <a href="minhas-duvidas" className="app-sobre-nav-link">
+            <i className="bi bi-patch-question-fill"></i>Minhas dúvidas
+          </a>
         </div>
-
-        <nav className="app-home-nav">          
+        <nav className="app-home-nav">
           {username ? (
             // Exibe o nome do usuário se estiver logado
             <div className="app-home-user-info">
-              <button onClick={() => navigate("/painel-questionador")} className="app-home-btn-profile">
-                <img src={fotoprofile} alt="Foto de perfil" className="w-10 h-10 rounded-full object-cover" />
-              </button>             
+              <button
+                onClick={() => navigate("/painel-questionador")}
+                className="app-home-btn-profile"
+              >
+                <img
+                  src={fotoprofile}
+                  alt="Foto de perfil"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+              </button>
               <span className="app-home-username">Olá, {username}!</span>
             </div>
           ) : (
             // Exibe os botões de login e cadastro se o usuário não estiver logado
             <>
-              <button onClick={() => navigate('/login')} className="app-home-btn-login">Entrar</button>
-              <button onClick={() => navigate('/signup')} className="app-home-btn-signup">Cadastrar-se</button>
+              <button
+                onClick={() => navigate("/login")}
+                className="app-home-btn-login"
+              >
+                Entrar
+              </button>
+              <button
+                onClick={() => navigate("/signup")}
+                className="app-home-b
+                tn-signup"
+              >
+                Cadastrar-se
+              </button>
             </>
           )}
         </nav>
@@ -118,7 +155,9 @@ function App() {
           {/* Renderiza as categorias dinamicamente */}
           {categories.map((category) => (
             <button
-              className={`app-home-category ${selectedCategory === category.name ? 'selected' : ''}`}
+              className={`app-home-category ${
+                selectedCategory === category.name ? "selected" : ""
+              }`}
               key={category.id}
               onClick={() => filterQuestionsByCategory(category.name)} // Passa o nome da categoria ao clicar
             >
@@ -128,23 +167,32 @@ function App() {
         </div>
       </div>
 
-        <div className="welcome-container">
-      <div className="welcome-content">
-        <h1>
-          Bem-vindo ao<br />
-          <span>Tira Dúvidas</span>
-        </h1>
-        <p>
-          Envie perguntas, obtenha respostas<br />
-          e compartilhe conhecimento
-        </p>
-          <button onClick={() => navigate("/cadastroduvidas")} className="app-home-nav-link">Cadastrar dúvida</button>
+      <div className="welcome-container">
+        <div className="welcome-content">
+          <h1>
+            Bem-vindo ao
+            <br />
+            <span>Tira Dúvidas</span>
+          </h1>
+          <p>
+            Envie perguntas, obtenha respostas
+            <br />e compartilhe conhecimento
+          </p>
+          <button
+            onClick={() => navigate("/cadastroduvidas")}
+            className="app-home-nav-link"
+          >
+            Faça uma pergunta
+          </button>
+        </div>
+        <div className="welcome-illustration">
+          <img
+            src={ilustracaoPergunta}
+            alt="Pessoa com ponto de interrogação"
+          />
+        </div>
       </div>
-      <div className="welcome-illustration">
-        <img src={ilustracaoPergunta} alt="Pessoa com ponto de interrogação" />
-      </div>
-    </div>
-     <footer>
+      <footer>
         <img src={logoUfms} alt="Logo UFMS" />
       </footer>
     </div>
@@ -159,73 +207,106 @@ function AppWrapper() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
-        
+
         {/* Rotas protegidas */}
-        <Route path="/" element={
-          <ProtectedRoute>
-            <App />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <App />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/cadastroduvidas" element={
-          <ProtectedRoute>
-            <CadastroDuvidas />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/perfil" element={
-          <ProtectedRoute>
-            <PerfilUsuario />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/minhas-duvidas" element={
-          <ProtectedRoute>
-            <MinhasDuvidas />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/responder-duvidas" element={
-          <ProtectedRoute>
-            <ResponderDuvidas />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/painel-questionador" element={
-          <ProtectedRoute>
-            <PainelQuestionador />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/painel-respondente" element={
-          <ProtectedRoute>
-            <PainelRespondente />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/duvida/:id" element={
-          <ProtectedRoute>
-            <MinhasDuvidasDetalhe />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/responder-duvidas-detalhe" element={
-          <ProtectedRoute>
-            <ResponderDuvidasDetalhe />
-          </ProtectedRoute>
-        } />
-        
-        <Route path="/responder-duvidas/:id" element={
-          <ProtectedRoute>
-            <ResponderDuvidasDetalhe />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/cadastroduvidas"
+          element={
+            <ProtectedRoute>
+              <CadastroDuvidas />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/sobrenos" element={
-          <ProtectedRoute>
-            <SobreNos />
-          </ProtectedRoute>
-        } />
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <PerfilUsuario />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/minhas-duvidas"
+          element={
+            <ProtectedRoute>
+              <MinhasDuvidas />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/responder-duvidas"
+          element={
+            <ProtectedRoute>
+              <ResponderDuvidas />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/painel-questionador"
+          element={
+            <ProtectedRoute>
+              <PainelQuestionador />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/painel-respondente"
+          element={
+            <ProtectedRoute>
+              <PainelRespondente />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/duvida/:id"
+          element={
+            <ProtectedRoute>
+              <MinhasDuvidasDetalhe />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/responder-duvidas-detalhe"
+          element={
+            <ProtectedRoute>
+              <ResponderDuvidasDetalhe />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/responder-duvidas/:id"
+          element={
+            <ProtectedRoute>
+              <ResponderDuvidasDetalhe />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/sobrenos"
+          element={
+            <ProtectedRoute>
+              <SobreNos />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

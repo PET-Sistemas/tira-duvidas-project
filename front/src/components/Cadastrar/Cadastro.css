@@ -2,7 +2,7 @@
 .body-cadastro {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+    background: var(--gradiente-card);
     color: #ffffff;
     display: flex;
     justify-content: center;
@@ -18,7 +18,7 @@
     flex-direction: row;
     width: 890px;
     min-height: 50px;
-    background-color: #ffffff;
+    background: var(--gradiente-fundo);
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     position: relative;
@@ -33,6 +33,10 @@
   margin-top: 60px; /* <-- Aumente/diminua conforme necessário */
 }
 
+.text-form{
+    color:grey;
+    font-size: 0.8rem;
+}
 /* Estilos para o texto de descrição e footer no painel esquerdo */
 .description-text {
   font-size: 1.3em; /* Tamanho da fonte como na imagem */
@@ -58,7 +62,6 @@
 /* Lado esquerdo - Logo */
 .signup-left-panel-cadastro {
     width: 50%;
-    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Distribui o conteúdo com espaço entre eles */
@@ -105,6 +108,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: 0 1rem;
 }
 
 /*.label-cadastro {
@@ -125,6 +129,7 @@
     border: 3px solid #3498DB;
     border-radius: 3px;
     font-size: 12px;
+    box-sizing: border-box;
 }
 
 .button-cadastro {

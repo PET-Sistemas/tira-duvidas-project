@@ -3,34 +3,12 @@
   height: 100%;
 }
 
-.logo-cadasroDuvidas{
-  margin-left: 20px;
-  width: 70px;
-  height: 50px;
-}
-
-
-.cadastro-duvida-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-  background-color: #fff; 
-  border-bottom: 2px solid #dad9d9;
-}
-
-.cadastro-duvida-title {
-  font-size: 20px;
-  color: #008CBA;
-  text-align: center;
-}
-
 .cadastro-duvida-user-icon {
   font-size: 36px;
-  color: #008CBA;
+  color: #008cba;
 }
 
-.cadastro-duvida-form {  
+.cadastro-duvida-form {
   display: flex;
   flex-direction: column;
 }
@@ -45,20 +23,20 @@
 
 .cadastro-duvida-label {
   font-size: 14px;
-  color: #008CBA;
+  color: #008cba;
   margin-bottom: 2px;
 }
 
 .cadastro-duvida-input {
   width: 50%;
   padding: 10px;
-  border: 2px solid #008CBA;
+  border: 2px solid #008cba;
   border-radius: 4px;
 }
 
-.cadastro-duvida-titulo{
+.cadastro-duvida-titulo {
   width: 100%;
-  border: 2px solid #008CBA;
+  border: 2px solid #008cba;
   border-radius: 4px;
   margin-bottom: 2%;
   text-decoration: #153a8a;
@@ -68,7 +46,7 @@
   width: 100%;
   height: 100px;
   padding: 10px;
-  border: 2px solid #008CBA;
+  border: 2px solid #008cba;
   border-radius: 4px;
   margin-bottom: 2%;
   text-decoration: #153a8a;
@@ -87,25 +65,21 @@
   border-radius: 4px;
   cursor: pointer;
   margin: 10px;
-}
-
-.cadastro-duvida-cancel {
+  font-weight: 500;
   background-color: #fff;
-  color: #008CBA;
-  border: 1px solid #008CBA;
+  color: #008cba;
+  border: 1px solid #008cba;
 }
 
-.cadastro-duvida-cancel:hover {
-  background-color: #e6f7ff;
+#cancel-button:hover {
+  background-color: #ff8989;
+  font-weight: 600;
+  color: rgb(142, 14, 14);
 }
-
-.cadastro-duvida-save {
-  background-color: #008CBA;
-  color: #fff;
-}
-
-.cadastro-duvida-save:hover {
-  background-color: #153a8a;
+#save-button:hover {
+  background-color: #89ff8d;
+  font-weight: 600;
+  color: rgb(0, 107, 21);
 }
 
 .cadastro-duvida-footer {
@@ -117,8 +91,9 @@
   width: 50px;
 }
 
-.user-profile-pic-signup{
+.user-profile-pic-signup {
   width: 40px;
   height: 40px;
   margin-right: 20px;
 }
+
