@@ -1,10 +1,9 @@
 /* Definição geral da página */
 .body-cadastro {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #3498DB;
-    color: #fff;
+    background: linear-gradient(to top, #2c7bb1, #4da4e4, #66b6eb, #a0dfff);
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,14 +16,32 @@
 .signup-container-cadastro {
     display: flex;
     flex-direction: row;
-    width: 700px;
-    min-height: 400px;
-    background-color: #fff;
+    width: 890px;
+    min-height: 50px;
+    background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
     margin:35px;
+}
+
+.top-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px; /* <-- Aumente/diminua conforme necessário */
+}
+
+/* Estilos para o texto de descrição e footer no painel esquerdo */
+.description-text {
+  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+  font-weight: bold;
+  color: #2c7bb1; 
+  line-height: 1.5;
+  margin-bottom: auto; /* Empurra o footer para baixo */
+  margin-top: 20px; /* Espaço acima do texto de descrição */
+  padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
 }
 
 /* Divisão central */
@@ -43,18 +60,28 @@
     width: 50%;
     background-color: #fff;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding: 25px;
+    justify-content: space-between; /* Distribui o conteúdo com espaço entre eles */
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    height: 100%;
 }
 
 /* Estilo da imagem do painel esquerdo */
 .signup-logo-cadastro {
-    width: 200px;
+    width: 220px;
     height: auto;
-    margin-bottom: 25px;
-    margin-left: 25px;
+    margin-bottom: 1px;
+}
+
+
+.footer-text {
+  font-size: 0.85em; /* Tamanho da fonte */
+  color: #2c7bb1; 
+  margin-top: auto; /* Empurra para o final da seção */
+  padding-bottom: 20px; /* Espaço acima da borda inferior do container */
+  font-weight: bold;
 }
 
 /* Lado direito - Formulário */
@@ -80,36 +107,40 @@
     width: 100%;
 }
 
-.label-cadastro {
+/*.label-cadastro {
     width: 90%;
     font-size: 12px;
     color: #3498DB;
     text-align: left;
     margin:1px;
-}
+}*/
 
 .input-cadastro[type="text"],
 .input-cadastro[type="email"],
 .input-cadastro[type="tel"],
 .input-cadastro[type="password"] {
-    width: calc(100% - 40px);
+    width: 90%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
     padding: 8px;
-    margin-bottom: 7px;
-    border: 2px solid #3498DB;
-    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 3px solid #3498DB;
+    border-radius: 3px;
     font-size: 12px;
 }
 
 .button-cadastro {
-    width: calc(100% - 60px);
-    padding: 10px;
-    background-color: #3498DB;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 8px;
+  width: 35%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
+  padding: 13px; /* Seu padding */
+  background-color: #3498DB; /* Sua cor */
+  color: #fff;
+  border: none;
+  border-radius: 6px; /* Seu border-radius */
+  font-size: 20px; /* Seu font-size */
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px; /* Seu margin-top */
+  box-sizing: border-box; /* Garante que padding não adicione à largura total */
+  transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .button-cadastro:hover {
@@ -123,7 +154,25 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* Estilo para o texto "Já possui uma conta? Realizar login" */
+.register-text {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.register-text .register-link {
+  color: #3498DB;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-text .register-link:hover {
+  text-decoration: underline;
 }
 
 .success-message {
