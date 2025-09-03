@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import './Cadastro.css';
 import tiraDuvidasLogo from '../../utils/images/Logo-Tira-Dúvidas-removebg.png';
 import ufmsLogo from '../../utils/images/ufms-logo.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { register } from '../../services/user.service.ts';
 import { splitName } from '../../utils/nomeSobrenome.js';
+
 
 function Cadastro() {
   const navigate = useNavigate();
@@ -69,7 +70,16 @@ function Cadastro() {
     <div className="body-cadastro">
       <div className="signup-container-cadastro">
         <div className="signup-left-panel-cadastro">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="signup-logo-cadastro" />
+          <div className="top-content">
+            <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="signup-logo-cadastro" />
+            <p className="description-text">
+              <em>
+                Tire suas dúvidas relacionadas à  <br />
+                TIC's com estudantes da UFMS
+               </em>
+            </p>
+          </div>
+          <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
         <div className="signup-divider-cadastro"></div>
         <div className="signup-right-panel-cadastro">
@@ -77,57 +87,57 @@ function Cadastro() {
           {error && <div className="error-message">{error}</div>}
           {successMessage && <div className="success-message">{successMessage}</div>}
           <form className="form-cadastro" onSubmit={handleSubmit}>
-            <label className="label-cadastro">Nome Completo:</label>
+            <p className="text-form">*Informe os dados abaixo para ter acesso a sua nova conta.</p>
             <input 
               type="text" 
               name="name" 
-              placeholder="Nome Completo" 
+              placeholder="*Nome Completo" 
               className="input-cadastro"
               value={formData.name}
               onChange={handleChange}
               required
             />
-            <label className="label-cadastro">Email:</label>
+          
             <input 
               type="email" 
               name="email" 
-              placeholder="email@email.com" 
+              placeholder="*E-mail" 
               className="input-cadastro"
               value={formData.email}
               onChange={handleChange}
               required
             />
-            <label className="label-cadastro">Telefone:</label>
+            
             <input 
               type="tel" 
               name="phone" 
-              placeholder="(XX) XXXXX-XXXX" 
+              placeholder="*Telefone" 
               className="input-cadastro"
               value={formData.phone}
               onChange={handleChange}
               required
             />
-            <label className="label-cadastro">Senha:</label>
+            
             <input 
               type="password" 
               name="password" 
-              placeholder="••••••••" 
+              placeholder="*Senha" 
               className="input-cadastro"
               value={formData.password}
               onChange={handleChange}
               required
             />
-            <label className="label-cadastro">Confirmar Senha:</label>
+          
             <input 
               type="password" 
               name="confirmPassword" 
-              placeholder="••••••••" 
+              placeholder="*Confirme sua senha" 
               className="input-cadastro"
               value={formData.confirmPassword}
               onChange={handleChange}
               required
             />
-            <button type="submit" className="button-cadastro">Cadastrar</button>
+            <button type="submit" className="button-cadastro">Salvar</button>
           </form>
           <span style={
             {
@@ -135,17 +145,9 @@ function Cadastro() {
               justifyContent: "center"
             }
           }>
-            <a 
-              onClick={() => navigate("/login")} 
-              style={{
-                margin: "5px 0", 
-                color: "black",
-                fontSize: "12px",
-                textAlign: "center"
-              }}
-            >
-              Fazer login...
-            </a>
+          <p className="register-text">
+           Já possui uma conta? <Link to="/sigin" className="register-link">Realizar Login</Link>
+          </p>
           </span>
 
           <img src={ufmsLogo} alt="UFMS Logo" className="signup-ufms-logo-cadastro" />
