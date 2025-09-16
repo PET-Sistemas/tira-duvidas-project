@@ -1,0 +1,170 @@
+.responder-duvidas {
+    font-family: Arial, sans-serif;
+  }
+  
+  .responder-duvidas-header {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0px;
+  width: 100%;
+        background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+
+    }
+
+    .responder-duvidas-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 20px;
+    }
+    
+    .logo-cadasroDuvidas {
+      display: flex;
+      align-items: center;
+    }
+    
+    .responder-duvidas-nav-link-sobre {
+      color: #3498DB;
+    margin-left: 2%;
+     }
+
+     .responder-duvidas-nav-link-sobre:hover {
+      background-color: #4ea1fb29;
+    }
+    
+    .titulo-responder-pagina {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      color: #3498DB;
+    }
+    
+    .profile-btn {
+      margin-left: auto;
+    }
+    
+    .user-profile-img{
+      height: 40px;
+      width: 40px;
+      margin-right: 20px;
+    }
+  
+.filtrar-container {
+    margin: 1%;
+    margin-right: 3.5%;
+    position: relative;
+}
+
+.filtro-container {
+  position: absolute;
+  top: 100%; 
+  margin-top: 4px;
+  right: 0px;
+}
+
+.search-input {
+    margin-top: 8px;
+    width: 75%;
+    height: 80%;
+    padding: 3%;
+    border-radius: 4px;
+}
+  
+  
+  .subtitle {
+    color: #3498DB;
+    font-size: 20px;
+    margin: 20px 0 10px;
+  }
+  
+  .doubt-list-responder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .doubt-card-responder {
+    display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #0c7ac4;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 5% ;
+margin-left: 5% ;
+  }
+  
+  .doubt-card-responder.highlight {
+    border-color: #ff4d4f;
+  }
+  
+  .doubt-title-responder {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .doubt-description-responder {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .doubt-card-header-responder{
+    display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.status-icon {
+  font-size: 2rem;
+  margin-right: 8px;
+}
+
+section{
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+  
+.doubt-main-info-responder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.doubt-main-info-responder h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px; /* Espaço entre o título e a descrição */
+}
+
+.doubt-main-info-responder p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.doubt-additional-info-responder {
+  text-align: right;
+  font-size: 14px;
+  color: #555;
+}
+
+.doubt-additional-info-responder p {
+  margin: 4px 0;
+}
+
+.responder-btn{
+    background-color: #3498DB;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 7%;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}

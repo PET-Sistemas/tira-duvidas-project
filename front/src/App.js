@@ -5,14 +5,19 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import Login from "./components/Login/Logar.js";
-import Signup from "./components/Cadastrar/Cadastro.js";
-import CadastroDuvidas from "./components/CadastrarDuvidas/CadastroDuvidas.js";
-import PerfilUsuario from "./components/Perfil/Perfil.js";
-import MinhasDuvidas from "./components/MinhasDuvidas/MinhasDuvidas.js";
-import ResponderDuvidas from "./components/ResponderDuvidas/ResponderDuvidas.js";
-import PainelQuestionador from "./components/PainelQuestionador/PainelQuestionador.js";
-import PainelRespondente from "./components/PainelRespondente/PainelRespondente.js";
+import HomeAdmin from "./components/admin/HomeAdmin/HomeAdmin.js";
+import UsuariosGerenciamento from "./components/admin/UsuariosGerenciamento/UsuariosGerenciamento.js";
+import CategoriasGerenciamento from "./components/admin/CategoriasGerenciamento/CategoriasGerenciamento.js";
+import CertificadosGerados from "./components/admin/CertificadosGerados/CertificadosGerados.js";
+import PerfilGerenciamento from "./components/admin/PerfilGerenciamento/PerfilGerenciamento.js";
+import Login from "./components/user/Login/Logar.js";
+import Signup from "./components/user/Cadastrar/Cadastro.js";
+import CadastroDuvidas from "./components/user/CadastrarDuvidas/CadastroDuvidas.js";
+import PerfilUsuario from "./components/user/Perfil/Perfil.js";
+import MinhasDuvidas from "./components/user/MinhasDuvidas/MinhasDuvidas.js";
+import ResponderDuvidas from "./components/user/ResponderDuvidas/ResponderDuvidas.js";
+import PainelQuestionador from "./components/user/PainelQuestionador/PainelQuestionador.js";
+import PainelRespondente from "./components/user/PainelRespondente/PainelRespondente.js";
 import "./App.css";
 import tiraDuvidasLogo from "./utils/images/Logo-Tira-Dúvidas-removebg.png";
 import {
@@ -20,14 +25,14 @@ import {
   getQuestionByTitle,
 } from "./services/question.service.ts";
 import { allCategory } from "./services/category.service.ts";
-import MinhasDuvidasDetalhe from "./components/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js";
-import ResponderDuvidasDetalhe from "./components/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js";
-import ProtectedRoute from "./components/Login/ProtectedRoute.js";
+import MinhasDuvidasDetalhe from "./components/user/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js";
+import ResponderDuvidasDetalhe from "./components/user/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js";
+import ProtectedRoute from "./components/user/Login/ProtectedRoute.js";
 import logoUfms from "./utils/images/logo-ufms.png";
 import ilustracaoPergunta from "./utils/images/ilustracao-pergunta.png";
 import fotoprofile from "./utils/images/Vector.png";
-import SobreNos from "./components/SobreNos/SobreNos.js";
-import EsqueciMinhaSenha from "./components/EsqueciMinhaSenha/EsqueciMinhaSenha.js";
+import SobreNos from "./components/user/SobreNos/SobreNos.js";
+import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaSenha.js";
 
 function App() {
   const navigate = useNavigate();
@@ -304,6 +309,51 @@ function AppWrapper() {
           element={
             <ProtectedRoute>
               <SobreNos />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute>
+              <HomeAdmin />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/usuarios" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute>
+              <UsuariosGerenciamento />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/categorias" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute>
+              <CategoriasGerenciamento />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/certificados" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute>
+              <CertificadosGerados />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/perfil-gerenciamento" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute>
+              <PerfilGerenciamento />
             </ProtectedRoute>
           }
         />

@@ -1,0 +1,229 @@
+
+  .logo-cadasroDuvidas {
+    display: flex;
+    align-items: center;
+  }
+
+  
+  .profile-btn {
+    margin-left: auto;
+  }
+  
+  .user-profile-img{
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
+  }
+
+/* Cartões */
+.card-duvida {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+
+}
+
+.card-duvida:hover {
+  background-color: #eef6ff;
+}
+
+/* Ícones */
+.icon-container {
+  margin: 15px;
+  flex: 0 0 50px;
+}
+
+.icon-situacao {
+  width: 2%;
+  height: 2%;
+}
+
+/* Conteúdo da dúvida */
+.content {
+  flex: 1;
+}
+
+.titulo-duvida {
+  font-size: 18px
+}
+
+.descricao-duvida {
+  font-size: 0.8rem;
+  color: #555;
+  margin: 5px 0 0 0;
+}
+
+/* Informações da dúvida */
+.info-duvida {
+  text-align: right;
+  font-size: 0.7rem;
+}
+
+
+.minhas-duvidas-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+.minhas-duvidas-nav-link-perguntas {
+  color: #008CBA;
+  text-decoration: none;
+  margin-right: 60px;
+  font-size: 14px;
+}
+
+.minhas-duvidas-search-input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid #3498DB;
+  width: 500px;
+
+}
+
+.minhas-duvidas-search-btn {
+  width: 10%;
+  background-color: white;
+  color: #3498DB;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-left: 6px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.filtrar-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: end;
+  margin: 10px 40px;
+  margin-top: 0;
+  
+}
+
+.filtro-container {
+  top: 155px;
+position: absolute;
+background-color: white;
+border: 1px solid #ddd;
+border-radius: 4px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+display: flex;
+align-items: center;
+flex-direction: column;
+right: 10px;
+}
+
+.filtro-container select {
+margin-top: 10px;
+width: 85%;
+padding: 6px;
+border-radius: 4px;
+border: 1px solid #ddd;
+}
+
+.button-filter{
+  width: 85%;
+  padding: 6px;
+border-radius: 4px;
+border: 1px solid #ddd;
+margin-bottom: 10px;
+}
+
+.filtro-container button {
+font-size:small;
+background-color: #3498DB;
+color: white;
+cursor: pointer;
+transition: background-color 0.2s ease;
+}
+
+.filtro-container button:hover {
+background-color: #0056b3;
+}
+
+.filter-icon-profile{
+  width: 12px; 
+  height: 12px;
+  margin-right: 8px; 
+  transition: text-shadow 0.3s;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 0.6);
+}
+
+.doubt-list-responder {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.doubt-card-container-minhas-duvidas{
+  background-color: #fff;
+border: 1px solid #0c7ac4;
+border-radius: 4px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 16px;
+padding: 16px;
+justify-content: center;
+margin-right: 5% ;
+margin-left: 5% ;
+
+}
+.doubt-card-minhas-duvidas {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.doubt-card-minhas-duvidas.highlight {
+border-color: #ff4d4f;
+}
+
+.doubt-title-minhas-duvidas {
+margin: 0;
+font-size: 18px;
+}
+
+.doubt-description-minhas-duvidas {
+margin: 10px 0;
+font-size: 16px;
+}
+
+.doubt-card-header-minhas-duvidas{
+display: flex;
+align-items: center;
+gap: 16px;
+}
+
+.doubt-main-info-minhas-duvidas {
+flex: 1;
+display: flex;
+flex-direction: column;
+}
+.doubt-main-info-minhas-duvidas h3 {
+margin: 0;
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 8px; /* Espaço entre o título e a descrição */
+}
+
+.doubt-main-info-minhas-duvidas p {
+margin: 4px 0;
+font-size: 14px;
+}
+
+.doubt-additional-info-minhas-duvidas {
+text-align: right;
+font-size: 14px;
+color: #555;
+}
+
+.doubt-additional-info-minhas-duvidas p {
+margin: 4px 0;
+}
