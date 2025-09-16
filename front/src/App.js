@@ -5,11 +5,11 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import HomeAdmin from "./components/admin/homeAdmin/HomeAdmin.js";
-import UsuariosGerenciamento from "./components/admin/usuariosGerenciamento/UsuariosGerenciamento.js";
-import CategoriasGerenciamento from "./components/admin/categoriasGerenciamento/CategoriasGerenciamento.js";
-import CertificadosGerados from "./components/admin/certificadosGerados/CertificadosGerados.js";
-import PerfilGerenciamento from "./components/admin/perfilGerenciamento/PerfilGerenciamento.js";
+import HomeAdmin from "./components/admin/HomeAdmin/HomeAdmin.js";
+import UsuariosGerenciamento from "./components/admin/UsuariosGerenciamento/UsuariosGerenciamento.js";
+import CategoriasGerenciamento from "./components/admin/CategoriasGerenciamento/CategoriasGerenciamento.js";
+import CertificadosGerados from "./components/admin/CertificadosGerados/CertificadosGerados.js";
+import PerfilGerenciamento from "./components/admin/PerfilGerenciamento/PerfilGerenciamento.js";
 import Login from "./components/user/Login/Logar.js";
 import Signup from "./components/user/Cadastrar/Cadastro.js";
 import CadastroDuvidas from "./components/user/CadastrarDuvidas/CadastroDuvidas.js";
@@ -323,7 +323,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/UsuariosGerenciamento" // O URL que o usuário vai acessar
+          path="/admin/usuarios" // O URL que o usuário vai acessar
           element={
             <ProtectedRoute>
               <UsuariosGerenciamento />
@@ -332,7 +332,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/CategoriasGerenciamento" // O URL que o usuário vai acessar
+          path="/admin/categorias" // O URL que o usuário vai acessar
           element={
             <ProtectedRoute>
               <CategoriasGerenciamento />
@@ -341,7 +341,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/CertificadosGerados" // O URL que o usuário vai acessar
+          path="/admin/certificados" // O URL que o usuário vai acessar
           element={
             <ProtectedRoute>
               <CertificadosGerados />
@@ -350,7 +350,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/PerfilGerenciamento" // O URL que o usuário vai acessar
+          path="/admin/perfil-gerenciamento" // O URL que o usuário vai acessar
           element={
             <ProtectedRoute>
               <PerfilGerenciamento />

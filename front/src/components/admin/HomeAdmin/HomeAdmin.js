@@ -10,17 +10,21 @@ function HomeAdmin() {
           <main className="mainAdmin">
             <nav className="navAdmin">
               <div class="links-nav">
-                <a href="#">
+                <a href="/admin">
+                  <i class="bi bi-people"></i>
+                  Home
+                </a>
+                <a href="/admin/usuarios">
                   <i class="bi bi-people"></i>
                   Usuários
                 </a>
-                <a href="#">
+                <a href="/admin/categorias">
                   <i class="bi bi-list-nested"></i>
                   Categorias
                 </a>
-                <a href="#">
+                <a>
                   <i class="bi bi-file-earmark-bar-graph"></i>
-                  Relatórios
+                  Relatórios (Em breve)
                 </a>
               </div>
               <div className="logo-nav">
