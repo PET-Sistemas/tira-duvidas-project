@@ -20,6 +20,8 @@
     "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src",
+    "src/components/admin",
+    "src/components/user"
   ]
 }

@@ -1,0 +1,30 @@
+
+
+.fundo-content-admin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.fundo-container-admin {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(81, 108, 202,0.10);
+  height: 95vh;
+  width: 80%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  align-content: center;
+  margin-top: 1rem;
+}
+
+
+.fundo-content-admin h1 {
+  color: #3498DB;
+}
+
+.fundo-content-admin p{
+ color: rgb(141, 137, 137, 0.59); 
+}

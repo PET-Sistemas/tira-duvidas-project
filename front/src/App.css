@@ -4,7 +4,20 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
+}
+
+:root {
+  --azul-principal: #0188b5;
+  --azul-escuro: #004990;
+  --azul-claro: #3498db;
+  --gradiente-fundo: linear-gradient(to right, #f8f9fd, #b9ddf9);
+  --gradiente-card: linear-gradient(135deg, #3498db, #005187);
+  --gradiente-card-hover: linear-gradient(135deg, #5dade2, #1a6fa5);
+}
+
+.app-home{
+  background: var(--gradiente-fundo);
+  min-height: 100vh;
 }
 
 /* Cabeçalho */
@@ -76,6 +89,7 @@ body {
   margin-left: 6px;
   font-size: 14px;
   border-radius: 8px;
+  
 }
 
 /* Botões de login/cadastro */
@@ -164,12 +178,10 @@ body {
   align-items: center;
 }
 
-/* src/components/WelcomeScreen.css */
 .app-home {
   height: 100%;
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(to right, #f8f9fd, #b9ddf9);
   color: #003366;
 }
 
