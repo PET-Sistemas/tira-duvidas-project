@@ -2,10 +2,44 @@ import React, { useEffect, useState } from "react";
 import "../globalAdmin.css";
 import "./categoriasGerenciamento.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
+import Modal from "../../modal/modal.js";
 
 function UsuariosGerenciamento() {
+  const [modalCadastrar, setmodalCadastrar] = useState(false);
+  const [modalExcluir, setmodalExcluir] = useState(false);
+  const [modalEditar, setmodalEditar] = useState(false);
+
+  if (modalCadastrar || modalExcluir || modalEditar) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
+
   return (
     <body>
+      <Modal
+        isOpen={modalCadastrar}
+        onClose={() => setmodalCadastrar(false)}
+        title="Cadastrar Categoria"
+      >
+        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+      </Modal>
+
+      <Modal
+        isOpen={modalExcluir}
+        onClose={() => setmodalExcluir(false)}
+        title="Tem certeza que deseja remover essa categoria?"
+      >
+        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+      </Modal>
+
+      <Modal
+        isOpen={modalEditar}
+        onClose={() => setmodalEditar(false)}
+        title="Editar Categoria"
+      >
+        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+      </Modal>
       <div className="homeAdmin">
         <div className="bodyAdmin">
           <main className="mainAdmin">
@@ -46,7 +80,10 @@ function UsuariosGerenciamento() {
                 </header>
 
                 <div id="button">
-                  <button id="cadastrar-categoria-btn">
+                  <button
+                    id="cadastrar-categoria-btn"
+                    onClick={() => setmodalCadastrar(true)}
+                  >
                     Cadastrar categoria
                   </button>
                 </div>
@@ -67,7 +104,36 @@ function UsuariosGerenciamento() {
                         <td>Projetos</td>
                         <td>25/03/2024</td>
                         <td id="excluir">
-                          <i class="bi bi-trash"></i>EXCLUIR
+                          <button
+                            onClick={() => setmodalExcluir(true)}
+                            className={"btn-modal-excluir"}
+                          >
+                            <i class="bi bi-trash"></i>
+                            <p
+                              style={{
+                                color: "red",
+                                display: "inline",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              EXCLUIR
+                            </p>
+                          </button>
+                          <button
+                            onClick={() => setmodalEditar(true)}
+                            className={"btn-modal-editar"}
+                          >
+                            <i class="bi bi-pencil"></i>
+                            <p
+                              style={{
+                                color: "orangered",
+                                display: "inline",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              EDITAR
+                            </p>
+                          </button>
                         </td>
                       </tr>
                     </tbody>
