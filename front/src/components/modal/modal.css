@@ -94,6 +94,7 @@ textarea {
   margin-bottom: 10px;
   border: 2px solid rgb(141, 137, 137, 0.09);
   background-color: rgb(206, 212, 218, 0.9);
+  resize: none;
 }
 
 label {

@@ -28,7 +28,7 @@ function UsuariosGerenciamento() {
           </label>
           <input id="titulo"></input>
           <label for="descricao">Descrição</label>
-          <textarea id="descricao" disabled></textarea>
+          <textarea id="descricao"></textarea>
         </div>
         <button className="botao-branco">Cadastrar</button>
       </Modal>
@@ -55,7 +55,7 @@ function UsuariosGerenciamento() {
           </label>
           <input id="titulo"></input>
           <label for="descricao">Descrição</label>
-          <textarea id="descricao" disabled></textarea>
+          <textarea id="descricao"></textarea>
         </div>
         <button className="botao-branco">Editar</button>
       </Modal>
