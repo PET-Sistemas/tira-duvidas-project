@@ -57,7 +57,7 @@ function UsuariosGerenciamento() {
           <label for="descricao">Descrição</label>
           <textarea id="descricao"></textarea>
         </div>
-        <button className="botao-branco">Editar</button>
+        <button className="botao-branco">alvar</button>
       </Modal>
       <div className="homeAdmin">
         <div className="bodyAdmin">
