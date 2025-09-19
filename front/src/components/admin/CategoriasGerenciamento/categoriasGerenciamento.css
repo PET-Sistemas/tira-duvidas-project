@@ -5,21 +5,35 @@
   justify-content: end;
 }
 
-.bi-trash {
-  color: red;
+i {
+  /*margin nos icones*/
   margin-right: 0.3rem;
 }
 
-.bi-pencil {
-  color: orangered;
-  margin-right: 0.3rem;
-}
-
-#excluir {
+.btn-modal-excluir {
+  padding: 2px 0px 0px 0px;
+  display: inline-block;
+  margin: 0;
   color: red;
-  padding: 15px;
+  border: none;
+  background-color: inherit;
 }
 
-.text {
+.btn-modal-editar {
+  padding: 2px 0px 0px 0px;
+  display: inline-block;
+  margin: 0 0 0 10px;
+  color: #ff4500;
+  border: none;
+  background-color: inherit;
+}
+
+.btn-modal-excluir:hover,
+.btn-modal-editar:hover {
+  cursor: pointer;
+}
+
+p {
   display: inline;
+  font-weight: bold;
 }

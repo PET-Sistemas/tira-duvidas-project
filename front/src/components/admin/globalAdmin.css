@@ -228,9 +228,11 @@ h1 {
   justify-content: center;
   gap: 0.5rem;
   background-color: white;
+  transition-duration: 0.4s;
 }
 
 #cadastrar-categoria-btn:hover {
   background-color: #3498db;
   color: white;
+  cursor: pointer;
 }

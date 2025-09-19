@@ -20,9 +20,17 @@ function UsuariosGerenciamento() {
       <Modal
         isOpen={modalCadastrar}
         onClose={() => setmodalCadastrar(false)}
-        title="Cadastrar Categoria"
+        title="Nova Categoria"
       >
-        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+        <div className="div-form">
+          <label for="titulo" className={"required"}>
+            Digite o título da nova categoria
+          </label>
+          <input id="titulo"></input>
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" disabled></textarea>
+        </div>
+        <button className="botao-branco">Cadastrar</button>
       </Modal>
 
       <Modal
@@ -30,7 +38,10 @@ function UsuariosGerenciamento() {
         onClose={() => setmodalExcluir(false)}
         title="Tem certeza que deseja remover essa categoria?"
       >
-        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+        <div className="div-botoes">
+          <button className="botao-branco">Cancelar</button>
+          <button className="botao-azul">Remover</button>
+        </div>
       </Modal>
 
       <Modal
@@ -38,7 +49,15 @@ function UsuariosGerenciamento() {
         onClose={() => setmodalEditar(false)}
         title="Editar Categoria"
       >
-        <p>Esse é o conteúdo da Página A dentro do modal.</p>
+        <div className="div-form">
+          <label for="titulo" className={"required"}>
+            Digite o título da nova categoria
+          </label>
+          <input id="titulo"></input>
+          <label for="descricao">Descrição</label>
+          <textarea id="descricao" disabled></textarea>
+        </div>
+        <button className="botao-branco">Editar</button>
       </Modal>
       <div className="homeAdmin">
         <div className="bodyAdmin">
@@ -109,30 +128,14 @@ function UsuariosGerenciamento() {
                             className={"btn-modal-excluir"}
                           >
                             <i class="bi bi-trash"></i>
-                            <p
-                              style={{
-                                color: "red",
-                                display: "inline",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              EXCLUIR
-                            </p>
+                            <p style={{ color: "red" }}>EXCLUIR</p>
                           </button>
                           <button
                             onClick={() => setmodalEditar(true)}
                             className={"btn-modal-editar"}
                           >
                             <i class="bi bi-pencil"></i>
-                            <p
-                              style={{
-                                color: "orangered",
-                                display: "inline",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              EDITAR
-                            </p>
+                            <p style={{ color: "orangered" }}>EDITAR</p>
                           </button>
                         </td>
                       </tr>
