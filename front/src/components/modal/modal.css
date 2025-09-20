@@ -28,9 +28,6 @@ body.active-modal {
   min-width: 500px;
   color: #3498db;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 h1,
@@ -104,4 +101,29 @@ label {
 .required::after {
   content: "*";
   color: red;
+}
+
+.bi-trash-fill,
+.bi-check-circle {
+  font-size: 32px;
+  margin-top: 2em;
+}
+
+.bi-trash-fill {
+  color: red;
+}
+.bi-check-circle {
+  color: green;
+}
+
+#conteudo,
+#sucesso {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.invisivel {
+  display: none;
 }

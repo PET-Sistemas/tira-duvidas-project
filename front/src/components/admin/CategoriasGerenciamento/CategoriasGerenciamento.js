@@ -15,69 +15,103 @@ function UsuariosGerenciamento() {
     document.body.classList.remove("active-modal");
   }
 
+  const [visivel, setVisivel] = useState(true);
+
+  const toggle = () => {
+    setVisivel(!visivel);
+  };
   return (
     <body>
-      <Modal
-        isOpen={modalCadastrar}
-        onClose={() => setmodalCadastrar(false)}
-        title="Nova Categoria"
-      >
-        <div className="div-form">
-          <label for="titulo" className={"required"}>
-            Digite o título da nova categoria
-          </label>
-          <input id="titulo"></input>
-          <label for="descricao">Descrição</label>
-          <textarea id="descricao"></textarea>
+      <Modal isOpen={modalCadastrar} onClose={() => setmodalCadastrar(false)}>
+        <div id={"conteudo"}>
+          <h1>Nova Categoria</h1>
+          <div className="div-form">
+            <label htmlFor={"titulo"} className={"required"}>
+              Digite o título da nova categoria
+            </label>
+            <input id="titulo"></input>
+            <label htmlFor={"descricao"}>Descrição</label>
+            <textarea id="descricao"></textarea>
+          </div>
+          <button className="botao-branco" onClick={esconder()}>
+            Cadastrar
+          </button>
         </div>
-        <button className="botao-branco">Cadastrar</button>
+
+        <div id={"sucesso"}>
+          <div>
+            <i className="bi bi-check-circle"></i>
+            <h1 style={{ display: "inline" }}>Categoria criada com sucesso</h1>
+          </div>
+          <div className="div-botoes">
+            <button className="botao-branco">Fechar</button>
+          </div>
+        </div>
       </Modal>
 
-      <Modal
-        isOpen={modalExcluir}
-        onClose={() => setmodalExcluir(false)}
-        title="Tem certeza que deseja remover essa categoria?"
-      >
-        <div className="div-botoes">
-          <button className="botao-branco">Cancelar</button>
-          <button className="botao-azul">Remover</button>
+      <Modal isOpen={modalExcluir} onClose={() => setmodalExcluir(false)}>
+        <div id={"conteudo"} className={"invisivel"}>
+          <h1>Tem certeza que deseja remover essa categoria?</h1>
+          <div className="div-botoes">
+            <button className="botao-branco">Cancelar</button>
+            <button className="botao-azul">Remover</button>
+          </div>
+        </div>
+
+        <div id={"sucesso"}>
+          <div>
+            <i className="bi bi-trash-fill"></i>
+            <h1 style={{ display: "inline" }}>Categoria removida</h1>
+          </div>
+          <div className="div-botoes">
+            <button className="botao-branco">Fechar</button>
+          </div>
         </div>
       </Modal>
 
-      <Modal
-        isOpen={modalEditar}
-        onClose={() => setmodalEditar(false)}
-        title="Editar Categoria"
-      >
-        <div className="div-form">
-          <label for="titulo" className={"required"}>
-            Digite o título da nova categoria
-          </label>
-          <input id="titulo"></input>
-          <label for="descricao">Descrição</label>
-          <textarea id="descricao"></textarea>
+      <Modal isOpen={modalEditar} onClose={() => setmodalEditar(false)}>
+        <div id={"conteudo"}>
+          <h1>Editar Categoria</h1>
+          <div className="div-form">
+            <label htmlFor={"titulo"} className={"required"}>
+              Digite o título da nova categoria
+            </label>
+            <input id="titulo"></input>
+            <label htmlFor={"descricao"}>Descrição</label>
+            <textarea id="descricao"></textarea>
+          </div>
+          <button className="botao-branco">Salvar</button>
         </div>
-        <button className="botao-branco">alvar</button>
+
+        <div id={"sucesso"}>
+          <div>
+            <i className="bi bi-check-circle"></i>
+            <h1 style={{ display: "inline" }}>Categoria editada com sucesso</h1>
+          </div>
+          <div className="div-botoes">
+            <button className="botao-branco">Fechar</button>
+          </div>
+        </div>
       </Modal>
       <div className="homeAdmin">
         <div className="bodyAdmin">
           <main className="mainAdmin">
             <nav className="navAdmin">
-              <div class="links-nav">
+              <div className="links-nav">
                 <a href="/admin">
-                  <i class="bi bi-people"></i>
+                  <i className="bi bi-people"></i>
                   Home
                 </a>
                 <a href="/admin/usuarios">
-                  <i class="bi bi-people"></i>
+                  <i className="bi bi-people"></i>
                   Usuários
                 </a>
                 <a href="/admin/categorias">
-                  <i class="bi bi-list-nested"></i>
+                  <i className="bi bi-list-nested"></i>
                   Categorias
                 </a>
                 <a>
-                  <i class="bi bi-file-earmark-bar-graph"></i>
+                  <i className="bi bi-file-earmark-bar-graph"></i>
                   Relatórios (Em breve)
                 </a>
               </div>
@@ -113,7 +147,7 @@ function UsuariosGerenciamento() {
                       <tr>
                         <th>Categoria</th>
                         <th className="sortable">
-                          Data Criação <i class="bi bi-arrow-up"></i>
+                          Data Criação <i className="bi bi-arrow-up"></i>
                         </th>
                         <th>Ação</th>
                       </tr>
@@ -127,14 +161,14 @@ function UsuariosGerenciamento() {
                             onClick={() => setmodalExcluir(true)}
                             className={"btn-modal-excluir"}
                           >
-                            <i class="bi bi-trash"></i>
+                            <i className="bi bi-trash"></i>
                             <p style={{ color: "red" }}>EXCLUIR</p>
                           </button>
                           <button
                             onClick={() => setmodalEditar(true)}
                             className={"btn-modal-editar"}
                           >
-                            <i class="bi bi-pencil"></i>
+                            <i className="bi bi-pencil"></i>
                             <p style={{ color: "orangered" }}>EDITAR</p>
                           </button>
                         </td>

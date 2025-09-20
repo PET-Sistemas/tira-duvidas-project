@@ -7,10 +7,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
   return (
     <div className="modal">
       <div className="overlay" onClick={onClose}></div>
-      <div className="modal-content">
-        {title && <h1>{title}</h1>}
-        {children}
-      </div>
+      <div className="modal-content">{children}</div>
     </div>
   );
 }
