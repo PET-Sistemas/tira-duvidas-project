@@ -9,22 +9,23 @@ function UsuariosGerenciamento() {
   const [modalExcluir, setmodalExcluir] = useState(false);
   const [modalEditar, setmodalEditar] = useState(false);
 
+  const [modalCadastrarSucesso, setmodalCadastrarSucesso] = useState(false);
+  const [modalExcluirSucesso, setmodalExcluirSucesso] = useState(false);
+  const [modalEditarSucesso, setmodalEditarSucesso] = useState(false);
+
   if (modalCadastrar || modalExcluir || modalEditar) {
     document.body.classList.add("active-modal");
   } else {
     document.body.classList.remove("active-modal");
   }
 
-  const [visivel, setVisivel] = useState(true);
-
-  const toggle = () => {
-    setVisivel(!visivel);
-  };
   return (
     <body>
       <Modal isOpen={modalCadastrar} onClose={() => setmodalCadastrar(false)}>
         <div id={"conteudo"}>
-          <h1>Nova Categoria</h1>
+          <div className={"icone-h1-container"}>
+            <h1>Nova Categoria</h1>
+          </div>
           <div className="div-form">
             <label htmlFor={"titulo"} className={"required"}>
               Digite o título da nova categoria
@@ -33,45 +34,97 @@ function UsuariosGerenciamento() {
             <label htmlFor={"descricao"}>Descrição</label>
             <textarea id="descricao"></textarea>
           </div>
-          <button className="botao-branco" onClick={esconder()}>
-            Cadastrar
-          </button>
-        </div>
 
+          <div className="div-botoes">
+            <button
+              className="botao-branco"
+              onClick={() => setmodalCadastrar(false)}
+            >
+              Fechar
+            </button>
+            <button
+              className="botao-azul"
+              onClick={() => {
+                setmodalCadastrarSucesso(true);
+                setmodalCadastrar(false);
+              }}
+            >
+              Cadastrar
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={modalCadastrarSucesso}
+        onClose={() => setmodalCadastrarSucesso(false)}
+      >
         <div id={"sucesso"}>
-          <div>
+          <div className={"icone-h1-container"}>
             <i className="bi bi-check-circle"></i>
             <h1 style={{ display: "inline" }}>Categoria criada com sucesso</h1>
           </div>
           <div className="div-botoes">
-            <button className="botao-branco">Fechar</button>
+            <button
+              className="botao-branco"
+              onClick={() => setmodalCadastrarSucesso(false)}
+            >
+              Fechar
+            </button>
           </div>
         </div>
       </Modal>
 
       <Modal isOpen={modalExcluir} onClose={() => setmodalExcluir(false)}>
-        <div id={"conteudo"} className={"invisivel"}>
-          <h1>Tem certeza que deseja remover essa categoria?</h1>
+        <div id={"conteudo"}>
+          <div className={"icone-h1-container"}>
+            <h1>Tem certeza que deseja remover essa categoria?</h1>
+          </div>
           <div className="div-botoes">
-            <button className="botao-branco">Cancelar</button>
-            <button className="botao-azul">Remover</button>
+            <button
+              className="botao-branco"
+              onClick={() => setmodalExcluir(false)}
+            >
+              Cancelar
+            </button>
+            <button
+              className="botao-azul"
+              onClick={() => {
+                setmodalExcluir(false);
+                setmodalExcluirSucesso(true);
+              }}
+            >
+              Remover
+            </button>
           </div>
         </div>
+      </Modal>
 
+      <Modal
+        isOpen={modalExcluirSucesso}
+        onClose={() => setmodalExcluirSucesso(false)}
+      >
         <div id={"sucesso"}>
-          <div>
+          <div className={"icone-h1-container"}>
             <i className="bi bi-trash-fill"></i>
             <h1 style={{ display: "inline" }}>Categoria removida</h1>
           </div>
           <div className="div-botoes">
-            <button className="botao-branco">Fechar</button>
+            <button
+              className="botao-branco"
+              onClick={() => setmodalExcluirSucesso(false)}
+            >
+              Fechar
+            </button>
           </div>
         </div>
       </Modal>
 
       <Modal isOpen={modalEditar} onClose={() => setmodalEditar(false)}>
         <div id={"conteudo"}>
-          <h1>Editar Categoria</h1>
+          <div className={"icone-h1-container"}>
+            <h1>Editar Categoria</h1>
+          </div>
           <div className="div-form">
             <label htmlFor={"titulo"} className={"required"}>
               Digite o título da nova categoria
@@ -80,19 +133,46 @@ function UsuariosGerenciamento() {
             <label htmlFor={"descricao"}>Descrição</label>
             <textarea id="descricao"></textarea>
           </div>
-          <button className="botao-branco">Salvar</button>
+          <div className="div-botoes">
+            <button
+              className="botao-branco"
+              onClick={() => setmodalEditar(false)}
+            >
+              Cancelar
+            </button>
+            <button
+              className="botao-azul"
+              onClick={() => {
+                setmodalEditar(false);
+                setmodalEditarSucesso(true);
+              }}
+            >
+              Salvar
+            </button>
+          </div>
         </div>
+      </Modal>
 
+      <Modal
+        isOpen={modalEditarSucesso}
+        onClose={() => setmodalEditarSucesso(false)}
+      >
         <div id={"sucesso"}>
-          <div>
+          <div className={"icone-h1-container"}>
             <i className="bi bi-check-circle"></i>
             <h1 style={{ display: "inline" }}>Categoria editada com sucesso</h1>
           </div>
           <div className="div-botoes">
-            <button className="botao-branco">Fechar</button>
+            <button
+              className="botao-branco"
+              onClick={() => setmodalEditarSucesso(false)}
+            >
+              Fechar
+            </button>
           </div>
         </div>
       </Modal>
+
       <div className="homeAdmin">
         <div className="bodyAdmin">
           <main className="mainAdmin">

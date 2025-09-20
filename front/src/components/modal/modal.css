@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body.active-modal {
   overflow-y: hidden;
 }
@@ -15,8 +19,8 @@ body.active-modal {
 
 .modal-content {
   position: absolute;
-  padding: 10px;
-  margin: 0;
+  padding: 0px;
+  margin: 0px;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -28,11 +32,6 @@ body.active-modal {
   min-width: 500px;
   color: #3498db;
   text-align: center;
-}
-
-h1,
-button {
-  margin: 20px;
 }
 
 .div-botoes {
@@ -124,6 +123,10 @@ label {
   align-items: center;
 }
 
-.invisivel {
-  display: none;
+.icone-h1-container {
+  padding: 1em 1.5em 1.5em 1.5em;
+}
+
+.div-botoes > button {
+  margin: 1em;
 }
