@@ -4,7 +4,7 @@ export class createUserRole1713475548868 implements MigrationInterface {
     name = 'createUserRole1713475548868'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "public"."user_roles_role_enum" AS ENUM('superadmin', 'admin', 'anonymous', 'respondent', 'moderator', 'questioner')`);
+        await queryRunner.query(`CREATE TYPE "public"."user_roles_role_enum" AS ENUM('admin', 'respondent', 'questioner')`);
         await queryRunner.query(`CREATE TABLE "user_roles" ("id" SERIAL NOT NULL, "user_id" integer NOT NULL, "role" "public"."user_roles_role_enum" NOT NULL, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP WITH TIME ZONE, CONSTRAINT "PK_8acd5cf26ebd158416f477de799" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE UNIQUE INDEX "IDX_02b09d4001c16d639e4390e24e" ON "user_roles" ("user_id", "role") WHERE "deleted_at" IS NULL`);
         await queryRunner.query(`CREATE TABLE "user_roles_categories_categories" ("userRolesId" integer NOT NULL, "categoriesId" integer NOT NULL, CONSTRAINT "PK_7dea59e8663886c04586388bd4f" PRIMARY KEY ("userRolesId", "categoriesId"))`);

@@ -4,7 +4,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import validationOptions from './utils/validation-options';
-import { json } from 'express';
+import e, { json } from 'express';
+import { AuthService } from './auth/auth.service';
+import { RoleEnum } from './http/role/role.enum';
+import { UserStatus } from './http/user/enums/user-status.enum';
+import { UserService } from 'src/http/user/user.service';
+import { emit } from 'process';
+
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -44,5 +51,41 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   await app.listen(configService.get('app.port'));
+
+  async function createAdminAndRespondent() {
+    const authService = app.get(AuthService);
+    const userService = app.get(UserService);
+
+    if(await userService.findOne({email: "admin@ufms.br"})){
+      return;
+    }else{
+      await authService.register({
+        email: "admin@ufms.br",
+        password: "123",
+        provider: "email",
+        name: "admin",
+        phone: "123456789",
+        role: RoleEnum.ADMIN,
+        status: UserStatus.ACTIVE,
+      });
+    }
+    if(await userService.findOne({email: "respondent@ufms.br"})){
+      return;
+    }else{
+      await authService.register({
+        email: "respondent@ufms.br",
+        password: "123",
+        provider: "email",
+        name: "respondent",
+        phone: "123456789",
+        role: RoleEnum.RESPONDENT,
+        status: UserStatus.ACTIVE,
+      });
+    }
+  
+  }
+
+  createAdminAndRespondent();
+
 }
 void bootstrap();

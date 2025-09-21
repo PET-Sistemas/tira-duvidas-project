@@ -6,46 +6,51 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('feedback')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 export class FeedbackController {
   constructor(private readonly feedbackService: FeedbackService) {}
 
   @Post()
-  create(@Body() createFeedbackDto: CreateFeedbackDto) {
-    return this.feedbackService.insertOne(createFeedbackDto);
+  async create(@Body() createFeedbackDto: CreateFeedbackDto) {
+    return await this.feedbackService.insertOne(createFeedbackDto);
   }
 
   @Get()
-  findAll() {
-    return this.feedbackService.findAll();
+  async findAll() {
+    return await this.feedbackService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.feedbackService.findOne({ id });
+  async findOne(@Param('id') id: number) {
+    return await this.feedbackService.findOne({ id });
   }
 
   @Get('answer/:answerId')
-  findManyById(@Param('answerId') answerId: number) {
-    return this.feedbackService.findMany({ answerId });
+  async findManyById(@Param('answerId') answerId: number) {
+    return await this.feedbackService.findMany({ answerId });
   }
 
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateFeedbackDto: UpdateFeedbackDto,
   ) {
-    return this.feedbackService.update(updateFeedbackDto);
+    return await this.feedbackService.update(updateFeedbackDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.feedbackService.delete(+id);
+  async remove(@Param('id') id: string) {
+    return await this.feedbackService.delete(+id);
   }
 }

@@ -26,8 +26,6 @@ export class User {
   @Column({ nullable: true })
   password: string;
 
-  
-
   public previousPassword: string;
 
   @AfterLoad()
@@ -49,11 +47,7 @@ export class User {
 
   @Index()
   @Column({ nullable: true })
-  firstName: string | null;
-
-  @Index()
-  @Column({ nullable: true })
-  lastName: string | null;
+  name: string | null;
 
   @Index()
   @Column({ nullable: false, type: 'enum', enum: RoleEnum })

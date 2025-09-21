@@ -1,32 +1,31 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AnonymousStrategy } from './strategies/anonymous.strategy';
+
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from 'src/http/user/user.module';
 import { MailModule } from 'src/http/mail/mail.module';
 
 @Module({
   imports: [
-    UserModule,
-    PassportModule,
-    MailModule,
+    ConfigModule.forRoot(),
+    PassportModule, // precisa para AuthGuard funcionar
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
+      useFactory: async (configService: ConfigService) => ({
         secret: 'secret',
-        signOptions: {
-          expiresIn: '1d',
-        },
+        signOptions: { expiresIn: '1h' },
       }),
     }),
+    UserModule,
+    MailModule,
   ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, AnonymousStrategy],
-  exports: [AuthService],
+  controllers: [AuthController],   // <-- registra o controller
+  providers: [AuthService, JwtStrategy], // <-- registra service e strategy
+  exports: [AuthService], // exporta se outros módulos precisarem
 })
 export class AuthModule {}

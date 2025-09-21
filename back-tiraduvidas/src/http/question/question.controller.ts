@@ -6,59 +6,64 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('question')
+@ApiBearerAuth()
+@UseGuards(AuthGuard('jwt'))
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
   @Post()
-  create(@Body() createQuestionDto: CreateQuestionDto) {
-    return this.questionService.insertOne(createQuestionDto);
+  async create(@Body() createQuestionDto: CreateQuestionDto) {
+    return await this.questionService.insertOne(createQuestionDto);
   }
 
   @Get()
-  findAll() {
-    return this.questionService.findAll();
+  async findAll() {
+    return await this.questionService.findAll();
   }
 
   // Busca por id
   @Get(':id')
-  findOneById(@Param('id') id: number) {
-    return this.questionService.findOne({ id });
+  async findOneById(@Param('id') id: number) {
+    return await this.questionService.findOne({ id });
   }
 
-  // Busca por id
+  // Busca por id do usuário
   @Get('user/:questionerId')
-  findManyById(@Param('questionerId') questionerId: number) {
-    return this.questionService.findMany({ questionerId });
+  async findManyById(@Param('questionerId') questionerId: number) {
+    return await this.questionService.findMany({ questionerId });
   }
 
   // Busca por título (alterei o nome do método para distinguir as rotas)
   @Get('title/:title')
-  findByTitle(@Param('title') title: string) {
-    return this.questionService.findMany({ title });
+  async findByTitle(@Param('title') title: string) {
+    return await this.questionService.findMany({ title });
   }
 
   // Busca por status 
   @Get('status/:status')
-  findByStatus(@Param('status') status: string) {
-    return this.questionService.findMany({ status });
+  async findByStatus(@Param('status') status: string) {
+    return await this.questionService.findMany({ status });
   }
   
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateQuestionDto: UpdateQuestionDto,
   ) {
-    return this.questionService.update(updateQuestionDto);
+    return await this.questionService.update(updateQuestionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.questionService.delete(+id);
+  async remove(@Param('id') id: string) {
+    return await this.questionService.delete(+id);
   }
 }
