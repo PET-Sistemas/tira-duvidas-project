@@ -28,12 +28,19 @@ function Logar() {
         setError(data.message);
       } else {
         setSuccessMessage(data.message);
-
+        
+        sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("id", data.user.id);
-        sessionStorage.setItem("username", data.user.firstName);
+        sessionStorage.setItem("email", data.user.email);
+        sessionStorage.setItem("username", data.user.name);
+        sessionStorage.setItem("role", data.user.role);
 
         setTimeout(() => {
-          navigate("/");
+          if(data.user.role === "admin"){
+            navigate("/admin");
+          }else {
+            navigate("/");
+          }
         }, 1000);
       }
     } catch (err) {

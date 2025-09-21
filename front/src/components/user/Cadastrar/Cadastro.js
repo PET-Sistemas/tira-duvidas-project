@@ -43,12 +43,12 @@ function Cadastro() {
         email: formData.email,
         password: formData.password,
         provider: "email",
-        firstName: splitName(formData.name).firstName,
-        lastName: splitName(formData.name).lastName,
+        name: formData.name,
         phone: formData.phone,
         role: "questioner",
         status: "active",
       });
+
       const data = await response.json();
 
       if (data.message) {
@@ -157,7 +157,7 @@ function Cadastro() {
             >
               <p className="register-text">
                 Já possui uma conta?{" "}
-                <Link to="/" className="register-link">
+                <Link to="/login" className="register-link">
                   Realizar Login
                 </Link>
               </p>

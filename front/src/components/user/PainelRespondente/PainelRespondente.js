@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PainelRespondente.css";
 import "../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
@@ -10,6 +11,34 @@ import imgCard3 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard4 from "../../../utils/images/DadosPessoais.png";
 
 function PainelRespondente() {
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("role");
+    navigate("/login");
+  };
+
+  useEffect(() => {
+    // Verifica se há um username armazenado no sessionStorage
+    const storedUsername = sessionStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Verifica se há um username armazenado no sessionStorage
+    const storedUsername = sessionStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
   return (
     <div className="container-respondente">
       <header className="header-global">
@@ -62,7 +91,7 @@ function PainelRespondente() {
             <span className="card-title">Minhas Dúvidas</span>
           </a>
 
-          <a href="/dados-pessoais" className="card">
+          <a href="/perfil" className="card">
             <img
               src={imgCard4}
               alt="Meus Dados Pessoais"
@@ -72,7 +101,7 @@ function PainelRespondente() {
           </a>
         </div>
 
-        <button className="logout-button">Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
       </main>
 
       <footer className="footer">

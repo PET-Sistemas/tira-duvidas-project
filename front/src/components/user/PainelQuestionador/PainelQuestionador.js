@@ -11,12 +11,14 @@ import imgCard2 from "../../../utils/images/DadosPessoais.png";
 
 function PainelQuestionador() {
   const [username, setUsername] = useState("");
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("id");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
     navigate("/login");
   };
 
