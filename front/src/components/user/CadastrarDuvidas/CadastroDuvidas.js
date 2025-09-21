@@ -60,7 +60,12 @@ function CadastroDuvidas() {
     };
 
     try {
-      await createQuestion(newQuestion); // Chamada ao serviço de criação
+      const response = await createQuestion(newQuestion); // Chamada ao serviço de criação
+      
+      if(!response.ok) {
+        throw new Error("Erro ao cadastrar dúvida");
+      }
+
       alert("Dúvida cadastrada com sucesso!");
       // Limpa os campos após o cadastro
       setTitle("");

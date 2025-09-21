@@ -27,7 +27,7 @@ import {
 import { allCategory } from "./services/category.service.ts";
 import MinhasDuvidasDetalhe from "./components/user/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js";
 import ResponderDuvidasDetalhe from "./components/user/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js";
-import ProtectedRoute from "./components/user/Login/ProtectedRoute.js";
+import ProtectedRoute from "./utils/ProtectedRoute.js";
 import logoUfms from "./utils/images/logo-ufms.png";
 import ilustracaoPergunta from "./utils/images/ilustracao-pergunta.png";
 import fotoprofile from "./utils/images/Vector.png";
@@ -123,7 +123,12 @@ function App() {
             // Exibe o nome do usuário se estiver logado
             <div className="app-home-user-info">
               <button
-                onClick={() => navigate("/painel-questionador")}
+                onClick={() => {
+                  if(sessionStorage.getItem("role") === "questioner")
+                    navigate("/painel-questionador");
+                  else if(sessionStorage.getItem("role") === "respondent")
+                    navigate("/painel-respondente");
+                }}
                 className="app-home-btn-profile"
               >
                 <img
@@ -172,31 +177,62 @@ function App() {
         </div>
       </div>
 
-      <div className="welcome-container">
-        <div className="welcome-content">
-          <h1>
-            Bem-vindo ao
-            <br />
-            <span>Tira Dúvidas</span>
-          </h1>
-          <p>
-            Envie perguntas, obtenha respostas
-            <br />e compartilhe conhecimento
-          </p>
-          <button
-            onClick={() => navigate("/cadastroduvidas")}
-            className="app-home-nav-link"
-          >
-            Faça uma pergunta
-          </button>
-        </div>
-        <div className="welcome-illustration">
-          <img
-            src={ilustracaoPergunta}
-            alt="Pessoa com ponto de interrogação"
-          />
-        </div>
-      </div>
+      {sessionStorage.getItem("role") === "questioner" && (
+        <div className="welcome-container">
+          <div className="welcome-content">
+            <h1>
+              Bem-vindo ao
+              <br />
+              <span>Tira Dúvidas</span>
+            </h1>
+            <p>
+              Envie perguntas, obtenha respostas
+              <br />e compartilhe conhecimento
+            </p>
+            <button
+              onClick={() => navigate("/cadastroduvidas")}
+              className="app-home-nav-link"
+            >
+              Faça uma pergunta
+            </button>
+          </div>
+          <div className="welcome-illustration">
+            <img
+              src={ilustracaoPergunta}
+              alt="Pessoa com ponto de interrogação"
+            />
+          </div>
+        </div>  
+      )}
+
+      {sessionStorage.getItem("role") === "respondent" && (
+        <div className="welcome-container">
+          <div className="welcome-content">
+            <h1>
+              Bem-vindo ao
+              <br />
+              <span>Tira Dúvidas</span>
+            </h1>
+            <p>
+              Responda perguntas
+              <br />e compartilhe conhecimento
+            </p>
+            <button
+              onClick={() => navigate("/responder-duvidas")}
+              className="app-home-nav-link"
+            >
+              Perguntas
+            </button>
+          </div>
+          <div className="welcome-illustration">
+            <img
+              src={ilustracaoPergunta}
+              alt="Pessoa com ponto de interrogação"
+            />
+          </div>
+        </div>  
+      )}
+      
       <footer>
         <img src={logoUfms} alt="Logo UFMS" />
       </footer>
@@ -217,8 +253,8 @@ function AppWrapper() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <App />
+            <ProtectedRoute roles={["questioner", "respondent"]}>
+              <App />,
             </ProtectedRoute>
           }
         />
@@ -226,7 +262,7 @@ function AppWrapper() {
         <Route
           path="/cadastroduvidas"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner"]}>
               <CadastroDuvidas />
             </ProtectedRoute>
           }
@@ -235,7 +271,7 @@ function AppWrapper() {
         <Route
           path="/perfil"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner", "respondent"]}>
               <PerfilUsuario />
             </ProtectedRoute>
           }
@@ -244,7 +280,7 @@ function AppWrapper() {
         <Route
           path="/minhas-duvidas"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner"]}>
               <MinhasDuvidas />
             </ProtectedRoute>
           }
@@ -253,7 +289,7 @@ function AppWrapper() {
         <Route
           path="/responder-duvidas"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["respondent"]}>
               <ResponderDuvidas />
             </ProtectedRoute>
           }
@@ -262,7 +298,7 @@ function AppWrapper() {
         <Route
           path="/painel-questionador"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner"]}>
               <PainelQuestionador />
             </ProtectedRoute>
           }
@@ -271,7 +307,7 @@ function AppWrapper() {
         <Route
           path="/painel-respondente"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["respondent"]}>
               <PainelRespondente />
             </ProtectedRoute>
           }
@@ -280,7 +316,7 @@ function AppWrapper() {
         <Route
           path="/duvida/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner", "respondent"]}>
               <MinhasDuvidasDetalhe />
             </ProtectedRoute>
           }
@@ -289,7 +325,7 @@ function AppWrapper() {
         <Route
           path="/responder-duvidas-detalhe"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["respondent"]}>
               <ResponderDuvidasDetalhe />
             </ProtectedRoute>
           }
@@ -298,7 +334,7 @@ function AppWrapper() {
         <Route
           path="/responder-duvidas/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["respondent"]}>
               <ResponderDuvidasDetalhe />
             </ProtectedRoute>
           }
@@ -307,7 +343,7 @@ function AppWrapper() {
         <Route
           path="/sobrenos"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["questioner", "respondent"]}>
               <SobreNos />
             </ProtectedRoute>
           }
@@ -316,7 +352,7 @@ function AppWrapper() {
         <Route
           path="/admin" // O URL que o usuário vai acessar
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <HomeAdmin />
             </ProtectedRoute>
           }
@@ -325,7 +361,7 @@ function AppWrapper() {
         <Route
           path="/admin/usuarios" // O URL que o usuário vai acessar
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <UsuariosGerenciamento />
             </ProtectedRoute>
           }
@@ -334,7 +370,7 @@ function AppWrapper() {
         <Route
           path="/admin/categorias" // O URL que o usuário vai acessar
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <CategoriasGerenciamento />
             </ProtectedRoute>
           }
@@ -343,7 +379,7 @@ function AppWrapper() {
         <Route
           path="/admin/certificados" // O URL que o usuário vai acessar
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <CertificadosGerados />
             </ProtectedRoute>
           }
@@ -352,7 +388,7 @@ function AppWrapper() {
         <Route
           path="/admin/perfil-gerenciamento" // O URL que o usuário vai acessar
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <PerfilGerenciamento />
             </ProtectedRoute>
           }
@@ -371,8 +407,8 @@ function AppWrapper() {
   //       <Route path="/perfil" element={<PerfilUsuario />} />
   //       <Route path="/minhas-duvidas" element={<MinhasDuvidas />} />
   //       <Route path="/responder-duvidas" element={<ResponderDuvidas />} />
-  //       <Route path="/painel-questionador" element={<PainelQuestionador />} />
-  //       <Route path="/painel-respondente" element={<PainelRespondente />} />
+  //       <Route path="/painel-questioner" element={<PainelQuestionador />} />
+  //       <Route path="/painel-respondent" element={<PainelRespondente />} />
   //       <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
   //       <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
   //       <Route path="/responder-duvidas/:id" element={<ResponderDuvidasDetalhe />} /> {/* Detalhes de dúvida */}

@@ -6,6 +6,8 @@ import defaultProfilePic from "../../../utils/images/default-profile.png";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import { Link } from "react-router-dom"; // Importando Link do React Router
 import logoUfms from "../../../utils/images/logo-ufms.png";
+import { allQuestion } from "../../../services/question.service";
+import { all } from "axios";
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
@@ -19,8 +21,8 @@ const ResponderDuvidas = () => {
   useEffect(() => {
     const fetchDuvidas = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/question/");
-        if (!response.ok) {
+        const response = await allQuestion();
+        if (response.status !== 200) {
           throw new Error("Falha ao carregar dúvidas");
         }
         const data = await response.json();
@@ -175,42 +177,46 @@ const DoubtCard = ({ doubt }) => {
     console.log("Responder dúvida com ID: ${id}");
   };
 
-  return (
-    <div className={`doubt-card-responder ${getStatusClass(doubt.status)}`}>
-      <div className="doubt-card-header-responder">
-        <span className="status-icon">{getStatusIcon(doubt.status)}</span>
-        <div className="doubt-main-info-responder">
-          <h3 className="doubt-title-responder">{doubt.title}</h3>
-          <p className="doubt-description-responder">{doubt.description}</p>
-          <p className="doubt-situation-responder"></p>
-          {doubt.status !== "respondida" && (
-            <Link
-              to={{ pathname: `/responder-duvidas/${doubt.id}` }}
-              state={{ doubt }}
-              className="responder-btn"
-            >
-              {" "}
-              Responder{" "}
-            </Link>
-          )}
+  if(doubt.status === "answered"){
+    return;
+  }else{
+    return (
+        <div className={`doubt-card-responder ${getStatusClass(doubt.status)}`}>
+            <div className="doubt-card-header-responder">
+            <span className="status-icon">{getStatusIcon(doubt.status)}</span>
+            <div className="doubt-main-info-responder">
+              <h3 className="doubt-title-responder">{doubt.title}</h3>
+              <p className="doubt-description-responder">{doubt.description}</p>
+              <p className="doubt-situation-responder"></p>
+              {doubt.status !== "respondida" && (
+                <Link
+                  to={{ pathname: `/responder-duvidas/${doubt.id}` }}
+                  state={{ doubt }}
+                  className="responder-btn"
+                >
+                  {" "}
+                  Responder{" "}
+                </Link>
+              )}
+            </div>
+          </div>
+          <div className="doubt-additional-info-responder">
+            <p>
+              <strong>Usuário:</strong> {doubt.questionerId}
+            </p>
+            <p>
+              <strong>Categoria:</strong> {doubt.category}
+            </p>
+            <p>
+              <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}
+            </p>
+            <p>
+              <strong>Status:</strong> {doubt.status}
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="doubt-additional-info-responder">
-        <p>
-          <strong>Usuário:</strong> {doubt.questionerId}
-        </p>
-        <p>
-          <strong>Categoria:</strong> {doubt.category}
-        </p>
-        <p>
-          <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}
-        </p>
-        <p>
-          <strong>Status:</strong> {doubt.status}
-        </p>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ResponderDuvidas;

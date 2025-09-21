@@ -5,6 +5,7 @@ import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.p
 import defaultProfilePic from "../../../utils/images/default-profile.png";
 import { createAnswers } from "../../../services/answers.service";
 import { getAnswers } from "../../../services/answers.service";
+import { updateQuestionAnswered } from "../../../services/question.service";
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
@@ -52,6 +53,8 @@ function ResponderDuvidasDetalhe() {
       const responseSend = await createAnswers({
         questionId: doubt.id,
         respondentId: sessionStorage.getItem("id"),
+        respondentName: sessionStorage.getItem("username"),
+        respondentEmail: sessionStorage.getItem("email"),
         auditorId: doubt.moderatorId,
         description: response,
         status: "active",
@@ -62,24 +65,14 @@ function ResponderDuvidasDetalhe() {
       }
 
       // Atualiza o status da questão para "respondido" no backend
-      const updateResponse = await fetch(
-        `http://localhost:8080/api/question/${doubt.id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            id: doubt.id,
-            title: doubt.title,
-            description: doubt.description,
-            questionerId: doubt.questionerId,
-            moderatorId: doubt.moderatorId,
-            status: "answered",
-          }),
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const updateResponse = await updateQuestionAnswered({
+        id: doubt.id,
+        title: doubt.title,
+        description: doubt.description,
+        questionerId: doubt.questionerId,
+        moderatorId: doubt.moderatorId,
+        status: "answered",
+      })
 
       if (!updateResponse.ok) {
         throw new Error(
@@ -138,12 +131,18 @@ function ResponderDuvidasDetalhe() {
           <h3>Respostas Anteriores</h3>
           {answers.map((answer) => (
             <div key={answer.id} className="resposta-anterior">
-              <p>{answer.description}</p>
               <p>
-                <strong>Respondido por:</strong> {answer.respondentId}
+                <strong>Resposta:</strong> {answer.description}
               </p>
               <p>
-                <strong>Status:</strong> {answer.status}
+                <strong>Nome do Respondente:</strong> { answer.respondentName }
+              </p>
+              <p>
+                <strong>Email do Respondente:</strong> { answer.respondentEmail }
+              </p>
+              <p>
+                <strong>Data da Resposta:</strong>{" "}
+                {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
               </p>
             </div>
           ))}

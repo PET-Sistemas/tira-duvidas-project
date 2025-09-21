@@ -7,6 +7,7 @@ export function createAnswers(data: CreateAnswersDTO) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
 }
@@ -14,6 +15,11 @@ export function createAnswers(data: CreateAnswersDTO) {
 export async function allAnswers() {
   const response = await fetch("http://localhost:8080/api/answers/", {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
 
   if (!response.ok) {
@@ -31,13 +37,18 @@ export async function getAnswers(id: string) {
   
   const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   
   if (!response.ok) {
     throw new Error("Falha ao carregar respostas");
   }
 
-  const answers = await response.json();
+  const answers = response.json();
   
   return answers;
 }
@@ -45,6 +56,11 @@ export async function getAnswers(id: string) {
 export async function deleteAnswers(id: string) {
   const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
     method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   
   if (!response.ok) {

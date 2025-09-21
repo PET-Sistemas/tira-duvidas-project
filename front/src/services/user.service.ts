@@ -2,7 +2,7 @@ import { CreateUserDTO } from "../dtos/user/create-user.dto";
 import { LoginDTO } from "../dtos/user/login.dto";
 
 export function register(data: CreateUserDTO) {
-  return fetch("http://localhost:8080/api/user/", {
+  return fetch("http://localhost:8080/api/v1/auth/email/register", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -26,6 +26,11 @@ export function login(data: LoginDTO) {
 export async function getUserById(id: string){
   const response = await fetch(`http://localhost:8080/api/user/${id}`, {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   if (!response.ok) {
     throw new Error("User not found");
@@ -37,6 +42,11 @@ export async function getUserById(id: string){
 export async function allUser() {
   const response = await fetch("http://localhost:8080/api/user/", {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   const users = await response.json();
   return users;
@@ -47,7 +57,9 @@ export async function updateUser(id: string, data: Partial<CreateUserDTO>) {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
   if (!response.ok) {

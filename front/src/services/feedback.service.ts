@@ -7,6 +7,7 @@ export function createFeedback(data: CreateFeedbackDTO) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
 }
@@ -14,6 +15,11 @@ export function createFeedback(data: CreateFeedbackDTO) {
 export async function allFeedbacks() {
   const response = await fetch("http://localhost:8080/api/feedback/", {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
 
   if (!response.ok) {
@@ -27,6 +33,11 @@ export async function allFeedbacks() {
 export async function getFeedbacks(id: string) {
   const response = await fetch(`http://localhost:8080/api/feedback/answer/${id}`, {
     method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
 
   if (!response.ok) {
@@ -40,6 +51,11 @@ export async function getFeedbacks(id: string) {
 export async function deleteFeedbacks(id: string) {
   const response = await fetch(`http://localhost:8080/api/feedback/${id}`, {
     method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   if (!response.ok) {
     throw new Error("Falha ao deletar feedbacks");

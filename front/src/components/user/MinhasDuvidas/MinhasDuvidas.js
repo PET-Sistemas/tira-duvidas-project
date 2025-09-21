@@ -6,6 +6,8 @@ import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.p
 import defaultProfilePic from "../../../utils/images/default-profile.png";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import logoUfms from "../../../utils/images/logo-ufms.png";
+import { getQuestionByUserId } from "../../../services/question.service";
+
 
 function MinhasDuvidas() {
   const [duvidas, setDuvidas] = useState([]);
@@ -24,13 +26,12 @@ function MinhasDuvidas() {
           throw new Error("Usuário não autenticado");
         }
 
-        const response = await fetch(
-          `http://localhost:8080/api/question/user/${questionerId}`
-        );
+        const response = await getQuestionByUserId(questionerId);
 
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw new Error("Falha ao carregar dúvidas");
         }
+
         const data = await response.json();
         console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
