@@ -23,6 +23,12 @@ export class Answer {
   @Column({ name: 'respondent_id' })
   respondentId: number;
 
+  @Column({ name: 'respondent_name' })
+  respondentName: string;
+
+  @Column({ name: 'respondent_email' })
+  respondentEmail: string;
+
   @Column({ name: 'auditor_id' })
   auditorId: number;
 

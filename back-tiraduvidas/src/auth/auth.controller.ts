@@ -20,6 +20,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { CreateUserDto } from 'src/http/user/dto/create-user.dto';
 import { UpdateUserDto } from 'src/http/user/dto/update-user.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller({
   path: 'auth',
@@ -31,31 +32,31 @@ export class AuthController {
   @Post('email/login')
   @HttpCode(HttpStatus.OK)
   public async login(@Body() loginDto: AuthEmailLoginDto) {
-    return this.service.validateLogin(loginDto);
+    return await this.service.validateLogin(loginDto);
   }
 
   @Post('email/register')
   @HttpCode(HttpStatus.CREATED)
   async register(@Body() createUserDto: CreateUserDto) {
-    return this.service.register(createUserDto);
+    return await this.service.register(createUserDto);
   }
 
   @Post('email/confirm')
   @HttpCode(HttpStatus.OK)
   async confirmEmail(@Body() confirmEmailDto: AuthConfirmEmailDto) {
-    return this.service.confirmEmail(confirmEmailDto.hash);
+    return await this.service.confirmEmail(confirmEmailDto.hash);
   }
 
   @Post('forgot/password')
   @HttpCode(HttpStatus.OK)
   async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto) {
-    return this.service.forgotPassword(forgotPasswordDto.email);
+    return await this.service.forgotPassword(forgotPasswordDto.email);
   }
 
   @Post('reset/password')
   @HttpCode(HttpStatus.OK)
   async resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto) {
-    return this.service.resetPassword(
+    return await this.service.resetPassword(
       resetPasswordDto.hash,
       resetPasswordDto.password,
     );

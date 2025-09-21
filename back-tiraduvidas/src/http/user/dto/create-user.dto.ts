@@ -20,13 +20,9 @@ export class CreateUserDto {
   @IsString()
   provider: string;
 
-  @ApiProperty({ description: 'Primeiro nome do usuário' })
+  @ApiProperty({ description: 'Nome do usuário' })
   @IsString()
-  firstName: string | null;
-
-  @ApiProperty({ description: 'Último nome do usuário' })
-  @IsString()
-  lastName: string | null;
+  name: string | null;
 
   @ApiProperty({ description: 'Telefone do usuário' })
   @IsString()

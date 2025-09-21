@@ -26,7 +26,7 @@ export class AuthService {
 
     if (!user) {
       throw new HttpException(
-        'Incorrect username or password',
+        'Email not found',
         HttpStatus.FORBIDDEN,
       );
     }
@@ -41,10 +41,12 @@ export class AuthService {
     );
 
     if (isValidPassword) {
-      const token = this.jwtService.sign({
-        id: user.id,
-        role: user.role,
-      });
+      const token = this.jwtService.sign(
+        {
+          id: user.id,
+          role: user.role,
+        },
+      );
 
       return { token, message:"Login realizado com sucesso.", user: user };
     }
@@ -59,7 +61,7 @@ export class AuthService {
     );
   }
 
-  async register(registerDto: CreateUserDto): Promise<void> {
+  async register(registerDto: CreateUserDto) {
     const hash = crypto
       .createHash('sha256')
       .update(randomStringGenerator())
@@ -76,6 +78,11 @@ export class AuthService {
         hash,
       },
     });
+
+    return {
+      message: 'Usuário criado com sucesso.',
+      user,
+    };
   }
 
   async confirmEmail(hash: string): Promise<User> {

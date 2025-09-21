@@ -11,6 +11,14 @@ export class CreateAnswerDto {
   @IsInt()
   respondentId: number;
 
+  @ApiProperty({ description: 'Nome do respondente' })
+  @IsString()
+  respondentName: string;
+
+  @ApiProperty({ description: 'Email do respondente' })
+  @IsString()
+  respondentEmail: string;
+
   @ApiProperty({ description: 'ID do auditor' })
   @IsInt()
   auditorId: number;
