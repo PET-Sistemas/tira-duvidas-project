@@ -9,6 +9,7 @@ import { AuthService } from './auth/auth.service';
 import { RoleEnum } from './http/role/role.enum';
 import { UserStatus } from './http/user/enums/user-status.enum';
 import { UserService } from 'src/http/user/user.service';
+import { CategoryService } from './http/category/category.service';
 import { emit } from 'process';
 
 
@@ -52,9 +53,21 @@ async function bootstrap() {
 
   await app.listen(configService.get('app.port'));
 
-  async function createAdminAndRespondent() {
+  async function inicialData() {
     const authService = app.get(AuthService);
     const userService = app.get(UserService);
+    const categoryService = app.get(CategoryService);
+
+    // Cria categorias iniciais
+    const categorias = ['Matemática', 'Física', 'Química', 'Biologia', 'História', 'Geografia', 'Literatura', 'Artes', 'Educação Física', 'Inglês'];
+    for (const nome of categorias) {
+      const categoriaExistente = await categoryService.findOne({ name: nome });
+      if (!categoriaExistente) {
+        await categoryService.insertOne({ name: nome });
+      }
+    }
+
+    // Cria usuários iniciais
 
     if(await userService.findOne({email: "admin@ufms.br"})){
       return;
@@ -69,6 +82,7 @@ async function bootstrap() {
         status: UserStatus.ACTIVE,
       });
     }
+
     if(await userService.findOne({email: "respondent@ufms.br"})){
       return;
     }else{
@@ -82,10 +96,24 @@ async function bootstrap() {
         status: UserStatus.ACTIVE,
       });
     }
+
+    if(await userService.findOne({email: "respondent2@ufms.br"})){
+      return;
+    }else{
+      await authService.register({
+        email: "respondent2@ufms.br",
+        password: "123",
+        provider: "email",
+        name: "respondent2",
+        phone: "123456789",
+        role: RoleEnum.RESPONDENT,
+        status: UserStatus.ACTIVE,
+      });
+    }
   
   }
 
-  createAdminAndRespondent();
+  inicialData();
 
 }
 void bootstrap();

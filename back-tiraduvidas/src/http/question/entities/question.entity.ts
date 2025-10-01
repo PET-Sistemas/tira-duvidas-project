@@ -28,8 +28,9 @@ export class Question {
   @Column({ name: 'questioner_id' })
   questionerId: number;
 
-  @Column({ name: 'moderator_id' })
-  moderatorId: number;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'questioner_id' })
+  questioner: User;
 
   @Column({ type: 'enum', enum: QuestionStatus, default: QuestionStatus.NOT_ANSWERED })
   status: QuestionStatus;
@@ -43,15 +44,7 @@ export class Question {
   @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
   deletedAt: Date;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'questioner_id' })
-  questioner: User;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'moderator_id' })
-  moderator: User;
-
-  @ManyToMany(() => Category)
+  @ManyToMany(() => Category, { eager: true })
   @JoinTable()
   categories: Category[];
 }

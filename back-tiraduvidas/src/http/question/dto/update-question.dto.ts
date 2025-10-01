@@ -19,11 +19,10 @@ export class UpdateQuestionDto {
   @IsInt()
   questionerId?: number;
 
-  @ApiPropertyOptional({ description: 'ID do moderador' })
-  @IsInt()
-  moderatorId?: number;
-
   @ApiPropertyOptional({ description: 'Status da dúvida' })
   @IsEnum(QuestionStatus)
   status?: QuestionStatus;
+
+  @ApiProperty({ description: 'Categorias da dúvida' })
+  categories?: string[];
 }

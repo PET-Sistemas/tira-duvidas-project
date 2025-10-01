@@ -1,4 +1,4 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsString } from 'class-validator';
 import { QuestionStatus } from '../enums/question-status.enum';
 
@@ -19,11 +19,10 @@ export class SearchQuestionDto {
   @IsInt()
   questionerId?: number;
 
-  @ApiPropertyOptional({ description: 'ID do moderador' })
-  @IsInt()
-  moderatorId?: number;
-
   @ApiPropertyOptional({ description: 'Status da dúvida' })
   @IsEnum(QuestionStatus)
   status?: QuestionStatus;
+
+  @ApiProperty({ description: 'Categorias da dúvida' })
+  categories: number[];
 }

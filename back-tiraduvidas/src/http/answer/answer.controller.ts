@@ -22,7 +22,7 @@ export class AnswerController {
   constructor(private readonly answerService: AnswerService) {}
 
   @Post()
-  async create(@Body() createAnswerDto: CreateAnswerDto, @Req() req) {
+  async create(@Body() createAnswerDto: CreateAnswerDto) {
     return await this.answerService.insertOne(createAnswerDto);
   }
 
