@@ -175,6 +175,12 @@ const DoubtCard = ({ doubt }) => {
     return "❓";
   };
 
+  const getStatus = (status) => {
+    if (status === "not_answered") return "Não Respondida";
+    if (status === "answered") return "Respondida";
+    return "Pendente";
+  }
+
   return (
     <div
       className={`doubt-card-minhas-duvidas ${getStatusClass(doubt.status)}`}
@@ -192,7 +198,7 @@ const DoubtCard = ({ doubt }) => {
       </div>
       <div className="doubt-additional-info-minhas-duvidas">
         <p>
-          <strong>Categoria:</strong> {doubt.category}
+          <strong>Categoria:</strong> {doubt.categories[0].name}
         </p>
         <p>
           <strong>Data:</strong>{" "}
@@ -200,11 +206,11 @@ const DoubtCard = ({ doubt }) => {
         </p>
         <p>
           {" "}
-          <strong>Status:</strong> {doubt.status}{" "}
+          <strong>Status:</strong> {getStatus(doubt.status)}{" "}
         </p>
         <p>
           {" "}
-          <strong>Usuário:</strong> {doubt.questionerName}{" "}
+          <strong>Usuário:</strong> {doubt.questioner.name}{" "}
         </p>
       </div>
     </div>

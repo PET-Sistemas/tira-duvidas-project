@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./ResponderDuvidasDetalhe.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../../utils/images/default-profile.png";
 import { createAnswers } from "../../../services/answers.service";
 import { getAnswers } from "../../../services/answers.service";
 import { updateQuestionAnswered } from "../../../services/question.service";
+import UserLayout from "../Layout/UserLayout";
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
+  const navigate = useNavigate();
   const doubt = location.state?.doubt; // A dúvida vem através do state
 
   // Estado para armazenar a resposta
@@ -24,7 +26,7 @@ function ResponderDuvidasDetalhe() {
         const answerResp = await getAnswers(doubt.id);
         setAnswers(answerResp);
 
-        if (answerResp && questionStatus === "answered") {
+        if (questionStatus === "answered") {
           setAlreadyAnswered(true);
         }
       } catch (err) {
@@ -55,7 +57,6 @@ function ResponderDuvidasDetalhe() {
         respondentId: sessionStorage.getItem("id"),
         respondentName: sessionStorage.getItem("username"),
         respondentEmail: sessionStorage.getItem("email"),
-        auditorId: doubt.moderatorId,
         description: response,
         status: "active",
       });
@@ -63,15 +64,15 @@ function ResponderDuvidasDetalhe() {
       if (!responseSend.ok) {
         throw new Error("Falha ao enviar a resposta: " + responseSend.status);
       }
-
+      
       // Atualiza o status da questão para "respondido" no backend
       const updateResponse = await updateQuestionAnswered({
         id: doubt.id,
         title: doubt.title,
         description: doubt.description,
         questionerId: doubt.questionerId,
-        moderatorId: doubt.moderatorId,
         status: "answered",
+        categories: doubt.categories
       })
 
       if (!updateResponse.ok) {
@@ -81,8 +82,8 @@ function ResponderDuvidasDetalhe() {
       }
 
       alert("Resposta enviada com sucesso!");
-      setResponseSent(true);
-      console.log("Resposta enviada: ", responseSend.json());
+      setAlreadyAnswered(true);
+      navigate("/responder-duvidas");
     } catch (error) {
       console.error("Erro ao atualizar a dúvida:", error);
       alert(
@@ -92,27 +93,7 @@ function ResponderDuvidasDetalhe() {
   };
 
   return (
-    <div className="responder-duvidas">
-      <header className="responder-duvida-header">
-        <nav className="responder-duvidas-nav">
-          <img
-            src={tiraDuvidasLogo}
-            alt="Tira Dúvidas Logo"
-            className="logo-cadasroDuvidas"
-          />
-          <a href="#sobre" className="responder-duvidas-nav-link-sobre">
-            Sobre nós
-          </a>
-          <h2 className="titulo-pagina">Responder Dúvidas</h2>
-          <a href="/perfil" className="profile-btn">
-            <img
-              src={defaultProfilePic}
-              alt="icon-profile"
-              className="user-profile-img"
-            />
-          </a>
-        </nav>
-      </header>
+    <UserLayout>
       <section className="duvida-info">
         <h3>{doubt.title}</h3>
         <p>{doubt.description}</p>
@@ -172,14 +153,15 @@ function ResponderDuvidasDetalhe() {
                 value={response}
                 onChange={(e) => setResponse(e.target.value)}
               />
+
+              <button className="btn-enviar" onClick={handleSendResponse}>
+                Enviar Resposta
+              </button>
             </div>
           )}
-          <button className="btn-enviar" onClick={handleSendResponse}>
-            Enviar Resposta
-          </button>
         </section>
       )}
-    </div>
+    </UserLayout>
   );
 }
 

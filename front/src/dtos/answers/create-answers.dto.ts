@@ -3,6 +3,6 @@ export class CreateAnswersDTO {
     respondentId?: number | undefined
     respondentName?: string | undefined
     respondentEmail?: string | undefined
-    auditorId?: number | undefined
     description?: string | undefined
+    status?: string | undefined
 }

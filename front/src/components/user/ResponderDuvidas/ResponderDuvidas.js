@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"; // Importando Link do React Router
 import logoUfms from "../../../utils/images/logo-ufms.png";
 import { allQuestion } from "../../../services/question.service";
 import { all } from "axios";
+import UserLayout from "../Layout/UserLayout";
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
@@ -78,33 +79,7 @@ const ResponderDuvidas = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="responder-duvidas">
-      <header className="header-global">
-        <nav className="header-global-nav">
-          <a href="/" className="app-home-logo-link">
-            <img
-              src={tiraDuvidasLogo}
-              alt="Tira Dúvidas Logo"
-              className="logo-cadasroDuvidas"
-            />
-          </a>
-
-          <a href="/" className="nav-bar-item">
-            <i className="bi bi-house-door-fill"></i>Início
-          </a>
-          <a href="sobrenos" className="nav-bar-item">
-            <i className="bi bi-people-fill"></i>Sobre nós
-          </a>
-
-          <a href="/perfil" className="profile-btn">
-            <img
-              src={defaultProfilePic}
-              alt="icon-profile"
-              className="user-profile-img"
-            />
-          </a>
-        </nav>
-      </header>
+    <UserLayout>
       <h2 className="titulo-pagina">Responder Dúvidas</h2>
 
       <div className="filtrar-container">
@@ -151,10 +126,7 @@ const ResponderDuvidas = () => {
           )}
         </div>
       </section>
-      <footer>
-        <img src={logoUfms} alt="Logo UFMS" />
-      </footer>
-    </div>
+   </UserLayout>
   );
 };
 
@@ -172,6 +144,12 @@ const DoubtCard = ({ doubt }) => {
     if (status === "answered") return "✅";
     return "";
   };
+
+  const getStatus = (status) => {
+    if (status === "not_answered") return "Não Respondida";
+    if (status === "answered") return "Respondida";
+    return "Pendente";
+  }
 
   const handleResponder = (id) => {
     console.log("Responder dúvida com ID: ${id}");
@@ -202,16 +180,16 @@ const DoubtCard = ({ doubt }) => {
           </div>
           <div className="doubt-additional-info-responder">
             <p>
-              <strong>Usuário:</strong> {doubt.questionerId}
+              <strong>Usuário:</strong> {doubt.questioner.name}
             </p>
             <p>
-              <strong>Categoria:</strong> {doubt.category}
+              <strong>Categoria:</strong> {doubt.categories[0].name}
             </p>
             <p>
               <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}
             </p>
             <p>
-              <strong>Status:</strong> {doubt.status}
+              <strong>Status:</strong> {getStatus(doubt.status)}
             </p>
           </div>
         </div>

@@ -3,6 +3,7 @@
   background: var(--gradiente-fundo);
   min-height: 100vh;
   padding: 1rem;
+  padding-bottom: 4rem;
 }
 
 body {
@@ -66,7 +67,6 @@ body {
 }
 
 footer {
-  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;

@@ -9,6 +9,7 @@ import imgCard1 from "../../../utils/images/DuvidasRespondidas.png";
 import imgCard2 from "../../../utils/images/ResponderDuvidas.png";
 import imgCard3 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard4 from "../../../utils/images/DadosPessoais.png";
+import UserLayout from "../Layout/UserLayout";
 
 function PainelRespondente() {
   const [username, setUsername] = useState("");
@@ -40,34 +41,7 @@ function PainelRespondente() {
   }, []);
 
   return (
-    <div className="container-respondente">
-      <header className="header-global">
-        <nav className="header-global-nav">
-          <a href="/" className="app-home-logo-link">
-            <img
-              src={tiraDuvidasLogo}
-              alt="Tira Dúvidas Logo"
-              className="logo-cadasroDuvidas"
-            />
-          </a>
-
-          <a href="/" className="nav-bar-item">
-            <i className="bi bi-house-door-fill"></i>Início
-          </a>
-          <a href="sobrenos" className="nav-bar-item">
-            <i className="bi bi-people-fill"></i>Sobre nós
-          </a>
-
-          <a href="/perfil" className="profile-btn">
-            <img
-              src={defaultProfilePic}
-              alt="icon-profile"
-              className="user-profile-img"
-            />
-          </a>
-        </nav>
-      </header>
-
+    <UserLayout>
       <main className="painel-main">
         <h1 className="painel-titulo">Painel do Usuário</h1>
 
@@ -104,10 +78,7 @@ function PainelRespondente() {
         <button className="logout-button" onClick={handleLogout}>Logout</button>
       </main>
 
-      <footer className="footer">
-        <img src={logoUfms} alt="Logo UFMS" />
-      </footer>
-    </div>
+    </UserLayout>
   );
 }
 

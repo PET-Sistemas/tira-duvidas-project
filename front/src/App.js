@@ -33,6 +33,9 @@ import ilustracaoPergunta from "./utils/images/ilustracao-pergunta.png";
 import fotoprofile from "./utils/images/Vector.png";
 import SobreNos from "./components/user/SobreNos/SobreNos.js";
 import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaSenha.js";
+import UserLayout from "./components/user/Layout/UserLayout.js";
+import Duvidas from "./components/user/Duvidas/Duvidas.js";
+import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
 
 function App() {
   const navigate = useNavigate();
@@ -98,85 +101,7 @@ function App() {
   };
 
   return (
-    <div className="app-home">
-      <header className="app-home-header">
-        <div className="items-header">
-          <a href="/" className="app-home-logo-link">
-            <img
-              src={tiraDuvidasLogo}
-              alt="Tira Dúvidas Logo"
-              className="logo-cadasroDuvidas"
-            />
-          </a>
-          <a href="/" className="app-sobre-nav-link">
-            <i className="bi bi-house-door-fill"></i>Início
-          </a>
-          <a href="sobrenos" className="app-sobre-nav-link">
-            <i className="bi bi-people-fill"></i>Sobre nós
-          </a>
-          <a href="minhas-duvidas" className="app-sobre-nav-link">
-            <i className="bi bi-patch-question-fill"></i>Minhas dúvidas
-          </a>
-        </div>
-        <nav className="app-home-nav">
-          {username ? (
-            // Exibe o nome do usuário se estiver logado
-            <div className="app-home-user-info">
-              <button
-                onClick={() => {
-                  if(sessionStorage.getItem("role") === "questioner")
-                    navigate("/painel-questionador");
-                  else if(sessionStorage.getItem("role") === "respondent")
-                    navigate("/painel-respondente");
-                }}
-                className="app-home-btn-profile"
-              >
-                <img
-                  src={fotoprofile}
-                  alt="Foto de perfil"
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-              </button>
-              <span className="app-home-username">Olá, {username}!</span>
-            </div>
-          ) : (
-            // Exibe os botões de login e cadastro se o usuário não estiver logado
-            <>
-              <button
-                onClick={() => navigate("/login")}
-                className="app-home-btn-login"
-              >
-                Entrar
-              </button>
-              <button
-                onClick={() => navigate("/signup")}
-                className="app-home-b
-                tn-signup"
-              >
-                Cadastrar-se
-              </button>
-            </>
-          )}
-        </nav>
-      </header>
-
-      <div className="container-categories">
-        <div className="app-home-categories">
-          {/* Renderiza as categorias dinamicamente */}
-          {categories.map((category) => (
-            <button
-              className={`app-home-category ${
-                selectedCategory === category.name ? "selected" : ""
-              }`}
-              key={category.id}
-              onClick={() => filterQuestionsByCategory(category.name)} // Passa o nome da categoria ao clicar
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
+    <UserLayout>
       {sessionStorage.getItem("role") === "questioner" && (
         <div className="welcome-container">
           <div className="welcome-content">
@@ -232,11 +157,7 @@ function App() {
           </div>
         </div>  
       )}
-      
-      <footer>
-        <img src={logoUfms} alt="Logo UFMS" />
-      </footer>
-    </div>
+    </UserLayout>
   );
 }
 
@@ -255,6 +176,15 @@ function AppWrapper() {
           element={
             <ProtectedRoute roles={["questioner", "respondent"]}>
               <App />,
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/duvidas"
+          element={
+            <ProtectedRoute roles={["questioner", "respondent", "admin"]}>
+              <Duvidas />
             </ProtectedRoute>
           }
         />
@@ -318,6 +248,15 @@ function AppWrapper() {
           element={
             <ProtectedRoute roles={["questioner", "respondent"]}>
               <MinhasDuvidasDetalhe />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/duvidas-respondidas"
+          element={
+            <ProtectedRoute roles={["respondent"]}>
+              <DuvidasRespondidas />
             </ProtectedRoute>
           }
         />

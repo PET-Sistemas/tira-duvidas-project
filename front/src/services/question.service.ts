@@ -61,6 +61,22 @@ export async function getQuestionByUserId(user_id: string) {
   return question;
 }
 
+export async function getAnsweredQuestions(user_id: string) {
+  const response = await fetch(`http://localhost:8080/api/question/answered/${user_id}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  });
+  if(!response.ok) {
+    throw new Error("Question not found");
+  }
+  const question = response;
+  return question;
+}
+
 export async function getQuestionByTitle(title: string) {
   const response = await fetch(
     `http://localhost:8080/api/question/title/${title}`,
