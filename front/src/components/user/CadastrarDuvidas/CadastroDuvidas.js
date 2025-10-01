@@ -7,6 +7,7 @@ import logoUfms from "../../../utils/images/logo-ufms.png"; // Logo da UFMS
 import { createQuestion } from "../../../services/question.service";
 import { allCategory } from "../../../services/category.service";
 import { useNavigate } from "react-router-dom";
+import UserLayout from "../Layout/UserLayout";
 
 function CadastroDuvidas() {
   const [userProfilePic, setUserProfilePic] = useState(null);
@@ -46,21 +47,22 @@ function CadastroDuvidas() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Dados de exemplo para o questioner e moderator
-    const questionerId = sessionStorage.getItem("id"); // Substitua pelo ID real do questionador
-    const moderatorId = 1; // Substitua pelo ID real do moderador
-    const status = "not_answered"; // Status inicial da dúvida
+    
+    const questionerId = sessionStorage.getItem("id"); 
+    const status = "not_answered"; 
 
     const newQuestion = {
-      title, // Suponha que a categoria seja o título (modifique conforme necessário)
+      title, 
       description,
       questionerId,
-      moderatorId,
+      categories: [selectedCategory],
       status,
     };
 
+    console.log(newQuestion);
+
     try {
-      const response = await createQuestion(newQuestion); // Chamada ao serviço de criação
+      const response = await createQuestion(newQuestion); 
       
       if(!response.ok) {
         throw new Error("Erro ao cadastrar dúvida");
@@ -79,24 +81,7 @@ function CadastroDuvidas() {
   };
 
   return (
-    <div className="cadastro-duvida-container">
-      <header className="header-global">
-        <a href="/" className="app-home-logo-link">
-          <img
-            src={tiraDuvidasLogo}
-            alt="Tira Dúvidas Logo"
-            className="logo-cadasroDuvidas"
-          />
-        </a>
-        <h1 className="titulo-pagina">Cadastro de Dúvida</h1>
-        <a href="/perfil" className="profile-btn">
-          <img
-            src={defaultProfilePic}
-            alt="icon-profile"
-            className="user-profile-img"
-          />
-        </a>
-      </header>
+    <UserLayout>
       <form className="cadastro-duvida-form" onSubmit={handleSubmit}>
         <div className="cadastro-duvida-form-group">
           <label className="cadastro-duvida-label" htmlFor="categoria">
@@ -178,10 +163,7 @@ function CadastroDuvidas() {
           )}
         </div>
       </form>
-      <footer className="footer-global">
-        <img src={logoUfms} alt="UFMS Logo" className="cadastro-duvida-logo" />
-      </footer>
-    </div>
+    </UserLayout>
   );
 }
 

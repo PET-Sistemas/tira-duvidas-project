@@ -29,9 +29,6 @@ export class Answer {
   @Column({ name: 'respondent_email' })
   respondentEmail: string;
 
-  @Column({ name: 'auditor_id' })
-  auditorId: number;
-
   @Column({ type: 'text', name: 'description' })
   description: string;
 
@@ -54,8 +51,4 @@ export class Answer {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'respondent_id' })
   respondent: User;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'auditor_id' })
-  auditor: User;
 }

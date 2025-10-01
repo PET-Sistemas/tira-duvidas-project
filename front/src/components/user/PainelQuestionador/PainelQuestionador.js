@@ -8,6 +8,7 @@ import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import logoUfms from "../../../utils/images/logo-ufms.png";
 import imgCard1 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard2 from "../../../utils/images/DadosPessoais.png";
+import UserLayout from "../Layout/UserLayout";
 
 function PainelQuestionador() {
   const [username, setUsername] = useState("");
@@ -39,60 +40,7 @@ function PainelQuestionador() {
   }, []);
 
   return (
-    <div className="container-painel-questionador">
-      <header className="app-home-header">
-        <div className="items-header">
-          <a href="/" className="app-home-logo-link">
-            <img
-              src={tiraDuvidasLogo}
-              alt="Tira Dúvidas Logo"
-              className="logo-cadasroDuvidas"
-            />
-          </a>
-          <a href="cadastroduvidas" className="app-sobre-nav-link">
-            <i className="bi bi-house-door-fill"></i>Início
-          </a>
-          <a href="sobrenos" className="app-sobre-nav-link">
-            <i className="bi bi-people-fill"></i>Sobre nós
-          </a>
-        </div>
-        <nav className="app-home-nav">
-          {username ? (
-            // Exibe o nome do usuário se estiver logado
-            <div className="app-home-user-info">
-              <button
-                onClick={() => navigate("/painel-questionador")}
-                className="app-home-btn-profile"
-              >
-                <img
-                  src={fotoprofile}
-                  alt="Foto de perfil"
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-              </button>
-              <span className="app-home-username">Olá, {username}!</span>
-            </div>
-          ) : (
-            // Exibe os botões de login e cadastro se o usuário não estiver logado
-            <>
-              <button
-                onClick={() => navigate("/login")}
-                className="app-home-btn-login"
-              >
-                Entrar
-              </button>
-              <button
-                onClick={() => navigate("/signup")}
-                className="app-home-b
-                tn-signup"
-              >
-                Cadastrar-se
-              </button>
-            </>
-          )}
-        </nav>
-      </header>
-
+    <UserLayout>
       <main className="painel-questionador-main">
         <h1 className="painel-titulo">Painel de Questionador</h1>
 
@@ -133,11 +81,7 @@ function PainelQuestionador() {
           Logout
         </button>
       </main>
-
-      <footer className="footer">
-        <img src={logoUfms} alt="Logo UFMS" />
-      </footer>
-    </div>
+    </UserLayout>
   );
 }
 

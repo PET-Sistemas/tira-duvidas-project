@@ -19,11 +19,6 @@ export class SearchAnswerDto {
   @IsInt()
   respondentId?: number;
 
-  @ApiPropertyOptional({ description: 'ID do auditor' })
-  @IsOptional()
-  @IsInt()
-  auditorId?: number;
-
   @ApiPropertyOptional({ description: 'Descrição da resposta' })
   @IsOptional()
   @IsString()

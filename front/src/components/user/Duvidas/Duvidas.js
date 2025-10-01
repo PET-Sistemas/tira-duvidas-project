@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
-import "./MinhasDuvidas.css";
+import "./Duvidas.css";
 import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png";
 import FilterIcon from "../../../utils/images/filtrar.png";
-import logoUfms from "../../../utils/images/logo-ufms.png";
-import { getQuestionByUserId } from "../../../services/question.service";
+import { allQuestion, getQuestionByUserId } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
 
-
-function MinhasDuvidas() {
+function Duvidas() {
   const [duvidas, setDuvidas] = useState([]);
   const [filteredDoubts, setFilteredDoubts] = useState([]); // Renomeando para filteredDoubts
   const [filtroVisivel, setFiltroVisivel] = useState(false);
@@ -27,13 +23,14 @@ function MinhasDuvidas() {
           throw new Error("Usuário não autenticado");
         }
 
-        const response = await getQuestionByUserId(questionerId);
+        const response = await allQuestion();
 
         if (response.status !== 200) {
           throw new Error("Falha ao carregar dúvidas");
         }
 
         const data = await response.json();
+        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
         setDuvidas(data);
         setFilteredDoubts(data);
@@ -102,59 +99,57 @@ function MinhasDuvidas() {
 
   return (
     <UserLayout>
-        <div className="bodyminhasduvidas">
-          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
+        <h2 className="titulo-pagina">Todas as Dúvidas</h2>
 
-          <div className="filtrar-container">
-            <button className="filtrar-button" onClick={toggleFiltroVisivel}>
-              <img
-                src={FilterIcon}
-                alt="Filter Icon"
-                className="filter-icon-profile"
+        <div className="filtrar-container">
+          <button className="filtrar-button" onClick={toggleFiltroVisivel}>
+            <img
+              src={FilterIcon}
+              alt="Filter Icon"
+              className="filter-icon-profile"
+            />
+            Filtrar
+          </button>
+
+          {filtroVisivel && (
+            <div className="filtro-container">
+              <input
+                type="text"
+                placeholder="Buscar por palavra"
+                value={search}
+                onChange={handleSearchChange}
+                className="search-input"
               />
-              Filtrar
-            </button>
+              <select onChange={handleFiltroChange} value={filtro}>
+                <option value="">Selecione um filtro</option>
+                <option value="crescente">Mais antigos</option>
+                <option value="decrescente">Mais recentes</option>
+                <option value="respondidas">Respondidas</option>
+                <option value="naoRespondidas">Não Respondidas</option>
+              </select>
+              <button onClick={aplicarFiltro} className="button-filter">
+                Aplicar filtro
+              </button>
+            </div>
+          )}
+        </div>
 
-            {filtroVisivel && (
-              <div className="filtro-container">
-                <input
-                  type="text"
-                  placeholder="Buscar por palavra"
-                  value={search}
-                  onChange={handleSearchChange}
-                  className="search-input"
-                />
-                <select onChange={handleFiltroChange} value={filtro}>
-                  <option value="">Selecione um filtro</option>
-                  <option value="crescente">Mais antigos</option>
-                  <option value="decrescente">Mais recentes</option>
-                  <option value="respondidas">Respondidas</option>
-                  <option value="naoRespondidas">Não Respondidas</option>
-                </select>
-                <button onClick={aplicarFiltro} className="button-filter">
-                  Aplicar filtro
-                </button>
-              </div>
+        <section className="section-minhas-duvidas">
+          <div className="doubt-list-minhas-duvidas">
+            {filteredDoubts.length > 0 ? (
+              filteredDoubts.map((duvida) => (
+                <div
+                  className="doubt-card-container-minhas-duvidas"
+                  key={duvida.id}
+                >
+                  <DoubtCard doubt={duvida} />
+                </div>
+              ))
+            ) : (
+              <p>Nenhuma dúvida encontrada.</p>
             )}
           </div>
-
-          <section className="section-minhas-duvidas">
-            <div className="doubt-list-minhas-duvidas">
-              {filteredDoubts.length > 0 ? (
-                filteredDoubts.map((duvida) => (
-                  <div
-                    className="doubt-card-container-minhas-duvidas"
-                    key={duvida.id}
-                  >
-                    <DoubtCard doubt={duvida} />
-                  </div>
-                ))
-              ) : (
-                <p>Nenhuma dúvida encontrada.</p>
-              )}
-            </div>
-          </section>
-        </div>
+        </section>
     </UserLayout>
   );
 }
@@ -213,11 +208,15 @@ const DoubtCard = ({ doubt }) => {
           {" "}
           <strong>Status:</strong> {getStatus(doubt.status)}{" "}
         </p>
+        <p>
+          {" "}
+          <strong>Usuário:</strong> {doubt.questioner.name}{" "}
+        </p>
       </div>
     </div>
   );
 };
 
-export default MinhasDuvidas;
+export default Duvidas;
 
 //<p className="doubt-situation-minhas-duvidas"><strong>Situação:</strong> {translate[doubt.status]}</p>

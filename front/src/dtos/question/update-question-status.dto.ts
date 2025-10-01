@@ -3,6 +3,6 @@ export class UpdateQuestionDTO {
     title?: string | undefined
     description?: string | undefined
     questionerId?: number | undefined
-    moderatorId?: number | undefined
     status?: string | undefined
+    categories?: string[] | undefined
 }

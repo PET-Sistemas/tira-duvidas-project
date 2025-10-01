@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./MinhasDuvidasDetalhe.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png";
 import { getAnswers } from "../../../services/answers.service";
-import { allAnswers } from "../../../services/answers.service";
 import { createFeedback } from "../../../services/feedback.service";
+import { updateQuestionAnswered } from "../../../services/question.service";
 import { getFeedbacks } from "../../../services/feedback.service";
+import UserLayout from "../Layout/UserLayout";
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -17,6 +16,7 @@ function MinhasDuvidasDetalhe() {
   const [feedback, setFeedback] = useState("");
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
   const [answer, setAnswer] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -46,8 +46,11 @@ function MinhasDuvidasDetalhe() {
         const answerResp = response[response.length - 1];
         setAnswer(answerResp);
 
-        const feedbackResp = await getFeedbacks(answerResp.id);
+        const answersResp = await getAnswers(doubt.id);
+        setAnswers(answersResp);
 
+        const feedbackResp = await getFeedbacks(answerResp.id);
+        
         if (feedbackResp) {
           setFeedbackType(feedbackResp.status);
           setFeedback(feedbackResp.justification);
@@ -97,25 +100,14 @@ function MinhasDuvidasDetalhe() {
     setShowFeedbackInput(false);
 
     if (feedbackType === "unsatisfactory") {
-      // Atualiza o status da questão para "não respondido" no backend
-      const updateResponse = await fetch(
-        `http://localhost:8080/api/question/${doubt.id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            id: doubt.id,
-            title: doubt.title,
-            description: doubt.description,
-            questionerId: doubt.questionerId,
-            moderatorId: doubt.moderatorId,
-            status: "not_answered",
-          }),
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        const updateResponse = await updateQuestionAnswered({
+        id: doubt.id,
+        title: doubt.title,
+        description: doubt.description,
+        questionerId: doubt.questionerId,
+        status: "not_answered",
+        categories: doubt.categories
+      })
 
       if (!updateResponse.ok) {
         throw new Error(
@@ -126,33 +118,24 @@ function MinhasDuvidasDetalhe() {
   };
 
   return (
-    <div className="duvida-detalhada">
-      <header className="duvida-detalhada-header">
-        <nav className="minhas-duvidas-nav">
-          <img
-            src={tiraDuvidasLogo}
-            alt="Tira Dúvidas Logo"
-            className="logo-cadasroDuvidas"
-          />
-          <a href="#sobre" className="minhas-duvidas-nav-link-sobre">
-            Sobre nós
-          </a>
-          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
-          <a href="/perfil" className="profile-btn">
-            <img
-              src={defaultProfilePic}
-              alt="icon-profile"
-              className="user-profile-img"
-            />
-          </a>
-        </nav>
-      </header>
-
+    <UserLayout>
       <section className="duvida-info">
         <h3>{doubt.title}</h3>
-        <p>{doubt.description}</p>
+        <h4>{doubt.description}</h4>
+
+        <br></br>
+        
         <p>
-          <strong>Categoria:</strong> {doubt.category}
+          <strong>Id:</strong> {doubt.id}
+        </p>
+        <p>
+          <strong>Questionador:</strong> {doubt.questioner.name}
+        </p>
+        <p>
+          <strong>Email do Questionador:</strong> {doubt.questioner.email}
+        </p>
+        <p>
+          <strong>Categoria:</strong> {doubt.categories[0].name}
         </p>
         <p>
           <strong>Data:</strong>{" "}
@@ -160,18 +143,59 @@ function MinhasDuvidasDetalhe() {
         </p>
       </section>
 
+      {answers.length > 0 ? (
+        <section className="respostas-anteriores">
+          <h3>Respostas Anteriores</h3>
+          {answers.map((answer) => (
+            <div key={answer.id} className="resposta-anterior">
+              <p>
+                <strong>Resposta:</strong> {answer.description}
+              </p>
+              <p>
+                <strong>Nome do Respondente:</strong> { answer.respondentName }
+              </p>
+              <p>
+                <strong>Email do Respondente:</strong> { answer.respondentEmail }
+              </p>
+              <p>
+                <strong>Data da Resposta:</strong>{" "}
+                {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
+              </p>
+            </div>
+          ))}
+        </section>
+      ) : (
+        <section className="respostas-anteriores">
+          <h3>Respostas Anteriores</h3>
+          <p>Esta dúvida ainda não possui respostas anteriores.</p>
+        </section>
+      )}
+
       <section className="resposta">
-        <h3>Resposta</h3>
+        <h3>Resposta Atual</h3>
         {doubt.status === "not_answered" ? (
-          <p>Ainda não há resposta para esta dúvida.</p>
+          <p>Ainda não há resposta atual para esta dúvida.</p>
         ) : (
           <>
-            <p>{answer.description}</p>
+            <p>
+              <strong> {answer.description} </strong>
+            </p>
+            <br></br>
+            <p>
+              <strong>Respondente:</strong> {answer.respondentName}
+            </p>
+            <p>
+              <strong>Email do Respondente:</strong> {answer.respondentEmail}
+            </p>
+            <p>
+              <strong>Data:</strong>{" "}
+              {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
+            </p>
           </>
         )}
       </section>
 
-      {doubt.status !== "not_answered" && (
+      {doubt.status === "answered" && doubt.questioner.id == sessionStorage.getItem("id") && (
         <section className="feedback">
           <h3 className="avaliacao-titulo">Avaliação</h3>
 
@@ -222,7 +246,7 @@ function MinhasDuvidasDetalhe() {
           )}
         </section>
       )}
-    </div>
+    </UserLayout>
   );
 }
 

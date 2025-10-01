@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsInt, IsString } from 'class-validator';
 import { QuestionStatus } from '../enums/question-status.enum';
 
 export class CreateQuestionDto {
@@ -15,9 +15,9 @@ export class CreateQuestionDto {
   @IsInt()
   questionerId: number;
 
-  @ApiProperty({ description: 'ID do moderador' })
-  @IsInt()
-  moderatorId: number;
+  @ApiProperty({ description: 'Categorias da dúvida' })
+  @IsArray()
+  categories: string[];
 
   @ApiProperty({ description: 'Status da dúvida' })
   @IsEnum(QuestionStatus)
