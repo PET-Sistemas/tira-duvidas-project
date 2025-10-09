@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "./Perfil.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png"; // Logo do Tira Dúvidas
-import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
-import editIcon from "../../../utils/images/Vector-edit.png"; // Ícone de edição
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Perfil.css';
+import tiraDuvidasLogo from '../../../utils/images/Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
+import defaultProfilePic from '../../../utils/images/default-profile.png'; // Imagem padrão
+import editIcon from '../../../utils/images/Vector-edit.png'; // Ícone de edição
+import home from '../../../utils/images/home.png'; // Ícone de casa
+import sobre from '../../../utils/images/sobre.png'; // Ícone de sobre nós
+import duvidas from '../../../utils/images/duvidas.jpg'; // Ícone de dúvidas
+import logoUfms from '../../../utils/images/logo-ufms.png'; // Logo da UFMS
 import { getUserById } from "../../../services/user.service";
 import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
+
 
 function PerfilUsuario() {
   const navigate = useNavigate();
@@ -82,125 +87,147 @@ function PerfilUsuario() {
   };
 
   return (
-    <div className="dados-container">
-      <header className="meus-dados-header">
-        <img
-          src={tiraDuvidasLogo}
-          alt="Tira Dúvidas Logo"
-          className="logo-meus-dados"
-        />
-        <h1 className="title-meus-dados">Meus Dados</h1>
-      </header>
+    <div className="perfil-dados-container">
+      <header className="perfil-header-top">
+        <div className="perfil-header-esquerda">
+          <img
+            src={tiraDuvidasLogo}
+            alt="Tira Dúvidas Logo"
+            className="perfil-logo-topo"
+          />
 
-      <div className="meus-dados-container">
-        <div className="translucent-background">
-          <div className="user-profile-pic">
-            <img src={fotoPerfil} alt="Foto de Perfil" />
-          </div>
+          <nav className="perfil-navegacao">
+            <a href="/" className="perfil-link-nav">
+              <img src={home} alt="Início" />
+              Início
+            </a>
+            <a href="/sobre" className="perfil-link-nav">
+              <img src={sobre} alt="Sobre Nós" />
+              Sobre Nós
+            </a>
+            <a href="/duvidas" className="perfil-link-nav">
+              <img src={duvidas} alt="Dúvidas" />
+              Dúvidas
+            </a>
+          </nav>
         </div>
 
-        {isEditing ? (
-          <div className="edit-profile-form">
-            <form className="editar-dados-form" onSubmit={handleSubmit}>
-              <label className="atualizar-dados-label" htmlFor="nome">
-                Nome:
-              </label>
-              <input
-                id="nome"
-                type="text"
-                className="nome-input"
-                placeholder={usuario.firstName || "Nome"}
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-              />
+        <div className="perfil-header-direita">
+          <button className="perfil-botao-voltar" onClick={() => navigate(-1)}>
+            VOLTAR
+          </button>
+        </div>
+      </header>
 
-              <label className="atualizar-dados-label" htmlFor="sobrenome">
-                Sobrenome:
-              </label>
-              <input
-                id="sobrenome"
-                type="text"
-                className="sobrenome-input"
-                placeholder={usuario.lastName || "Sobrenome"}
-                value={sobrenome}
-                onChange={(e) => setSobrenome(e.target.value)}
-              />
+      <main className='perfil-main-conteudo'>
+        <h2 className="perfil-titulo-pagina">Meus Dados</h2>
 
-              <label className="editar-dados-label" htmlFor="email">
-                Email:
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="email-input"
-                placeholder={usuario.email || "joao@ex.com"}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+        <div className="perfil-card-principal">
+          <div className="perfil-foto-usuario">
+            <img src={defaultProfilePic} alt="Foto de Perfil" />
+          </div>
 
-              <label className="editar-dados-label" htmlFor="telefone">
-                Telefone:
-              </label>
-              <input
-                id="telefone"
-                type="text"
-                className="telefone-input"
-                placeholder={usuario.telefone || "67912345678"}
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
+          <h3 className="perfil-nome-usuario">{usuario.firstName || "Usuário"}</h3>
+
+          {!isEditing && (
+            <button
+              className="perfil-botao-editar"
+              onClick={() => setIsEditing(true)}
+            >
+              <img
+                src={editIcon}
+                alt="Editar"
+                className="perfil-icone-editar"
               />
-              <button className="save-button">Salvar</button>
-              <button
-                className="back-button"
-                onClick={() => setIsEditing(false)}
-              >
-                Cancelar
-              </button>
+              <span>Editar Dados</span>
+            </button>
+          )}
+
+          <div className="perfil-conteudo-formulario">
+            <form className="perfil-formulario" onSubmit={handleSubmit}>
+              <div className="perfil-grupo-campos">
+                <label className="perfil-label-campo" htmlFor="nome">
+                  Nome:
+                </label>
+                <input
+                  id="nome"
+                  type="text"
+                  className="perfil-input-campo"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  disabled={!isEditing}
+                />
+
+                <label className="perfil-label-campo" htmlFor="sobrenome">
+                  Sobrenome:
+                </label>
+                <input
+                  id="sobrenome"
+                  type="text"
+                  className="perfil-input-campo"
+                  value={sobrenome}
+                  onChange={(e) => setSobrenome(e.target.value)}
+                  disabled={!isEditing}
+                />
+
+                <label className="perfil-label-campo" htmlFor="email">
+                  Email:
+                </label>
+                <input
+                  id="email"
+                  type="text"
+                  className="perfil-input-campo"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={!isEditing}
+                />
+
+                <label className="perfil-label-campo" htmlFor="telefone">
+                  Telefone:
+                </label>
+                <input
+                  id="telefone"
+                  type="tel"
+                  className="perfil-input-campo"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  disabled={!isEditing}
+                />
+
+                <label className="perfil-label-campo" htmlFor="cpf">
+                  CPF:
+                </label>
+                <input
+                  id="cpf"
+                  type="text"
+                  className="perfil-input-campo"
+                  value={usuario.cpf}
+                  disabled
+                />
+              </div>
+
+              {isEditing && (
+                <div className="perfil-botoes-acao">
+                  <button type="submit" className="perfil-botao-salvar">
+                    Salvar
+                  </button>
+                  <button
+                    type="button"
+                    className="perfil-botao-cancelar"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              )}
             </form>
           </div>
-        ) : (
-          <div className="meus-dados-content">
-            <div className="user-info">
-              <button
-                className="edit-profile-button"
-                onClick={() => setIsEditing(true)}
-              >
-                <img
-                  src={editIcon}
-                  alt="Edit Icon"
-                  className="edit-icon-profile"
-                />
-                <p>Editar Dados</p>
-              </button>
-              <p>
-                <strong className="titulo-dados-pessoais">
-                  Primeiro Nome:
-                </strong>{" "}
-                {usuario.firstName || "N/A"}
-              </p>
-              <p>
-                <strong className="titulo-dados-pessoais">Sobrenome:</strong>{" "}
-                {usuario.lastName || "N/A"}
-              </p>
-              <p>
-                <strong className="titulo-dados-pessoais">Email:</strong>{" "}
-                {usuario.email || "N/A"}
-              </p>
-              <p>
-                <strong className="titulo-dados-pessoais">Telefone:</strong>{" "}
-                {usuario.phone || "N/A"}
-              </p>
-              <p>
-                <strong className="titulo-dados-pessoais">CPF:</strong>{" "}
-                {usuario.cpf || "N/A"}
-              </p>
-            </div>
-            <button className="back-button" onClick={() => navigate(-1)}>
-              Voltar
-            </button>
-          </div>
-        )}
-      </div>
+        </div>
+      </main>
+
+      <footer className="perfil-footer-rodape">
+        <img src={logoUfms} alt="Logo UFMS" className="perfil-logo-rodape" />
+      </footer>
     </div>
   );
 }
