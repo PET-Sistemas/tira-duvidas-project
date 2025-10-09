@@ -1,5 +1,9 @@
 export class UpdateUserDTO {
-    firstName?: string | undefined
-    email?: string | undefined
-    phone?: string | undefined
+    id?: number
+    email?: string
+    provider?: string
+    name?: string
+    phone?: string
+    role?: string
+    status?: string
 }
