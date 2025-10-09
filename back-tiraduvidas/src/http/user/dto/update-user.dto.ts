@@ -29,15 +29,10 @@ export class UpdateUserDto {
   @IsString()
   provider?: string;
 
-  @ApiPropertyOptional({ description: 'Primeiro nome do usuário' })
+  @ApiPropertyOptional({ description: 'Nome do usuário' })
   @IsOptional()
   @IsString()
-  firstName?: string;
-
-  @ApiPropertyOptional({ description: 'Último nome do usuário' })
-  @IsOptional()
-  @IsString()
-  lastName?: string;
+  name?: string;
 
   @ApiPropertyOptional({ description: 'Telefone do usuário' })
   @IsOptional()

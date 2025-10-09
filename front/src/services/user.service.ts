@@ -1,5 +1,6 @@
 import { CreateUserDTO } from "../dtos/user/create-user.dto";
 import { LoginDTO } from "../dtos/user/login.dto";
+import { UpdateUserDTO } from "../dtos/user/update-user.dto";
 
 export function register(data: CreateUserDTO) {
   return fetch("http://localhost:8080/api/v1/auth/email/register", {
@@ -52,8 +53,8 @@ export async function allUser() {
   return users;
 }
 
-export async function updateUser(id: string, data: Partial<CreateUserDTO>) {
-  const response = await fetch(`http://localhost:8080/api/user/${parseInt(id)}`, {
+export async function updateUser(data: Partial<UpdateUserDTO>) {
+  const response = await fetch(`http://localhost:8080/api/user/${data.id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {

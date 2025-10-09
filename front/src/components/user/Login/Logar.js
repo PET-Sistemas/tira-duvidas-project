@@ -28,11 +28,14 @@ function Logar() {
         setError(data.message);
       } else {
         setSuccessMessage(data.message);
+
+        console.log(data);
         
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("id", data.user.id);
         sessionStorage.setItem("email", data.user.email);
         sessionStorage.setItem("username", data.user.name);
+        sessionStorage.setItem("telefone", data.user.phone);
         sessionStorage.setItem("role", data.user.role);
 
         setTimeout(() => {
