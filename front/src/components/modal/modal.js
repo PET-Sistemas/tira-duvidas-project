@@ -7,7 +7,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
   return (
     <div className="modal">
       <div className="overlay" onClick={onClose}></div>
-      <div className="modal-content">{children}</div>
+      <div className="modal-content w3-animate-top">{children}</div>
     </div>
   );
 }

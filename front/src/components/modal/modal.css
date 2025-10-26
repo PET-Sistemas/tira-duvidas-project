@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 body.active-modal {
   overflow-y: hidden;
 }
@@ -21,9 +17,6 @@ body.active-modal {
   position: absolute;
   padding: 0px;
   margin: 0px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   line-height: 1.4;
   background: #f1f1f1;
   border-radius: 4px;
@@ -129,4 +122,23 @@ label {
 
 .div-botoes > button {
   margin: 1em;
+}
+
+.w3-animate-top {
+  position: absolute;
+  animation: animatetop 0.3s;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 40%;
+    left: 50%;
+    opacity: 1;
+  }
 }
