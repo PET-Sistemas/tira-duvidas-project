@@ -1,0 +1,10 @@
+.btn-disabled {
+    cursor: default;
+}
+
+td.h-15 {
+    height: 15%;
+}
+td .w-15 {
+    width: 15%;
+}
