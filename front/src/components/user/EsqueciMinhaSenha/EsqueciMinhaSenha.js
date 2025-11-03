@@ -3,7 +3,8 @@ import './EsqueciMinhaSenha.css';
 import tiraDuvidasLogo from '../../../utils/images/Logo-Tira-Dúvidas-removebg.png';
 import ufmsLogo from '../../../utils/images/ufms-logo.png';
 import arroba from '../../../utils/images/arroba.png';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { forgotPassword } from "../../../services/user.service";
 
 function EsqueciMinhaSenha() {
   const navigate = useNavigate();
@@ -11,15 +12,22 @@ function EsqueciMinhaSenha() {
   const [successMessage, setSuccessMessage] = useState('');
   const [email, setEmail] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-          // enviar email para o serviço de recuperação de senha  
-        } catch (err) {
+    try {
+      const response = await forgotPassword({ email });
 
-        };
-    }
+      if (response.HttpStatus === 200) {
+        setSuccessMessage('Instruções para redefinição de senha enviadas para o seu e-mail.');
+      } else if(response.HttpStatus === 404) {
+        setError('Email não encontrado!');
+      }
+    } catch (err) {
+      console.log(err);
+      alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
+    };
+  }
 
   return (
     <div className='body-esqueci-minha-senha'>
@@ -37,7 +45,7 @@ function EsqueciMinhaSenha() {
         <div className="divider-esqueci-minha-senha"></div> {/* Linha divisória */}
         
         <div className="right-panel-esqueci-minha-senha">
-          <h2>Recuperar Senha</h2> 
+          <h2>Redefinir Senha</h2> 
           {error && <div className="error-message-esqueci-minha-senha">{error}</div>}
           {successMessage && <div className="success-message-esqueci-minha-senha">{successMessage}</div>}
           <form className='form-esqueci-minha-senha' onSubmit={handleSubmit}>

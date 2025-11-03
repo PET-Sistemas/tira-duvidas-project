@@ -69,3 +69,15 @@ export async function updateUser(data: Partial<UpdateUserDTO>) {
   }
   return await response.json();
 }
+
+export async function forgotPassword(email: string) {
+  const response = await fetch("http://localhost:8080/api/v1/auth/forgot/password", {
+    method: "POST",
+    body: JSON.stringify(email),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+}

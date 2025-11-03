@@ -7,7 +7,9 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from 'src/http/user/user.module';
-import { MailModule } from 'src/http/mail/mail.module';
+//import { MailModule } from 'src/http/mail/mail.module';
+import { RedisService } from '../config/redis.service';
+import { MailService } from '../http/mail/mail.service';
 
 @Module({
   imports: [
@@ -22,10 +24,9 @@ import { MailModule } from 'src/http/mail/mail.module';
       }),
     }),
     UserModule,
-    MailModule,
   ],
   controllers: [AuthController],   // <-- registra o controller
-  providers: [AuthService, JwtStrategy], // <-- registra service e strategy
+  providers: [AuthService, JwtStrategy, RedisService, MailService], // <-- registra service e strategy
   exports: [AuthService], // exporta se outros módulos precisarem
 })
 export class AuthModule {}
