@@ -10,6 +10,7 @@ import { UserService } from 'src/http/user/user.service';
 import { MailService } from 'src/http/mail/mail.service';
 import { CreateUserDto } from 'src/http/user/dto/create-user.dto';
 import { UpdateUserDto } from 'src/http/user/dto/update-user.dto';
+import { RedisService } from 'src/config/redis.service';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +18,7 @@ export class AuthService {
     private jwtService: JwtService,
     private userService: UserService,
     private mailService: MailService,
+    private redisService: RedisService,
   ) {}
 
   async validateLogin(loginDto: AuthEmailLoginDto) {
@@ -106,7 +108,7 @@ export class AuthService {
     return result;
   }
 
-  async forgotPassword(email: string): Promise<void> {
+  async forgotPassword(email: string) {
     const user = await this.userService.findOne({
       email,
     });
@@ -114,30 +116,77 @@ export class AuthService {
     if (!user) {
       throw new HttpException(
         {
-          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          status: HttpStatus.NOT_FOUND,
           errors: {
             email: 'emailNotExists',
           },
         },
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.NOT_FOUND,
       );
     }
 
-    const hash = crypto
-      .createHash('sha256')
-      .update(randomStringGenerator())
-      .digest('hex');
-    await this.userService.insertOne({ ...user, hash });
+    // Gera um token seguro aleatório e armazena no Redis com TTL
+    const token = crypto.randomBytes(32).toString('hex');
+    const ttlSec = Number(process.env.RESET_TOKEN_TTL_SECONDS || 900); // 15min
+    const redisResponse = await this.redisService.set(`pwdreset:${token}`, String(user.id), ttlSec);
 
-    await this.mailService.forgotPassword({
+    if(!redisResponse){
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          errors: {
+            redis: 'Redis error',
+          },
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    const mailResponse = await this.mailService.forgotPassword({
       to: email,
       data: {
-        hash,
+        token,
+        resetLink: `http://localhost:3000/reset-password?token=${token}`
       },
     });
+
+    return {
+      HttpStatus: HttpStatus.OK,
+      message: 'Email enviado com sucesso.',
+      //user,
+    };
   }
 
   async resetPassword(hash: string, password: string): Promise<User> {
+    // Try new flow: token stored in Redis
+    const redisKey = `pwdreset:${hash}`; // 'hash' may be token here
+    const userIdFromRedis = await this.redisService.get(redisKey);
+
+    if (userIdFromRedis) {
+      const userById = await this.userService.findOne({
+        id: Number(userIdFromRedis),
+      });
+
+      if (!userById) {
+        await this.redisService.del(redisKey);
+        throw new HttpException(
+          {
+            status: HttpStatus.UNPROCESSABLE_ENTITY,
+            errors: {
+              token: 'invalid',
+            },
+          },
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+
+      userById.password = password;
+      const updated = await this.userService.update(userById);
+      await this.redisService.del(redisKey); // invalidate token
+      return updated;
+    }
+
+    // Fallback to legacy flow: DB "hash"
     const user = await this.userService.findOne({
       hash,
     });

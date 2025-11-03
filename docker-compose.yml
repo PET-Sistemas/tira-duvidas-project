@@ -20,6 +20,15 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
   api:
     build:
       context: back-tiraduvidas
@@ -37,11 +46,15 @@ services:
       DATABASE_PASSWORD: tira_duvidas_back # Changed to match db password
       DATABASE_NAME: tira_duvidas_back
       RUN_MIGRATIONS: "true"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
     ports:
       - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     volumes:
       - ./back-tiraduvidas:/usr/src/app
       - /usr/src/app/node_modules
@@ -73,3 +86,4 @@ services:
 
 volumes:
   db-data:
+  redis_data:
