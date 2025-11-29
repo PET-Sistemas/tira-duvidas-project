@@ -6,65 +6,80 @@ import "./UsuariosGerenciamento.css"
 
 function UsuariosGerenciamento() {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const data = await allUser(); // Chama a função do seu serviço
-        console.log(data)
-        setUsers(data); // Guarda os usuários no estado
-      } catch (err) {
-        setError(err.message); // Guarda qualquer erro
-      } finally {
-        setLoading(false); // Para de carregar (mesmo com erro)
+        const data = await allUser();
+        if(data && data.length > 0) setUsers(data); 
+      } catch (error) {
+        console.error("Erro ao buscar usuários", error);
       }
     };
-
     fetchUsers();
   }, []);
 
+  const indexOfLastUser = currentPage * itemsPerPage;
+  const indexOfFirstUser = indexOfLastUser - itemsPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const goToNextPage = () => {
+
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
   const statusMap = {
-  active: { text: 'Ativo', className: 'btn btn-success w-50 h-15 p-1 btn-disabled' },  
-  inactive: { text: 'Inativo', className: 'btn btn-danger w-50 h-50 btn-disabled' },
+  active: { text: 'Ativo', className: 'bg-green white padding-3 fbtn status center' },  
+  inactive: { text: 'Inativo', className: 'bg-red white padding-3 fbtn status' },
   };
 
   const roleMap = {
-  questioner: { text: 'Questionador', className: 'btn btn-primary w-100 h-50' },
-  respondent: { text: 'Respondente', className: 'btn btn-primary w-100 h-50' },
-  admin: { text: 'Admin', className: 'btn btn-primary w-100 h-50' },
+  questioner: { text: 'Questionador', className: 'fbtn padding-3 blue borda bg-white tipo' },
+  respondent: { text: 'Respondente', className: 'fbtn padding-3 white borda bg-blue tipo' },
+  admin: { text: 'Admin', className: 'fbtn padding-3 blue borda bg-white tipo' },
   };
 
   const renderTableBody = () => {
 
-    return users.map((user) => {
+    return currentUsers.map((user) => {
 
       const statusDisplay = statusMap[user.status];
       const roleDisplay = roleMap[user.role];
 
       return (
       <tr key={user.id}>
-        <td>
-          <Link to={`/admin/usuarios/${user.id}`}>
+        <td id="nome" >
+          <Link to={`/admin/usuarios/${user.id}`} className='user-name'>
             {user.name}
           </Link>
         </td>
         <td>
-          {new Date(user.createdAt).toLocaleDateString()}
-        </td>
+          {new Date(user.createdAt).toLocaleDateString('pt-BR')} 
+       </td>
         
         <td>
+          {user.lastResponse ? new Date(user.lastResponse).toLocaleDateString('pt-BR') : '-'}
         </td> 
         <td>
-            <button className={`${statusDisplay.className}`} >
+            <span className={`${statusDisplay.className}`} >
               {statusDisplay.text}
-            </button>
+            </span>
           </td>
           <td>
-            <button className={`${roleDisplay.className}`} >
+            <span className={`${roleDisplay.className}`} >
               {roleDisplay.text}
-            </button>
+            </span>
         </td>
       </tr>
     )});
@@ -86,33 +101,74 @@ function UsuariosGerenciamento() {
           <button className="filtrar-button">
             Filtrar
           </button>
-        </div>
+        </div>  
 
         <table className="user-table">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th className="sortable">Data Criação <i className="bi bi-arrow-up"></i></th>
-              <th className="sortable">Última Resposta <i className="bi bi-arrow-up"></i></th>
-              <th>Status</th>
-              <th>Tipo</th>
+              <th id="nome">
+                <span>
+                  Nome
+                </span>              
+              </th>
+              <th className="sortable">
+                <span className="center">
+                  Data Criação <i className="bi bi-arrow-up"></i>
+                </span>              </th>
+              <th className="sortable">
+                <span className="center">
+                  Última Resposta <i className="bi bi-arrow-up"></i>
+                </span>
+              </th>
+              <th>
+                <span className="center">
+                  Status
+                </span>
+              </th>
+              <th >
+                <span className="center">
+                  Tipo
+                </span>
+              </th>
             </tr>
           </thead>
           
-          {/* AQUI ESTÁ A MUDANÇA PRINCIPAL */}
           <tbody>
             {renderTableBody()}
           </tbody>
 
         </table>
+<div className="table-footer">
+            <div className="pagination">
+              
+              <button 
+                onClick={goToPrevPage} 
+                disabled={currentPage === 1}
+                className='page-link-'
+              >
+                &lt;
+              </button>
 
-        <div className="table-footer">
-          <div className="pagination">
-            <a href="#">&lt;</a>
-            <a href="#" className="active">1</a>
-            <a href="#">&gt;</a>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => paginate(index + 1)}
+                  className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+
+              <button 
+                onClick={goToNextPage} 
+                disabled={currentPage === totalPages}
+                className={'page-link-'}
+              >
+                &gt;
+              </button>
+
+            </div>
           </div>
-        </div>
       </div>
     </AdminLayout>
   );
