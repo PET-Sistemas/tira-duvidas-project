@@ -15,7 +15,7 @@ export class UserTypeormRepository extends GenericRepository<User> {
 
   async findAllWithLastResponse() {
     return this.userRepository.createQueryBuilder('user')
-.leftJoin('Answer', 'answers', 'answers.respondent_id = user.id')      
+      .leftJoin('Answer', 'answers', 'answers.respondent_id = user.id')      
       .select([
         'user.id AS id',
         'user.name AS name',       

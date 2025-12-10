@@ -183,3 +183,35 @@
 .user-table th:last-child {
   border-top-right-radius: 5px;
 }
+
+.search-wrapper {
+  position: relative; 
+  width: 100%; 
+  padding: 0;
+  margin: 0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px; 
+  top: 50%;
+  transform: translateY(-50%); 
+  color: #9CA3AF;
+  pointer-events: none; 
+  font-size: 16px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 10px 15px 10px 45px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px; 
+  outline: none;
+  font-size: 14px;
+  background-color: #FAFAFA;
+}
+
+#search-input:focus {
+  border-color: #3B9AE8;
+  background-color: white;
+}

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';import AdminLayout from "../layout/AdminLayout"; 
+import React, { useState, useEffect } from 'react';
+import AdminLayout from "../layout/AdminLayout"; 
 import "../globalAdmin.css";
 import { Link } from 'react-router-dom';
 import { allUser} from "../../../services/user.service";
@@ -7,6 +8,8 @@ import "./UsuariosGerenciamento.css"
 function UsuariosGerenciamento() {
   const [users, setUsers] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -14,7 +17,7 @@ function UsuariosGerenciamento() {
     const fetchUsers = async () => {
       try {
         const data = await allUser();
-        if(data && data.length > 0) setUsers(data); 
+        if(Array.isArray(data)) setUsers(data);
       } catch (error) {
         console.error("Erro ao buscar usuários", error);
       }
@@ -22,11 +25,21 @@ function UsuariosGerenciamento() {
     fetchUsers();
   }, []);
 
+  const filteredUsers = users.filter((user) => {
+    const nome = user.name || user.user_name || ''; 
+    return nome.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
   
-  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -51,6 +64,16 @@ function UsuariosGerenciamento() {
   };
 
   const renderTableBody = () => {
+    if (currentUsers.length === 0) {
+      return (
+        <tr>
+          <td colSpan="5" className="center-text" style={{ padding: '20px' }}>
+            Nenhum usuário encontrado.
+          </td>
+        </tr>
+      );
+    }
+
 
     return currentUsers.map((user) => {
 
@@ -86,89 +109,95 @@ function UsuariosGerenciamento() {
   };
 
   return (<AdminLayout>
-      <header className="header-admin">
-        <h1>Gerenciamento de Usuários</h1>
-        <p>Informações do usuário e ações administrativas</p>
-      </header>
+    <header className="header-admin">
+      <h1>Gerenciamento de Usuários</h1>
+      <p>Informações do usuário e ações administrativas</p>
+    </header>
 
-      <div className="table-admin">
-        <div className="search-field">
+    <div className="table-admin">
+      <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>
+        
+        <div className="search-wrapper">
+          <i className="bi bi-search search-icon"></i>
           <input
             type="search"
             id="search-input"
-            placeholder="Pesquisar..."
+            placeholder="Pesquisar por nome..."
+            value={searchTerm}
+            onChange={handleSearch}
           />
-          <button className="filtrar-button">
-            Filtrar
-          </button>
-        </div>  
+        </div>
 
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th id="nome">
-                <span>
-                  Nome
-                </span>              
-              </th>
-              <th className="sortable">
-                <span className="center">
-                  Data Criação <i className="bi bi-arrow-up"></i>
-                </span>              </th>
-              <th className="sortable">
-                <span className="center">
-                  Última Resposta <i className="bi bi-arrow-up"></i>
-                </span>
-              </th>
-              <th>
-                <span className="center">
-                  Status
-                </span>
-              </th>
-              <th >
-                <span className="center">
-                  Tipo
-                </span>
-              </th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            {renderTableBody()}
-          </tbody>
+      </div>
 
-        </table>
-<div className="table-footer">
-            <div className="pagination">
-              
-              <button 
-                onClick={goToPrevPage} 
-                disabled={currentPage === 1}
-                className='page-link-'
+      <table className="user-table">
+        <thead>
+          <tr>
+            <th id="nome">
+              <span>
+                Nome
+              </span>              
+            </th>
+            <th className="sortable">
+              <span className="center">
+                Data Criação <i className="bi bi-arrow-up"></i>
+              </span>              </th>
+            <th className="sortable">
+              <span className="center">
+                Última Resposta <i className="bi bi-arrow-up"></i>
+              </span>
+            </th>
+            <th>
+              <span className="center">
+                Status
+              </span>
+            </th>
+            <th >
+              <span className="center">
+                Tipo
+              </span>
+            </th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {renderTableBody()}
+        </tbody>
+
+      </table>
+      {totalPages > 0 && (
+        <div className="table-footer">
+          <div className="pagination">
+            
+            <button 
+              onClick={goToPrevPage} 
+              disabled={currentPage === 1}
+              className='page-link-'
+            >
+              &lt;
+            </button>
+
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+                className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
               >
-                &lt;
+                {index + 1}
               </button>
+            ))}
 
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => paginate(index + 1)}
-                  className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
-                >
-                  {index + 1}
-                </button>
-              ))}
+            <button 
+              onClick={goToNextPage} 
+              disabled={currentPage === totalPages}
+              className={'page-link-'}
+            >
+              &gt;
+            </button>
 
-              <button 
-                onClick={goToNextPage} 
-                disabled={currentPage === totalPages}
-                className={'page-link-'}
-              >
-                &gt;
-              </button>
-
-            </div>
           </div>
+        </div>
+        )}
       </div>
     </AdminLayout>
   );

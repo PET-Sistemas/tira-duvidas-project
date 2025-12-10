@@ -12,10 +12,13 @@ h1 {
 
 .fundo-content-admin h1 {
   color: #3498db;
+  font-weight: bold;
 }
 
 .fundo-content-admin p {
   color: rgb(141, 137, 137, 0.59);
+  font-weight: bold;
+
 }
 
 .table-admin {
