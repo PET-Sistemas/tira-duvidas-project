@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 
 @Injectable()
 export class MailService {
-  private readonly resend: any = new Resend('re_95cpTM4M_3K5vXa7ECouPW1Fvo2j31Ahi');
+  private readonly resend: any = new Resend(process.env.RESEND_API_KEY);
   private readonly from: string = process.env.MAIL_FROM || 'petsistemas.adm@gmail.com';;
 
   // constructor(private readonly mailRepo: MailRepositoryTypeorm) {

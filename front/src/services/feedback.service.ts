@@ -1,7 +1,9 @@
 import { CreateFeedbackDTO } from "../dtos/feedback/create-feedback.dto.js";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function createFeedback(data: CreateFeedbackDTO) {
-  return fetch("http://localhost:8080/api/feedback/", {
+  return fetch(`${API_URL}/feedback/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -13,7 +15,7 @@ export function createFeedback(data: CreateFeedbackDTO) {
 }
 
 export async function allFeedbacks() {
-  const response = await fetch("http://localhost:8080/api/feedback/", {
+  const response = await fetch(`${API_URL}/feedback/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -31,7 +33,7 @@ export async function allFeedbacks() {
 }
 
 export async function getFeedbacks(id: string) {
-  const response = await fetch(`http://localhost:8080/api/feedback/answer/${id}`, {
+  const response = await fetch(`${API_URL}/feedback/answer/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -49,7 +51,7 @@ export async function getFeedbacks(id: string) {
 }
 
 export async function deleteFeedbacks(id: string) {
-  const response = await fetch(`http://localhost:8080/api/feedback/${id}`, {
+  const response = await fetch(`${API_URL}/feedback/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

@@ -1,7 +1,9 @@
 import { CreateAnswersDTO } from "../dtos/answers/create-answers.dto.js";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function createAnswers(data: CreateAnswersDTO) {
-  return fetch("http://localhost:8080/api/answers/", {
+  return fetch(`${API_URL}/answers/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -13,7 +15,7 @@ export function createAnswers(data: CreateAnswersDTO) {
 }
 
 export async function allAnswers() {
-  const response = await fetch("http://localhost:8080/api/answers/", {
+  const response = await fetch(`${API_URL}/answers/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -35,7 +37,7 @@ export async function getAnswers(id: string) {
     throw new Error("ID inválido para buscar respostas.");
   }
   
-  const response = await fetch(`http://localhost:8080/api/answers/question/${id}`, {
+  const response = await fetch(`${API_URL}/answers/question/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",

@@ -2,8 +2,10 @@ import { CreateUserDTO } from "../dtos/user/create-user.dto";
 import { LoginDTO } from "../dtos/user/login.dto";
 import { UpdateUserDTO } from "../dtos/user/update-user.dto";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function register(data: CreateUserDTO) {
-  return fetch("http://localhost:8080/api/v1/auth/email/register", {
+  return fetch(`${API_URL}/v1/auth/email/register`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -14,7 +16,7 @@ export function register(data: CreateUserDTO) {
 }
 
 export function login(data: LoginDTO) {
-  return fetch("http://localhost:8080/api/v1/auth/email/login", {
+  return fetch(`${API_URL}/v1/auth/email/login`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -25,7 +27,7 @@ export function login(data: LoginDTO) {
 }
 
 export async function getUserById(id: string){
-  const response = await fetch(`http://localhost:8080/api/user/${id}`, {
+  const response = await fetch(`${API_URL}/user/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -41,7 +43,7 @@ export async function getUserById(id: string){
 }
 
 export async function allUser() {
-  const response = await fetch("http://localhost:8080/api/user/", {
+  const response = await fetch(`${API_URL}/user/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -54,7 +56,7 @@ export async function allUser() {
 }
 
 export async function updateUser(data: Partial<UpdateUserDTO>) {
-  const response = await fetch(`http://localhost:8080/api/user/${data.id}`, {
+  const response = await fetch(`${API_URL}/user/${data.id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {
@@ -71,7 +73,7 @@ export async function updateUser(data: Partial<UpdateUserDTO>) {
 }
 
 export async function forgotPassword(email: string) {
-  const response = await fetch("http://localhost:8080/api/v1/auth/forgot/password", {
+  const response = await fetch(`${API_URL}/v1/auth/forgot/password`, {
     method: "POST",
     body: JSON.stringify(email),
     headers: {
