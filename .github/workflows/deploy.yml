@@ -1,61 +1,61 @@
-name: Deploy TiraDúvidas
+# name: Deploy TiraDúvidas
 
-on: 
-  push: 
-    branches: 
-      - main      # Deploy para produção
-      - develop   # Deploy para homologação
+# on: 
+#   push: 
+#     branches: 
+#       - main      # Deploy para produção
+#       - develop   # Deploy para homologação
 
-jobs: 
-  deploy: 
-    runs-on:  ubuntu-latest
+# jobs: 
+#   deploy: 
+#     runs-on:  ubuntu-latest
     
-    steps: 
-      - name: Checkout código
-        uses: actions/checkout@v4
+#     steps: 
+#       - name: Checkout código
+#         uses: actions/checkout@v4
 
-      - name:  Configurar SSH
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key:  ${{ secrets.SSH_PRIVATE_KEY }}
+#       - name:  Configurar SSH
+#         uses: webfactory/ssh-agent@v0.8.0
+#         with:
+#           ssh-private-key:  ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Adicionar host ao known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets. SSH_HOST }} >> ~/.ssh/known_hosts
+#       - name: Adicionar host ao known_hosts
+#         run: |
+#           mkdir -p ~/.ssh
+#           ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets. SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy para Produção
-        if: github.ref == 'refs/heads/main'
-        run: |
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd /opt/apps/tiraduvidas
+#       - name: Deploy para Produção
+#         if: github.ref == 'refs/heads/main'
+#         run: |
+#           ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+#             cd /opt/apps/tiraduvidas
             
-            echo "📥 Atualizando código..."
-            git pull origin main
+#             echo "📥 Atualizando código..."
+#             git pull origin main
             
-            echo "🔨 Rebuild e restart dos containers..."
-            sudo docker compose -p tiraduvidas-prod -f docker-compose.prod.yml up -d --build
+#             echo "🔨 Rebuild e restart dos containers..."
+#             sudo docker compose -p tiraduvidas-prod -f docker-compose.prod.yml up -d --build
             
-            echo "🧹 Limpando imagens antigas..."
-            sudo docker image prune -f
+#             echo "🧹 Limpando imagens antigas..."
+#             sudo docker image prune -f
             
-            echo "✅ Deploy de produção concluído!"
-          EOF
+#             echo "✅ Deploy de produção concluído!"
+#           EOF
 
-      - name: Deploy para Homologação
-        if: github.ref == 'refs/heads/develop'
-        run:  |
-          ssh -p ${{ secrets. SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd /opt/apps/tiraduvidas
+#       - name: Deploy para Homologação
+#         if: github.ref == 'refs/heads/develop'
+#         run:  |
+#           ssh -p ${{ secrets. SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+#             cd /opt/apps/tiraduvidas
             
-            echo "📥 Atualizando código..."
-            git pull origin develop
+#             echo "📥 Atualizando código..."
+#             git pull origin develop
             
-            echo "🔨 Rebuild e restart dos containers..."
-            sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog. yml up -d --build
+#             echo "🔨 Rebuild e restart dos containers..."
+#             sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog. yml up -d --build
             
-            echo "🧹 Limpando imagens antigas..."
-            sudo docker image prune -f
+#             echo "🧹 Limpando imagens antigas..."
+#             sudo docker image prune -f
             
-            echo "✅ Deploy de homologação concluído!"
-          EOF
+#             echo "✅ Deploy de homologação concluído!"
+#           EOF
