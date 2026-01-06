@@ -1,47 +1,49 @@
-services: 
+services:
   db:
     image: postgres:13
     restart: always
     container_name: tiraduvidas_db_prod
-    environment: 
+    environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB:  ${POSTGRES_DB}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - db-data:/var/lib/postgresql/data
-    healthcheck: 
+      - db-data-prod:/var/lib/postgresql/data
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval:  5s
       timeout: 5s
       retries:  5
     networks:
-      - internal
+      - internal-prod
 
-  redis: 
+  redis:
     image: redis:7-alpine
+    container_name: tiraduvidas_redis_prod
     command: redis-server --appendonly yes
     volumes:
-      - redis_data:/data
+      - redis_data_prod:/data
     restart: unless-stopped
     networks:
-      - internal
+      - internal-prod
 
   api:
-    build: 
+    build:
       context: ./back-tiraduvidas
       dockerfile: Dockerfile
+    image: tiraduvidas-api:prod
     container_name: tiraduvidas_api_prod
     restart: unless-stopped
     environment:
       NODE_ENV: production
       APP_PORT: ${APP_PORT}
-      APP_NAME:  ${APP_NAME}
-      API_PREFIX:  ${API_PREFIX}
+      APP_NAME: ${APP_NAME}
+      API_PREFIX: ${API_PREFIX}
       DATABASE_HOST: db
       DATABASE_PORT: 5432
       DATABASE_TYPE: ${DATABASE_TYPE}
-      DATABASE_USER:  ${POSTGRES_USER}
+      DATABASE_USER: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_NAME: ${POSTGRES_DB}
       RUN_MIGRATIONS: ${RUN_MIGRATIONS}
@@ -49,7 +51,7 @@ services:
       REDIS_PORT: 6379
     expose:
       - "8080"
-    depends_on: 
+    depends_on:
       db:
         condition:  service_healthy
       redis:
@@ -65,30 +67,31 @@ services:
         npm run start:prod
       "
     networks:
-      - internal
+      - internal-prod
       - web-network
 
-  frontend: 
-    build: 
+  frontend:
+    build:
       context: ./front
       dockerfile: Dockerfile
+    image: tiraduvidas-frontend:prod
     container_name: tiraduvidas_frontend_prod
     restart: unless-stopped
     expose:
       - "3000"
     environment:
       - VITE_API_URL=${VITE_API_URL}
-    depends_on: 
+    depends_on:
       - api
     networks:
       - web-network
 
 volumes:
-  db-data:
-  redis_data:
+  db-data-prod:
+  redis_data_prod:
 
 networks:
-  internal: 
+  internal-prod:
     driver: bridge
-  web-network: 
+  web-network:
     external: true

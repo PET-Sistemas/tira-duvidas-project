@@ -6,6 +6,11 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    allowedHosts: [
+        'tiraduvidas.facom.ufms.br',
+        'tiraduvidashomolog.facom.ufms.br',
+        'localhost'
+    ]
   },
   esbuild: {
     loader: "tsx",
