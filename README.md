@@ -1,6 +1,6 @@
 # Tira Dúvidas
 
-Este é um projeto que consiste em um backend desenvolvido com NestJS e um frontend utilizando Vite. O banco de dados utilizado é PostgreSQL, e todo o ambiente pode ser executado via Docker.
+Este é um projeto que consiste em um backend desenvolvido com NestJS e um frontend utilizando React e Vite. O banco de dados utilizado é o PostgreSQL, e todo o ambiente está em containers Docker.
 
 ## Requisitos
 
