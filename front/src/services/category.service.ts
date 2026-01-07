@@ -1,7 +1,9 @@
 import { CreateCategoryDTO } from "../dtos/category/create-category.dto.js";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function createCategory(data: CreateCategoryDTO) {
-  return fetch("http://localhost:8080/api/category/", {
+  return fetch(`${API_URL}/category/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -13,7 +15,7 @@ export function createCategory(data: CreateCategoryDTO) {
 }
 
 export async function allCategory() {
-  const response = await fetch("http://localhost:8080/api/category/", {
+  const response = await fetch(`${API_URL}/category/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -26,7 +28,7 @@ export async function allCategory() {
 }
 
 export async function getCategory(id: string) {
-  const response = await fetch(`http://localhost:8080/api/category/${id}`, {
+  const response = await fetch(`${API_URL}/category/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -39,7 +41,7 @@ export async function getCategory(id: string) {
 }
 
 export async function deleteCategory(id: string) {
-  const response = await fetch(`http://localhost:8080/api/category/${id}`, {
+  const response = await fetch(`${API_URL}/category/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

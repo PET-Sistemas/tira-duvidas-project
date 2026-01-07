@@ -12,16 +12,8 @@ import { UserService } from 'src/http/user/user.service';
 import { CategoryService } from './http/category/category.service';
 import { emit } from 'process';
 
-
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-    next();
-  });
 
   app.enableCors({
     origin: '*', // URL do seu frontend
@@ -29,8 +21,7 @@ async function bootstrap() {
     credentials: true,
   });
   const configService = app.get(ConfigService);
-  // Se você estiver usando prefix na sua API
-  app.setGlobalPrefix('api');
+  
   app.enableShutdownHooks();
   app.setGlobalPrefix(configService.get('app.apiPrefix'), {
     exclude: ['/'],

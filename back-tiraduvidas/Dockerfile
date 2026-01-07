@@ -1,9 +1,9 @@
-FROM node:20
+FROM node:20-slim
 
 WORKDIR /usr/src/app
 
-# Install netcat
-RUN apt-get update && apt-get install -y netcat-openbsd
+# Install netcat (Debian/Ubuntu)
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
 

@@ -1,8 +1,10 @@
 import { CreateQuestionDTO } from "../dtos/question/create-question.dto";
 import { UpdateQuestionDTO } from "../dtos/question/update-question-status.dto";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export function createQuestion(data: CreateQuestionDTO) {
-  return fetch("http://localhost:8080/api/question/", {
+  return fetch(`${API_URL}/question/`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -14,7 +16,7 @@ export function createQuestion(data: CreateQuestionDTO) {
 }
 
 export async function allQuestion() {
-  const response = await fetch("http://localhost:8080/api/question/", {
+  const response = await fetch(`${API_URL}/question/`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -30,7 +32,7 @@ export async function allQuestion() {
 }
 
 export async function getQuestion(id: UpdateQuestionDTO) {
-  const response = await fetch(`http://localhost:8080/api/question/${id}`, {
+  const response = await fetch(`${API_URL}/question/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -46,7 +48,7 @@ export async function getQuestion(id: UpdateQuestionDTO) {
 }
 
 export async function getQuestionByUserId(user_id: string) {
-  const response = await fetch(`http://localhost:8080/api/question/user/${user_id}`, {
+  const response = await fetch(`${API_URL}/question/user/${user_id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -62,7 +64,7 @@ export async function getQuestionByUserId(user_id: string) {
 }
 
 export async function getAnsweredQuestions(user_id: string) {
-  const response = await fetch(`http://localhost:8080/api/question/answered/${user_id}`, {
+  const response = await fetch(`${API_URL}/question/answered/${user_id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -79,7 +81,7 @@ export async function getAnsweredQuestions(user_id: string) {
 
 export async function getQuestionByTitle(title: string) {
   const response = await fetch(
-    `http://localhost:8080/api/question/title/${title}`,
+    `${API_URL}/question/title/${title}`,
     { method: "GET",
       headers: {
         Accept: "application/json",
@@ -96,7 +98,7 @@ export async function getQuestionByTitle(title: string) {
 }
 
 export async function deleteQuestion(id: string) {
-  const response = await fetch(`http://localhost:8080/api/question/${id}`, {
+  const response = await fetch(`${API_URL}/question/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -112,7 +114,7 @@ export async function deleteQuestion(id: string) {
 }
 
 export async function updateQuestionAnswered(data: UpdateQuestionDTO) {
-  return fetch(`http://localhost:8080/api/question/${data.id}`, {
+  return fetch(`${API_URL}/question/${data.id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
     headers: {

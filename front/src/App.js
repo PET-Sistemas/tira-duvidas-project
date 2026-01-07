@@ -19,7 +19,6 @@ import ResponderDuvidas from "./components/user/ResponderDuvidas/ResponderDuvida
 import PainelQuestionador from "./components/user/PainelQuestionador/PainelQuestionador.js";
 import PainelRespondente from "./components/user/PainelRespondente/PainelRespondente.js";
 import "./App.css";
-import tiraDuvidasLogo from "./utils/images/Logo-Tira-Dúvidas-removebg.png";
 import {
   allQuestion,
   getQuestionByTitle,
@@ -28,9 +27,7 @@ import { allCategory } from "./services/category.service.ts";
 import MinhasDuvidasDetalhe from "./components/user/MinhasDuvidasDetalhe/MinhasDuvidasDetalhe.js";
 import ResponderDuvidasDetalhe from "./components/user/ResponderDuvidasDetalhe/ResponderDuvidasDetalhe.js";
 import ProtectedRoute from "./utils/ProtectedRoute.js";
-import logoUfms from "./utils/images/logo-ufms.png";
 import ilustracaoPergunta from "./utils/images/ilustracao-pergunta.png";
-import fotoprofile from "./utils/images/Vector.png";
 import SobreNos from "./components/user/SobreNos/SobreNos.js";
 import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaSenha.js";
 import UserLayout from "./components/user/Layout/UserLayout.js";
@@ -41,46 +38,41 @@ import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.
 function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [questions, setQuestions] = useState([]); // Estado para armazenar as perguntas
-  const [categories, setCategories] = useState([]); // Estado para armazenar as categorias
-  const [selectedCategory, setSelectedCategory] = useState(null); // Estado para armazenar a categoria selecionada
+  const [questions, setQuestions] = useState([]); 
+  const [categories, setCategories] = useState([]); 
+  const [selectedCategory, setSelectedCategory] = useState(null); 
 
   useEffect(() => {
-    // Verifica se há um username armazenado no sessionStorage
     const storedUsername = sessionStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
     }
-
-    // Chama a API para buscar todas as categorias e perguntas
+    
     const fetchData = async () => {
       try {
-        const fetchedCategories = await allCategory(); // Faz a requisição para obter todas as categorias
-        const fetchedQuestions = await allQuestion(); // Faz a requisição para obter todas as perguntas
-        setCategories(fetchedCategories); // Atualiza o estado das categorias
-        setQuestions(fetchedQuestions); // Atualiza o estado das perguntas
+        const fetchedCategories = await allCategory(); 
+        const fetchedQuestions = await allQuestion(); 
+        setCategories(fetchedCategories); 
+        setQuestions(fetchedQuestions); 
       } catch (error) {
         console.error("Erro ao buscar categorias ou perguntas:", error);
       }
     };
 
-    fetchData(); // Chama a função fetchData
+    fetchData(); 
   }, []);
 
-  // Função para filtrar as perguntas pela categoria
   const filterQuestionsByCategory = async (categoryName) => {
-    setSelectedCategory(categoryName); // Atualiza a categoria selecionada
+    setSelectedCategory(categoryName); 
     try {
-      // Chama a API para buscar perguntas que correspondem ao título da categoria
       const filteredQuestions = await getQuestionByTitle(categoryName);
-      setQuestions(filteredQuestions); // Atualiza o estado das perguntas filtradas
+      setQuestions(filteredQuestions); 
     } catch (error) {
       console.error("Erro ao filtrar perguntas:", error);
     }
   };
 
   const handleLogout = () => {
-    // Remove o username e o id do sessionStorage, redefine o estado e redireciona para a tela de login
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("id");
     setUsername("");
@@ -91,11 +83,9 @@ function App() {
     const valor = document.getElementById("searchInput").value;
 
     if (valor === "") {
-      // Se o campo de pesquisa estiver vazio, recarrega todas as perguntas
       const fetchedQuestions = await allQuestion();
       setQuestions(fetchedQuestions);
     } else {
-      // Caso contrário, busca perguntas que correspondem ao título
       const filteredQuestions = await getQuestionByTitle(valor);
       setQuestions(filteredQuestions);
     }
@@ -290,7 +280,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin" // O URL que o usuário vai acessar
+          path="/admin" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <HomeAdmin />
@@ -299,7 +289,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/usuarios" // O URL que o usuário vai acessar
+          path="/admin/usuarios" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <UsuariosGerenciamento />
@@ -308,7 +298,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/categorias" // O URL que o usuário vai acessar
+          path="/admin/categorias" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <CategoriasGerenciamento />
@@ -317,7 +307,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/certificados" // O URL que o usuário vai acessar
+          path="/admin/certificados" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <CertificadosGerados />
@@ -326,7 +316,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/perfil-gerenciamento" // O URL que o usuário vai acessar
+          path="/admin/perfil-gerenciamento" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <PerfilGerenciamento />
@@ -345,25 +335,6 @@ function AppWrapper() {
       </Routes>
     </Router>
   );
-
-  // return (
-  //   <Router>
-  //     <Routes>
-  //       <Route path="/" element={<App />} /> {/* Página inicial */}
-  //       <Route path="/login" element={<Login />} />
-  //       <Route path="/signup" element={<Signup />} />
-  //       <Route path="/cadastroduvidas" element={<CadastroDuvidas />} />
-  //       <Route path="/perfil" element={<PerfilUsuario />} />
-  //       <Route path="/minhas-duvidas" element={<MinhasDuvidas />} />
-  //       <Route path="/responder-duvidas" element={<ResponderDuvidas />} />
-  //       <Route path="/painel-questioner" element={<PainelQuestionador />} />
-  //       <Route path="/painel-respondent" element={<PainelRespondente />} />
-  //       <Route path="/duvida/:id" element={<MinhasDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
-  //       <Route path="/responder-duvidas-detalhe" element={<ResponderDuvidasDetalhe />} />
-  //       <Route path="/responder-duvidas/:id" element={<ResponderDuvidasDetalhe />} /> {/* Detalhes de dúvida */}
-  //     </Routes>
-  //   </Router>
-  // );
 }
 
 export default AppWrapper;
