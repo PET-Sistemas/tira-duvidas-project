@@ -22,7 +22,7 @@ jobs:
       - name: Adicionar host ao known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets. SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p ${{ secrets.SSH_PORT }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy para Produção
         if: github.ref == 'refs/heads/main'
@@ -45,14 +45,14 @@ jobs:
       - name: Deploy para Homologação
         if: github.ref == 'refs/heads/develop'
         run:  |
-          ssh -p ${{ secrets. SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /opt/apps/tiraduvidas
             
             echo "📥 Atualizando código..."
             git pull origin develop
             
             echo "🔨 Rebuild e restart dos containers..."
-            sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog. yml up -d --build
+            sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog.yml up -d --build
             
             echo "🧹 Limpando imagens antigas..."
             sudo docker image prune -f
