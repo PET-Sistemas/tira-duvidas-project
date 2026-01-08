@@ -33,7 +33,7 @@ COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/src ./src
 
 # Copiar tsconfig (necessário para ts-node)
-COPY --from=builder /usr/src/app/tsconfig*. json ./
+COPY --from=builder /usr/src/app/tsconfig*.json ./
 
 # Expor porta
 EXPOSE 8080
