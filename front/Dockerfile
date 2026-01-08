@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instalar dependências
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 # Copiar código
 COPY . .
@@ -27,8 +27,8 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 
-# Instalar apenas serve ou vite preview
-RUN npm ci --only=production
+# Instalar apenas dependências de produção
+RUN npm install --omit=dev --legacy-peer-deps
 
 EXPOSE 3000
 
