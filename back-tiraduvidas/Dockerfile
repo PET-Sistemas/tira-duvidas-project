@@ -1,16 +1,39 @@
-FROM node:20-slim
+# Etapa 1: Build
+FROM node:20-alpine AS builder
 
 WORKDIR /usr/src/app
 
-# Install netcat (Debian/Ubuntu)
-RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
-
+# Copiar package.json e package-lock.json
 COPY package*.json ./
 
-RUN npm install
+# Instalar dependências
+RUN npm install --legacy-peer-deps
 
+# Copiar código fonte
 COPY . .
 
+# Compilar o TypeScript
+RUN npm run build
+
+# Etapa 2: Produção
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# Copiar package.json
+COPY package*.json ./
+
+# Instalar APENAS dependências de produção
+RUN npm install --omit=dev --legacy-peer-deps
+
+# Copiar código compilado da etapa anterior
+COPY --from=builder /usr/src/app/dist ./dist
+
+# Copiar arquivos necessários (se houver)
+# COPY --from=builder /usr/src/app/. env. example . /. env. example
+
+# Expor porta
 EXPOSE 8080
 
-CMD ["npm", "run", "start:dev"]
+# Comando padrão (será sobrescrito pelo docker-compose)
+CMD ["node", "dist/main"]

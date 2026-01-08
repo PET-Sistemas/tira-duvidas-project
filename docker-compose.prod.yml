@@ -74,6 +74,8 @@ services:
     build:
       context: ./front
       dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL} 
     image: tiraduvidas-frontend:prod
     container_name: tiraduvidas_frontend_prod
     restart: unless-stopped
