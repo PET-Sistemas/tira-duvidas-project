@@ -1,0 +1,19 @@
+# Dockerfile para rodar migrations do TypeORM
+# Usa multi-stage build para otimizar imagem final
+# Sem a necessidade de rodar migrations na imagem de produção da aplicação
+
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# Copiar package.json
+COPY package*.json ./
+
+# Instalar dependências (incluindo devDependencies para ts-node)
+RUN npm install --legacy-peer-deps
+
+# Copiar código fonte
+COPY . . 
+
+# Comando padrão:  rodar migrations
+CMD ["npm", "run", "migration:run"]
