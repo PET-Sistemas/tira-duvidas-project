@@ -1,3 +1,5 @@
+# Multi-stage Build
+
 # Etapa 1: Build
 FROM node:20-alpine AS builder
 
@@ -16,6 +18,8 @@ COPY . .
 RUN npm run build
 
 # Etapa 2: Produção
+# Nova imagem limpa sem código TypeScript, ferramentas de build, etc
+# Mais leve e segura (menos superfície de ataque)
 FROM node:20-alpine
 
 WORKDIR /usr/src/app
@@ -23,17 +27,14 @@ WORKDIR /usr/src/app
 # Copiar package.json
 COPY package*.json ./
 
-# Instalar dependências (incluindo devDependencies para migrations)
-RUN npm install --legacy-peer-deps
+# Instalar dependências
+# --omit=dev -> NÃO instala ts-node e devDependencies
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copiar código compilado da etapa anterior
+# Copia apenas JavaScript compilado da etapa de build
+# Não copia node_modules, código TypeScript, testes, etc
 COPY --from=builder /usr/src/app/dist ./dist
-
-# Copiar código fonte (necessário para migrations)
-COPY --from=builder /usr/src/app/src ./src
-
-# Copiar tsconfig (necessário para ts-node)
-COPY --from=builder /usr/src/app/tsconfig*.json ./
 
 # Expor porta
 EXPOSE 8080

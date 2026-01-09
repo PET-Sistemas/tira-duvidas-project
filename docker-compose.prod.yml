@@ -28,6 +28,29 @@ services:
     networks:
       - internal-prod
 
+  migrations:
+    build:
+      context: ./back-tiraduvidas
+      dockerfile: Dockerfile.migrations
+    container_name: tiraduvidas_migrations_prod
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT:  5432
+      DATABASE_TYPE: postgres
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_DATABASE: ${POSTGRES_DB}
+      DATABASE_SYNCHRONIZE: false
+      DATABASE_MAX_CONNECTIONS: 100
+      DATABASE_SSL_ENABLED: false
+      DATABASE_REJECT_UNAUTHORIZED: false
+    depends_on:
+      db: 
+        condition: service_healthy
+    networks:
+      - internal-prod
+    restart: "no"  # ← NÃO reinicia automaticamente
+
   api:
     build:
       context: ./back-tiraduvidas
@@ -62,16 +85,9 @@ services:
         condition:  service_healthy
       redis:
         condition: service_started
-    command: >
-      sh -c "
-        echo 'Waiting for database connection...' &&
-        while !  nc -z db 5432; do
-          sleep 1
-        done &&
-        echo 'Database connected!' &&
-        npm run migration:run &&
-        npm run start:prod
-      "
+      migrations:  # ← Aguarda migrations terminarem
+        condition: service_completed_successfully
+    command: ["npm", "run", "start: prod"]
     networks:
       - internal-prod
       - web-network
