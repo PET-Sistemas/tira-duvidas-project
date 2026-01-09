@@ -17,7 +17,7 @@ jobs:
       - name:  Deploy para Produção
         if:  github.ref == 'refs/heads/main'
         run:  |
-          cd /opt/apps/tiraduvidas
+          cd /opt/apps/tiraduvidas/producao/tira-duvidas-project/
           
           echo "📥 Atualizando código..."
           git pull origin main
@@ -33,7 +33,7 @@ jobs:
       - name: Deploy para Homologação
         if: github. ref == 'refs/heads/develop'
         run:  |
-          cd /opt/apps/tiraduvidas
+          cd /opt/apps/tiraduvidas/homologacao/tira-duvidas-project/
           
           echo "📥 Atualizando código..."
           git pull origin develop
