@@ -87,7 +87,7 @@ services:
         condition: service_started
       migrations:  # ← Aguarda migrations terminarem
         condition: service_completed_successfully
-    command: ["npm", "run", "start: prod"]
+    command: ["npm", "run", "start:prod"]
     networks:
       - internal-prod
       - web-network
