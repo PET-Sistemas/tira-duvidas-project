@@ -1,3 +1,4 @@
+# Etapa 1: Build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -18,19 +19,15 @@ ENV VITE_API_URL=$VITE_API_URL
 # Build de produção
 RUN npm run build
 
-# Etapa de produção
-FROM node:20-alpine
+# Etapa 2: Produção com Nginx
+FROM nginx:alpine
 
-WORKDIR /app
+# Copiar build para o nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar build
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package*.json ./
+# Copiar configuração customizada do nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Instalar apenas dependências de produção
-RUN npm install --omit=dev --legacy-peer-deps
+EXPOSE 80
 
-EXPOSE 3000
-
-# Rodar em modo preview
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
+CMD ["nginx", "-g", "daemon off;"]

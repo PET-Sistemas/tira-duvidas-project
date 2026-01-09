@@ -23,7 +23,7 @@ WORKDIR /usr/src/app
 # Copiar package.json
 COPY package*.json ./
 
-# Instalar dependências de produção E dev (necessário para migrations)
+# Instalar dependências (incluindo devDependencies para migrations)
 RUN npm install --legacy-peer-deps
 
 # Copiar código compilado da etapa anterior
