@@ -27,7 +27,7 @@ export async function allQuestion() {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const questions = response;
+  const questions = await response.json();
   return questions;
 }
 
@@ -43,7 +43,7 @@ export async function getQuestion(id: UpdateQuestionDTO) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 
@@ -59,7 +59,7 @@ export async function getQuestionByUserId(user_id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response;
+  const question = await response.json();
   return question;
 }
 
@@ -75,7 +75,7 @@ export async function getAnsweredQuestions(user_id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response;
+  const question = await response.json();
   return question;
 }
 
@@ -93,7 +93,7 @@ export async function getQuestionByTitle(title: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 
@@ -109,7 +109,7 @@ export async function deleteQuestion(id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 
