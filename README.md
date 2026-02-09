@@ -9,7 +9,7 @@ Para rodar o projeto, você precisa ter instalado:
 - [Node.js 20.\*](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 
-## Como clonar o projeto e instalar as dependências
+## Como clonar o projeto, instalar as dependências e rodar APENAS O FRONT
 
 ```bash
 # Clonar o repositório
@@ -21,7 +21,10 @@ cd front
 # Instalar dependências do frontend
 npm install
 
-# Voltar para a raiz do projeto
+# Subir o front
+npm run start
+
+# Voltar para a raiz do projeto se quiser rodar algo no docker
 cd ..
 ```
 
@@ -32,7 +35,7 @@ cd ..
 Para rodar somente o backend (API + banco de dados), utilize:
 
 ```bash
-docker-compose up api db
+docker compose -f docker-compose.prod.yml up db api
 ```
 
 O backend será iniciado na porta `8080` e o swagger estará disponível em `http://localhost:8080/docs`.
@@ -42,7 +45,7 @@ O backend será iniciado na porta `8080` e o swagger estará disponível em `htt
 Caso queira rodar apenas o frontend, use:
 
 ```bash
-docker-compose up frontend
+docker compose -f docker-compose.prod.yml up front
 ```
 
 O frontend será iniciado na porta `3000` e se conectará automaticamente ao backend (se ele estiver rodando). O frontend fica disponível em `http://localhost:3000`.
@@ -52,7 +55,7 @@ O frontend será iniciado na porta `3000` e se conectará automaticamente ao bac
 Para iniciar todo o projeto com backend, frontend e banco de dados:
 
 ```bash
-docker-compose up
+docker compose -f docker-compose.prod.yml up
 ```
 
 ## Padronização de Commits
