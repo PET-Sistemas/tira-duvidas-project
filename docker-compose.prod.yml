@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB:  ${POSTGRES_DB}
       PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
     volumes:
       - db-data-prod:/var/lib/postgresql/data
     healthcheck:
@@ -40,10 +42,10 @@ services:
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
-      DATABASE_SYNCHRONIZE: false
+      DATABASE_SYNCHRONIZE: "false"
       DATABASE_MAX_CONNECTIONS: 100
-      DATABASE_SSL_ENABLED: false
-      DATABASE_REJECT_UNAUTHORIZED: false
+      DATABASE_SSL_ENABLED: "false"
+      DATABASE_REJECT_UNAUTHORIZED: "false"
     depends_on:
       db: 
         condition: service_healthy
@@ -70,10 +72,10 @@ services:
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
-      DATABASE_SYNCHRONIZE: false
+      DATABASE_SYNCHRONIZE: "false"
       DATABASE_MAX_CONNECTIONS: 100
-      DATABASE_SSL_ENABLED: false
-      DATABASE_REJECT_UNAUTHORIZED: false
+      DATABASE_SSL_ENABLED: "false"
+      DATABASE_REJECT_UNAUTHORIZED: "false"
       
       RUN_MIGRATIONS: ${RUN_MIGRATIONS}
       REDIS_HOST: redis
@@ -84,6 +86,8 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       MAIL_DEFAULT_EMAIL: ${MAIL_DEFAULT_EMAIL}
       MAIL_DEFAULT_NAME: ${MAIL_DEFAULT_NAME}
+    ports:
+      - "8080:8080"
     expose:
       - "8080"
     depends_on:
