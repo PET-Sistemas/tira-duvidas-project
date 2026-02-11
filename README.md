@@ -32,10 +32,10 @@ cd ..
 
 ### Rodando apenas o Backend
 
-Para rodar somente o backend (API + banco de dados), utilize:
+Para rodar somente o backend (API + Migrations + banco de dados), utilize:
 
 ```bash
-docker compose -f docker-compose.prod.yml up db api
+docker compose -f docker-compose.prod.yml up db migrations api
 ```
 
 O backend será iniciado na porta `8080` e o swagger estará disponível em `http://localhost:8080/docs`.
