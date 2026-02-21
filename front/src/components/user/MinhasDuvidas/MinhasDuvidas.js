@@ -29,10 +29,6 @@ function MinhasDuvidas() {
 
         const response = await getQuestionByUserId(questionerId);
 
-        if (response.status !== 200) {
-          throw new Error("Falha ao carregar dúvidas");
-        }
-
         const data = await response.json();
 
         setDuvidas(data);

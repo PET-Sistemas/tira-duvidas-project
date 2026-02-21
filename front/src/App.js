@@ -200,7 +200,7 @@ function AppWrapper() {
         <Route
           path="/minhas-duvidas"
           element={
-            <ProtectedRoute roles={["questioner"]}>
+            <ProtectedRoute roles={["questioner", "respondent"]}>
               <MinhasDuvidas />
             </ProtectedRoute>
           }

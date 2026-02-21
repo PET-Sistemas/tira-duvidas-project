@@ -35,7 +35,7 @@ cd ..
 Para rodar somente o backend (API + Migrations + banco de dados), utilize:
 
 ```bash
-docker compose -f docker-compose.prod.yml up db migrations api
+docker compose -f docker-compose.yml up db migrations api
 ```
 
 O backend será iniciado na porta `8080` e o swagger estará disponível em `http://localhost:8080/docs`.
@@ -45,7 +45,7 @@ O backend será iniciado na porta `8080` e o swagger estará disponível em `htt
 Caso queira rodar apenas o frontend, use:
 
 ```bash
-docker compose -f docker-compose.prod.yml up front
+docker compose -f docker-compose.yml up front
 ```
 
 O frontend será iniciado na porta `3000` e se conectará automaticamente ao backend (se ele estiver rodando). O frontend fica disponível em `http://localhost:3000`.
@@ -55,7 +55,7 @@ O frontend será iniciado na porta `3000` e se conectará automaticamente ao bac
 Para iniciar todo o projeto com backend, frontend e banco de dados:
 
 ```bash
-docker compose -f docker-compose.prod.yml up
+docker compose -f docker-compose.yml up
 ```
 
 ## Padronização de Commits
