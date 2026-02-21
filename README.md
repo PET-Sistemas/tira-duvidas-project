@@ -64,9 +64,9 @@ Para manter um padrão de versionamento no projeto, siga as recomendações de c
 
 🔗 [Commits Semânticos](https://www.conventionalcommits.org/pt-br/v1.0.0/)
 
-### Fluxo Simples de Git Branching
+### Passos para Branch e Commit
 
-Para criar uma nova funcionalidade ou alteração, siga este fluxo:
+Para criar uma nova funcionalidade ou alteração, siga o [padrão](https://conventional-branch.github.io/) e os passos:
 
 1. Criar uma nova branch:
 
@@ -81,10 +81,16 @@ Para criar uma nova funcionalidade ou alteração, siga este fluxo:
    git commit -m "feat: descrição da alteração"
    ```
 
-3. Enviar a branch para o repositório remoto:
+3. Atualizar sua branch com as novas alterações
+
+  ```bash
+  git pull origin develop --no-rebase
+  ```
+
+4. Enviar a branch para o repositório remoto:
 
    ```bash
-   git push --set-upstream origin feat/nome-da-nova-feat
+   git push origin feat/nome-da-nova-feat
    ```
 
-4. Chamar alguém para revisar as suas alterações e fazer o merge pela interface do GitHub.
+5. Chamar alguém para revisar as suas alterações e fazer o PR pela interface do GitHub.
