@@ -24,11 +24,11 @@ export async function allQuestion() {
       "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
-    throw new Error("Question not found");
+  if (response.status !== 200) {
+    throw new Error("Falha ao carregar dúvidas");
   }
-  const questions = await response.json();
-  return questions;
+
+  return response;
 }
 
 export async function getQuestion(id: UpdateQuestionDTO) {
@@ -57,10 +57,9 @@ export async function getQuestionByUserId(user_id: string) {
     },
   });
   if(!response.ok) {
-    throw new Error("Question not found");
+    throw new Error("Falha ao carregar dúvidas");
   }
-  const question = await response.json();
-  return question;
+  return response;
 }
 
 export async function getAnsweredQuestions(user_id: string) {
