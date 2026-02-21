@@ -33,6 +33,7 @@ import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaS
 import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
+import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js"
 
 function App() {
   const navigate = useNavigate();
@@ -319,6 +320,15 @@ function AppWrapper() {
           element={
             <ProtectedRoute roles={["admin"]}>
               <PerfilGerenciamento />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/usuarios/:id" // O URL que o usuário vai acessar
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <UsuarioDetalhes />
             </ProtectedRoute>
           }
         />
