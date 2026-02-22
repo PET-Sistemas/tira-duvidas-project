@@ -85,7 +85,7 @@ function UsuarioDetalhes() {
   const isUserActive = user.status === 'active';
 
   return (
-    <body>
+    <>
     <AdminLayout>
       <div className="page-container-details">
         <header className="header-details">
@@ -255,7 +255,7 @@ function UsuarioDetalhes() {
           </div>
         </div>
       </Modal>
-    </body>
+    </>
   );
 }
 
