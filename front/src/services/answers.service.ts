@@ -50,13 +50,13 @@ export async function getAnswers(id: string) {
     throw new Error("Falha ao carregar respostas");
   }
 
-  const answers = response.json();
+  const answers = await response.json();
   
   return answers;
 }
 
 export async function deleteAnswers(id: string) {
-  const response = await fetch(`http://localhost:8080/api/answers/${id}`, {
+  const response = await fetch(`${API_URL}/answers/${id}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

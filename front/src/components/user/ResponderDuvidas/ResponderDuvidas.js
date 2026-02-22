@@ -23,14 +23,14 @@ const ResponderDuvidas = () => {
     const fetchDuvidas = async () => {
       try {
         const response = await allQuestion();
-        if (response.status !== 200) {
-          throw new Error("Falha ao carregar dúvidas");
-        }
+
         const data = await response.json();
+
         setDuvidas(data);
         setFilteredDoubts(data);
       } catch (err) {
         setError(err.message);
+        alert("Erro ao carregar dúvidas: " + err.message);
       } finally {
         setLoading(false);
       }

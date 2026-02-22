@@ -24,11 +24,11 @@ export async function allQuestion() {
       "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
-    throw new Error("Question not found");
+  if (response.status !== 200) {
+    throw new Error("Falha ao carregar dúvidas");
   }
-  const questions = response;
-  return questions;
+
+  return response;
 }
 
 export async function getQuestion(id: UpdateQuestionDTO) {
@@ -43,7 +43,7 @@ export async function getQuestion(id: UpdateQuestionDTO) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 
@@ -57,10 +57,9 @@ export async function getQuestionByUserId(user_id: string) {
     },
   });
   if(!response.ok) {
-    throw new Error("Question not found");
+    throw new Error("Falha ao carregar dúvidas");
   }
-  const question = response;
-  return question;
+  return response;
 }
 
 export async function getAnsweredQuestions(user_id: string) {
@@ -75,7 +74,7 @@ export async function getAnsweredQuestions(user_id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response;
+  const question = await response.json();
   return question;
 }
 
@@ -93,7 +92,7 @@ export async function getQuestionByTitle(title: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 
@@ -109,7 +108,7 @@ export async function deleteQuestion(id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = response.json();
+  const question = await response.json();
   return question;
 }
 

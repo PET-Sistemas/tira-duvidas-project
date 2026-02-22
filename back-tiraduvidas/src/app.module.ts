@@ -30,8 +30,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     ThrottlerModule.forRoot([
       {
         name: 'default',
-        ttl: Math.round(10 * 1000),
-        limit: 1,
+        ttl: 60 * 1000, // 1 minuto
+        limit: 100, // 100 requisições por minuto
       },
     ]),
     UserModule,
