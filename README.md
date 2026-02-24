@@ -32,7 +32,7 @@ cd ..
 
 ```bash
 1. Substitua no .env:
-  VITE_API_URL=https://tiraduvidashomolog.facom.ufms.br/api/v1
+  VITE_API_URL=https://tiraduvidashomolog.facom.ufms.br/api/
 
 2. Rode o front:
   npm install
