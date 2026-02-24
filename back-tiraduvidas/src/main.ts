@@ -55,9 +55,11 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('/api/docs', app, document);
 
-  await app.listen(configService.get('app.port'));
+  app.getHttpAdapter().get('/api/openapi.json', (req, res) => res.json(document));
+
+  await app.listen(process.env.APP_PORT ?? 8080);
 
   async function inicialData() {
     const authService = app.get(AuthService);
