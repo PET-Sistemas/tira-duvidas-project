@@ -39,7 +39,7 @@ jobs:
           git pull origin develop
           
           echo "🔨 Rebuild e restart dos containers..."
-          sudo docker compose -p tiraduvidas-homolog -f docker-compose. homolog.yml up -d --build
+          sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog.yml up -d --build
           
           echo "🧹 Limpando imagens antigas..."
           sudo docker image prune -f

@@ -22,6 +22,13 @@ function Logar() {
 
     try {
       const response = await login({ email, password });
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Erro ao conectar com o servidor' }));
+        setError(errorData.message || 'Erro ao fazer login');
+        return;
+      }
+      
       const data = await response.json();
 
       if (data.message === "Incorrect username or password") {
@@ -62,7 +69,7 @@ function Logar() {
               TIC's com estudantes da UFMS
             </em>
           </p>
-          <p class="footer-text">Projeto de ensino - PET-Sistemas</p>
+          <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
         <div className="divider"></div> {/* Linha divisória */}
         <div className="right-panel">

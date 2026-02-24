@@ -51,6 +51,9 @@ export async function allUser() {
       "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
+  if (!response.ok) {
+    throw new Error("Falha ao carregar usuários");
+  }
   const users = await response.json();
   return users;
 }
@@ -75,11 +78,14 @@ export async function updateUser(data: Partial<UpdateUserDTO>) {
 export async function forgotPassword(email: string) {
   const response = await fetch(`${API_URL}/v1/auth/forgot/password`, {
     method: "POST",
-    body: JSON.stringify(email),
+    body: JSON.stringify({ email }),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
   });
+  if (!response.ok) {
+    throw new Error('Erro ao processar solicitação');
+  }
   return await response.json();
 }
