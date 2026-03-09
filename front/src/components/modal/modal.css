@@ -1,0 +1,160 @@
+body.active-modal {
+  overflow-y: hidden;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(49, 49, 49, 0.8);
+  z-index: -1;
+}
+
+.modal-content {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  line-height: 1.4;
+  max-width: 610px;
+  min-width: 500px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+.div-botoes {
+  display: flex;
+  justify-content: center;
+}
+
+.botao-branco {
+  text-decoration: none;
+  color: #3498db;
+  border: 1px solid #3498db;
+  padding: 0.6rem 0.8rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: white;
+  transition-duration: 0.4s;
+}
+.botao-branco:hover {
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+.botao-azul {
+  text-decoration: none;
+  color: white;
+  border: 1px solid #3498db;
+  padding: 0.6rem 0.8rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #3498db;
+  transition-duration: 0.4s;
+}
+.botao-azul:hover {
+  background-color: white;
+  color: #0088b7;
+  cursor: pointer;
+}
+
+.div-form {
+  text-align: left;
+  width: 70%;
+  padding: 0px;
+}
+
+.div-form > input,
+textarea {
+  width: 100%;
+  padding: 3px;
+  margin: 0;
+  margin-bottom: 10px;
+  border: 2px solid rgb(141, 137, 137, 0.09);
+  background-color: rgb(206, 212, 218, 0.9);
+  resize: none;
+}
+
+label {
+  margin: 0px;
+}
+
+.required::after {
+  content: "*";
+  color: red;
+}
+
+.bi-trash-fill,
+.bi-check-circle {
+  font-size: 32px;
+  margin-top: 2em;
+}
+
+.bi-trash-fill {
+  color: red;
+}
+.bi-check-circle {
+  color: green;
+}
+
+#conteudo,
+#sucesso {
+  padding: 1em;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  border: 2px solid #3498db;
+  color: #3498db;
+}
+
+.icone-h1-container {
+  padding: 1em 1.5em 1.5em 1.5em;
+}
+
+.icone-h1-container h1, i{
+  display: inline;
+  font-size: 2em;
+}
+
+.div-botoes > button {
+  margin: 0 1em 2em 1em;
+}
+
+.w3-animate-top {
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './Perfil.css';
-import tiraDuvidasLogo from '../../../utils/images/Logo-Tira-Dúvidas-removebg.png'; // Logo do Tira Dúvidas
-import defaultProfilePic from '../../../utils/images/default-profile.png'; // Imagem padrão
-import editIcon from '../../../utils/images/Vector-edit.png'; // Ícone de edição
-import home from '../../../utils/images/home.png'; // Ícone de casa
-import sobre from '../../../utils/images/sobre.png'; // Ícone de sobre nós
-import duvidas from '../../../utils/images/duvidas.jpg'; // Ícone de dúvidas
-import logoUfms from '../../../utils/images/logo-ufms.png'; // Logo da UFMS
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Perfil.css";
+import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png"; // Logo do Tira Dúvidas
+import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
+import editIcon from "../../../utils/images/Vector-edit.png"; // Ícone de edição
+import home from "../../../utils/images/home.png"; // Ícone de casa
+import sobre from "../../../utils/images/sobre.png"; // Ícone de sobre nós
+import duvidas from "../../../utils/images/duvidas.jpg"; // Ícone de dúvidas
+import logoUfms from "../../../utils/images/logo-ufms.png"; // Logo da UFMS
 import { getUserById } from "../../../services/user.service";
 import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
-import UserLayout from '../Layout/UserLayout';
-
+import UserLayout from "../Layout/UserLayout";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
+  const [nome, setNome] = useState(sessionStorage.getItem("username") || "");
+  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
+  const [telefone, setTelefone] = useState(
+    sessionStorage.getItem("telefone") || "",
+  );
 
   const [usuario, setUsuario] = useState({
     email: "",
@@ -39,20 +40,17 @@ function PerfilUsuario() {
     //     console.error("Usuário não autenticado");
     //     return;
     //   }
-
     //   const response = await getUserById(userId);
     //   console.log("Dados do usuário:", response);
-
     //   setUsuario({
     //     email: response.email || "N/A",
     //     name: response.firstName || "N/A",
     //     phone: response.phone || "N/A",
-    //     role: response.role || "N/A", 
+    //     role: response.role || "N/A",
     //     status: response.status || "N/A",
     //     fotoPerfil: response.fotoPerfil || "N/A",
     //   });
     // };
-
     // fetchUserData();
   }, []);
 
@@ -86,7 +84,7 @@ function PerfilUsuario() {
 
   return (
     <UserLayout>
-      <main className='perfil-main-conteudo'>
+      <main className="perfil-main-conteudo">
         <h2 className="perfil-titulo-pagina">Meus Dados</h2>
 
         <div className="perfil-card-principal">
@@ -94,7 +92,9 @@ function PerfilUsuario() {
             <img src={defaultProfilePic} alt="Foto de Perfil" />
           </div>
 
-          <h3 className="perfil-nome-usuario">{sessionStorage.getItem("username") || "Usuário"}</h3>
+          <h3 className="perfil-nome-usuario">
+            {sessionStorage.getItem("username") || "Usuário"}
+          </h3>
 
           {!isEditing && (
             <button

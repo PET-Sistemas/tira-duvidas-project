@@ -48,7 +48,7 @@ export class Answer {
   @JoinColumn({ name: 'question_id' })
   question: Question;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'respondent_id' })
+  @ManyToOne(() => User, (answer) => answer.id )
+  @JoinColumn({ name: 'respondent_id' } )
   respondent: User;
 }
