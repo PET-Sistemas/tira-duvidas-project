@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import AdminLayout from "../layout/AdminLayout";
+import { useNavigate, useParams } from 'react-router-dom';
+import AdminLayout from "../Layout/AdminLayout";
 import { getUserById, updateUser} from "../../../services/user.service";
 import "../../modal/modal.css"
 import "./UsuarioDetalhes.css";
@@ -21,6 +21,7 @@ function UsuarioDetalhes() {
   }
 
   const { id } = useParams(); 
+  const navigate = useNavigate();
   
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -88,6 +89,13 @@ function UsuarioDetalhes() {
     <>
     <AdminLayout>
       <div className="page-container-details">
+        <div className="details-top-actions">
+          <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
+            <i className="bi bi-arrow-left"></i>
+            Voltar
+          </button>
+        </div>
+
         <header className="header-details">
           <h1>Gerenciamento de perfil</h1>
           <p>Informações do usuário e ações administrativas</p>
@@ -104,6 +112,11 @@ function UsuarioDetalhes() {
           <div className="form-group">
             <label>E-mail</label>
             <input type="text" value={user.email} disabled className="input-read-only" />
+          </div>
+
+          <div className="form-group">
+            <label>CPF</label>
+            <input type="text" value={user.cpf || '-'} disabled className="input-read-only" />
           </div>
 
           <div className="form-group">

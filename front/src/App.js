@@ -34,6 +34,7 @@ import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
 import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js"
+import Relatorio from "./components/admin/Relatorio/Relatorio.js";
 
 function App() {
   const navigate = useNavigate();
@@ -311,6 +312,15 @@ function AppWrapper() {
           element={
             <ProtectedRoute roles={["admin"]}>
               <CertificadosGerados />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/relatorios"
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <Relatorio />
             </ProtectedRoute>
           }
         />

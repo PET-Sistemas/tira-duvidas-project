@@ -50,6 +50,10 @@ export class User {
   name: string | null;
 
   @Index()
+  @Column({ nullable: true, unique: true, length: 14 })
+  cpf: string | null;
+
+  @Index()
   @Column({ nullable: false, type: 'enum', enum: RoleEnum })
   role: RoleEnum;
 
@@ -58,7 +62,7 @@ export class User {
 
   @Column({ nullable: false })
   phone: string;
-  
+
   @Column({ nullable: true })
   @Index()
   hash: string | null;

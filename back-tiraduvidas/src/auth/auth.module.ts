@@ -25,7 +25,7 @@ import { MailService } from '../http/mail/mail.service';
     }),
     UserModule,
   ],
-  controllers: [AuthController],   // <-- registra o controller
+  controllers: [AuthController], // <-- registra o controller
   providers: [AuthService, JwtStrategy, RedisService, MailService], // <-- registra service e strategy
   exports: [AuthService], // exporta se outros módulos precisarem
 })

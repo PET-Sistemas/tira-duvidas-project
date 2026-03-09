@@ -1,0 +1,166 @@
+.relatorio-card {
+	width: 85%;
+}
+
+.relatorio-back-actions {
+	width: 85%;
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 8px;
+}
+
+.btn-back-details {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	border-radius: 6px;
+	border: 1px solid #3498db;
+	background: #ffffff;
+	color: #3498db;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.btn-back-details:hover {
+	background-color: #F0F8FF;
+}
+
+.relatorio-top-actions {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 16px;
+}
+
+.relatorio-btn {
+	border: 1px solid #3498db;
+	border-radius: 6px;
+	padding: 10px 16px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.relatorio-btn-primary {
+	background-color: #3498db;
+	color: #ffffff;
+}
+
+.relatorio-btn-primary:hover {
+	background-color: #2a89ca;
+}
+
+.relatorio-btn-outline {
+	background: #ffffff;
+	color: #3498db;
+}
+
+.relatorio-btn-outline:hover {
+	background-color: #ebf5ff;
+}
+
+.relatorio-feedback {
+	margin: 0 0 16px 0;
+	color: #2a89ca;
+	font-weight: 600;
+}
+
+.relatorio-form {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+.relatorio-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(220px, 1fr));
+	gap: 14px;
+}
+
+.relatorio-grid label {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	color: #4b5563;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.relatorio-grid input {
+	border: 1px solid #d1d5db;
+	border-radius: 6px;
+	padding: 10px 12px;
+	font-size: 14px;
+	outline: none;
+}
+
+.relatorio-grid input:focus {
+	border-color: #3498db;
+}
+
+.relatorio-grid input[readonly] {
+	background-color: #f3f4f6;
+}
+
+.relatorio-form-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
+.relatorio-download {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+
+.relatorio-download select {
+	border: 1px solid #d1d5db;
+	border-radius: 6px;
+	padding: 10px 12px;
+	outline: none;
+	color: #374151;
+}
+
+.relatorio-table th,
+.relatorio-table td {
+	padding: 12px 10px;
+	font-size: 13px;
+	text-align: center;
+}
+
+.relatorio-empty {
+	padding: 24px;
+	color: #6b7280;
+	text-align: center;
+}
+
+@media (max-width: 900px) {
+	.relatorio-card {
+		width: 100%;
+	}
+
+	.relatorio-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.relatorio-download,
+	.relatorio-top-actions,
+	.relatorio-form-actions {
+		justify-content: stretch;
+	}
+
+	.relatorio-download select,
+	.relatorio-download button,
+	.relatorio-form-actions button,
+	.relatorio-top-actions button {
+		width: 100%;
+	}
+
+	.relatorio-download,
+	.relatorio-form-actions {
+		flex-direction: column;
+	}
+}

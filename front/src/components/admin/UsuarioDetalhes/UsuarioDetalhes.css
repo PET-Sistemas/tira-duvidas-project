@@ -14,6 +14,30 @@
   margin-bottom: 30px;
 }
 
+.details-top-actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 12px;
+}
+
+.btn-back-details {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #3498db;
+  background: #ffffff;
+  color: #3498db;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-back-details:hover {
+  background-color: #F0F8FF;
+}
+
 .header-details h1 {
   color: #2D9CDB;
   font-size: 28px;

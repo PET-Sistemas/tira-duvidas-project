@@ -8,11 +8,12 @@ import { Resend } from 'resend';
 @Injectable()
 export class MailService {
   private readonly resend: any = new Resend(process.env.RESEND_API_KEY);
-  private readonly from: string = process.env.MAIL_FROM || 'petsistemas.adm@gmail.com';
+  private readonly from: string =
+    process.env.MAIL_FROM || 'petsistemas.adm@gmail.com';
 
   // constructor(private readonly mailRepo: MailRepositoryTypeorm) {
   //   this.resend =;
-  //   this.from = 
+  //   this.from =
   // }
 
   async userSignUp(mailData: MailDataDto<{ hash: string }>) {
@@ -43,7 +44,9 @@ export class MailService {
     // });
   }
 
-  async forgotPassword(mailData: MailDataDto<{ token: string; resetLink: string }>,) {
+  async forgotPassword(
+    mailData: MailDataDto<{ token: string; resetLink: string }>,
+  ) {
     const subject = 'Redefinição de senha';
 
     await this.resend.emails.send({
@@ -59,7 +62,12 @@ export class MailService {
       `,
     });
 
-    console.log("email de redefinição de senha enviado para:", mailData.to, "de: ", this.from);
+    console.log(
+      'email de redefinição de senha enviado para:',
+      mailData.to,
+      'de: ',
+      this.from,
+    );
     // Optional DB logging example (adapt fields if needed)
     // await this.createEmail({
     //   to: mailData.to,

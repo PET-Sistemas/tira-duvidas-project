@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import AdminLayout from "../layout/AdminLayout"; 
+import AdminLayout from "../Layout/AdminLayout"; 
 import "../globalAdmin.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { allUser} from "../../../services/user.service";
 import "./UsuariosGerenciamento.css"
 
 function UsuariosGerenciamento() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -109,6 +110,13 @@ function UsuariosGerenciamento() {
   };
 
   return (<AdminLayout>
+    <div className="details-top-actions" style={{ width: '70%', marginBottom: '8px' }}>
+      <button className="btn-back-details" onClick={() => navigate('/admin')}>
+        <i className="bi bi-arrow-left"></i>
+        Voltar
+      </button>
+    </div>
+
     <header className="header-admin">
       <h1>Gerenciamento de Usuários</h1>
       <p>Informações do usuário e ações administrativas</p>

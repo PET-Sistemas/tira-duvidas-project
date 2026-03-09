@@ -36,7 +36,7 @@ import { Answer } from '../answer/entities/answer.entity';
         new AnswerService(userRepository),
       inject: [AnswerTypeormRepository],
     },
-    AnswerTypeormRepository
+    AnswerTypeormRepository,
   ],
   exports: [QuestionService, CategoryService],
 })

@@ -27,10 +27,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException(
-        'Email not found',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new HttpException('Email not found', HttpStatus.FORBIDDEN);
     }
 
     if (user.status === UserStatus.INACTIVE) {
@@ -43,14 +40,12 @@ export class AuthService {
     );
 
     if (isValidPassword) {
-      const token = this.jwtService.sign(
-        {
-          id: user.id,
-          role: user.role,
-        },
-      );
+      const token = this.jwtService.sign({
+        id: user.id,
+        role: user.role,
+      });
 
-      return { token, message:"Login realizado com sucesso.", user: user };
+      return { token, message: 'Login realizado com sucesso.', user: user };
     }
 
     throw new HttpException(
@@ -128,9 +123,13 @@ export class AuthService {
     // Gera um token seguro aleatório e armazena no Redis com TTL
     const token = crypto.randomBytes(32).toString('hex');
     const ttlSec = Number(process.env.RESET_TOKEN_TTL_SECONDS || 900); // 15min
-    const redisResponse = await this.redisService.set(`pwdreset:${token}`, String(user.id), ttlSec);
+    const redisResponse = await this.redisService.set(
+      `pwdreset:${token}`,
+      String(user.id),
+      ttlSec,
+    );
 
-    if(!redisResponse){
+    if (!redisResponse) {
       throw new HttpException(
         {
           status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -146,7 +145,7 @@ export class AuthService {
       to: email,
       data: {
         token,
-        resetLink: `http://localhost:3000/reset-password?token=${token}`
+        resetLink: `http://localhost:3000/reset-password?token=${token}`,
       },
     });
 

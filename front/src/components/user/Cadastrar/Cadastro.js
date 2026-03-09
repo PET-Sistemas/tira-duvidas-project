@@ -11,6 +11,7 @@ function Cadastro() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
+    cpf: "",
     email: "",
     phone: "",
     password: "",
@@ -41,6 +42,7 @@ function Cadastro() {
     try {
       const response = await register({
         email: formData.email,
+        cpf: formData.cpf,
         password: formData.password,
         provider: "email",
         name: formData.name,
@@ -54,8 +56,7 @@ function Cadastro() {
       if (data.message) {
         setSuccessMessage(data.message);
         console.log(data);
-        // Opcional: redirecionar após cadastro bem-sucedido
-        // navigate('/login');
+        navigate('/login');
       } else {
         console.log(data);
         setError(data.message);
@@ -107,6 +108,16 @@ function Cadastro() {
             />
 
             <input
+              type="text"
+              name="cpf"
+              placeholder="*CPF"
+              className="input-cadastro"
+              value={formData.cpf}
+              onChange={handleChange}
+              required
+            />
+
+            <input
               type="email"
               name="email"
               placeholder="*E-mail"
@@ -146,7 +157,7 @@ function Cadastro() {
               required
             />
             <button type="submit" className="button-cadastro">
-              Salvar
+              Cadastrar
             </button>
 
             <span

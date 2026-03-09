@@ -40,7 +40,6 @@ export class FeedbackController {
     return await this.feedbackService.findMany({ answerId });
   }
 
-
   @Patch(':id')
   async update(
     @Param('id') id: string,

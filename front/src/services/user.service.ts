@@ -58,6 +58,35 @@ export async function allUser() {
   return users;
 }
 
+/**
+ * Busca um usuário pelo CPF.
+ * O CPF pode ser informado com ou sem formatação (123.456.789-09 ou 12345678909).
+ * 
+ * @param cpf - CPF do usuário
+ * @returns Dados do usuário ou null se não encontrado
+ */
+export async function getUserByCpf(cpf: string) {
+  const response = await fetch(`${API_URL}/user/cpf/${encodeURIComponent(cpf)}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "Falha ao buscar usuário por CPF");
+  }
+
+  return await response.json();
+}
+
 export async function updateUser(data: Partial<UpdateUserDTO>) {
   const response = await fetch(`${API_URL}/user/${data.id}`, {
     method: "PATCH",
