@@ -1,8 +1,8 @@
-/* Estilos para a página de detalhes da dúvida */
-.duvida-detalhada {
-  width: 100%;
-  height: 100%;
-}
+/* =============================================
+   MinhasDuvidasDetalhe.css
+   ============================================= */
+
+.duvida-detalhada { width: 100%; height: 100%; }
 
 .duvida-detalhada-header {
   display: flex;
@@ -20,9 +20,7 @@
   background-color: #f8f9fa;
 }
 
-.logo-cadasroDuvidas {
-  height: 40px;
-}
+.logo-cadasroDuvidas { height: 40px; }
 
 .minhas-duvidas-nav-link-sobre {
   margin-left: 20px;
@@ -37,9 +35,7 @@
   color: #3498DB;
 }
 
-.profile-btn {
-  margin-right: 10px;
-}
+.profile-btn { margin-right: 10px; }
 
 .user-profile-img {
   width: 40px;
@@ -47,101 +43,289 @@
   border-radius: 50%;
 }
 
-.duvida-info,
-.resposta {
+/* ============================================
+   DÚVIDA INFO
+   ============================================ */
+.duvida-info {
   border: 1px solid #3498DB;
-  padding: 15px;
+  padding: 16px 18px;
   margin-top: 20px;
   border-radius: 8px;
+  background-color: #fff;
 }
 
-.duvida-info h3,
-.resposta h3 {
+.duvida-info h3 {
   color: #3498DB;
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
+  margin: 0 0 8px 0;
 }
 
-.h3{
-  color:#3498DB;
+.duvida-info h4 {
+  color: #555;
+  font-weight: 400;
+  margin: 0 0 12px 0;
+  font-size: 0.97em;
 }
+
+.duvida-info h5 {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78em;
+  font-weight: 600;
+  color: #fff;
+  background-color: #3498DB;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.3px;
+  cursor: default;
+  user-select: none;
+}
+
+.duvida-info > br { display: none; }
+
+.duvida-info > p {
+  display: none;
+  font-size: 0.87em;
+  color: #444;
+  margin: 0;
+  padding: 5px 12px;
+  background-color: #f4f9fe;
+  border-left: 3px solid #3498DB;
+  animation: fade-in 0.18s ease;
+  line-height: 1.5;
+}
+
+.duvida-info > p:first-of-type {
+  border-radius: 0 6px 0 0;
+  padding-top: 8px;
+}
+
+.duvida-info > p:last-of-type {
+  border-radius: 0 0 6px 0;
+  padding-bottom: 8px;
+}
+
+.duvida-info:hover > p { display: block; }
+
+/* ============================================
+   RESPOSTAS ANTERIORES
+   ============================================ */
+.respostas-anteriores {
+  border: 1px solid #dde6f0;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.respostas-anteriores h3 {
+  color: #333;
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e8eef5;
+}
+
+.respostas-anteriores > p {
+  font-size: 0.91em;
+  color: #888;
+  font-style: italic;
+}
+
+.resposta-anterior {
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.resposta-anterior:last-child { margin-bottom: 0; }
+
+.resposta-anterior:nth-child(odd) {
+  background-color: #eaf4fd;
+  border-left: 4px solid #3498DB;
+}
+
+.resposta-anterior:nth-child(even) {
+  background-color: #d6eaf8;
+  border-left: 4px solid #1a7fc4;
+}
+
+.resposta-anterior p {
+  margin: 3px 0 !important;
+  font-size: 0.91em !important;
+  color: #2c3e50 !important;
+  line-height: 1.5 !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* ============================================
+   RESPOSTA ATUAL — APENAS o h3 é dourado
+   ============================================ */
+.resposta {
+  border: 1px solid #dde6f0 !important;
+  background-color: #fff !important;
+  padding: 16px 18px !important;
+  margin-top: 20px !important;
+  border-radius: 8px !important;
+}
+
+/* Somente o título dourado */
+.resposta h3 {
+  color: #b8860b !important;
+  border-bottom: 2px solid #e0c870 !important;
+  padding-bottom: 8px !important;
+  margin: 0 0 14px 0 !important;
+  font-size: 1.05em !important;
+  font-weight: 700 !important;
+  background: none !important;
+}
+
+/* Todos os parágrafos: branco puro, sem qualquer decoração */
+.resposta p {
+  display: block !important;
+  color: #333 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-left: none !important;
+  padding: 2px 0 !important;
+  margin: 4px 0 !important;
+  font-size: 0.93em !important;
+  line-height: 1.7 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.resposta br { display: none !important; }
+
+/* ============================================
+   FEEDBACK / AVALIAÇÃO — centralizado e compacto
+   ============================================ */
+.feedback {
+  border: 1px solid #dde6f0;
+  padding: 16px 20px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Div menor: não ocupa toda a largura */
+  width: fit-content;
+  min-width: 320px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avaliacao-titulo {
+  color: #3498DB;
+  font-size: 1.05em;
+  font-weight: bold;
+  margin: 0 0 14px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e8eef5;
+  width: 100%;
+  text-align: center;
+}
+
 .avaliacao {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
-  grid-gap:10px;
-  width: 50%;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .btn-satisfatoria {
   background-color: #28a745;
   color: white;
-  padding: 8px 12px;
+  padding: 9px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-satisfatoria:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
 }
 
 .btn-insatisfatoria {
   background-color: #dc3545;
   color: white;
-  padding: 8px 12px;
+  padding: 9px 24px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.1s;
 }
-
-.btn-satisfatoria:hover {
-  background-color: #218838;
-}
-
 .btn-insatisfatoria:hover {
   background-color: #c82333;
+  transform: translateY(-1px);
 }
 
-.feedback {
+.feedback-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50%;
+  width: 100%;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.feedback-visualizacao {
+  width: 100%;
+  font-size: 0.93em;
+  color: #333;
+  background: #f4f8fc;
+  border-radius: 6px;
+  padding: 10px 14px;
+  border-left: 4px solid #3498DB;
+  box-sizing: border-box;
 }
 
 .feedback-input {
   width: 100%;
-  margin-top: 5%;
   height: 100px;
   padding: 8px;
   border: 1px solid #3498DB;
   border-radius: 5px;
   font-size: 14px;
   resize: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.feedback-input:focus {
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .btn-enviar-feedback {
   color: white;
-  padding: 8px 12px;
+  padding: 10px 24px;
   border: none;
   cursor: pointer;
   background-color: #3498DB;
   border-radius: 4px;
   font-size: 14px;
   width: 50%;
+  transition: background 0.2s;
 }
+.btn-enviar-feedback:hover { background-color: #0056b3; }
 
-.btn-enviar-feedback:hover {
-  background-color: #0056b3;
-}
-
-.avaliacao-titulo{
-  color: #3498DB;
-  font-size: 1.17em;
-  font-weight: bold;
-  unicode-bidi: isolate;
-  margin-bottom: 0;
-}
-
-.feedback-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ---- Animação ---- */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

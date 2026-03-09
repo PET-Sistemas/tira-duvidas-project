@@ -68,31 +68,39 @@ function Logar() {
   };
 
   return (
-    <div className="body-login">
-      <div className="container">
-        <div className="left-panel">
-          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="logo" />
-          <p className="description-text">
+    <div className="login-page">
+      <div className="login-container">
+
+        {/* Painel esquerdo */}
+        <div className="login-left-panel">
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="login-logo" />
+          <p className="login-description">
             <em>
               Tire suas dúvidas relacionadas à<br />
               TIC's com estudantes da UFMS
             </em>
           </p>
-          <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
+          <p className="login-footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
-        <div className="divider"></div> {/* Linha divisória */}
-        <div className="right-panel">
-          <h2>LOGIN</h2>
-          {error && <div className="error-message">{error}</div>}
-          {successMessage && (
-            <div className="success-message">{successMessage}</div>
-          )}
-          <form onSubmit={handleSubmit}>
-            <div className="input-field">
-              <span className="input-icon">
+
+        {/* Divisor */}
+        <div className="login-divider"></div>
+
+        {/* Painel direito */}
+        <div className="login-right-panel">
+          <h2 className="login-title">LOGIN</h2>
+
+          {error && <div className="login-error">{error}</div>}
+          {successMessage && <div className="login-success">{successMessage}</div>}
+
+          <form className="login-form" onSubmit={handleSubmit}>
+
+            <div className="login-input-field">
+              <span className="login-input-icon">
                 <img src={arroba} alt="arroba" />
               </span>
               <input
+                className="login-input"
                 type="email"
                 name="email"
                 placeholder="email@email.com"
@@ -100,11 +108,13 @@ function Logar() {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="input-field">
-              <span className="input-icon">
+
+            <div className="login-input-field">
+              <span className="login-input-icon">
                 <img src={cadeado} alt="cadeado" />
               </span>
               <input
+                className="login-input"
                 type="password"
                 name="password"
                 placeholder="*********"
@@ -112,23 +122,26 @@ function Logar() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <a href="/esqueci-minha-senha" className="forgot-password">
+
+            <a href="/esqueci-minha-senha" className="login-forgot-password">
               Esqueci minha senha
-            </a>{" "}
-            {/* Link para recuperação de senha */}
-            <button type="submit" className="btn-submit">
+            </a>
+
+            <button type="submit" className="login-btn-submit">
               Entrar
             </button>
-            {/* Texto "Não tem uma conta? Cadastre-se" */}
-            <p className="register-text">
+
+            <p className="login-register-text">
               Não tem uma conta?{" "}
-              <Link to="/signup" className="register-link">
+              <Link to="/signup" className="login-register-link">
                 Cadastre-se
               </Link>
             </p>
-            <img src={ufmsLogo} alt="UFMS Logo" className="ufms-logo" />
+
+            <img src={ufmsLogo} alt="UFMS Logo" className="login-ufms-logo" />
           </form>
         </div>
+
       </div>
     </div>
   );
