@@ -17,10 +17,25 @@ import { Reflector } from '@nestjs/core'; // Importe isso
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
+  const allowedOrigins = [
+    'https://tiraduvidashomolog.facom.ufms.br',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+  ];
+
   app.enableCors({
-    origin: '*', // URL do seu frontend
+    origin: (origin, callback) => {
+      // Permite chamadas sem Origin (curl/postman) também
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`), false);
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    credentials: false,
   });
   const configService = app.get(ConfigService);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
@@ -42,9 +57,11 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('/api/docs', app, document);
 
-  await app.listen(configService.get('app.port'));
+  app.getHttpAdapter().get('/api/openapi.json', (req, res) => res.json(document));
+
+  await app.listen(process.env.APP_PORT ?? 8080);
 
   async function inicialData() {
     const authService = app.get(AuthService);

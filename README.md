@@ -9,7 +9,7 @@ Para rodar o projeto, você precisa ter instalado:
 - [Node.js 20.\*](https://nodejs.org/)
 - [Docker](https://www.docker.com/)
 
-## Como clonar o projeto, instalar as dependências e rodar APENAS O FRONT
+## ✅ Como clonar o projeto, instalar as dependências e rodar APENAS O FRONT
 
 ```bash
 # Clonar o repositório
@@ -28,7 +28,22 @@ npm run start
 cd ..
 ```
 
-## Como rodar cada serviço isoladamente no Docker
+## ✅ Como desenvolver usando a API da VM rodando o front localmente
+
+```bash
+1. Substitua no .env:
+  VITE_API_URL=https://tiraduvidashomolog.facom.ufms.br/api/
+
+2. Rode o front:
+  npm install
+  npm run server
+
+3. Acesse a documentação da API para ver as rotas e retornos (Swagger):
+  - https://tiraduvidashomolog.facom.ufms.br/api/docs
+  - https://tiraduvidashomolog.facom.ufms.br/api/openapi.json
+```
+
+## ✅ Como rodar cada serviço isoladamente no Docker
 
 ### Rodando apenas o Backend
 
@@ -58,15 +73,17 @@ Para iniciar todo o projeto com backend, frontend e banco de dados:
 docker compose -f docker-compose.yml up
 ```
 
-## Padronização de Commits
+## ✅ Como criar Branch, realizar Commit e realizar Pull Request
 
 Para manter um padrão de versionamento no projeto, siga as recomendações de commits semânticos descritas no seguinte guia:
 
 🔗 [Commits Semânticos](https://www.conventionalcommits.org/pt-br/v1.0.0/)
 
-### Passos para Branch e Commit
+Para criar uma nova funcionalidade ou alteração, siga o padrão em: 
 
-Para criar uma nova funcionalidade ou alteração, siga o [padrão](https://conventional-branch.github.io/) e os passos:
+🔗 [Branchs Semânticas](https://conventional-branch.github.io/) 
+
+Passos para Pull Requests:
 
 1. Criar uma nova branch:
 
