@@ -2,79 +2,83 @@ services:
   db:
     image: postgres:13
     restart: always
-    container_name: tiraduvidas_db_homolog
+    container_name: tiraduvidas_db
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
     volumes:
-      - db-data-homolog:/var/lib/postgresql/data
-    healthcheck: 
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 5s
-      timeout:  5s
+      timeout: 5s
       retries: 5
-    networks: 
-      - internal-homolog
+    networks:
+      - internal
 
   redis:
-    image:  redis:7-alpine
-    container_name: tiraduvidas_redis_homolog
+    image: redis:7-alpine
+    container_name: tiraduvidas_redis
     command: redis-server --appendonly yes
     volumes:
-      - redis_data_homolog:/data
-    restart:  unless-stopped
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
     networks:
-      - internal-homolog
+      - internal
 
   migrations:
     build:
       context: ./back-tiraduvidas
       dockerfile: Dockerfile.migrations
-    container_name: tiraduvidas_migrations_homolog
+    container_name: tiraduvidas_migrations
     environment:
       DATABASE_HOST: db
-      DATABASE_PORT:  5432
+      DATABASE_PORT: 5432
       DATABASE_TYPE: postgres
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
-      DATABASE_SYNCHRONIZE: false
+      DATABASE_SYNCHRONIZE: "false"
       DATABASE_MAX_CONNECTIONS: 100
-      DATABASE_SSL_ENABLED: false
-      DATABASE_REJECT_UNAUTHORIZED: false
+      DATABASE_SSL_ENABLED: "false"
+      DATABASE_REJECT_UNAUTHORIZED: "false"
     depends_on:
-      db: 
+      db:
         condition: service_healthy
     networks:
-      - internal-homolog
-    restart: "no"  # ← NÃO reinicia automaticamente
+      - internal
+    restart: "no"
 
   api:
     build:
       context: ./back-tiraduvidas
       dockerfile: Dockerfile
-    image: tiraduvidas-api:homolog
-    container_name:  tiraduvidas_api_homolog
+    image: tiraduvidas-api:dev
+    container_name: tiraduvidas_api
     restart: unless-stopped
     environment:
-      NODE_ENV: homolog
+      NODE_ENV: development
       APP_PORT: ${APP_PORT}
-      APP_NAME:  ${APP_NAME}
+      APP_NAME: ${APP_NAME}
       API_PREFIX: ${API_PREFIX}
-
+      
       DATABASE_HOST: db
       DATABASE_PORT: 5432
       DATABASE_TYPE: ${DATABASE_TYPE}
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_DATABASE: ${POSTGRES_DB}
-      DATABASE_SYNCHRONIZE: false
+      DATABASE_SYNCHRONIZE: "false"
       DATABASE_MAX_CONNECTIONS: 100
-      DATABASE_SSL_ENABLED: false
-      DATABASE_REJECT_UNAUTHORIZED: false
-
+      DATABASE_SSL_ENABLED: "false"
+      DATABASE_REJECT_UNAUTHORIZED: "false"
+      
       RUN_MIGRATIONS: ${RUN_MIGRATIONS}
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -84,19 +88,23 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       MAIL_DEFAULT_EMAIL: ${MAIL_DEFAULT_EMAIL}
       MAIL_DEFAULT_NAME: ${MAIL_DEFAULT_NAME}
+    ports:
+      - "8080:8080"
     expose:
       - "8080"
+    volumes:
+      - ./back-tiraduvidas:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_started
-      migrations:  # ← Aguarda migrations terminarem
+      migrations:
         condition: service_completed_successfully
-    command:  ["npm", "run", "start:prod"]
+    command: ["npm", "run", "start:dev"]
     networks:
-      - internal-homolog
-      - web-network
+      - internal
 
   frontend:
     build:
@@ -104,24 +112,22 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_URL=${VITE_API_URL}
-    image: tiraduvidas-frontend:homolog
-    container_name: tiraduvidas_frontend_homolog
+    image: tiraduvidas-frontend:dev
+    container_name: tiraduvidas_frontend
     restart: unless-stopped
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     environment:
       - VITE_API_URL=${VITE_API_URL}
     depends_on:
       - api
     networks:
-      - web-network
+      - internal
 
 volumes:
-  db-data-homolog:
-  redis_data_homolog:
+  db-data:
+  redis_data:
 
 networks:
-  internal-homolog:
+  internal:
     driver: bridge
-  web-network:
-    external: true

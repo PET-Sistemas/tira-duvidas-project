@@ -94,7 +94,7 @@ function MinhasDuvidasDetalhe() {
 
       if (!updateResponse.ok) {
         throw new Error(
-          "Falha ao atualizar o status da dúvida: " + updateResponse.status
+          "Falha ao atualizar o status da dúvida: " + updateResponse.status,
         );
       }
     }

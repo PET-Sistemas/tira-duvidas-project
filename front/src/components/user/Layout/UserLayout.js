@@ -45,11 +45,11 @@ function UserLayout({ children }) {
                         </a>
                         
                         <a href="/minhas-duvidas" className="sobre-nav-link">
-                            <i class="bi bi-person-fill"></i>Minhas dúvidas
+                            <i className="bi bi-person-fill"></i>Minhas dúvidas
                         </a>
 
                         <a href="/sobrenos" className="sobre-nav-link">
-                            <i class="bi bi-info-circle-fill"></i>Sobre nós
+                            <i className="bi bi-info-circle-fill"></i>Sobre nós
                         </a>
                     </div>
                 <nav className="nav">
