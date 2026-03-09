@@ -22,22 +22,32 @@ function Logar() {
 
     try {
       const response = await login({ email, password });
-      
+
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Erro ao conectar com o servidor' }));
-        setError(errorData.message || 'Erro ao fazer login');
+        const errorData = await response
+          .json()
+          .catch(() => ({ message: "Erro ao conectar com o servidor" }));
+
+        const mensagemErro = String(errorData.message);
+
+        if (
+          mensagemErro.includes("Email") ||
+          mensagemErro.includes("Incorrect")
+        ) {
+          setError("Credenciais inválidas.");
+        } else {
+          setError("Erro ao fazer login.");
+        }
+
         return;
       }
-      
-      const data = await response.json();
 
-      if (data.message === "Incorrect username or password") {
-        setError(data.message);
+      const data = await response.json();
+      if (!data.token || !data.user) {
+        setError(data.message || "Credenciais inválidas.");
       } else {
         setSuccessMessage(data.message);
 
-        console.log(data);
-        
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("id", data.user.id);
         sessionStorage.setItem("email", data.user.email);
@@ -45,15 +55,14 @@ function Logar() {
         sessionStorage.setItem("telefone", data.user.phone);
         sessionStorage.setItem("role", data.user.role);
 
-        setTimeout(() => {
-          if(data.user.role === "admin"){
-            navigate("/admin");
-          }else {
-            navigate("/");
-          }
-        }, 1000);
+        if (data.user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       }
     } catch (err) {
+      console.log(err.message);
       setError(err.message || "Ocorreu um erro durante o login");
     }
   };

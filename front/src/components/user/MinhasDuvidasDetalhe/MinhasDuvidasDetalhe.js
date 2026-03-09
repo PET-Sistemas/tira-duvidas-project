@@ -50,7 +50,7 @@ function MinhasDuvidasDetalhe() {
         setAnswers(answersResp);
 
         const feedbackResp = await getFeedbacks(answerResp.id);
-        
+
         if (feedbackResp) {
           setFeedbackType(feedbackResp.status);
           setFeedback(feedbackResp.justification);
@@ -100,18 +100,18 @@ function MinhasDuvidasDetalhe() {
     setShowFeedbackInput(false);
 
     if (feedbackType === "unsatisfactory") {
-        const updateResponse = await updateQuestionAnswered({
+      const updateResponse = await updateQuestionAnswered({
         id: doubt.id,
         title: doubt.title,
         description: doubt.description,
         questionerId: doubt.questionerId,
         status: "not_answered",
-        categories: doubt.categories
-      })
+        categories: doubt.categories,
+      });
 
       if (!updateResponse.ok) {
         throw new Error(
-          "Falha ao atualizar o status da dúvida: " + updateResponse.status
+          "Falha ao atualizar o status da dúvida: " + updateResponse.status,
         );
       }
     }
@@ -124,7 +124,7 @@ function MinhasDuvidasDetalhe() {
         <h4>{doubt.description}</h4>
 
         <br></br>
-        
+
         <p>
           <strong>Id:</strong> {doubt.id}
         </p>
@@ -152,10 +152,10 @@ function MinhasDuvidasDetalhe() {
                 <strong>Resposta:</strong> {answer.description}
               </p>
               <p>
-                <strong>Nome do Respondente:</strong> { answer.respondentName }
+                <strong>Nome do Respondente:</strong> {answer.respondentName}
               </p>
               <p>
-                <strong>Email do Respondente:</strong> { answer.respondentEmail }
+                <strong>Email do Respondente:</strong> {answer.respondentEmail}
               </p>
               <p>
                 <strong>Data da Resposta:</strong>{" "}
@@ -195,57 +195,62 @@ function MinhasDuvidasDetalhe() {
         )}
       </section>
 
-      {doubt.status === "answered" && doubt.questioner.id == sessionStorage.getItem("id") && (
-        <section className="feedback">
-          <h3 className="avaliacao-titulo">Avaliação</h3>
+      {doubt.status === "answered" &&
+        doubt.questioner.id == sessionStorage.getItem("id") && (
+          <section className="feedback">
+            <h3 className="avaliacao-titulo">Avaliação</h3>
 
-          {feedback ? (
-            <div className="feedback-container">
-              <p className="feedback-visualizacao">
-                <strong>Feedback: </strong> {feedback}
-              </p>
-            </div>
-          ) : (
-            // <div className="feedback-container">
-            // <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
-            //   {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
-            // </button>
-            // <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
-            // </div>
-            <div className="avaliacao">
-              <button
-                className="btn-satisfatoria"
-                onClick={() => handleFeedbackClick("satisfactory")}
-              >
-                👍 Satisfatória
-              </button>
-              <button
-                className="btn-insatisfatoria"
-                onClick={() => handleFeedbackClick("unsatisfactory")}
-              >
-                👎 Insatisfatória
-              </button>
-            </div>
-          )}
+            {feedback ? (
+              <div className="feedback-container">
+                <p className="feedback-visualizacao">
+                  <strong>Feedback: </strong> {feedback}
+                </p>
+              </div>
+            ) : (
+              // <div className="feedback-container">
+              // <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
+              //   {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
+              // </button>
+              // <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
+              // </div>
+              <div className="avaliacao">
+                <button
+                  className="btn-satisfatoria"
+                  onClick={() => handleFeedbackClick("satisfactory")}
+                >
+                  👍 Satisfatória
+                </button>
+                <button
+                  className="btn-insatisfatoria"
+                  onClick={() => handleFeedbackClick("unsatisfactory")}
+                >
+                  👎 Insatisfatória
+                </button>
+              </div>
+            )}
 
-          {showFeedbackInput && (
-            <div className="feedback-container">
-              <textarea
-                className="feedback-input"
-                placeholder={`Explique por que a resposta foi ${feedbackType.toLowerCase()}...`}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              />
-              <button
-                className="btn-enviar-feedback"
-                onClick={handleSendFeedback}
-              >
-                Enviar Feedback
-              </button>
-            </div>
-          )}
-        </section>
-      )}
+            {showFeedbackInput && (
+              <div className="feedback-container">
+                <textarea
+                  className="feedback-input"
+                  placeholder={`Explique por que a resposta foi ${
+                    feedbackType === "satisfactory"
+                      ? "satisfatória"
+                      : "insatisfatória"
+                  }...`}
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                />
+                <button
+                  className="btn-enviar-feedback"
+                  onClick={handleSendFeedback}
+                >
+                  Enviar Feedback
+                </button>
+              </div>
+            )}
+          </section>
+        )}
     </UserLayout>
   );
 }

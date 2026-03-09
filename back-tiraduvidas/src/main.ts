@@ -11,6 +11,8 @@ import { UserStatus } from './http/user/enums/user-status.enum';
 import { UserService } from 'src/http/user/user.service';
 import { CategoryService } from './http/category/category.service';
 import { emit } from 'process';
+import { ClassSerializerInterceptor } from '@nestjs/common'; // Importe isso
+import { Reflector } from '@nestjs/core'; // Importe isso
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -21,7 +23,7 @@ async function bootstrap() {
     credentials: true,
   });
   const configService = app.get(ConfigService);
-  
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableShutdownHooks();
   app.setGlobalPrefix(configService.get('app.apiPrefix'), {
     exclude: ['/'],
@@ -50,7 +52,18 @@ async function bootstrap() {
     const categoryService = app.get(CategoryService);
 
     // Cria categorias iniciais
-    const categorias = ['Matemática', 'Física', 'Química', 'Biologia', 'História', 'Geografia', 'Literatura', 'Artes', 'Educação Física', 'Inglês'];
+    const categorias = [
+      'Matemática',
+      'Física',
+      'Química',
+      'Biologia',
+      'História',
+      'Geografia',
+      'Literatura',
+      'Artes',
+      'Educação Física',
+      'Inglês',
+    ];
     for (const nome of categorias) {
       const categoriaExistente = await categoryService.findOne({ name: nome });
       if (!categoriaExistente) {
@@ -60,51 +73,49 @@ async function bootstrap() {
 
     // Cria usuários iniciais
 
-    if(await userService.findOne({email: "admin@ufms.br"})){
+    if (await userService.findOne({ email: 'admin@ufms.br' })) {
       return;
-    }else{
+    } else {
       await authService.register({
-        email: "admin@ufms.br",
-        password: "123",
-        provider: "email",
-        name: "admin",
-        phone: "123456789",
+        email: 'admin@ufms.br',
+        password: '123',
+        provider: 'email',
+        name: 'admin',
+        phone: '123456789',
         role: RoleEnum.ADMIN,
         status: UserStatus.ACTIVE,
       });
     }
 
-    if(await userService.findOne({email: "respondent@ufms.br"})){
+    if (await userService.findOne({ email: 'respondent@ufms.br' })) {
       return;
-    }else{
+    } else {
       await authService.register({
-        email: "respondent@ufms.br",
-        password: "123",
-        provider: "email",
-        name: "respondent",
-        phone: "123456789",
+        email: 'respondent@ufms.br',
+        password: '123',
+        provider: 'email',
+        name: 'respondent',
+        phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,
       });
     }
 
-    if(await userService.findOne({email: "respondent2@ufms.br"})){
+    if (await userService.findOne({ email: 'respondent2@ufms.br' })) {
       return;
-    }else{
+    } else {
       await authService.register({
-        email: "respondent2@ufms.br",
-        password: "123",
-        provider: "email",
-        name: "respondent2",
-        phone: "123456789",
+        email: 'respondent2@ufms.br',
+        password: '123',
+        provider: 'email',
+        name: 'respondent2',
+        phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,
       });
     }
-  
   }
 
   inicialData();
-
 }
 void bootstrap();
