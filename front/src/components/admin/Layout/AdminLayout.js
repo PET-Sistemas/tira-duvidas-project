@@ -23,7 +23,7 @@ function AdminLayout({ children }) {
             </NavLink>
             <a href="#">
               <i className="bi bi-file-earmark-bar-graph"></i>
-              Relatórios (Em breve)
+              Relatórios
             </a>
           </div>
           <div className="logo-nav">
