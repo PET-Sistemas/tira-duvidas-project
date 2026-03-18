@@ -10,18 +10,27 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-
 function UserLayout({ children }) {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState(""); // Novo estado para o email
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Controle do dropdown
 
     useEffect(() => {
-        // Verifica se há um username armazenado no sessionStorage
         const storedUsername = sessionStorage.getItem("username");
+        const storedEmail = sessionStorage.getItem("email"); // Supondo que você salve o email no login
         if (storedUsername) {
-          setUsername(storedUsername);
+            setUsername(storedUsername);
+            setEmail(storedEmail || "usuario@gmail.com"); 
         }
     }, []);
+
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const handleLogout = () => {
+        sessionStorage.clear();
+        navigate("/login");
+    };
 
     return (
         <div className="bodyUser">
@@ -29,72 +38,54 @@ function UserLayout({ children }) {
                 <header className="header">
                     <div className="items-header">
                         <a href="/" className="logo-link">
-                            <img
-                                src={tiraDuvidasLogo}
-                                alt="Tira Dúvidas Logo"
-                                className="logo-cadasroDuvidas"
-                            />
+                            <img src={tiraDuvidasLogo} alt="Logo" className="logo-cadasroDuvidas" />
                         </a>
-
-                        <a href="/" className="sobre-nav-link">
-                            <i className="bi bi-house-door-fill"></i>Início
-                        </a>
-
-                        <a href="/duvidas" className="sobre-nav-link">
-                            <i className="bi bi-patch-question-fill"></i>Dúvidas
-                        </a>
-                        
-                        <a href="/minhas-duvidas" className="sobre-nav-link">
-                            <i className="bi bi-person-fill"></i>Minhas dúvidas
-                        </a>
-
                         <a href="/sobrenos" className="sobre-nav-link">
                             <i className="bi bi-info-circle-fill"></i>Sobre nós
                         </a>
                     </div>
-                <nav className="nav">
-                    {username ? (
-                        // Exibe o nome do usuário se estiver logado
-                        <div className="user-info">
-                            <button className="btn-profile" onClick={() => {
-                                if(sessionStorage.getItem("role") === "questioner")
-                                    navigate("/painel-questionador");
-                                else if(sessionStorage.getItem("role") === "respondent")
-                                    navigate("/painel-respondente");
-                            }}>
-                            <img
-                                src={defaultProfilePic}
-                                alt="Foto de perfil"
-                                className="w-10 h-10 rounded-full object-cover"
-                            />
-                            </button>
-                            <span className="username">Olá, {username}!</span>
-                        </div>
-                    ) : (
-                        // Exibe os botões de login e cadastro se o usuário não estiver logado
-                        <>
-                            <button className="btn-login" onClick={() => navigate("/login")}>
-                                Entrar
-                            </button>
-                            <button className="btn-signup" onClick={() => navigate("/signup")}>
-                                Cadastrar-se
-                            </button>
-                        </>
-                    )}
-                </nav>
-            </header>
 
-            {/*area de conteudo principal */}
-            <div className="fundo-content-user">
-                {/*'children' renderiza o conteudo especifico da pagina*/}
-                {children}
+                    <nav className="nav">
+                        {username ? (
+                            <div className="user-container"> {/* Container relativo */}
+                                <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
+                                    <button className="btn-profile">
+                                        <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
+                                    </button>
+                                    <span className="username">Olá, {username}</span>
+                                </div>
 
-                <footer>
-                    <img src={logoUfms} alt="Logo UFMS" />
-                </footer>
-            </div>
-        </main>
-    </div>
+                                {/* O Card de Informações (Dropdown) */}
+                                {isMenuOpen && (
+                                    <div className="profile-dropdown">
+                                        <div className="dropdown-header">
+                                            <p className="full-name">{username}</p>
+                                            <p className="email-text">Email: {email}</p>
+                                        </div>
+                                        <div className="dropdown-footer">
+                                            <button className="btn-action" onClick={() => navigate("/perfil")}>Perfil</button>
+                                            <button className="btn-action" onClick={handleLogout}>Sair</button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="auth-buttons">
+                                <button className="btn-login" onClick={() => navigate("/login")}>Entrar</button>
+                                <button className="btn-signup" onClick={() => navigate("/signup")}>Cadastrar-se</button>
+                            </div>
+                        )}
+                    </nav>
+                </header>
+
+                <div className="fundo-content-user">
+                    {children}
+                    <footer>
+                        <img src={logoUfms} alt="Logo UFMS" />
+                    </footer>
+                </div>
+            </main>
+        </div>
     );
 }
 
