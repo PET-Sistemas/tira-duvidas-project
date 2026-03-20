@@ -33,40 +33,44 @@ import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaS
 import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
-import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js"
+import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js";
+import imgCard1 from "./utils/images/MinhasDuvidas.png";
+import imgCard2 from "./utils/images/todas-duvidas.png";
+import imgCard3 from "./utils/images/DuvidasRespondidas.png";
+import imgCard4 from "./utils/images/ResponderDuvidas.png";
 
 function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [questions, setQuestions] = useState([]); 
-  const [categories, setCategories] = useState([]); 
-  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const [questions, setQuestions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const storedUsername = sessionStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
     }
-    
+
     const fetchData = async () => {
       try {
-        const fetchedCategories = await allCategory(); 
-        const fetchedQuestions = await allQuestion(); 
-        setCategories(fetchedCategories); 
-        setQuestions(fetchedQuestions); 
+        const fetchedCategories = await allCategory();
+        const fetchedQuestions = await allQuestion();
+        setCategories(fetchedCategories);
+        setQuestions(fetchedQuestions);
       } catch (error) {
         console.error("Erro ao buscar categorias ou perguntas:", error);
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, []);
 
   const filterQuestionsByCategory = async (categoryName) => {
-    setSelectedCategory(categoryName); 
+    setSelectedCategory(categoryName);
     try {
       const filteredQuestions = await getQuestionByTitle(categoryName);
-      setQuestions(filteredQuestions); 
+      setQuestions(filteredQuestions);
     } catch (error) {
       console.error("Erro ao filtrar perguntas:", error);
     }
@@ -94,59 +98,88 @@ function App() {
   return (
     <UserLayout>
       {sessionStorage.getItem("role") === "questioner" && (
-        <div className="welcome-container">
-          <div className="welcome-content">
-            <h1>
-              Bem-vindo ao
-              <br />
-              <span>Tira Dúvidas</span>
-            </h1>
-            <p>
-              Envie perguntas, obtenha respostas
-              <br />e compartilhe conhecimento
-            </p>
-            <button
-              onClick={() => navigate("/cadastroduvidas")}
-              className="app-home-nav-link"
-            >
-              Faça uma pergunta
-            </button>
+        <div className="geral-container">
+          <div className="welcome-container">
+            <div className="welcome-content">
+              <h1>
+                Bem-vindo ao
+                <br />
+                <span>Tira Dúvidas</span>
+              </h1>
+              <p>
+                Envie perguntas, obtenha respostas
+                <br />e compartilhe conhecimento
+              </p>
+            </div>
+            <div className="welcome-illustration">
+              <img
+                src={ilustracaoPergunta}
+                alt="Pessoa com ponto de interrogação"
+              />
+            </div>
           </div>
-          <div className="welcome-illustration">
-            <img
-              src={ilustracaoPergunta}
-              alt="Pessoa com ponto de interrogação"
-            />
+
+          <div className="cards">
+            <div className="card" onClick={() => navigate("/duvidas")}>
+              <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Todas as Dúvidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/minhas-duvidas")}>
+              <img src={imgCard1} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Minhas Dúvidas</span>
+            </div>
           </div>
-        </div>  
+        </div>
       )}
 
       {sessionStorage.getItem("role") === "respondent" && (
-        <div className="welcome-container">
-          <div className="welcome-content">
-            <h1>
-              Bem-vindo ao
-              <br />
-              <span>Tira Dúvidas</span>
-            </h1>
-            <p>
-              Responda perguntas
-              <br />e compartilhe conhecimento
-            </p>
-            <button
-              onClick={() => navigate("/responder-duvidas")}
-              className="app-home-nav-link"
-            >
-              Perguntas
-            </button>
+        <div className="geral-container">
+          <div className="welcome-container">
+            <div className="welcome-content">
+              <h1>
+                Bem-vindo ao
+                <br />
+                <span>Tira Dúvidas</span>
+              </h1>
+              <p>
+                Responda perguntas
+                <br />e compartilhe conhecimento
+              </p>
+            </div>
+            <div className="welcome-illustration">
+              <img
+                src={ilustracaoPergunta}
+                alt="Pessoa com ponto de interrogação"
+              />
+            </div>
           </div>
-          <div className="welcome-illustration">
-            <img
-              src={ilustracaoPergunta}
-              alt="Pessoa com ponto de interrogação"
-            />
+
+          <div className="cards">
+
+            <div className="card" onClick={() => navigate("/duvidas")}>
+              <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Todas as Dúvidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/duvidas-respondidas")}>
+              <img src={imgCard3} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Dúvidas Respondidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/responder-duvidas")}>
+              <img src={imgCard4} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Responder Dúvidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/minhas-duvidas")}>
+              <img src={imgCard1} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Minhas Dúvidas</span>
+            </div>
+
           </div>
-        </div>  
+
+        </div>
       )}
     </UserLayout>
   );
@@ -280,7 +313,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin" 
+          path="/admin"
           element={
             <ProtectedRoute roles={["admin"]}>
               <HomeAdmin />
@@ -289,7 +322,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/usuarios" 
+          path="/admin/usuarios"
           element={
             <ProtectedRoute roles={["admin"]}>
               <UsuariosGerenciamento />
@@ -298,7 +331,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/categorias" 
+          path="/admin/categorias"
           element={
             <ProtectedRoute roles={["admin"]}>
               <CategoriasGerenciamento />
@@ -307,7 +340,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/certificados" 
+          path="/admin/certificados"
           element={
             <ProtectedRoute roles={["admin"]}>
               <CertificadosGerados />
@@ -316,7 +349,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/perfil-gerenciamento" 
+          path="/admin/perfil-gerenciamento"
           element={
             <ProtectedRoute roles={["admin"]}>
               <PerfilGerenciamento />
