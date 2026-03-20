@@ -1,3 +1,32 @@
+.table-user-manager{
+    width: 70%;
+    background-color: white;
+    border: 0px #3498db;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-admin h1{
+    padding-right: 20rem;
+    color: #3498db;
+    margin: 0;
+}
+
+.header-admin p{
+    padding-right: 20rem;
+    margin: 0;
+}
+
+
 /* Cor da fonte */
 .white{
     color: white;

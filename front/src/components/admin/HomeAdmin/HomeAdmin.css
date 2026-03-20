@@ -1,13 +1,3 @@
-.home-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 2rem;
-  height: auto;
-  width: 80%;
-}
-
 .admin-home-nav {
   display: flex;
   gap: 14px;
@@ -34,7 +24,7 @@
   color: #fff;
 }
 
-.logout-wrapper {
+.logout-button {
   margin-top: 2rem;
 }
 

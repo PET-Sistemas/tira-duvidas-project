@@ -109,104 +109,105 @@ function UsuariosGerenciamento() {
     )});
   };
 
-  return (<AdminLayout>
-    <div className="details-top-actions" style={{ width: '70%', marginBottom: '8px' }}>
-      <button className="btn-back-details" onClick={() => navigate('/admin')}>
-        <i className="bi bi-arrow-left"></i>
-        Voltar
-      </button>
-    </div>
+  return (
+    <AdminLayout>
+      <div className="table-user-manager">
+        <div className='header-div'>
+          <button className="btn-back-details" onClick={() => navigate('/admin')}>
+            <i className="bi bi-arrow-left"></i>
+            Voltar
+          </button>
 
-    <header className="header-admin">
-      <h1>Gerenciamento de Usuários</h1>
-      <p>Informações do usuário e ações administrativas</p>
-    </header>
-
-    <div className="table-admin">
-      <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>
-        
-        <div className="search-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="search"
-            id="search-input"
-            placeholder="Pesquisar por nome..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+          <header className="header-admin">
+            <h1>Gerenciamento de Usuários</h1>
+            <p>Informações do usuário e ações administrativas</p>
+          </header>
         </div>
-
-      </div>
-
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th id="nome">
-              <span>
-                Nome
-              </span>              
-            </th>
-            <th className="sortable">
-              <span className="center">
-                Data Criação <i className="bi bi-arrow-up"></i>
-              </span>              </th>
-            <th className="sortable">
-              <span className="center">
-                Última Resposta <i className="bi bi-arrow-up"></i>
-              </span>
-            </th>
-            <th>
-              <span className="center">
-                Status
-              </span>
-            </th>
-            <th >
-              <span className="center">
-                Tipo
-              </span>
-            </th>
-          </tr>
-        </thead>
         
-        <tbody>
-          {renderTableBody()}
-        </tbody>
-
-      </table>
-      {totalPages > 0 && (
-        <div className="table-footer">
-          <div className="pagination">
-            
-            <button 
-              onClick={goToPrevPage} 
-              disabled={currentPage === 1}
-              className='page-link-'
-            >
-              &lt;
-            </button>
-
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => paginate(index + 1)}
-                className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-
-            <button 
-              onClick={goToNextPage} 
-              disabled={currentPage === totalPages}
-              className={'page-link-'}
-            >
-              &gt;
-            </button>
-
+        <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>
+          
+          <div className="search-wrapper">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="search"
+              id="search-input"
+              placeholder="Pesquisar por nome..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
           </div>
+
         </div>
-        )}
-      </div>
+
+        <table className="user-table">
+          <thead>
+            <tr>
+              <th id="nome">
+                <span>
+                  Nome
+                </span>              
+              </th>
+              <th className="sortable">
+                <span className="center">
+                  Data Criação <i className="bi bi-arrow-up"></i>
+                </span>              </th>
+              <th className="sortable">
+                <span className="center">
+                  Última Resposta <i className="bi bi-arrow-up"></i>
+                </span>
+              </th>
+              <th>
+                <span className="center">
+                  Status
+                </span>
+              </th>
+              <th >
+                <span className="center">
+                  Tipo
+                </span>
+              </th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            {renderTableBody()}
+          </tbody>
+
+        </table>
+        {totalPages > 0 && (
+          <div className="table-footer">
+            <div className="pagination">
+              
+              <button 
+                onClick={goToPrevPage} 
+                disabled={currentPage === 1}
+                className='page-link-'
+              >
+                &lt;
+              </button>
+
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => paginate(index + 1)}
+                  className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+
+              <button 
+                onClick={goToNextPage} 
+                disabled={currentPage === totalPages}
+                className={'page-link-'}
+              >
+                &gt;
+              </button>
+
+            </div>
+          </div>
+          )}
+        </div>
     </AdminLayout>
   );
 }

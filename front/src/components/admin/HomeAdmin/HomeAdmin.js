@@ -17,30 +17,26 @@ function HomeAdmin() {
 
   return (
     <AdminLayout>
-      <div className={styles["home-content"]}>
-        <h1>Bem-vindo ao Painel de Admin!</h1>
-        <p>Equipe PET Tira Dúvidas.</p>
+      <h1>Bem-vindo ao Painel de Admin!</h1>
+      <p>Equipe PET Tira Dúvidas.</p>
 
-        <div className={styles["admin-home-nav"]}>
-          <NavLink to="/admin/usuarios" className={styles["admin-home-link"]}>
-            <i className="bi bi-people"></i>
-            Usuários
-          </NavLink>
-          <NavLink to="/admin/relatorios" className={styles["admin-home-link"]}>
-            <i className="bi bi-file-earmark-bar-graph"></i>
-            Relatórios
-          </NavLink>
-        </div>
+      <div className="admin-home-nav">
+        <NavLink to="/admin/usuarios" className="admin-home-link">
+          <i className="bi bi-people"></i>
+          Usuários
+        </NavLink>
+        <NavLink to="/admin/relatorios" className="admin-home-link">
+          <i className="bi bi-file-earmark-bar-graph"></i>
+          Relatórios
+        </NavLink>
+      </div>
 
-      </div>
-      <div className={styles["logout-wrapper"]}>
-        <button
-          className="logout-button"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-      </div>
+      <button
+        className="logout-button"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </AdminLayout>
   );
 }
