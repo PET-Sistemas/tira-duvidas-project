@@ -11,7 +11,6 @@ function MinhasDuvidasDetalhe() {
   const location = useLocation();
   const doubt = location.state?.doubt;
 
-  // Estado para armazenar avaliação e feedback
   const [feedbackType, setFeedbackType] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showFeedbackInput, setShowFeedbackInput] = useState(false);
@@ -19,21 +18,11 @@ function MinhasDuvidasDetalhe() {
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [detalhesAbertos, setDetalhesAbertos] = useState(false);
 
   useEffect(() => {
     setFeedback("");
     setFeedbackType("");
-
-    // if (doubt) {
-    //   // Recupera do localStorage se já houver uma avaliação salva
-    //   const savedFeedback = localStorage.getItem(`feedback_${doubt.id}`);
-    //   const savedFeedbackType = localStorage.getItem(`feedbackType_${doubt.id}`);
-
-    //   if (savedFeedback && savedFeedbackType) {
-    //     setFeedback(savedFeedback);
-    //     setFeedbackType(savedFeedbackType);
-    //   }
-    // }
 
     const fetchAsnwerAndFeedback = async () => {
       try {
@@ -50,7 +39,7 @@ function MinhasDuvidasDetalhe() {
         setAnswers(answersResp);
 
         const feedbackResp = await getFeedbacks(answerResp.id);
-        
+
         if (feedbackResp) {
           setFeedbackType(feedbackResp.status);
           setFeedback(feedbackResp.justification);
@@ -80,12 +69,6 @@ function MinhasDuvidasDetalhe() {
       return;
     }
 
-    // Salva no localStorage para persistência
-    // localStorage.setItem(`feedback_${doubt.id}`, feedback);
-    // localStorage.setItem(`feedbackType_${doubt.id}`, feedbackType);
-
-    //setShowFeedbackInput(false);
-
     const feedbackSend = createFeedback({
       userId: sessionStorage.getItem("id"),
       answerId: answer.id,
@@ -100,18 +83,18 @@ function MinhasDuvidasDetalhe() {
     setShowFeedbackInput(false);
 
     if (feedbackType === "unsatisfactory") {
-        const updateResponse = await updateQuestionAnswered({
+      const updateResponse = await updateQuestionAnswered({
         id: doubt.id,
         title: doubt.title,
         description: doubt.description,
         questionerId: doubt.questionerId,
         status: "not_answered",
-        categories: doubt.categories
-      })
+        categories: doubt.categories,
+      });
 
       if (!updateResponse.ok) {
         throw new Error(
-          "Falha ao atualizar o status da dúvida: " + updateResponse.status
+          "Falha ao atualizar o status da dúvida: " + updateResponse.status,
         );
       }
     }
@@ -119,133 +102,104 @@ function MinhasDuvidasDetalhe() {
 
   return (
     <UserLayout>
-      <section className="duvida-info">
-        <h3>{doubt.title}</h3>
-        <h4>{doubt.description}</h4>
+      {/* Wrapper com classe de escopo — evita vazamento de CSS */}
+      <div className="pagina-detalhe-duvida">
+        <h2 style={{ textAlign: "center", color: "#3498DB" }}>Detalhes da Dúvida</h2>
 
-        <br></br>
-        
-        <p>
-          <strong>Id:</strong> {doubt.id}
-        </p>
-        <p>
-          <strong>Questionador:</strong> {doubt.questioner.name}
-        </p>
-        <p>
-          <strong>Email do Questionador:</strong> {doubt.questioner.email}
-        </p>
-        <p>
-          <strong>Categoria:</strong> {doubt.categories[0].name}
-        </p>
-        <p>
-          <strong>Data:</strong>{" "}
-          {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}
-        </p>
-      </section>
+        <section className="duvida-info">
+          <h3>{doubt.title}</h3>
+          <h4>{doubt.description}</h4>
 
-      {answers.length > 0 ? (
-        <section className="respostas-anteriores">
-          <h3>Respostas Anteriores</h3>
-          {answers.map((answer) => (
-            <div key={answer.id} className="resposta-anterior">
-              <p>
-                <strong>Resposta:</strong> {answer.description}
-              </p>
-              <p>
-                <strong>Nome do Respondente:</strong> { answer.respondentName }
-              </p>
-              <p>
-                <strong>Email do Respondente:</strong> { answer.respondentEmail }
-              </p>
-              <p>
-                <strong>Data da Resposta:</strong>{" "}
-                {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
-              </p>
-            </div>
-          ))}
+          {/* Botão toggle */}
+          <button
+            className={`btn-detalhes${detalhesAbertos ? " aberto" : ""}`}
+            onClick={() => setDetalhesAbertos((prev) => !prev)}
+          >
+            Detalhes da Dúvida
+            <span className="chevron">▾</span>
+          </button>
+
+          {/* Painel expansível */}
+          <div className={`duvida-detalhes-painel${detalhesAbertos ? " aberto" : ""}`}>
+            <p><strong>Id:</strong> {doubt.id}</p>
+            <p><strong>Questionador:</strong> {doubt.questioner.name}</p>
+            <p><strong>Email do Questionador:</strong> {doubt.questioner.email}</p>
+            <p><strong>Categoria:</strong> {doubt.categories[0].name}</p>
+            <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
+          </div>
         </section>
-      ) : (
-        <section className="respostas-anteriores">
-          <h3>Respostas Anteriores</h3>
-          <p>Esta dúvida ainda não possui respostas anteriores.</p>
-        </section>
-      )}
 
-      <section className="resposta">
-        <h3>Resposta Atual</h3>
-        {doubt.status === "not_answered" ? (
-          <p>Ainda não há resposta atual para esta dúvida.</p>
+        {answers.length > 0 ? (
+          <section className="respostas-anteriores">
+            <h3>Respostas Anteriores</h3>
+            {answers.map((answer) => (
+              <div key={answer.id} className="resposta-anterior">
+                <p><strong>Resposta:</strong> {answer.description}</p>
+                <p><strong>Nome do Respondente:</strong> {answer.respondentName}</p>
+                <p><strong>Email do Respondente:</strong> {answer.respondentEmail}</p>
+                <p><strong>Data da Resposta:</strong>{" "}{new Date(answer.createdAt).toLocaleDateString("pt-BR")}</p>
+              </div>
+            ))}
+          </section>
         ) : (
-          <>
-            <p>
-              <strong> {answer.description} </strong>
-            </p>
-            <br></br>
-            <p>
-              <strong>Respondente:</strong> {answer.respondentName}
-            </p>
-            <p>
-              <strong>Email do Respondente:</strong> {answer.respondentEmail}
-            </p>
-            <p>
-              <strong>Data:</strong>{" "}
-              {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
-            </p>
-          </>
+          <section className="respostas-anteriores">
+            <h3>Respostas Anteriores</h3>
+            <p>Esta dúvida ainda não possui respostas anteriores.</p>
+          </section>
         )}
-      </section>
 
-      {doubt.status === "answered" && doubt.questioner.id == sessionStorage.getItem("id") && (
-        <section className="feedback">
-          <h3 className="avaliacao-titulo">Avaliação</h3>
-
-          {feedback ? (
-            <div className="feedback-container">
-              <p className="feedback-visualizacao">
-                <strong>Feedback: </strong> {feedback}
-              </p>
-            </div>
+        <section className="resposta">
+          <h3>Resposta Atual</h3>
+          {doubt.status === "not_answered" ? (
+            <p>Ainda não há resposta atual para esta dúvida.</p>
           ) : (
-            // <div className="feedback-container">
-            // <button className={`btn-${feedbackType.toLowerCase()}`} disabled>
-            //   {feedbackType === "Satisfatória" ? "👍 Satisfatória" : "👎 Insatisfatória"}
-            // </button>
-            // <p className="feedback-visualizacao"><strong>Feedback:</strong> {feedback}</p>
-            // </div>
-            <div className="avaliacao">
-              <button
-                className="btn-satisfatoria"
-                onClick={() => handleFeedbackClick("satisfactory")}
-              >
-                👍 Satisfatória
-              </button>
-              <button
-                className="btn-insatisfatoria"
-                onClick={() => handleFeedbackClick("unsatisfactory")}
-              >
-                👎 Insatisfatória
-              </button>
-            </div>
-          )}
-
-          {showFeedbackInput && (
-            <div className="feedback-container">
-              <textarea
-                className="feedback-input"
-                placeholder={`Explique por que a resposta foi ${feedbackType.toLowerCase()}...`}
-                value={feedback}
-                onChange={(e) => setFeedback(e.target.value)}
-              />
-              <button
-                className="btn-enviar-feedback"
-                onClick={handleSendFeedback}
-              >
-                Enviar Feedback
-              </button>
-            </div>
+            <>
+              <p><strong>{answer.description}</strong></p>
+              <br></br>
+              <p><strong>Respondente:</strong> {answer.respondentName}</p>
+              <p><strong>Email do Respondente:</strong> {answer.respondentEmail}</p>
+              <p><strong>Data:</strong>{" "}{new Date(answer.createdAt).toLocaleDateString("pt-BR")}</p>
+            </>
           )}
         </section>
-      )}
+
+        {doubt.status === "answered" && doubt.questioner.id == sessionStorage.getItem("id") && (
+          <section className="feedback">
+            <h3 className="avaliacao-titulo">Avaliação</h3>
+
+            {feedback ? (
+              <div className="feedback-container">
+                <p className="feedback-visualizacao">
+                  <strong>Feedback: </strong> {feedback}
+                </p>
+              </div>
+            ) : (
+              <div className="avaliacao">
+                <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("satisfactory")}>
+                  👍 Satisfatória
+                </button>
+                <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("unsatisfactory")}>
+                  👎 Insatisfatória
+                </button>
+              </div>
+            )}
+
+            {showFeedbackInput && (
+              <div className="feedback-container">
+                <textarea
+                  className="feedback-input"
+                  placeholder={`Explique por que a resposta foi ${feedbackType.toLowerCase()}...`}
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                />
+                <button className="btn-enviar-feedback" onClick={handleSendFeedback}>
+                  Enviar Feedback
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+      </div>
     </UserLayout>
   );
 }

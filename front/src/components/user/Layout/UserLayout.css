@@ -36,7 +36,9 @@ body {
 }
 
 .logo-cadasroDuvidas {
-  width: 7rem;
+  width: 5rem !important;
+  height: auto !important;
+  object-fit: contain;
 }
 
 .nav {
