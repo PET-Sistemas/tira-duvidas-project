@@ -21,21 +21,16 @@ function EsqueciMinhaSenha() {
       await forgotPassword(email);
 
       setSuccessMessage(
-        "Instruções para redefinição de senha enviadas para o seu e-mail.",
+        "Se o e-mail constar em nossa base, você receberá um link com as instruções em instantes.",
       );
+      setEmail("");
     } catch (err) {
       console.log(err);
-      const mensagemErro = String(err.message).toLowerCase();
-      if (
-        mensagemErro.includes("not found") ||
-        mensagemErro.includes("não encontrado")
-      ) {
-        setError("E-mail não encontrado!");
-      } else {
-        setError(
-          "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.",
-        );
-      }
+      // Como o backend não avisa mais se o usuário não existe, qualquer erro aqui
+      // será um erro real de conexão ou servidor (ex: 500 Internal Server Error)
+      setError(
+        "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.",
+      );
     }
   };
 
@@ -54,7 +49,7 @@ function EsqueciMinhaSenha() {
               TIC's com estudantes da UFMS
             </em>
           </p>
-          <p class="footer-text-esqueci-minha-senha">
+          <p className="footer-text-esqueci-minha-senha">
             Projeto de ensino - PET-Sistemas
           </p>
         </div>
@@ -83,6 +78,7 @@ function EsqueciMinhaSenha() {
                 placeholder="Insira seu e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="button-group-esqueci-minha-senha">
@@ -90,6 +86,7 @@ function EsqueciMinhaSenha() {
                 Enviar
               </button>
               <button
+                type="button"
                 className="button-esqueci-minha-senha"
                 onClick={() => navigate("/login")}
               >
