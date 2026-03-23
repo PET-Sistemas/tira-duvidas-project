@@ -14,6 +14,7 @@ import { RoleEnum } from 'src/http/role/role.enum';
 import { UserStatus } from '../enums/user-status.enum';
 import * as bcrypt from 'bcryptjs';
 import { AuthProvidersEnum } from 'src/auth/auth-providers.enum';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'user' })
 export class User {
@@ -23,9 +24,11 @@ export class User {
   @Column({ unique: true, nullable: true })
   email: string | null;
 
+  @Exclude()
   @Column({ nullable: true })
   password: string;
 
+  @Exclude()
   public previousPassword: string;
 
   @AfterLoad()
@@ -65,14 +68,18 @@ export class User {
 
   @Column({ nullable: true })
   @Index()
+  @Exclude()
   hash: string | null;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
+  @Exclude()
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
+  @Exclude()
   updatedAt: Date;
 
   @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
+  @Exclude()
   deletedAt: Date;
 }

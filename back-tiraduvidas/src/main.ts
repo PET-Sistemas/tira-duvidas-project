@@ -11,6 +11,8 @@ import { UserStatus } from './http/user/enums/user-status.enum';
 import { UserService } from 'src/http/user/user.service';
 import { CategoryService } from './http/category/category.service';
 import { emit } from 'process';
+import { ClassSerializerInterceptor } from '@nestjs/common'; // Importe isso
+import { Reflector } from '@nestjs/core'; // Importe isso
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -36,7 +38,7 @@ async function bootstrap() {
     credentials: false,
   });
   const configService = app.get(ConfigService);
-
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableShutdownHooks();
   app.setGlobalPrefix(configService.get('app.apiPrefix'), {
     exclude: ['/'],
@@ -45,8 +47,12 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.use(json({ limit: '200mb' }));
-  app.useGlobalPipes(new ValidationPipe(validationOptions));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove campos extras que não estão no DTO (protege contra injeção de dados)
+      forbidNonWhitelisted: true, // Retorna erro se o usuário enviar campos não esperados
+    }),
+  );
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')

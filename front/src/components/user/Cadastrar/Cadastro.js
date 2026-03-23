@@ -78,12 +78,13 @@ function Cadastro() {
             />
             <p className="description-text">
               <em>
-                Tire suas dúvidas relacionadas à <br />
-                TIC's com estudantes da UFMS
+                Tire suas dúvidas relacionadas à UFMS<br />
+                com estudantes!
               </em>
             </p>
+            <p></p>
+            <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
           </div>
-          <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
         <div className="signup-divider-cadastro"></div>
         <div className="signup-right-panel-cadastro">

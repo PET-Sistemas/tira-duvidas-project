@@ -9,7 +9,7 @@ function UsuariosGerenciamento() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -18,7 +18,7 @@ function UsuariosGerenciamento() {
     const fetchUsers = async () => {
       try {
         const data = await allUser();
-        if(Array.isArray(data)) setUsers(data);
+        if (Array.isArray(data)) setUsers(data);
       } catch (error) {
         console.error("Erro ao buscar usuários", error);
       }
@@ -27,14 +27,14 @@ function UsuariosGerenciamento() {
   }, []);
 
   const filteredUsers = users.filter((user) => {
-    const nome = user.name || user.user_name || ''; 
+    const nome = user.name || user.user_name || "";
     return nome.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-  
+
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   const handleSearch = (e) => {
@@ -45,7 +45,6 @@ function UsuariosGerenciamento() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const goToNextPage = () => {
-
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
@@ -54,59 +53,73 @@ function UsuariosGerenciamento() {
   };
 
   const statusMap = {
-  active: { text: 'Ativo', className: 'bg-green white padding-3 fbtn status center' },  
-  inactive: { text: 'Inativo', className: 'bg-red white padding-3 fbtn status' },
+    active: {
+      text: "Ativo",
+      className: "bg-green white padding-3 fbtn status center",
+    },
+    inactive: {
+      text: "Inativo",
+      className: "bg-red white padding-3 fbtn status",
+    },
   };
 
   const roleMap = {
-  questioner: { text: 'Questionador', className: 'fbtn padding-3 blue borda bg-white tipo' },
-  respondent: { text: 'Respondente', className: 'fbtn padding-3 white borda bg-blue tipo' },
-  admin: { text: 'Admin', className: 'fbtn padding-3 blue borda bg-white tipo' },
+    questioner: {
+      text: "Questionador",
+      className: "fbtn padding-3 blue borda bg-white tipo",
+    },
+    respondent: {
+      text: "Respondente",
+      className: "fbtn padding-3 white borda bg-blue tipo",
+    },
+    admin: {
+      text: "Admin",
+      className: "fbtn padding-3 blue borda bg-white tipo",
+    },
   };
 
   const renderTableBody = () => {
     if (currentUsers.length === 0) {
       return (
         <tr>
-          <td colSpan="5" className="center-text" style={{ padding: '20px' }}>
+          <td colSpan="5" className="center-text" style={{ padding: "20px" }}>
             Nenhum usuário encontrado.
           </td>
         </tr>
       );
     }
 
-
     return currentUsers.map((user) => {
-
       const statusDisplay = statusMap[user.status];
       const roleDisplay = roleMap[user.role];
 
       return (
-      <tr key={user.id}>
-        <td id="nome" >
-          <Link to={`/admin/usuarios/${user.id}`} className='user-name'>
-            {user.name}
-          </Link>
-        </td>
-        <td>
-          {new Date(user.createdAt).toLocaleDateString('pt-BR')} 
-       </td>
-        
-        <td>
-          {user.lastResponse ? new Date(user.lastResponse).toLocaleDateString('pt-BR') : '-'}
-        </td> 
-        <td>
-            <span className={`${statusDisplay.className}`} >
+        <tr key={user.id}>
+          <td id="nome">
+            <Link to={`/admin/usuarios/${user.id}`} className="user-name">
+              {user.name}
+            </Link>
+          </td>
+          <td>{new Date(user.createdAt).toLocaleDateString("pt-BR")}</td>
+
+          <td>
+            {user.lastResponse
+              ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
+              : "-"}
+          </td>
+          <td>
+            <span className={`${statusDisplay.className}`}>
               {statusDisplay.text}
             </span>
           </td>
           <td>
-            <span className={`${roleDisplay.className}`} >
+            <span className={`${roleDisplay.className}`}>
               {roleDisplay.text}
             </span>
-        </td>
-      </tr>
-    )});
+          </td>
+        </tr>
+      );
+    });
   };
 
   return (

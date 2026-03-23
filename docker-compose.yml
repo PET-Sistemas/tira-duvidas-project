@@ -67,7 +67,7 @@ services:
       APP_PORT: ${APP_PORT}
       APP_NAME: ${APP_NAME}
       API_PREFIX: ${API_PREFIX}
-      
+
       DATABASE_HOST: db
       DATABASE_PORT: 5432
       DATABASE_TYPE: ${DATABASE_TYPE}
@@ -78,11 +78,13 @@ services:
       DATABASE_MAX_CONNECTIONS: 100
       DATABASE_SSL_ENABLED: "false"
       DATABASE_REJECT_UNAUTHORIZED: "false"
-      
+
       RUN_MIGRATIONS: ${RUN_MIGRATIONS}
       REDIS_HOST: redis
       REDIS_PORT: 6379
 
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
       MAIL_MAILER: ${MAIL_MAILER:-resend}
       MAIL_FROM: ${MAIL_FROM}
       RESEND_API_KEY: ${RESEND_API_KEY}

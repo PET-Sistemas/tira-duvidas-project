@@ -109,7 +109,6 @@ function Relatorio() {
             <div className="relatorio-action-centralized">
               <button
                 type="button"
-                className="relatorio-btn relatorio-btn-primary"
                 onClick={handleGenerateReport}
                 disabled={isLoading}
               >
