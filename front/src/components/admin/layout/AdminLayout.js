@@ -1,5 +1,4 @@
 import React from "react";
-import "./AdminLayout.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import { NavLink } from "react-router-dom";
 
@@ -23,7 +22,7 @@ function AdminLayout({ children }) {
             </NavLink>
             <a href="#">
               <i className="bi bi-file-earmark-bar-graph"></i>
-              Relatórios (Em breve)
+              Relatórios
             </a>
           </div>
           <div className="logo-nav">

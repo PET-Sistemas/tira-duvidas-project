@@ -47,8 +47,12 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.use(json({ limit: '200mb' }));
-  app.useGlobalPipes(new ValidationPipe(validationOptions));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove campos extras que não estão no DTO (protege contra injeção de dados)
+      forbidNonWhitelisted: true, // Retorna erro se o usuário enviar campos não esperados
+    }),
+  );
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')
@@ -59,7 +63,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/api/docs', app, document);
 
-  app.getHttpAdapter().get('/api/openapi.json', (req, res) => res.json(document));
+  app
+    .getHttpAdapter()
+    .get('/api/openapi.json', (req, res) => res.json(document));
 
   await app.listen(process.env.APP_PORT ?? 8080);
 

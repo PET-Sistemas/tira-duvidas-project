@@ -1,11 +1,11 @@
 import React from "react";
-import AdminLayout from "../layout/AdminLayout";
+import AdminLayout from "../Layout/AdminLayout";
 import styles from "./homeAdmin.module.css";
 import { useNavigate } from "react-router-dom";
 
 function HomeAdmin() {
   const navigate = useNavigate();
-  
+
   const handleLogout = () => {
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("id");
@@ -22,10 +22,7 @@ function HomeAdmin() {
         <p>Equipe PET Tira Dúvidas.</p>
       </div>
       <div>
-        <button
-          className="logout-button"
-          onClick={handleLogout}
-        >
+        <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
       </div>

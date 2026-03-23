@@ -34,6 +34,7 @@ import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
 import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js";
+import RedefinirSenha from "./components/user/EsqueciMinhaSenha/RedefinirSenha.js";
 import imgCard1 from "./utils/images/MinhasDuvidas.png";
 import imgCard2 from "./utils/images/todas-duvidas.png";
 import imgCard3 from "./utils/images/DuvidasRespondidas.png";
@@ -156,18 +157,23 @@ function App() {
           </div>
 
           <div className="cards">
-
             <div className="card" onClick={() => navigate("/duvidas")}>
               <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
               <span className="card-title">Todas as Dúvidas</span>
             </div>
 
-            <div className="card" onClick={() => navigate("/duvidas-respondidas")}>
+            <div
+              className="card"
+              onClick={() => navigate("/duvidas-respondidas")}
+            >
               <img src={imgCard3} alt="Minhas Dúvidas" className="card-img" />
               <span className="card-title">Dúvidas Respondidas</span>
             </div>
 
-            <div className="card" onClick={() => navigate("/responder-duvidas")}>
+            <div
+              className="card"
+              onClick={() => navigate("/responder-duvidas")}
+            >
               <img src={imgCard4} alt="Todas as Dúvidas" className="card-img" />
               <span className="card-title">Responder Dúvidas</span>
             </div>
@@ -176,9 +182,7 @@ function App() {
               <img src={imgCard1} alt="Minhas Dúvidas" className="card-img" />
               <span className="card-title">Minhas Dúvidas</span>
             </div>
-
           </div>
-
         </div>
       )}
     </UserLayout>
@@ -193,7 +197,7 @@ function AppWrapper() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
-
+        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         {/* Rotas protegidas */}
         <Route
           path="/"
