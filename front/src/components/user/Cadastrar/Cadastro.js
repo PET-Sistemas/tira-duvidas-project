@@ -11,6 +11,7 @@ function Cadastro() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
+    cpf: "",
     email: "",
     phone: "",
     password: "",
@@ -41,6 +42,7 @@ function Cadastro() {
     try {
       const response = await register({
         email: formData.email,
+        cpf: formData.cpf,
         password: formData.password,
         provider: "email",
         name: formData.name,
@@ -54,8 +56,7 @@ function Cadastro() {
       if (data.message) {
         setSuccessMessage(data.message);
         console.log(data);
-        // Opcional: redirecionar após cadastro bem-sucedido
-        // navigate('/login');
+        navigate('/login');
       } else {
         console.log(data);
         setError(data.message);
@@ -77,12 +78,13 @@ function Cadastro() {
             />
             <p className="description-text">
               <em>
-                Tire suas dúvidas relacionadas à <br />
-                TIC's com estudantes da UFMS
+                Tire suas dúvidas relacionadas à UFMS<br />
+                com estudantes!
               </em>
             </p>
+            <p></p>
+            <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
           </div>
-          <p className="footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
         <div className="signup-divider-cadastro"></div>
         <div className="signup-right-panel-cadastro">
@@ -102,6 +104,16 @@ function Cadastro() {
               placeholder="*Nome Completo"
               className="input-cadastro"
               value={formData.name}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="cpf"
+              placeholder="*CPF"
+              className="input-cadastro"
+              value={formData.cpf}
               onChange={handleChange}
               required
             />
@@ -146,7 +158,7 @@ function Cadastro() {
               required
             />
             <button type="submit" className="button-cadastro">
-              Salvar
+              Cadastrar
             </button>
 
             <span

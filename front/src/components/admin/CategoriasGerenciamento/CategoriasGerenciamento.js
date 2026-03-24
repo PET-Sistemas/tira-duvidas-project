@@ -1,9 +1,9 @@
 import React from "react";
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../Layout/AdminLayout"; 
 
 function CategoriasGerenciamento() {
   return (
-    <AdminLayout>
+    <>
       <header className="header-admin">
         <h1>Gerenciamento de Categorias</h1>
         <p>Adicione, edite ou remova categorias de perguntas.</p>
@@ -44,7 +44,7 @@ function CategoriasGerenciamento() {
           </div>
         </div>
       </div>
-    </AdminLayout>
+    </>
   );
 }
 

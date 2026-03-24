@@ -36,7 +36,7 @@ body {
 }
 
 .logo-cadasroDuvidas {
-  width: 5rem !important;
+  width: 8rem !important;
   height: auto !important;
   object-fit: contain;
 }
@@ -81,7 +81,7 @@ footer {
   z-index: 10;
 }
 
-footer img {
+footer img {  
   height: 3rem;
   object-fit: contain;
   margin: 1%;
@@ -89,6 +89,7 @@ footer img {
 
 /*estilos para o botão de perfil */
 .btn-profile {
+  margin-right: 3rem;
   background: none;
   border: none;
   padding: 0;
@@ -102,6 +103,8 @@ footer img {
 }
 
 .username {
+  width: 100%;
+  margin-right: 3rem;
   text-align: center;
 }
 

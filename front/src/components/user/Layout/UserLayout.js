@@ -6,8 +6,6 @@ import defaultProfilePic from "../../../utils/images/default-profile.png"; // Im
 import logoUfms from "../../../utils/images/logo-ufms.png";
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
   useNavigate,
 } from "react-router-dom";
 function UserLayout({ children }) {

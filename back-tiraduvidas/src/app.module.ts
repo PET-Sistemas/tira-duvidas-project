@@ -15,6 +15,7 @@ import { FeedbackModule } from './http/feedback/feedback.module';
 import { QuestionModule } from './http/question/question.module';
 import { UserRoleModule } from './http/user-role/user-role.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ReportModule } from './http/report/report.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     FeedbackModule,
     QuestionModule,
     UserRoleModule,
+    ReportModule,
   ],
   providers: [],
 })

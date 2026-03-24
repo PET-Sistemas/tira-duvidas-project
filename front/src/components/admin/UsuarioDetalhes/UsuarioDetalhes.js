@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from "../Layout/AdminLayout";
-import { getUserById, updateUser } from "../../../services/user.service";
-import "../../modal/modal.css";
+import { getUserById, updateUser} from "../../../services/user.service";
+import "../../modal/modal.css"
 import "./UsuarioDetalhes.css";
 import "../UsuariosGerenciamento/UsuariosGerenciamento.css";
 import Modal from "../../modal/modal.js";
@@ -20,8 +20,9 @@ function UsuarioDetalhes() {
     document.body.classList.remove("active-modal");
   }
 
-  const { id } = useParams();
-
+  const { id } = useParams(); 
+  const navigate = useNavigate();
+  
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -101,22 +102,51 @@ function UsuarioDetalhes() {
 
   return (
     <>
-      <AdminLayout>
-        <div className="page-container-details">
-          <header className="header-details">
-            <h1>Gerenciamento de perfil</h1>
-            <p>Informações do usuário e ações administrativas</p>
-          </header>
+    <AdminLayout>
+      <div className="page-container-details">
+        <div className="details-top-actions">
+          <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
+            <i className="bi bi-arrow-left"></i>
+            Voltar
+          </button>
+        </div>
 
-          <div className="profile-card">
-            {/* Formulário de Visualização */}
-            <div className="form-group">
-              <label>Nome completo</label>
-              <input
-                type="text"
-                value={user.name}
-                disabled
-                className="input-read-only"
+        <header className="header-details">
+          <h1>Gerenciamento de perfil</h1>
+          <p>Informações do usuário e ações administrativas</p>
+        </header>
+
+        <div className="profile-card">
+          
+          {/* Formulário de Visualização */}
+          <div className="form-group">
+            <label>Nome completo</label>
+            <input type="text" value={user.name} disabled className="input-read-only" />
+          </div>
+
+          <div className="form-group">
+            <label>E-mail</label>
+            <input type="text" value={user.email} disabled className="input-read-only" />
+          </div>
+
+          <div className="form-group">
+            <label>CPF</label>
+            <input type="text" value={user.cpf || '-'} disabled className="input-read-only" />
+          </div>
+
+          <div className="form-group">
+            <label>Celular</label>
+            {/* Exemplo de formatação simples, se o dado vier puro */}
+            <input type="text" value={user.phone || '-'} disabled className="input-read-only" />
+          </div>
+
+          <div className="form-group">
+            <label>Data de Criação de Conta</label>
+            <input 
+              type="text" 
+              value={new Date(user.createdAt).toLocaleDateString('pt-BR')} 
+              disabled 
+              className="input-read-only" 
               />
             </div>
 
@@ -177,10 +207,6 @@ function UsuarioDetalhes() {
                 onClick={() => setmodalAlterar(true)}
               >
                 <i className="bi bi-pencil"></i> Alterar perfil
-              </button>
-
-              <button className="btn-action">
-                <i className="bi bi-download"></i> Baixar relatório
               </button>
             </div>
           </div>

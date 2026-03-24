@@ -33,6 +33,7 @@ import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaS
 import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
+import Relatorio from "./components/admin/Relatorio/Relatorio.js";
 import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js";
 import RedefinirSenha from "./components/user/EsqueciMinhaSenha/RedefinirSenha.js";
 import imgCard1 from "./utils/images/MinhasDuvidas.png";
@@ -121,6 +122,11 @@ function App() {
           </div>
 
           <div className="cards">
+            <div className="card" onClick={() => navigate("/cadastroduvidas")}>
+              <img src={imgCard4} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Cadastrar Dúvidas</span>
+            </div>
+            
             <div className="card" onClick={() => navigate("/duvidas")}>
               <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
               <span className="card-title">Todas as Dúvidas</span>
@@ -353,7 +359,16 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/perfil-gerenciamento"
+          path="/admin/relatorios"
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <Relatorio />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/perfil-gerenciamento" 
           element={
             <ProtectedRoute roles={["admin"]}>
               <PerfilGerenciamento />

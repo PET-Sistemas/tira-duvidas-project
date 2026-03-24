@@ -76,8 +76,8 @@ function Logar() {
           <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="login-logo" />
           <p className="login-description">
             <em>
-              Tire suas dúvidas relacionadas à<br />
-              TIC's com estudantes da UFMS
+              Tire suas dúvidas relacionadas à UFMS<br />
+              com estudantes!
             </em>
           </p>
           <p className="login-footer-text">Projeto de ensino - PET-Sistemas</p>

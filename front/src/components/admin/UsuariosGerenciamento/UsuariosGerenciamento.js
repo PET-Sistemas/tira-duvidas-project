@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import AdminLayout from "../Layout/AdminLayout";
+import React, { useState, useEffect } from 'react';
+import AdminLayout from "../Layout/AdminLayout"; 
 import "../globalAdmin.css";
-import { Link } from "react-router-dom";
-import { allUser } from "../../../services/user.service";
-import "./UsuariosGerenciamento.css";
+import { Link, useNavigate } from 'react-router-dom';
+import { allUser} from "../../../services/user.service";
+import "./UsuariosGerenciamento.css"
 
 function UsuariosGerenciamento() {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -123,16 +124,21 @@ function UsuariosGerenciamento() {
 
   return (
     <AdminLayout>
-      <header className="header-admin">
-        <h1>Gerenciamento de Usuários</h1>
-        <p>Informações do usuário e ações administrativas</p>
-      </header>
+      <div className="table-user-manager">
+        <div className='header-div'>
+          <button className="btn-back-details" onClick={() => navigate('/admin')}>
+            <i className="bi bi-arrow-left"></i>
+            Voltar
+          </button>
 
-      <div className="table-admin">
-        <div
-          className="search-field"
-          style={{ display: "flex", gap: "10px", padding: "0" }}
-        >
+          <header className="header-admin">
+            <h1>Gerenciamento de Usuários</h1>
+            <p>Informações do usuário e ações administrativas</p>
+          </header>
+        </div>
+        
+        <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>
+          
           <div className="search-wrapper">
             <i className="bi bi-search search-icon"></i>
             <input
@@ -143,42 +149,52 @@ function UsuariosGerenciamento() {
               onChange={handleSearch}
             />
           </div>
+
         </div>
 
         <table className="user-table">
           <thead>
             <tr>
               <th id="nome">
-                <span>Nome</span>
+                <span>
+                  Nome
+                </span>              
               </th>
               <th className="sortable">
                 <span className="center">
                   Data Criação <i className="bi bi-arrow-up"></i>
-                </span>{" "}
-              </th>
+                </span>              </th>
               <th className="sortable">
                 <span className="center">
                   Última Resposta <i className="bi bi-arrow-up"></i>
                 </span>
               </th>
               <th>
-                <span className="center">Status</span>
+                <span className="center">
+                  Status
+                </span>
               </th>
-              <th>
-                <span className="center">Tipo</span>
+              <th >
+                <span className="center">
+                  Tipo
+                </span>
               </th>
             </tr>
           </thead>
+          
+          <tbody>
+            {renderTableBody()}
+          </tbody>
 
-          <tbody>{renderTableBody()}</tbody>
         </table>
         {totalPages > 0 && (
           <div className="table-footer">
             <div className="pagination">
-              <button
-                onClick={goToPrevPage}
+              
+              <button 
+                onClick={goToPrevPage} 
                 disabled={currentPage === 1}
-                className="page-link-"
+                className='page-link-'
               >
                 &lt;
               </button>
@@ -187,23 +203,24 @@ function UsuariosGerenciamento() {
                 <button
                   key={index + 1}
                   onClick={() => paginate(index + 1)}
-                  className={`page-link-${currentPage === index + 1 ? "active" : ""}`}
+                  className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
                 >
                   {index + 1}
                 </button>
               ))}
 
-              <button
-                onClick={goToNextPage}
+              <button 
+                onClick={goToNextPage} 
                 disabled={currentPage === totalPages}
-                className={"page-link-"}
+                className={'page-link-'}
               >
                 &gt;
               </button>
+
             </div>
           </div>
-        )}
-      </div>
+          )}
+        </div>
     </AdminLayout>
   );
 }

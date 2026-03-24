@@ -32,7 +32,11 @@ export class Question {
   @JoinColumn({ name: 'questioner_id' })
   questioner: User;
 
-  @Column({ type: 'enum', enum: QuestionStatus, default: QuestionStatus.NOT_ANSWERED })
+  @Column({
+    type: 'enum',
+    enum: QuestionStatus,
+    default: QuestionStatus.NOT_ANSWERED,
+  })
   status: QuestionStatus;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

@@ -1,0 +1,30 @@
+.admin-home-nav {
+  display: flex;
+  gap: 14px;
+  
+  margin-top: 1rem;
+}
+
+.admin-home-link {
+  text-decoration: none;
+  color: #3498db;
+  border: 1px solid #3498db;
+  min-width: 140px;
+  padding: 0.8rem 1.1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.admin-home-link:hover {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.logout-button {
+  margin-top: 2rem;
+}

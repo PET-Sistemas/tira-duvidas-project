@@ -63,7 +63,7 @@ function CadastroDuvidas() {
 
     try {
       const response = await createQuestion(newQuestion); 
-      
+
       if(!response.ok) {
         throw new Error("Erro ao cadastrar dúvida");
       }
@@ -82,87 +82,98 @@ function CadastroDuvidas() {
 
   return (
     <UserLayout>
-      <form className="cadastro-duvida-form" onSubmit={handleSubmit}>
-        <div className="cadastro-duvida-form-group">
-          <label className="cadastro-duvida-label" htmlFor="categoria">
-            Categoria:
-          </label>
-          <select
-            id="categoria"
-            className="cadastro-duvida-input"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="" disabled>
-              Selecione uma categoria...
-            </option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.name}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+      <div className="cadastro-duvida-container">
+        <div className="header-div">
+          <header className="header-admin">
+            <h1>Cadastrar Dúvida</h1>
+            <p>Insira os detalhes da sua dúvida abaixo</p>
+          </header>
         </div>
 
-        <div className="cadastro-duvida-form-group">
-          {showErrors && (
-            <div className="cadastro-duvida-errors">
-              <p className="cadastro-duvida-error-text">
-                Por favor, preencha todos os campos.
-              </p>
+        <div className="cadastro-duvida-form">
+          <form className="cadastro-duvida-form" onSubmit={handleSubmit}>
+            <div className="cadastro-duvida-form-group">
+              <label className="cadastro-duvida-label" htmlFor="categoria">
+                Categoria:
+              </label>
+              <select
+                id="categoria"
+                className="cadastro-duvida-input"
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                <option value="" disabled>
+                  Selecione uma categoria...
+                </option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div>
-          )}
-          <label className="cadastro-duvida-label" htmlFor="descricao">
-            Título:
-          </label>
-          <input
-            id="titulo"
-            type="text"
-            className="cadastro-duvida-titulo"
-            placeholder="Título"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <label className="cadastro-duvida-label" htmlFor="descricao">
-            Descrição:
-          </label>
-          <textarea
-            id="descricao"
-            className="cadastro-duvida-textarea"
-            placeholder="Digite aqui a sua dúvida..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+
+            <div className="cadastro-duvida-form-group">
+              {showErrors && (
+                <div className="cadastro-duvida-errors">
+                  <p className="cadastro-duvida-error-text">
+                    Por favor, preencha todos os campos.
+                  </p>
+                </div>
+              )}
+              <label className="cadastro-duvida-label" htmlFor="descricao">
+                Título:
+              </label>
+              <input
+                id="titulo"
+                type="text"
+                className="cadastro-duvida-titulo"
+                placeholder="Título"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <label className="cadastro-duvida-label" htmlFor="descricao">
+                Descrição:
+              </label>
+              <textarea
+                id="descricao"
+                className="cadastro-duvida-textarea"
+                placeholder="Digite aqui a sua dúvida..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="cadastro-duvida-buttons">
+              <button
+                type="button"
+                className="cadastro-duvida-button"
+                id="cancel-button"
+                onClick={() => navigate(-1)}
+              >
+                Cancelar
+              </button>
+              {!title && !description ? (
+                <button
+                  type="submit"
+                  className="cadastro-duvida-button"
+                  id="save-button"
+                  disabled
+                >
+                  Salvar
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="cadastro-duvida-button"
+                  id="save-button"
+                >
+                  Salvar
+                </button>
+              )}
+            </div>
+          </form>
         </div>
-        <div className="cadastro-duvida-buttons">
-          <button
-            type="button"
-            className="cadastro-duvida-button"
-            id="cancel-button"
-            onClick={() => navigate(-1)}
-          >
-            Cancelar
-          </button>
-          {!title && !description ? (
-            <button
-              type="submit"
-              className="cadastro-duvida-button"
-              id="save-button"
-              disabled
-            >
-              Salvar
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="cadastro-duvida-button"
-              id="save-button"
-            >
-              Salvar
-            </button>
-          )}
-        </div>
-      </form>
+      </div>
     </UserLayout>
   );
 }
