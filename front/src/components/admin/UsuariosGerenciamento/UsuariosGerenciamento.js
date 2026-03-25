@@ -125,16 +125,14 @@ function UsuariosGerenciamento() {
   return (
     <AdminLayout>
       <div className="table-user-manager">
-        <div className='header-div'>
-          <button className="btn-back-details" onClick={() => navigate('/admin')}>
+        <button className="btn-back-details" onClick={() => navigate('/admin')}>
             <i className="bi bi-arrow-left"></i>
             Voltar
           </button>
-
-          <header className="header-admin">
-            <h1>Gerenciamento de Usuários</h1>
-            <p>Informações do usuário e ações administrativas</p>
-          </header>
+        
+        <div className='header-div'>
+          <h1>Gerenciamento de Usuários</h1>
+          <p>Informações do usuário e ações administrativas</p>
         </div>
         
         <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>

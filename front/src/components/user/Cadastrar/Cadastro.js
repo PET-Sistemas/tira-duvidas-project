@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./Cadastro.css";
-import "../global.css";
+import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { register } from "../../../services/user.service";
-import { splitName } from "../../../utils/nomeSobrenome.js";
 
 function Cadastro() {
   const navigate = useNavigate();

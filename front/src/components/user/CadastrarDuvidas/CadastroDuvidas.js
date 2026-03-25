@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./CadastroDuvidas.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png"; // Logo do Tira Dúvidas
-import defaultProfilePic from "../../../utils/images/default-profile.png"; // Ícone de imagem vazia
-import logoUfms from "../../../utils/images/logo-ufms.png"; // Logo da UFMS
+import "../../global.css";
 import { createQuestion } from "../../../services/question.service";
 import { allCategory } from "../../../services/category.service";
 import { useNavigate } from "react-router-dom";
@@ -47,8 +44,7 @@ function CadastroDuvidas() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    
-    const questionerId = sessionStorage.getItem("id"); 
+    const questionerId = Number(sessionStorage.getItem("id"));
     const status = "not_answered"; 
 
     const newQuestion = {
@@ -59,9 +55,8 @@ function CadastroDuvidas() {
       status,
     };
 
-    console.log(newQuestion);
-
     try {
+      console.log("Nova dúvida a ser cadastrada:", newQuestion); // Log para verificar os dados
       const response = await createQuestion(newQuestion); 
 
       if(!response.ok) {
@@ -82,12 +77,9 @@ function CadastroDuvidas() {
 
   return (
     <UserLayout>
-      <div className="cadastro-duvida-container">
         <div className="header-div">
-          <header className="header-admin">
-            <h1>Cadastrar Dúvida</h1>
-            <p>Insira os detalhes da sua dúvida abaixo</p>
-          </header>
+          <h1>Cadastrar Dúvida</h1>
+          <p>Insira os detalhes da sua dúvida abaixo</p>
         </div>
 
         <div className="cadastro-duvida-form">
@@ -173,7 +165,6 @@ function CadastroDuvidas() {
             </div>
           </form>
         </div>
-      </div>
     </UserLayout>
   );
 }

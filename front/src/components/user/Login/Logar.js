@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Logar.css";
-import "../global.css";
+import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import cadeado from "../../../utils/images/cadeado.png";
 import arroba from "../../../utils/images/arroba.png";
@@ -51,6 +51,7 @@ function Logar() {
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("id", data.user.id);
         sessionStorage.setItem("email", data.user.email);
+        sessionStorage.setItem("cpf", data.user.cpf);
         sessionStorage.setItem("username", data.user.name);
         sessionStorage.setItem("telefone", data.user.phone);
         sessionStorage.setItem("role", data.user.role);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./UserLayout.css";
-import "../global.css";
+import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
 import logoUfms from "../../../utils/images/logo-ufms.png";

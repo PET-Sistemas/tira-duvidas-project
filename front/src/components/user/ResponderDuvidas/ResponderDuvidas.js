@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./ResponderDuvidas.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import { Link } from "react-router-dom"; // Importando Link do React Router
-import logoUfms from "../../../utils/images/logo-ufms.png";
 import { allQuestion } from "../../../services/question.service";
-import { all } from "axios";
 import UserLayout from "../Layout/UserLayout";
 
 const ResponderDuvidas = () => {
