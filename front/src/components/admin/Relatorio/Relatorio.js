@@ -54,16 +54,14 @@ function Relatorio() {
   return (
     <AdminLayout>
       <div className="table-report-manager">
-        <div className="header-div">
-          <button className="btn-back-details" onClick={() => navigate('/admin')}>
-            <i className="bi bi-arrow-left"></i>
-            Voltar
-          </button>
+        <button className="btn-back-details" onClick={() => navigate('/admin')}>
+          <i className="bi bi-arrow-left"></i>
+          Voltar
+        </button>
 
-          <header className="header-admin">
-            <h1>Relatórios</h1>
-            <p>Relatório de apoio a emissão de certificado</p>
-          </header>
+        <div className="header-div">
+          <h1>Relatórios</h1>
+          <p>Relatório de apoio a emissão de certificado</p>
         </div>
 
         <div className="relatorio-card">

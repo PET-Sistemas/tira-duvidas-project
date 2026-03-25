@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./DuvidasRespondidas.css";
-import "../global.css";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import { getAnsweredQuestions } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";

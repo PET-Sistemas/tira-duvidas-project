@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./Duvidas.css";
-import "../global.css";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import { allQuestion, getQuestionByUserId } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
@@ -99,40 +99,43 @@ function Duvidas() {
 
   return (
     <UserLayout>
-        <h2 className="titulo-pagina">Todas as Dúvidas</h2>
+      <div className="header-div">
+        <h1>Todas as Dúvidas</h1>
+        <p>Veja todas as dúvidas cadastradas no sistema abaixo</p>
+      </div>
 
-        <div className="filtrar-container">
-          <button className="filtrar-button" onClick={toggleFiltroVisivel}>
-            <img
-              src={FilterIcon}
-              alt="Filter Icon"
-              className="filter-icon-profile"
+      <div className="filtrar-container">
+        <button className="filtrar-button" onClick={toggleFiltroVisivel}>
+          <img
+            src={FilterIcon}
+            alt="Filter Icon"
+            className="filter-icon-profile"
+          />
+          Filtrar
+        </button>
+
+        {filtroVisivel && (
+          <div className="filtro-container">
+            <input
+              type="text"
+              placeholder="Buscar por palavra"
+              value={search}
+              onChange={handleSearchChange}
+              className="search-input"
             />
-            Filtrar
-          </button>
-
-          {filtroVisivel && (
-            <div className="filtro-container">
-              <input
-                type="text"
-                placeholder="Buscar por palavra"
-                value={search}
-                onChange={handleSearchChange}
-                className="search-input"
-              />
-              <select onChange={handleFiltroChange} value={filtro}>
-                <option value="">Selecione um filtro</option>
-                <option value="crescente">Mais antigos</option>
-                <option value="decrescente">Mais recentes</option>
-                <option value="respondidas">Respondidas</option>
-                <option value="naoRespondidas">Não Respondidas</option>
-              </select>
-              <button onClick={aplicarFiltro} className="button-filter">
-                Aplicar filtro
-              </button>
-            </div>
-          )}
-        </div>
+            <select onChange={handleFiltroChange} value={filtro}>
+              <option value="">Selecione um filtro</option>
+              <option value="crescente">Mais antigos</option>
+              <option value="decrescente">Mais recentes</option>
+              <option value="respondidas">Respondidas</option>
+              <option value="naoRespondidas">Não Respondidas</option>
+            </select>
+            <button onClick={aplicarFiltro} className="button-filter">
+              Aplicar filtro
+            </button>
+          </div>
+        )}
+      </div>
 
         <section className="section-minhas-duvidas">
           <div className="doubt-list-minhas-duvidas">
