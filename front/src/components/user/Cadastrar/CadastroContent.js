@@ -7,6 +7,7 @@ function CadastroContent() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    cpf: "",
     phone: "",
     password: "",
     confirmPassword: "",
@@ -32,6 +33,7 @@ function CadastroContent() {
     try {
       const response = await register({
         email: formData.email,
+        cpf: formData.cpf,
         password: formData.password,
         provider: "email",
         name: formData.name,
@@ -44,11 +46,16 @@ function CadastroContent() {
 
       if (response.ok) {
         setSuccessMessage(data.message || "Usuário cadastrado com sucesso!");
+        navigate('/login');
       } else {
-        setError(data.message || "Erro ao cadastrar");
+        throw new Error(data.message || "Erro ao cadastrar usuário");
       }
     } catch (err) {
-      setError(err.message || "Ocorreu um erro durante o cadastro");
+      if (err.message.includes("Email") || err.message.includes("CPF")) {
+        setError("Email ou CPF já estão em uso.");
+      } else {
+        setError("Ocorreu um erro durante o cadastro");
+      }
     }
   };
 
@@ -56,7 +63,7 @@ return (
     <div className="auth-right-panel-inner">
         <h2 className="auth-title">Cadastrar-se</h2>
         <p className="auth-subtitle">
-            *Informe os dados abaixo para ter acesso a sua nova conta.
+            Informe os dados abaixo para criar a sua nova conta.
         </p>
 
         {error && <div className="auth-message error">{error}</div>}
@@ -84,6 +91,18 @@ return (
                     value={formData.email}
                     onChange={handleChange}
                     required
+                />
+            </div>
+
+            <div className="auth-input-field">
+                <input
+                  type="text"
+                  name="cpf"
+                  placeholder="*CPF"
+                  className="auth-input"
+                  value={formData.cpf}
+                  onChange={handleChange}
+                  required
                 />
             </div>
 
@@ -124,7 +143,7 @@ return (
             </div>
 
             <button type="submit" className="auth-btn-submit">
-                Salvar
+                Cadastrar
             </button>
         </form>
 

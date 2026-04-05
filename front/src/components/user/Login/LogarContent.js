@@ -51,7 +51,7 @@ function LogarContent() {
 
  return (
     <div className="auth-right-panel-inner">
-        <h2 className="auth-title">LOGIN</h2>
+        <h2 className="auth-title">Login</h2>
         <p className="auth-subtitle">Bem-vindo de volta! Faça seu login.</p>
 
         {error && <div className="auth-message error">{error}</div>}

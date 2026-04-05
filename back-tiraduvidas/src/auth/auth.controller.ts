@@ -21,6 +21,8 @@ import { RegisterUserDto } from './dto/register-user.dto';
 import { CreateUserDto } from 'src/http/user/dto/create-user.dto';
 import { UpdateUserDto } from 'src/http/user/dto/update-user.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { ForgotPasswordDto } from 'src/auth/dto/forgot-password.dto';
+import { ResetPasswordDto } from 'src/auth/dto/reset-password.dto';
 
 @Controller({
   path: 'auth',
@@ -47,19 +49,25 @@ export class AuthController {
     return await this.service.confirmEmail(confirmEmailDto.hash);
   }
 
-  @Post('forgot/password')
-  @HttpCode(HttpStatus.OK)
-  async forgotPassword(@Body() forgotPasswordDto: AuthForgotPasswordDto) {
-    return await this.service.forgotPassword(forgotPasswordDto.email);
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK) // Usamos 200 OK porque não estamos "criando" um recurso visual
+  async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    // Repassa o e-mail recebido para o nosso Service
+    return this.service.forgotPassword(forgotPasswordDto.email);
   }
 
-  @Post('reset/password')
+  @Post('reset-password')
   @HttpCode(HttpStatus.OK)
-  async resetPassword(@Body() resetPasswordDto: AuthResetPasswordDto) {
-    return await this.service.resetPassword(
-      resetPasswordDto.hash,
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    // Passamos o token e a nova senha validados para o Service
+    await this.service.resetPassword(
+      resetPasswordDto.token,
       resetPasswordDto.password,
     );
+
+    return {
+      message: 'Senha atualizada com sucesso. Você já pode fazer login.',
+    };
   }
 
   @Get('my_profile')

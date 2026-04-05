@@ -53,6 +53,11 @@
 }
 
 /* ---- Painel esquerdo ---- */
+.login-logo {
+  width: 300px;
+  margin-bottom: 24px;
+}
+
 .login-left-panel {
   width: 50%;
   display: flex;
@@ -64,11 +69,7 @@
   text-align: center;
 }
 
-.login-logo {
-  width: 200px;
-  height: auto;
-}
-
+/* Estilo da imagem do painel esquerdo */
 .login-description {
   font-size: 1.15em;
   font-weight: bold;
@@ -260,9 +261,7 @@
     padding: 24px 20px;
   }
 
-  .login-logo {
-    width: 130px;
-  }
+  .login-logo { width: 30px; }
 
   .login-title {
     font-size: 1.8em;

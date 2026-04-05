@@ -47,8 +47,12 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.use(json({ limit: '200mb' }));
-  app.useGlobalPipes(new ValidationPipe(validationOptions));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove campos extras que não estão no DTO (protege contra injeção de dados)
+      forbidNonWhitelisted: true, // Retorna erro se o usuário enviar campos não esperados
+    }),
+  );
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')
@@ -59,7 +63,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/api/docs', app, document);
 
-  app.getHttpAdapter().get('/api/openapi.json', (req, res) => res.json(document));
+  app
+    .getHttpAdapter()
+    .get('/api/openapi.json', (req, res) => res.json(document));
 
   await app.listen(process.env.APP_PORT ?? 8080);
 
@@ -98,6 +104,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'admin',
+        cpf: '00000000001',
         phone: '123456789',
         role: RoleEnum.ADMIN,
         status: UserStatus.ACTIVE,
@@ -112,6 +119,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'respondent',
+        cpf: '00000000002',
         phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,
@@ -126,6 +134,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'respondent2',
+        cpf: '00000000003',
         phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,

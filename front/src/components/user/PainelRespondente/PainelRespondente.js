@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PainelRespondente.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
-import logoUfms from "../../../utils/images/logo-ufms.png";
+import "../../global.css";
 import imgCard1 from "../../../utils/images/DuvidasRespondidas.png";
 import imgCard2 from "../../../utils/images/ResponderDuvidas.png";
 import imgCard3 from "../../../utils/images/MinhasDuvidas.png";

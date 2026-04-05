@@ -35,12 +35,23 @@
 }
 
 /* Main content area */
-.titulo-pagina {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  color: var(--azul-principal);
+.header-div{
+    display: flex;
+    flex-direction: column;   /* empilha */
+    align-items: center;      /* centraliza horizontal */
+    justify-content: center;  /* centraliza vertical (se tiver altura) */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header-div h1{
+    white-space: nowrap;
+    color: var(--azul-principal);
+}
+
+.header-div p{
+    color: var(--azul-escuro);
+    margin-top: 0.5rem;
 }
 
 .painel-titulo {

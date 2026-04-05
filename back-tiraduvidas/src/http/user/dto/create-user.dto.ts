@@ -24,15 +24,25 @@ export class CreateUserDto {
   @IsString()
   name: string | null;
 
+  @ApiProperty({ description: 'CPF do usuário' })
+  @IsString()
+  cpf: string | null;
+
   @ApiProperty({ description: 'Telefone do usuário' })
   @IsString()
   phone: string | null;
 
-  @ApiProperty({ description: 'Papel do usuário', default: RoleEnum.QUESTIONER })
+  @ApiProperty({
+    description: 'Papel do usuário',
+    default: RoleEnum.QUESTIONER,
+  })
   @IsEnum(RoleEnum)
   role: RoleEnum;
 
-  @ApiPropertyOptional({ description: 'Status do usuário', default: UserStatus.ACTIVE })
+  @ApiPropertyOptional({
+    description: 'Status do usuário',
+    default: UserStatus.ACTIVE,
+  })
   @IsOptional()
   @IsEnum(UserStatus)
   status?: UserStatus;
