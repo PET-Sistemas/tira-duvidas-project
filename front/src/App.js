@@ -10,14 +10,13 @@ import UsuariosGerenciamento from "./components/admin/UsuariosGerenciamento/Usua
 import CategoriasGerenciamento from "./components/admin/CategoriasGerenciamento/CategoriasGerenciamento.js";
 import CertificadosGerados from "./components/admin/CertificadosGerados/CertificadosGerados.js";
 import PerfilGerenciamento from "./components/admin/PerfilGerenciamento/PerfilGerenciamento.js";
-import Login from "./components/user/Login/Logar.js";
-import Signup from "./components/user/Cadastrar/Cadastro.js";
 import CadastroDuvidas from "./components/user/CadastrarDuvidas/CadastroDuvidas.js";
 import PerfilUsuario from "./components/user/Perfil/Perfil.js";
 import MinhasDuvidas from "./components/user/MinhasDuvidas/MinhasDuvidas.js";
 import ResponderDuvidas from "./components/user/ResponderDuvidas/ResponderDuvidas.js";
 import PainelQuestionador from "./components/user/PainelQuestionador/PainelQuestionador.js";
 import PainelRespondente from "./components/user/PainelRespondente/PainelRespondente.js";
+import Auth from "./components/user/Auth/Auth.js";
 import "./App.css";
 import {
   allQuestion,
@@ -199,9 +198,9 @@ function AppWrapper() {
   return (
     <Router>
       <Routes>
-        {/* Rotas públicas */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* Rotas unificadas no novo componente Auth */}
+        <Route path="/login" element={<Auth />} />
+        <Route path="/signup" element={<Auth />} />
         <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         {/* Rotas protegidas */}
@@ -209,7 +208,7 @@ function AppWrapper() {
           path="/"
           element={
             <ProtectedRoute roles={["questioner", "respondent"]}>
-              <App />,
+              <App />
             </ProtectedRoute>
           }
         />
@@ -322,6 +321,7 @@ function AppWrapper() {
           }
         />
 
+        {/* Rotas Admin */}
         <Route
           path="/admin"
           element={
@@ -377,7 +377,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/usuarios/:id" // O URL que o usuário vai acessar
+          path="/admin/usuarios/:id"
           element={
             <ProtectedRoute roles={["admin"]}>
               <UsuarioDetalhes />
