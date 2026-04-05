@@ -68,12 +68,17 @@ export class ReportService extends GenericService<
       .orderBy('user.name', 'ASC')
       .getRawMany();
 
+    const formattedStart = this.formatDate(startDate);
+    const formattedEnd = this.formatDate(endDate);
+
     const reportRows = respondents.map((item) => ({
       nome: item.name || '',
       cpf: item.cpf || '',
       email: item.email || '',
       telefone: item.phone || '',
       totalRespostas: Number(item.totalanswers ?? item.totalAnswers ?? 0),
+      dataInicio: formattedStart,
+      dataFim: formattedEnd,
     }));
 
     const safeStart = startDate.replace(/-/g, '');
@@ -82,8 +87,8 @@ export class ReportService extends GenericService<
     if (format === ReportFormat.PDF) {
       const pdfBuffer = await this.generatePdfBuffer(
         reportRows,
-        startDate,
-        endDate,
+        formattedStart,
+        formattedEnd,
       );
 
       return {
@@ -108,23 +113,29 @@ export class ReportService extends GenericService<
       email: string;
       telefone: string;
       totalRespostas: number;
+      dataInicio: string;
+      dataFim: string;
     }[],
   ): string {
     const header = [
-      'Nome',
       'CPF',
-      'Email',
+      'Nome',
+      'E-mail',
       'Telefone',
-      'Total de Respostas',
+      'Total de Perguntas Respondidas',
+      'Data Início',
+      'Data Fim',
     ];
 
     const csvRows = rows.map((row) =>
       [
-        row.nome,
         row.cpf,
+        row.nome,
         row.email,
         row.telefone,
         String(row.totalRespostas),
+        row.dataInicio,
+        row.dataFim,
       ]
         .map((value) => this.escapeCsv(value))
         .join(','),
@@ -138,6 +149,11 @@ export class ReportService extends GenericService<
     return `"${String(normalized).replace(/"/g, '""')}"`;
   }
 
+  private formatDate(isoDate: string): string {
+    const [year, month, day] = isoDate.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
   private async generatePdfBuffer(
     rows: {
       nome: string;
@@ -145,6 +161,8 @@ export class ReportService extends GenericService<
       email: string;
       telefone: string;
       totalRespostas: number;
+      dataInicio: string;
+      dataFim: string;
     }[],
     startDate: string,
     endDate: string,
@@ -169,9 +187,11 @@ export class ReportService extends GenericService<
           .fontSize(11)
           .text(`${index + 1}. Nome: ${row.nome || '-'}`)
           .text(`CPF: ${row.cpf || '-'}`)
-          .text(`Email: ${row.email || '-'}`)
+          .text(`E-mail: ${row.email || '-'}`)
           .text(`Telefone: ${row.telefone || '-'}`)
-          .text(`Total de respostas: ${row.totalRespostas}`)
+          .text(`Total de perguntas respondidas: ${row.totalRespostas}`)
+          .text(`Data Início: ${row.dataInicio}`)
+          .text(`Data Fim: ${row.dataFim}`)
           .moveDown();
       });
     }
