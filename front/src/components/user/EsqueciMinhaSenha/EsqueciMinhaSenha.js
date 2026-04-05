@@ -25,7 +25,6 @@ function EsqueciMinhaSenha() {
       );
       setEmail("");
     } catch (err) {
-      console.log(err);
       // Como o backend não avisa mais se o usuário não existe, qualquer erro aqui
       // será um erro real de conexão ou servidor (ex: 500 Internal Server Error)
       setError(

@@ -45,7 +45,7 @@ function ResponderDuvidasDetalhe() {
     try {
       const responseSend = await createAnswers({
         questionId: doubt.id,
-        respondentId: sessionStorage.getItem("id"),
+        respondentId: parseInt(sessionStorage.getItem("id")),
         respondentName: sessionStorage.getItem("username"),
         respondentEmail: sessionStorage.getItem("email"),
         description: response,
@@ -58,11 +58,7 @@ function ResponderDuvidasDetalhe() {
 
       const updateResponse = await updateQuestionAnswered({
         id: doubt.id,
-        title: doubt.title,
-        description: doubt.description,
-        questionerId: doubt.questionerId,
         status: "answered",
-        categories: doubt.categories,
       });
 
       if (!updateResponse.ok) {
@@ -73,8 +69,7 @@ function ResponderDuvidasDetalhe() {
       setAlreadyAnswered(true);
       navigate("/responder-duvidas");
     } catch (error) {
-      console.error("Erro ao atualizar a dúvida:", error);
-      alert("Ocorreu um erro ao enviar a resposta. Por favor, tente novamente.");
+      alert("Ocorreu um erro ao enviar a resposta: " + error.message);
     }
   };
 

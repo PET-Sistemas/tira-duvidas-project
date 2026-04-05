@@ -148,7 +148,6 @@ const DoubtCard = ({ doubt }) => {
   }
 
   const handleResponder = (id) => {
-    console.log("Responder dúvida com ID: ${id}");
   };
 
   if(doubt.status === "answered"){

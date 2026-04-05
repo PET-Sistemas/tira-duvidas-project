@@ -23,14 +23,13 @@ function DuvidasRespondidas() {
           throw new Error("Usuário não autenticado");
         }
 
-        const response = await getAnsweredQuestions(userId);
-
+        const response = await getAnsweredQuestions(parseInt(userId));
+        console.log("Resposta da API:", response); // Log da resposta da API --- IGNORE ---
         if (response.status !== 200) {
           throw new Error("Falha ao carregar dúvidas");
         }
 
         const data = await response.json();
-        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
         setDuvidas(data);
         setFilteredDoubts(data);

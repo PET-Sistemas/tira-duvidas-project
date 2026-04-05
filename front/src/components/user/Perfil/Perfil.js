@@ -35,7 +35,6 @@ function PerfilUsuario() {
     //     return;
     //   }
     //   const response = await getUserById(userId);
-    //   console.log("Dados do usuário:", response);
     //   setUsuario({
     //     email: response.email || "N/A",
     //     name: response.firstName || "N/A",

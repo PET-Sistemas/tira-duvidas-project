@@ -104,21 +104,17 @@ function UsuarioDetalhes() {
     <>
     <AdminLayout>
       <div className="page-container-details">
-        <div className="details-top-actions">
-          <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
-            <i className="bi bi-arrow-left"></i>
-            Voltar
-          </button>
+        <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
+          <i className="bi bi-arrow-left"></i>
+          Voltar
+        </button>
+
+        <div className="header-div">
+          <h1>Gerenciamento de Perfil</h1>
+          <p>Informações do usuário e ações administrativas</p>
         </div>
 
-        <header className="header-details">
-          <h1>Gerenciamento de perfil</h1>
-          <p>Informações do usuário e ações administrativas</p>
-        </header>
-
-        <div className="profile-card">
-          
-          {/* Formulário de Visualização */}
+        <div className="details-form-wrapper">
           <div className="form-group">
             <label>Nome completo</label>
             <input type="text" value={user.name} disabled className="input-read-only" />
@@ -136,82 +132,48 @@ function UsuarioDetalhes() {
 
           <div className="form-group">
             <label>Celular</label>
-            {/* Exemplo de formatação simples, se o dado vier puro */}
             <input type="text" value={user.phone || '-'} disabled className="input-read-only" />
           </div>
 
           <div className="form-group">
             <label>Data de Criação de Conta</label>
-            <input 
-              type="text" 
-              value={new Date(user.createdAt).toLocaleDateString('pt-BR')} 
-              disabled 
-              className="input-read-only" 
-              />
-            </div>
+            <input
+              type="text"
+              value={new Date(user.createdAt).toLocaleDateString('pt-BR')}
+              disabled
+              className="input-read-only"
+            />
+          </div>
 
-            <div className="form-group">
-              <label>E-mail</label>
-              <input
-                type="text"
-                value={user.email}
-                disabled
-                className="input-read-only"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Celular</label>
-              {/* Exemplo de formatação simples, se o dado vier puro */}
-              <input
-                type="text"
-                value={user.phone || "-"}
-                disabled
-                className="input-read-only"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Data de Criação de Conta</label>
-              <input
-                type="text"
-                value={new Date(user.createdAt).toLocaleDateString("pt-BR")}
-                disabled
-                className="input-read-only"
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Perfil</label>
-              <div className="profile-badge-container">
-                <span className={currentRole.className}>
-                  {currentRole.text}
-                </span>
-              </div>
-            </div>
-
-            {/* Botões de Ação */}
-            <div className="actions-row">
-              <button
-                className="btn-action"
-                onClick={() => setmodalDesativar(true)}
-              >
-                <i
-                  className={`bi bi-${isUserActive ? "slash-circle" : "check-circle"}`}
-                ></i>
-                {isUserActive ? "Desativar usuário" : "Ativar usuário"}
-              </button>
-
-              <button
-                className="btn-action"
-                onClick={() => setmodalAlterar(true)}
-              >
-                <i className="bi bi-pencil"></i> Alterar perfil
-              </button>
+          <div className="form-group">
+            <label>Perfil</label>
+            <div className="profile-badge-container">
+              <span className={currentRole.className}>
+                {currentRole.text}
+              </span>
             </div>
           </div>
+
+          {/* Botões de Ação */}
+          <div className="actions-row">
+            <button
+              className="btn-action"
+              onClick={() => setmodalDesativar(true)}
+            >
+              <i className={`bi bi-${isUserActive ? "slash-circle" : "check-circle"}`}></i>
+              {isUserActive ? "Desativar usuário" : "Ativar usuário"}
+            </button>
+
+            <button
+              className="btn-action"
+              onClick={() => setmodalAlterar(true)}
+            >
+              <i className="bi bi-pencil"></i> Alterar perfil
+            </button>
+          </div>
         </div>
-      </AdminLayout>
+      </div>
+    </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
           <div className={"icone-h1-container"}>

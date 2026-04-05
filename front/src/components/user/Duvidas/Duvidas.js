@@ -30,7 +30,6 @@ function Duvidas() {
         }
 
         const data = await response.json();
-        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
         setDuvidas(data);
         setFilteredDoubts(data);
@@ -137,22 +136,22 @@ function Duvidas() {
         )}
       </div>
 
-        <section className="section-minhas-duvidas">
-          <div className="doubt-list-minhas-duvidas">
-            {filteredDoubts.length > 0 ? (
-              filteredDoubts.map((duvida) => (
-                <div
-                  className="doubt-card-container-minhas-duvidas"
-                  key={duvida.id}
-                >
-                  <DoubtCard doubt={duvida} />
-                </div>
-              ))
-            ) : (
-              <p>Nenhuma dúvida encontrada.</p>
-            )}
-          </div>
-        </section>
+      <section className="section-minhas-duvidas">
+        <div className="doubt-list-minhas-duvidas">
+          {filteredDoubts.length > 0 ? (
+            filteredDoubts.map((duvida) => (
+              <div
+                className="doubt-card-container-minhas-duvidas"
+                key={duvida.id}
+              >
+                <DoubtCard doubt={duvida} />
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma dúvida encontrada.</p>
+          )}
+        </div>
+      </section>
     </UserLayout>
   );
 }

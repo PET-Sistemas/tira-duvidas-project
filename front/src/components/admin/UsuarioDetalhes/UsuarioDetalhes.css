@@ -1,63 +1,15 @@
 .page-container-details {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  background-color: #F0F4FC;
-  min-height: 80vh;
-  font-family: 'Segoe UI', sans-serif; 
-  width: 70%; 
-}
-
-.header-details {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.details-top-actions {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 12px;
-}
-
-.btn-back-details {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #3498db;
-  background: #ffffff;
-  color: #3498db;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-back-details:hover {
-  background-color: #F0F8FF;
-}
-
-.header-details h1 {
-  color: #2D9CDB;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.header-details p {
-  color: #999;
-  font-size: 16px;
-}
-
-/* O Card Branco Central */
-.profile-card {
+  width: 70%;
   background-color: white;
-  width: 100%;
-  padding: 40px;
-  border-radius: 8px;
-  border: 1px solid #BFDBFE; /* Borda azul clara */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.details-form-wrapper {
+  width: 60%;
+  margin: 0 auto;
 }
 
 /* Campos do Formulário */
@@ -76,80 +28,66 @@
 .input-read-only {
   width: 100%;
   padding: 12px 15px;
-  background-color: #F3F4F6; /* Cinza claro do input desabilitado */
+  background-color: #F3F4F6;
   border: 1px solid #E5E7EB;
   border-radius: 6px;
   color: #555;
   font-size: 15px;
   outline: none;
-  cursor: not-allowed; /* Mostra que não é editável */
+  cursor: not-allowed;
+  box-sizing: border-box;
 }
 
-/* Botões de Ação (Rodapé do Card) */
+/* Botões de Ação */
 .actions-row {
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
+  justify-content: flex-start;
+  margin-top: 30px;
   gap: 15px;
   flex-wrap: wrap;
 }
 
 .btn-action {
-  flex: 1; /* Botões ocupam espaço igual */
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 15px;
+  padding: 10px 18px;
   background-color: white;
-  border: 1px solid;
+  border: 1px solid #3498db;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  border-color: #3498db;
   color: #3498db;
-  max-width: 30%;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .btn-action:hover {
   background-color: #F0F8FF;
-  border-color: #3B9AE8;
-}
-
-.btn-action i {
-  font-size: 18px;
-  margin: 0;
-  padding: 0;
-  line-height: 1.4;
 }
 
 .bi-slash-circle {
-  color:red;
+  color: red;
 }
 
 .bi-pencil {
   color: gray;
 }
 
-.bi-download {
-  color: green;
-}
-
 .perfil {
-    padding: 1% 5% 1% 5%;
-    font-weight: bold;
+  padding: 4px 16px;
+  font-weight: bold;
 }
 
 .radio-option {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-    color: #000;
-    margin-bottom: 10px;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  color: #000;
+  margin-bottom: 10px;
+  font-weight: 600;
 }

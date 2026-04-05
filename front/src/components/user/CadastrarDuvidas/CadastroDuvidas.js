@@ -56,7 +56,6 @@ function CadastroDuvidas() {
     };
 
     try {
-      console.log("Nova dúvida a ser cadastrada:", newQuestion); // Log para verificar os dados
       const response = await createQuestion(newQuestion); 
 
       if(!response.ok) {
