@@ -18,7 +18,7 @@ function DuvidasRespondidas() {
   useEffect(() => {
     const fetchDuvidas = async () => {
       try {
-        const userId = sessionStorage.getItem("id");
+        const userId = "mocked-user-id"; // Removendo autenticação
         if (!userId) {
           throw new Error("Usuário não autenticado");
         }

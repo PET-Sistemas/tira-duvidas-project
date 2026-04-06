@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./Duvidas.css";
 import "../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
-import { allQuestion, getQuestionByUserId } from "../../../services/question.service";
+import { allQuestion } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
 
 function Duvidas() {
   const [duvidas, setDuvidas] = useState([]);
-  const [filteredDoubts, setFilteredDoubts] = useState([]); // Renomeando para filteredDoubts
+  const [filteredDoubts, setFilteredDoubts] = useState([]);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
   const [filtro, setFiltro] = useState("crescente");
-  const [search, setSearch] = useState(""); // Definindo a variável search
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDuvidas = async () => {
       try {
-        const questionerId = sessionStorage.getItem("id");
-        if (!questionerId) {
-          throw new Error("Usuário não autenticado");
-        }
-
-        const response = await allQuestion();
-
-        if (response.status !== 200) {
-          throw new Error("Falha ao carregar dúvidas");
-        }
-
-        const data = await response.json();
+        const data = await allQuestion(); // Dados já retornados diretamente
         console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
         setDuvidas(data);
@@ -45,7 +33,7 @@ function Duvidas() {
   }, []);
 
   useEffect(() => {
-    setFilteredDoubts(duvidas); // Ajustando para duvidas
+    setFilteredDoubts(duvidas);
   }, [duvidas]);
 
   const toggleFiltroVisivel = () => {
@@ -63,7 +51,6 @@ function Duvidas() {
   const aplicarFiltro = () => {
     let result = [...duvidas];
 
-    // Filtrar por busca
     if (search) {
       result = result.filter(
         (duvida) =>
@@ -72,95 +59,90 @@ function Duvidas() {
       );
     }
 
-    // Filtrar por status
     if (filtro === "respondidas") {
       result = result.filter((duvida) => duvida.status === "respondida");
     } else if (filtro === "naoRespondidas") {
       result = result.filter((duvida) => duvida.status !== "respondida");
     }
 
-    // Ordenar por data de publicação
     if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.date) - new Date(b.date)); // Mais antigo primeiro
+      result.sort((a, b) => new Date(a.date) - new Date(b.date));
     } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recente primeiro
+      result.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
 
-    setFilteredDoubts(result); // Alterando para setFilteredDoubts
+    setFilteredDoubts(result);
+    console.log("Dúvidas filtradas:", result); // Log para verificar os dados antes da renderização
   };
 
   if (loading) {
+    console.log("Carregando...");
     return <div>Carregando...</div>;
   }
 
   if (error) {
+    console.error("Erro ao carregar dúvidas:", error);
     return <div>{error}</div>;
   }
 
   return (
     <UserLayout>
-        <h2 className="titulo-pagina">Todas as Dúvidas</h2>
+      <h2 className="titulo-pagina">Todas as Dúvidas</h2>
 
-        <div className="filtrar-container">
-          <button className="filtrar-button" onClick={toggleFiltroVisivel}>
-            <img
-              src={FilterIcon}
-              alt="Filter Icon"
-              className="filter-icon-profile"
+      <div className="filtrar-container">
+        <button className="filtrar-button" onClick={toggleFiltroVisivel}>
+          <img
+            src={FilterIcon}
+            alt="Filter Icon"
+            className="filter-icon-profile"
+          />
+          Filtrar
+        </button>
+
+        {filtroVisivel && (
+          <div className="filtro-container">
+            <input
+              type="text"
+              placeholder="Buscar por palavra"
+              value={search}
+              onChange={handleSearchChange}
+              className="search-input"
             />
-            Filtrar
-          </button>
+            <select onChange={handleFiltroChange} value={filtro}>
+              <option value="">Selecione um filtro</option>
+              <option value="crescente">Mais antigos</option>
+              <option value="decrescente">Mais recentes</option>
+              <option value="respondidas">Respondidas</option>
+              <option value="naoRespondidas">Não Respondidas</option>
+            </select>
+            <button onClick={aplicarFiltro} className="button-filter">
+              Aplicar filtro
+            </button>
+          </div>
+        )}
+      </div>
 
-          {filtroVisivel && (
-            <div className="filtro-container">
-              <input
-                type="text"
-                placeholder="Buscar por palavra"
-                value={search}
-                onChange={handleSearchChange}
-                className="search-input"
-              />
-              <select onChange={handleFiltroChange} value={filtro}>
-                <option value="">Selecione um filtro</option>
-                <option value="crescente">Mais antigos</option>
-                <option value="decrescente">Mais recentes</option>
-                <option value="respondidas">Respondidas</option>
-                <option value="naoRespondidas">Não Respondidas</option>
-              </select>
-              <button onClick={aplicarFiltro} className="button-filter">
-                Aplicar filtro
-              </button>
-            </div>
+      <section className="section-minhas-duvidas">
+        <div className="doubt-list-minhas-duvidas">
+          {filteredDoubts.length > 0 ? (
+            filteredDoubts.map((duvida) => (
+              <div
+                className="doubt-card-container-todas-duvidas"
+                key={duvida.id}
+              >
+                <DoubtCard doubt={duvida} />
+              </div>
+            ))
+          ) : (
+            <p>Nenhuma dúvida encontrada.</p>
           )}
         </div>
-
-        <section className="section-minhas-duvidas">
-          <div className="doubt-list-minhas-duvidas">
-            {filteredDoubts.length > 0 ? (
-              filteredDoubts.map((duvida) => (
-                <div
-                  className="doubt-card-container-minhas-duvidas"
-                  key={duvida.id}
-                >
-                  <DoubtCard doubt={duvida} />
-                </div>
-              ))
-            ) : (
-              <p>Nenhuma dúvida encontrada.</p>
-            )}
-          </div>
-        </section>
+      </section>
     </UserLayout>
   );
 }
 
 const DoubtCard = ({ doubt }) => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/duvida/${doubt.id}`, { state: { doubt } });
-  };
-
   const getStatusClass = (status) => {
     if (status === "insatisfeito") return "status-insatisfeito";
     if (status === "pendente") return "status-pendente";
@@ -179,12 +161,11 @@ const DoubtCard = ({ doubt }) => {
     if (status === "not_answered") return "Não Respondida";
     if (status === "answered") return "Respondida";
     return "Pendente";
-  }
+  };
 
   return (
     <div
       className={`doubt-card-minhas-duvidas ${getStatusClass(doubt.status)}`}
-      onClick={handleClick}
       style={{ cursor: "pointer" }}
     >
       <div className="doubt-card-header-minhas-duvidas">
@@ -198,7 +179,7 @@ const DoubtCard = ({ doubt }) => {
       </div>
       <div className="doubt-additional-info-minhas-duvidas">
         <p>
-          <strong>Categoria:</strong> {doubt.categories[0].name}
+          <strong>Categoria:</strong> {doubt.categories?.[0]?.name || "Sem categoria"}
         </p>
         <p>
           <strong>Data:</strong>{" "}
@@ -218,5 +199,3 @@ const DoubtCard = ({ doubt }) => {
 };
 
 export default Duvidas;
-
-//<p className="doubt-situation-minhas-duvidas"><strong>Situação:</strong> {translate[doubt.status]}</p>

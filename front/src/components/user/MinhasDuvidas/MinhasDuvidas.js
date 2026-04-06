@@ -22,14 +22,11 @@ function MinhasDuvidas() {
   useEffect(() => {
     const fetchDuvidas = async () => {
       try {
-        const questionerId = sessionStorage.getItem("id");
-        if (!questionerId) {
-          throw new Error("Usuário não autenticado");
-        }
+        const questionerId = "mocked-user-id";
 
         const response = await getQuestionByUserId(questionerId);
 
-        const data = await response.json();
+        const data = response;
 
         setDuvidas(data);
         setFilteredDoubts(data);
@@ -182,6 +179,9 @@ const DoubtCard = ({ doubt }) => {
     return "Pendente";
   }
 
+  // Adicionar validação para evitar erro ao acessar categories
+  const categoryName = doubt.categories && doubt.categories.length > 0 ? doubt.categories[0].name : "Categoria desconhecida";
+
   return (
     <div
       className={`doubt-card-minhas-duvidas ${getStatusClass(doubt.status)}`}
@@ -199,7 +199,7 @@ const DoubtCard = ({ doubt }) => {
       </div>
       <div className="doubt-additional-info-minhas-duvidas">
         <p>
-          <strong>Categoria:</strong> {doubt.categories[0].name}
+          <strong>Categoria:</strong> {categoryName}
         </p>
         <p>
           <strong>Data:</strong>{" "}

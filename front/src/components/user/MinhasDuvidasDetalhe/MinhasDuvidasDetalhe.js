@@ -37,7 +37,7 @@ function MinhasDuvidasDetalhe() {
 
     const fetchAsnwerAndFeedback = async () => {
       try {
-        const questionerId = sessionStorage.getItem("id");
+        const questionerId = "mocked-user-id";
         if (!questionerId) {
           throw new Error("Usuário não autenticado");
         }

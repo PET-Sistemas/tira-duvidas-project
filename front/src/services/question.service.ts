@@ -16,66 +16,48 @@ export function createQuestion(data: CreateQuestionDTO) {
 }
 
 export async function allQuestion() {
-  const response = await fetch(`${API_URL}/question/`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+  // Retornar dados mockados completos
+  return [
+    {
+      id: 1,
+      title: "Dúvida 1",
+      description: "Descrição detalhada da dúvida 1",
+      user: "Usuário 1",
+      categories: [{ name: "Categoria 1" }],
+      createdAt: new Date().toISOString(),
+      status: "answered",
     },
-  });
-  if (response.status !== 200) {
-    throw new Error("Falha ao carregar dúvidas");
-  }
-
-  return response;
+    {
+      id: 2,
+      title: "Dúvida 2",
+      description: "Descrição detalhada da dúvida 2",
+      user: "Usuário 2",
+      categories: [{ name: "Categoria 2" }],
+      createdAt: new Date().toISOString(),
+      status: "not_answered",
+    },
+  ];
 }
 
 export async function getQuestion(id: UpdateQuestionDTO) {
-  const response = await fetch(`${API_URL}/question/${id}`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-  if(!response.ok) {
-    throw new Error("Question not found");
-  }
-  const question = await response.json();
-  return question;
+  // Retornar dados mockados para uma dúvida específica
+  return { id, title: `Dúvida ${id}`, description: `Descrição da dúvida ${id}`, user: `Usuário ${id}` };
 }
 
 export async function getQuestionByUserId(user_id: string) {
-  const response = await fetch(`${API_URL}/question/user/${user_id}`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-  if(!response.ok) {
-    throw new Error("Falha ao carregar dúvidas");
-  }
-  return response;
+  // Retornar dados mockados para dúvidas de um usuário específico
+  return [
+    { id: 1, title: "Minha Dúvida 1", description: "Descrição da minha dúvida 1", user: user_id },
+    { id: 2, title: "Minha Dúvida 2", description: "Descrição da minha dúvida 2", user: user_id },
+  ];
 }
 
 export async function getAnsweredQuestions(user_id: string) {
-  const response = await fetch(`${API_URL}/question/answered/${user_id}`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-  if(!response.ok) {
-    throw new Error("Question not found");
-  }
-  const question = await response.json();
-  return question;
+  // Retornar dados mockados para dúvidas respondidas
+  return [
+    { id: 1, title: "Dúvida Respondida 1", description: "Descrição da dúvida respondida 1", user: user_id },
+    { id: 2, title: "Dúvida Respondida 2", description: "Descrição da dúvida respondida 2", user: user_id },
+  ];
 }
 
 export async function getQuestionByTitle(title: string) {

@@ -15,21 +15,11 @@ export function createAnswers(data: CreateAnswersDTO) {
 }
 
 export async function allAnswers() {
-  const response = await fetch(`${API_URL}/answers/`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Falha ao carregar respostas");
-  }
-
-  const answers = await response.json();
-  return answers;
+  // Retornar dados mockados
+  return [
+    { id: 1, questionId: 1, content: "Resposta 1 para a dúvida 1", user: "Usuário 1" },
+    { id: 2, questionId: 2, content: "Resposta 2 para a dúvida 2", user: "Usuário 2" },
+  ];
 }
 
 export async function getAnswers(id: string) {
@@ -37,22 +27,11 @@ export async function getAnswers(id: string) {
     throw new Error("ID inválido para buscar respostas.");
   }
   
-  const response = await fetch(`${API_URL}/answers/question/${id}`, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-  
-  if (!response.ok) {
-    throw new Error("Falha ao carregar respostas");
-  }
-
-  const answers = await response.json();
-  
-  return answers;
+  // Retornar dados mockados para respostas de uma dúvida específica
+  return [
+    { id: 1, questionId: id, content: `Resposta 1 para a dúvida ${id}`, user: "Usuário 1" },
+    { id: 2, questionId: id, content: `Resposta 2 para a dúvida ${id}`, user: "Usuário 2" },
+  ];
 }
 
 export async function deleteAnswers(id: string) {
