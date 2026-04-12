@@ -20,13 +20,30 @@ h2.titulo-pagina {
   letter-spacing: 0.3px;
 }
 
+.tamanho {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.tamanho * {
+  box-sizing: border-box;
+}
+
+.section-minhas-duvidas {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 /* ---- Container do filtro — âncora do popup ---- */
 .filtrar-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 24px;
-  margin-bottom: 8px;
-  position: relative;  /* popup se posiciona relativo a este elemento */
+  align-self: flex-end; /* Encolhe e joga para a direita */
+  position: relative; /* Âncora do menu */
+  margin-bottom: 16px;
 }
 
 .filtrar-btn {
@@ -34,14 +51,16 @@ h2.titulo-pagina {
   align-items: center;
   gap: 7px;
   background-color: #fff;
-  color: #3498DB;
-  border: 1.5px solid #3498DB;
+  color: #3498db;
+  border: 1.5px solid #3498db;
   border-radius: 8px;
   padding: 7px 16px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .filtrar-btn:hover {
@@ -57,9 +76,8 @@ h2.titulo-pagina {
 /* Popup colado logo abaixo do botão Filtrar, alinhado à direita */
 .filtro-container {
   position: absolute;
-  top: 100%;          /* logo abaixo do botão */
-  right: 24px;        /* alinha com a margem do container */
-  margin-top: 4px;
+  top: 100%;
+  right: 0; /* Alinhado à borda direita do botão */
   background: #fff;
   border: 1px solid #dde6f0;
   border-radius: 10px;
@@ -67,27 +85,11 @@ h2.titulo-pagina {
   box-shadow: 0 8px 24px rgba(52, 152, 219, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 10px;
   min-width: 240px;
   z-index: 200;
 }
 
-.search-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #b8d0e8;
-  border-radius: 7px;
-  font-size: 14px;
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-}
-
-.search-input:focus {
-  border-color: #3498DB;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-}
-
+.search-input,
 .filtro-container select {
   width: 100%;
   padding: 8px 12px;
@@ -95,18 +97,22 @@ h2.titulo-pagina {
   border-radius: 7px;
   font-size: 14px;
   outline: none;
+  box-sizing: border-box;
+  margin-bottom: 10px;
   background: #fff;
   color: #444;
-  cursor: pointer;
+  transition: border-color 0.2s;
 }
 
+.search-input:focus,
 .filtro-container select:focus {
-  border-color: #3498DB;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .button-filter {
   width: 100%;
-  background-color: #3498DB;
+  background-color: #3498db;
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -115,10 +121,29 @@ h2.titulo-pagina {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  margin-bottom: 10px;
 }
 
 .button-filter:hover {
   background-color: #1a7fc4;
+}
+
+.button-clear {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  color: #555;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.button-clear:hover {
+  background-color: #e2e6ea;
+  border-color: #bbb;
 }
 
 /* ---- Wrapper da lista — substitui o "section" global ---- */
@@ -126,7 +151,7 @@ h2.titulo-pagina {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 0 24px 32px 24px;
+  padding: 0 0px 32px 0px;
 }
 
 /* ---- Card ---- */
@@ -140,7 +165,9 @@ h2.titulo-pagina {
   padding: 0;
   box-shadow: 0 2px 10px rgba(52, 152, 219, 0.08);
   overflow: hidden;
-  transition: box-shadow 0.2s, transform 0.15s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s;
 }
 
 .doubt-card-responder:hover {
@@ -207,7 +234,7 @@ h2.titulo-pagina {
 .responder-btn {
   display: inline-block;
   margin-top: 10px;
-  background-color: #3498DB;
+  background-color: #3498db;
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -218,7 +245,9 @@ h2.titulo-pagina {
   text-align: center;
   text-decoration: none;
   width: fit-content;
-  transition: background-color 0.2s, transform 0.1s;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
 }
 
 .responder-btn:hover {
@@ -277,7 +306,7 @@ h2.titulo-pagina {
   }
 
   .doubt-list-responder {
-    padding: 0 12px 24px 12px;
+    padding: 0 12px 0px 12px;
   }
 
   .filtrar-container {
