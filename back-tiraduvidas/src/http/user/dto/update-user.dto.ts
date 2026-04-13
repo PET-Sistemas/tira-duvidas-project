@@ -13,8 +13,7 @@ import { UserStatus } from '../enums/user-status.enum';
 
 export class UpdateUserDto {
   @ApiProperty({ description: 'ID do usuário' })
-  //  @IsNumber()
-  //  @IsNotEmpty()
+  @IsNotEmpty()
   id: number;
 
   @ApiPropertyOptional({ description: 'E-mail do usuário' })

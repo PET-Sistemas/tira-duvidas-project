@@ -40,6 +40,7 @@ function LogarContent() {
         sessionStorage.setItem("email", data.user.email);
         sessionStorage.setItem("username", data.user.name);
         sessionStorage.setItem("telefone", data.user.phone);
+        sessionStorage.setItem("cpf", data.user.cpf);
         sessionStorage.setItem("role", data.user.role);
 
         data.user.role === "admin" ? navigate("/admin") : navigate("/");
@@ -65,7 +66,7 @@ function LogarContent() {
                 <input
                     className="auth-input with-icon"
                     type="email"
-                    placeholder="email@email.com"
+                    placeholder="E-mail"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required

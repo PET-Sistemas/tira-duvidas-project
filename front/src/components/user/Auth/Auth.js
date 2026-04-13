@@ -43,7 +43,7 @@ function Auth() {
           </div>
 
           {/* Troca o formulário sem recarregar a página */}
-          {isLogin ? <LogarContent /> : <CadastroContent />}
+          {isLogin ? <LogarContent /> : <CadastroContent onSuccess={() => setIsLogin(true)} />}
           
         </div>
       </div>

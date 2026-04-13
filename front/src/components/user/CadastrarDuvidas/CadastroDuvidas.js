@@ -45,13 +45,8 @@ function CadastroDuvidas() {
   };
 
   const handleCategoryChange = (e) => {
-    const value = e.target.value;
-    if (value === "__outra__") {
-      setShowCustomModal(true);
-    } else {
-      setSelectedCategory(value);
-      setCustomCategory("");
-    }
+    setSelectedCategory(e.target.value);
+    setCustomCategory("");
   };
 
   const handleCustomModalConfirm = () => {
@@ -109,11 +104,6 @@ function CadastroDuvidas() {
     }
   };
 
-  const categoryLabel =
-    selectedCategory === "__outra__" && customCategory
-      ? `Outra: ${customCategory}`
-      : null;
-
   return (
     <UserLayout>
       {/* Modal para categoria personalizada */}
@@ -137,14 +127,14 @@ function CadastroDuvidas() {
             <div className="custom-category-modal-buttons">
               <button
                 type="button"
-                className="custom-category-btn-cancel"
+                className="btn-primary"
                 onClick={handleCustomModalCancel}
               >
                 Cancelar
               </button>
               <button
                 type="button"
-                className="custom-category-btn-confirm"
+                className="btn-primary"
                 onClick={handleCustomModalConfirm}
                 disabled={!customCategoryInput.trim()}
               >
@@ -160,89 +150,86 @@ function CadastroDuvidas() {
         <p>Insira os detalhes da sua dúvida abaixo</p>
       </div>
 
-      <div className="cadastro-duvida-form">
-        <form className="cadastro-duvida-form" onSubmit={handleSubmit}>
-          <div className="cadastro-duvida-form-group">
-            <label className="cadastro-duvida-label" htmlFor="categoria">
-              Categoria:
-            </label>
-            <select
-              id="categoria"
-              className="cadastro-duvida-input"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value="" disabled>
-                Selecione uma categoria...
-              </option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
+      <div className="details-form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="categoria">Categoria:</label>
+            <div className="cadastro-duvida-categoria-row">
+              <select
+                id="categoria"
+                className="form-input"
+                value={selectedCategory === "__outra__" ? "__outra__" : selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                <option value="" disabled>
+                  Selecione uma categoria...
                 </option>
-              ))}
-              <option value="__outra__">
-                {categoryLabel ? categoryLabel : "Outra..."}
-              </option>
-            </select>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+                {selectedCategory === "__outra__" && customCategory && (
+                  <option value="__outra__">Outra: {customCategory}</option>
+                )}
+              </select>
+              <button
+                type="button"
+                className="btn-primary"
+                style={{ whiteSpace: "nowrap", padding: "8px 16px", fontSize: "14px" }}
+                onClick={() => setShowCustomModal(true)}
+              >
+                Outra Categoria
+              </button>
+            </div>
           </div>
 
-          <div className="cadastro-duvida-form-group">
-            {showErrors && (
-              <div className="cadastro-duvida-errors">
-                <p className="cadastro-duvida-error-text">
-                  Por favor, preencha todos os campos.
-                </p>
-              </div>
-            )}
-            <label className="cadastro-duvida-label" htmlFor="descricao">
-              Título:
-            </label>
+          {showErrors && (
+            <div className="cadastro-duvida-errors">
+              <p className="cadastro-duvida-error-text">
+                Por favor, preencha todos os campos.
+              </p>
+            </div>
+          )}
+
+          <div className="form-group">
+            <label htmlFor="titulo">Título:</label>
             <input
               id="titulo"
               type="text"
-              className="cadastro-duvida-titulo"
+              className="form-input"
               placeholder="Título"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <label className="cadastro-duvida-label" htmlFor="descricao">
-              Descrição:
-            </label>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="descricao">Descrição:</label>
             <textarea
               id="descricao"
-              className="cadastro-duvida-textarea"
+              className="form-input"
               placeholder="Digite aqui a sua dúvida..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <div className="cadastro-duvida-buttons">
+
+          <div className="actions-row">
             <button
               type="button"
-              className="cadastro-duvida-button"
-              id="cancel-button"
+              className="btn-primary"
               onClick={() => navigate(-1)}
             >
               Cancelar
             </button>
-            {!title && !description ? (
-              <button
-                type="submit"
-                className="cadastro-duvida-button"
-                id="save-button"
-                disabled
-              >
-                Salvar
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="cadastro-duvida-button"
-                id="save-button"
-              >
-                Salvar
-              </button>
-            )}
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={!title && !description}
+            >
+              Salvar
+            </button>
           </div>
         </form>
       </div>

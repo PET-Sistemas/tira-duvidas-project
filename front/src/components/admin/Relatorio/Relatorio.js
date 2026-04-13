@@ -53,12 +53,6 @@ function Relatorio() {
 
   return (
     <AdminLayout>
-      <div className="table-report-manager">
-        <button className="btn-back-details" onClick={() => navigate('/admin')}>
-          <i className="bi bi-arrow-left"></i>
-          Voltar
-        </button>
-
         <div className="header-div">
           <h1>Relatórios</h1>
           <p>Relatório de apoio a emissão de certificado</p>
@@ -68,35 +62,35 @@ function Relatorio() {
           {/* NOVA ÁREA DE FILTRO E BOTÃO CENTRALIZADO */}
           <div className="relatorio-gerar-container">
             <div className="relatorio-datas-group">
-              <div className="input-group-date">
+              <div className="form-group">
                 <label htmlFor="dataInicial">Data Inicial</label>
-                <input 
-                  type="date" 
-                  id="dataInicial" 
+                <input
+                  type="date"
+                  id="dataInicial"
                   value={dataInicial}
                   onChange={(e) => setDataInicial(e.target.value)}
-                  className="input-date"
-                />
-              </div>
-              
-              <div className="input-group-date">
-                <label htmlFor="dataFinal">Data Final</label>
-                <input 
-                  type="date" 
-                  id="dataFinal"
-                  value={dataFinal}
-                  onChange={(e) => setDataFinal(e.target.value)}
-                  className="input-date"
+                  className="form-input"
                 />
               </div>
 
-              <div className="input-group-date">
+              <div className="form-group">
+                <label htmlFor="dataFinal">Data Final</label>
+                <input
+                  type="date"
+                  id="dataFinal"
+                  value={dataFinal}
+                  onChange={(e) => setDataFinal(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="formato">Formato</label>
                 <select
                   id="formato"
                   value={formato}
                   onChange={(e) => setFormato(e.target.value)}
-                  className="input-date"
+                  className="form-input"
                 >
                   <option value="csv">CSV</option>
                   <option value="pdf">PDF</option>
@@ -107,6 +101,7 @@ function Relatorio() {
             <div className="relatorio-action-centralized">
               <button
                 type="button"
+                className="btn-primary"
                 onClick={handleGenerateReport}
                 disabled={isLoading}
               >
@@ -117,7 +112,6 @@ function Relatorio() {
 
           {feedbackMessage && <p className="relatorio-feedback">{feedbackMessage}</p>}
         </div>
-      </div>
     </AdminLayout>
   );
 }

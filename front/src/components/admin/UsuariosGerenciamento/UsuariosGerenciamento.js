@@ -55,26 +55,26 @@ function UsuariosGerenciamento() {
   const statusMap = {
     active: {
       text: "Ativo",
-      className: "bg-green white padding-3 fbtn status center",
+      className: "bg-green white fbtn status center",
     },
     inactive: {
       text: "Inativo",
-      className: "bg-red white padding-3 fbtn status",
+      className: "bg-red white fbtn status",
     },
   };
 
   const roleMap = {
     questioner: {
       text: "Questionador",
-      className: "fbtn padding-3 blue borda bg-white tipo",
+      className: "fbtn blue borda bg-white tipo",
     },
     respondent: {
       text: "Respondente",
-      className: "fbtn padding-3 white borda bg-blue tipo",
+      className: "fbtn white borda bg-blue tipo",
     },
     admin: {
       text: "Admin",
-      className: "fbtn padding-3 blue borda bg-white tipo",
+      className: "fbtn blue borda bg-white tipo",
     },
   };
 
@@ -124,12 +124,6 @@ function UsuariosGerenciamento() {
 
   return (
     <AdminLayout>
-      <div className="table-user-manager">
-        <button className="btn-back-details" onClick={() => navigate('/admin')}>
-            <i className="bi bi-arrow-left"></i>
-            Voltar
-          </button>
-        
         <div className='header-div'>
           <h1>Gerenciamento de Usuários</h1>
           <p>Informações do usuário e ações administrativas</p>
@@ -218,7 +212,6 @@ function UsuariosGerenciamento() {
             </div>
           </div>
           )}
-        </div>
     </AdminLayout>
   );
 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Perfil.css";
-import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
-import editIcon from "../../../utils/images/Vector-edit.png"; // Ícone de edição
 import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
@@ -48,7 +46,7 @@ function PerfilUsuario() {
   }, []);
 
   // Define a imagem de perfil para exibir (usa a foto do banco ou a imagem padrão)
-  const fotoPerfil = usuario.fotoPerfil || defaultProfilePic;
+  // const fotoPerfil = usuario.fotoPerfil || defaultProfilePic;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -83,105 +81,86 @@ function PerfilUsuario() {
         <h1>Meu Perfil</h1>
         <p>Visualize e edite suas informações pessoais</p>
       </div>
-      
-      <main className="perfil-main-conteudo">
-        <div className="perfil-card-principal">
-          <div className="perfil-foto-usuario">
-            <img src={defaultProfilePic} alt="Foto de Perfil" />
+
+      <div className="details-form-wrapper">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="nome">Nome:</label>
+            <input
+              id="nome"
+              type="text"
+              className="input-read-only"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              disabled={!isEditing}
+            />
           </div>
 
-          <h3 className="perfil-nome-usuario">
-            {sessionStorage.getItem("username") || "Usuário"}
-          </h3>
-
-          {!isEditing && (
-            <button
-              className="perfil-botao-editar"
-              onClick={() => setIsEditing(true)}
-            >
-              <img
-                src={editIcon}
-                alt="Editar"
-                className="perfil-icone-editar"
-              />
-              <span>Editar Dados</span>
-            </button>
-          )}
-
-          <div className="perfil-conteudo-formulario">
-            <form className="perfil-formulario" onSubmit={handleSubmit}>
-              <div className="perfil-grupo-campos">
-                <label className="perfil-label-campo" htmlFor="nome">
-                  Nome:
-                </label>
-                <input
-                  id="nome"
-                  type="text"
-                  className="perfil-input-campo"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                  disabled={!isEditing}
-                  placeholder={`${sessionStorage.getItem("username")}`}
-                />
-
-                <label className="perfil-label-campo" htmlFor="cpf">
-                  CPF:
-                </label>
-                <input
-                  id="cpf"
-                  type="text"
-                  className="perfil-input-campo"
-                  value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
-                  disabled={!isEditing}
-                  placeholder={`${sessionStorage.getItem("cpf")}`}
-                />
-
-                <label className="perfil-label-campo" htmlFor="email">
-                  Email:
-                </label>
-                <input
-                  id="email"
-                  type="text"
-                  className="perfil-input-campo"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={!isEditing}
-                  placeholder={`${sessionStorage.getItem("email")}`}
-                />
-
-                <label className="perfil-label-campo" htmlFor="telefone">
-                  Telefone:
-                </label>
-                <input
-                  id="telefone"
-                  type="tel"
-                  className="perfil-input-campo"
-                  value={telefone}
-                  onChange={(e) => setTelefone(e.target.value)}
-                  disabled={!isEditing}
-                  placeholder={`${sessionStorage.getItem("telefone")}`}
-                />
-              </div>
-
-              {isEditing && (
-                <div className="perfil-botoes-acao">
-                  <button type="submit" className="perfil-botao-salvar">
-                    Salvar
-                  </button>
-                  <button
-                    type="button"
-                    className="perfil-botao-cancelar"
-                    onClick={() => setIsEditing(false)}
-                  >
-                    Cancelar
-                  </button>
-                </div>
-              )}
-            </form>
+          <div className="form-group">
+            <label htmlFor="cpf">CPF:</label>
+            <input
+              id="cpf"
+              type="text"
+              className="input-read-only"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              disabled={!isEditing}
+            />
           </div>
-        </div>
-      </main>
+
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="text"
+              className="input-read-only"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={!isEditing}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="telefone">Telefone:</label>
+            <input
+              id="telefone"
+              type="tel"
+              className="input-read-only"
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              disabled={!isEditing}
+            />
+          </div>
+
+          <div className="actions-row">
+            {!isEditing ? (
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsEditing(true);
+                }}
+              >
+               Editar Dados
+              </button>
+            ) : (
+              <>
+                <button type="submit" className="btn-primary">
+                  Salvar
+                </button>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Cancelar
+                </button>
+              </>
+            )}
+          </div>
+        </form>
+      </div>
     </UserLayout>
   );
 }

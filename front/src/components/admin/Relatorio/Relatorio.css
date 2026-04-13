@@ -22,37 +22,11 @@
 .relatorio-datas-group {
   display: flex;
   justify-content: center;
-  gap: 32px; /* Espaço entre a data inicial e final */
+  gap: 32px;
   width: 100%;
 }
 
-/* Estiliza cada grupo de label + input */
-.input-group-date {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-family: inherit;
-}
 
-.input-group-date label {
-  font-weight: 600;
-  color: #333;
-  font-size: 14px;
-}
-
-/* Estilo do input de data */
-.input-date {
-  padding: 10px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.input-date:focus {
-  border-color: #516CCA; /* Cor baseada no fundo do seu AdminLayout */
-}
 
 /* Container específico do botão para garantir a centralização */
 .relatorio-action-centralized {
@@ -61,24 +35,7 @@
   width: 100%;
 }
 
-.relatorio-btn {
-  border: none;
-  border-radius: 6px;
-  padding: 10px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
 
-.relatorio-btn-primary {
-  background-color: #516CCA;
-  color: #fff;
-}
-
-.relatorio-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
 
 .relatorio-feedback {
   text-align: center;

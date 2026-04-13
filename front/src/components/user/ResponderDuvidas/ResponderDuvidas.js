@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from "react";
-import "./ResponderDuvidas.css";
 import "../../global.css";
-import FilterIcon from "../../../utils/images/filtrar.png";
-import { Link } from "react-router-dom"; // Importando Link do React Router
+import { Link } from "react-router-dom";
 import { allQuestion } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
+import { useDuvidasFilter, DuvidasFilter, DoubtCard } from "../shared/DuvidasShared";
 
 const ResponderDuvidas = () => {
   const [duvidas, setDuvidas] = useState([]);
-  const [filteredDoubts, setFilteredDoubts] = useState([]);
-  const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [filtro, setFiltro] = useState("");
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const {
+    filtroVisivel, filtro, search, filteredDoubts,
+    toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
+  } = useDuvidasFilter(duvidas);
 
   useEffect(() => {
     const fetchDuvidas = async () => {
       try {
         const response = await allQuestion();
-
         const data = await response.json();
-
         setDuvidas(data);
-        setFilteredDoubts(data);
       } catch (err) {
         setError(err.message);
         alert("Erro ao carregar dúvidas: " + err.message);
@@ -31,165 +28,56 @@ const ResponderDuvidas = () => {
         setLoading(false);
       }
     };
-
     fetchDuvidas();
   }, []);
-
-  const toggleFiltroVisivel = () => {
-    setFiltroVisivel(!filtroVisivel);
-  };
-
-  const handleFiltroChange = (e) => {
-    setFiltro(e.target.value);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const aplicarFiltro = () => {
-    let result = [...duvidas];
-
-    if (search) {
-      result = result.filter(
-        (duvida) =>
-          duvida.title.toLowerCase().includes(search.toLowerCase()) ||
-          duvida.description.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-
-    if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    } else if (filtro === "naoRespondidas") {
-      result = result.filter((doubt) => doubt.status === "naoRespondidas");
-    } else if (filtro === "respondidas") {
-      result = result.filter((doubt) => doubt.status === "respondidas");
-    }
-
-    setFilteredDoubts(result);
-  };
 
   if (loading) return <div>Carregando...</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <UserLayout>
-      <h2 className="titulo-pagina">Responder Dúvidas</h2>
-
-      <div className="filtrar-container">
-        <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
-          <img
-            src={FilterIcon}
-            alt="Filter Icon"
-            className="filter-icon-profile"
-          />
-          Filtrar
-        </button>
-
-        {filtroVisivel && (
-          <div className="filtro-container">
-            <input
-              type="text"
-              placeholder="Buscar por palavra"
-              value={search}
-              onChange={handleSearchChange}
-              className="search-input"
-            />
-            <select onChange={handleFiltroChange} value={filtro}>
-              <option value="">Selecione um filtro</option>
-              <option value="crescente">Mais antigos</option>
-              <option value="decrescente">Mais recentes</option>
-              <option value="naoRespondidas">Não Respondidas</option>
-              <option value="respondidas">Respondidas</option>
-            </select>
-            <button onClick={aplicarFiltro} className="button-filter">
-              Aplicar filtro
-            </button>
-          </div>
-        )}
+      <div className="header-div">
+        <h1>Responder Dúvidas</h1>
+        <p>Veja as dúvidas aguardando resposta</p>
       </div>
 
-      <section>
-        <div className="doubt-list-responder">
-          {filteredDoubts.length > 0 ? (
-            filteredDoubts.map((doubt) => (
-              <DoubtCard key={doubt.id} doubt={doubt} />
+      <DuvidasFilter
+        filtroVisivel={filtroVisivel}
+        filtro={filtro}
+        search={search}
+        onToggle={toggleFiltroVisivel}
+        onFiltroChange={handleFiltroChange}
+        onSearchChange={handleSearchChange}
+        onAplicar={aplicarFiltro}
+      />
+
+      <div className="doubt-list-shared">
+        {filteredDoubts.filter((d) => d.status !== "answered").length > 0 ? (
+          filteredDoubts
+            .filter((d) => d.status !== "answered")
+            .map((doubt) => (
+              <DoubtCard
+                key={doubt.id}
+                doubt={doubt}
+                showQuestioner
+                actionSlot={
+                  <Link
+                    to={{ pathname: `/responder-duvidas/${doubt.id}` }}
+                    state={{ doubt }}
+                    className="btn-primary"
+                    style={{ marginTop: "10px", textDecoration: "none", width: "fit-content", padding: "8px 20px", fontSize: "13px" }}
+                  >
+                    Responder
+                  </Link>
+                }
+              />
             ))
-          ) : (
-            <p>Nenhuma dúvida encontrada.</p>
-          )}
-        </div>
-      </section>
-   </UserLayout>
+        ) : (
+          <p>Nenhuma dúvida encontrada.</p>
+        )}
+      </div>
+    </UserLayout>
   );
-};
-
-const DoubtCard = ({ doubt }) => {
-  const getStatusClass = (status) => {
-    if (status === "insatisfeito") return "status-insatisfeito";
-    if (status === "pendente") return "status-pendente";
-    if (status === "respondida") return "status-respondida";
-    return "";
-  };
-
-  const getStatusIcon = (status) => {
-    if (status === "insatisfeito") return "❌";
-    if (status === "not_answered") return "⚠️";
-    if (status === "answered") return "✅";
-    return "";
-  };
-
-  const getStatus = (status) => {
-    if (status === "not_answered") return "Não Respondida";
-    if (status === "answered") return "Respondida";
-    return "Pendente";
-  }
-
-  const handleResponder = (id) => {
-  };
-
-  if(doubt.status === "answered"){
-    return;
-  }else{
-    return (
-        <div className={`doubt-card-responder ${getStatusClass(doubt.status)}`}>
-            <div className="doubt-card-header-responder">
-            <span className="status-icon">{getStatusIcon(doubt.status)}</span>
-            <div className="doubt-main-info-responder">
-              <h3 className="doubt-title-responder">{doubt.title}</h3>
-              <p className="doubt-description-responder">{doubt.description}</p>
-              <p className="doubt-situation-responder"></p>
-              {doubt.status !== "respondida" && (
-                <Link
-                  to={{ pathname: `/responder-duvidas/${doubt.id}` }}
-                  state={{ doubt }}
-                  className="responder-btn"
-                >
-                  {" "}
-                  Responder{" "}
-                </Link>
-              )}
-            </div>
-          </div>
-          <div className="doubt-additional-info-responder">
-            <p>
-              <strong>Usuário:</strong> {doubt.questioner.name}
-            </p>
-            <p>
-              <strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}
-            </p>
-            <p>
-              <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}
-            </p>
-            <p>
-              <strong>Status:</strong> {getStatus(doubt.status)}
-            </p>
-          </div>
-        </div>
-    );
-  }
 };
 
 export default ResponderDuvidas;

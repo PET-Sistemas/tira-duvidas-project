@@ -64,6 +64,22 @@ export class AuthService {
   }
 
   async register(registerDto: CreateUserDto) {
+    const existing = await this.userService.findOne({ email: registerDto.email });
+    if (existing) {
+      throw new HttpException(
+        { errors: { email: 'emailAlreadyExists' } },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
+    const existingCpf = await this.userService.findOne({ cpf: registerDto.cpf });
+    if (existingCpf) {
+      throw new HttpException(
+        { errors: { cpf: 'cpfAlreadyExists' } },
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      );
+    }
+
     const hash = crypto
       .createHash('sha256')
       .update(randomStringGenerator())

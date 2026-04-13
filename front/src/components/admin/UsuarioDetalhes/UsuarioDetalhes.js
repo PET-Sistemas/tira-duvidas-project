@@ -103,12 +103,6 @@ function UsuarioDetalhes() {
   return (
     <>
     <AdminLayout>
-      <div className="page-container-details">
-        <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
-          <i className="bi bi-arrow-left"></i>
-          Voltar
-        </button>
-
         <div className="header-div">
           <h1>Gerenciamento de Perfil</h1>
           <p>Informações do usuário e ações administrativas</p>
@@ -157,22 +151,20 @@ function UsuarioDetalhes() {
           {/* Botões de Ação */}
           <div className="actions-row">
             <button
-              className="btn-action"
+              className="btn-primary"
               onClick={() => setmodalDesativar(true)}
             >
-              <i className={`bi bi-${isUserActive ? "slash-circle" : "check-circle"}`}></i>
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
             </button>
 
             <button
-              className="btn-action"
+              className="btn-primary"
               onClick={() => setmodalAlterar(true)}
             >
-              <i className="bi bi-pencil"></i> Alterar perfil
+              Alterar perfil
             </button>
           </div>
         </div>
-      </div>
     </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
@@ -184,13 +176,13 @@ function UsuarioDetalhes() {
           </div>
           <div className="div-botoes">
             <button
-              className="botao-branco"
+              className="btn-primary"
               onClick={() => setmodalDesativar(false)}
             >
               Cancelar
             </button>
             <button
-              className={`botao-azul ${isUserActive ? "btn-confirm-danger" : "btn-confirm-success"}`}
+              className={`btn-primary ${isUserActive ? "btn-confirm-danger" : "btn-confirm-success"}`}
               onClick={handleDisableUser}
             >
               {isUserActive ? "Desativar" : "Ativar"}
@@ -236,12 +228,12 @@ function UsuarioDetalhes() {
 
           <div className="div-botoes">
             <button
-              className="botao-branco"
+              className="btn-primary"
               onClick={() => setmodalAlterar(false)}
             >
               Cancelar
             </button>
-            <button className="botao-azul" onClick={handleChangeRole}>
+            <button className="btn-primary" onClick={handleChangeRole}>
               Salvar
             </button>
           </div>

@@ -61,16 +61,16 @@ function UserLayout({ children }) {
                                             <p className="email-text">Email: {email}</p>
                                         </div>
                                         <div className="dropdown-footer">
-                                            <button className="btn-action" onClick={() => navigate("/perfil")}>Perfil</button>
-                                            <button className="btn-action" onClick={handleLogout}>Sair</button>
+                                            <button className="btn-primary" onClick={() => navigate("/perfil")}>Perfil</button>
+                                            <button className="btn-primary" onClick={handleLogout}>Sair</button>
                                         </div>
                                     </div>
                                 )}
                             </div>
                         ) : (
                             <div className="auth-buttons">
-                                <button className="btn-login" onClick={() => navigate("/login")}>Entrar</button>
-                                <button className="btn-signup" onClick={() => navigate("/signup")}>Cadastrar-se</button>
+                                <button className="btn-primary" onClick={() => navigate("/login")}>Entrar</button>
+                                <button className="btn-primary" onClick={() => navigate("/signup")}>Cadastrar-se</button>
                             </div>
                         )}
                     </nav>

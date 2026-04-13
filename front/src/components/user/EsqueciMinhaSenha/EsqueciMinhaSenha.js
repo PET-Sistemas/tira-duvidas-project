@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import "./EsqueciMinhaSenha.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import arroba from "../../../utils/images/arroba.png";
 import { useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../../services/user.service";
+import "../Login/Logar.css";
+import "../Auth/Auth.css";
+import "../../global.css";
 
 function EsqueciMinhaSenha() {
   const navigate = useNavigate();
@@ -19,14 +21,11 @@ function EsqueciMinhaSenha() {
 
     try {
       await forgotPassword(email);
-
       setSuccessMessage(
         "Se o e-mail constar em nossa base, você receberá um link com as instruções em instantes.",
       );
       setEmail("");
     } catch (err) {
-      // Como o backend não avisa mais se o usuário não existe, qualquer erro aqui
-      // será um erro real de conexão ou servidor (ex: 500 Internal Server Error)
       setError(
         "Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.",
       );
@@ -34,71 +33,72 @@ function EsqueciMinhaSenha() {
   };
 
   return (
-    <div className="body-esqueci-minha-senha">
-      <div className="container-esqueci-minha-senha">
-        <div className="left-panel-esqueci-minha-senha">
-          <img
-            src={tiraDuvidasLogo}
-            alt="Tira Dúvidas Logo"
-            className="logo-esqueci-minha-senha"
-          />
-          <p className="description-text-esqueci-minha-senha">
+    <div className="login-page">
+      <div className="login-container">
+
+        {/* Painel esquerdo */}
+        <div className="login-left-panel">
+          <img src={tiraDuvidasLogo} alt="Tira Dúvidas Logo" className="login-logo" />
+          <p className="login-description">
             <em>
               Tire suas dúvidas relacionadas à<br />
-              TIC's com estudantes da UFMS
+              TIC’s com estudantes da UFMS
             </em>
           </p>
-          <p className="footer-text-esqueci-minha-senha">
-            Projeto de ensino - PET-Sistemas
-          </p>
+          <p className="login-footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>
-        <div className="divider-esqueci-minha-senha"></div>{" "}
-        {/* Linha divisória */}
-        <div className="right-panel-esqueci-minha-senha">
-          <h2>Redefinir Senha</h2>
-          {error && (
-            <div className="error-message-esqueci-minha-senha">{error}</div>
-          )}
-          {successMessage && (
-            <div className="success-message-esqueci-minha-senha">
-              {successMessage}
-            </div>
-          )}
-          <form className="form-esqueci-minha-senha" onSubmit={handleSubmit}>
-            <div className="input-field-esqueci-minha-senha">
-              <span className="input-icon-esqueci-minha-senha">
-                <img src={arroba} alt="arroba" />
-              </span>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="input-esqueci-minha-senha"
-                placeholder="Insira seu e-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="button-group-esqueci-minha-senha">
-              <button className="button-esqueci-minha-senha" type="submit">
-                Enviar
-              </button>
-              <button
-                type="button"
-                className="button-esqueci-minha-senha"
-                onClick={() => navigate("/login")}
-              >
-                Cancelar
-              </button>
-            </div>
-          </form>
-          <img
-            src={ufmsLogo}
-            alt="UFMS Logo"
-            className="ufms-logo-esqueci-minha-senha"
-          />
+
+        <div className="login-divider"></div>
+
+        {/* Painel direito */}
+        <div className="login-right-panel">
+          <div className="auth-right-panel-inner">
+            <h2 className="auth-title">Redefinir Senha</h2>
+            <p className="auth-subtitle">
+              Informe seu e-mail para receber o link de redefinição.
+            </p>
+
+            {error && <div className="auth-message error">{error}</div>}
+            {successMessage && (
+              <div className="auth-message success">{successMessage}</div>
+            )}
+
+            <form className="auth-form" onSubmit={handleSubmit}>
+              <div className="auth-input-field">
+                <span className="login-input-icon">
+                  <img src={arroba} alt="arroba" />
+                </span>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="auth-input with-icon"
+                  placeholder="Insira seu e-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div style={{ display: "flex", gap: "12px", marginTop: "8px", width: "55%" }}>
+                <button type="submit" className="auth-btn-submit" style={{ flex: 1 }}>
+                  Enviar
+                </button>
+                <button
+                  type="button"
+                  className="auth-btn-submit"
+                  style={{ flex: 1 }}
+                  onClick={() => navigate("/login")}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+
+            <img src={ufmsLogo} alt="UFMS Logo" className="auth-ufms-logo" />
+          </div>
         </div>
+
       </div>
     </div>
   );
