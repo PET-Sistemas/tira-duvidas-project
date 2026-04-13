@@ -16,7 +16,7 @@ function Auth() {
         <div className="login-left-panel">
           <img src={tiraDuvidasLogo} alt="Logo" className="login-logo" />
           <p className="login-description">
-            <em>Tire suas dúvidas relacionadas à<br />TIC's com estudantes da UFMS</em>
+            <em>Um espaço aberto para esclarecer dúvidas,<br />compartilhar conhecimento e aprender juntos.</em>
           </p>
           <p className="login-footer-text">Projeto de ensino - PET-Sistemas</p>
         </div>

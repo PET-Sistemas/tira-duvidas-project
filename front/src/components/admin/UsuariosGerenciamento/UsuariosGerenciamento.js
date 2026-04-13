@@ -125,7 +125,7 @@ function UsuariosGerenciamento() {
   return (
     <AdminLayout>
       <div className="table-user-manager">
-        <button className="btn-back-details" onClick={() => navigate('/admin')}>
+        <button className="btn btn-secondary" onClick={() => navigate('/admin')}>
             <i className="bi bi-arrow-left"></i>
             Voltar
           </button>

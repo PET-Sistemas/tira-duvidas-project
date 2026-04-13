@@ -137,7 +137,7 @@ function CadastroDuvidas() {
             <div className="cadastro-duvida-buttons">
               <button
                 type="button"
-                className="cadastro-duvida-button"
+                className="btn btn-danger"
                 id="cancel-button"
                 onClick={() => navigate(-1)}
               >
@@ -146,7 +146,7 @@ function CadastroDuvidas() {
               {!title && !description ? (
                 <button
                   type="submit"
-                  className="cadastro-duvida-button"
+                  className="btn btn-success"
                   id="save-button"
                   disabled
                 >
@@ -155,7 +155,7 @@ function CadastroDuvidas() {
               ) : (
                 <button
                   type="submit"
-                  className="cadastro-duvida-button"
+                  className="btn btn-success"
                   id="save-button"
                 >
                   Salvar

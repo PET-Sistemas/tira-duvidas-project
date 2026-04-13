@@ -74,31 +74,27 @@
 
 /* Estilo da imagem do painel esquerdo */
 .logo-esqueci-minha-senha {
-  /*width: 200px;*/
-  width: 250px;
-  height: auto;
-  margin-top: 50px;
-  /*margin-bottom: 25px;*/
-  margin-bottom: 30px;
-  /*margin-left: 10px;*/
+  width: 300px;
+  margin-bottom: 10px;
+  margin-top: 100px;
 }
 
 /* Estilos para o texto de descrição e footer no painel esquerdo */
 .description-text-esqueci-minha-senha {
-  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+  font-size: 1.15em; /* Tamanho da fonte como na imagem */
   font-weight: bold;
   color: #2c7bb1; 
   line-height: 1.5;
   margin-bottom: auto; /* Empurra o footer para baixo */
-  margin-top: 20px; /* Espaço acima do texto de descrição */
+  margin-top: 5px; /* Espaço acima do texto de descrição */
   padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
 }
 
 .footer-text-esqueci-minha-senha {
   font-size: 0.85em; /* Tamanho da fonte */
   color: #2c7bb1; 
-  margin-top: auto; /* Empurra para o final da seção */
-  padding-bottom: 20px; /* Espaço acima da borda inferior do container */
+  margin-top: 10px; /* Empurra para o final da seção */
+  padding-bottom: 99px; /* Espaço acima da borda inferior do container */
   font-weight: bold;
 }
 
@@ -143,8 +139,8 @@
 /* Estilo do ícone dentro do input */
 .input-field-esqueci-minha-senha .input-icon-esqueci-minha-senha {
   position: absolute;
-  left: 50px;
-  top: 50%;
+  left: 45px;
+  top: 40%;
   transform: translateY(-50%);
   pointer-events: none;
 }
@@ -172,22 +168,6 @@
 }
 
 /* Estilo para o botão de enviar */
-.button-esqueci-minha-senha { /* Classe do seu botão */
-  width: 40%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
-  padding: 13px; /* Seu padding */
-  background-color: #3498DB; /* Sua cor */
-  color: #fff;
-  border: none;
-  border-radius: 6px; /* Seu border-radius */
-  font-size: 14px; /* Seu font-size */
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px; /* Seu margin-top */
-  box-sizing: border-box; /* Garante que padding não adicione à largura total */
-  transition: background-color 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
 .button-group-esqueci-minha-senha {
   display: flex;
   gap: 10px; /* espaço entre os botões */
@@ -277,10 +257,6 @@
     color: #3498DB;
     text-align: center;
   }
-
-  .button-esqueci-minha-senha {
-    width: calc(100% - 30%); /* Botão ocupa toda a largura */
-  }
 }
 
 /* Telas menores que 480px (celulares menores) */
@@ -300,10 +276,6 @@
   .input-esqueci-minha-senha[type="email"], input[type="password"] {
     width: calc(100% - 40%); /* Inputs ocupam toda a largura */
     font-size: 13px;
-  }
-
-  .button-esqueci-minha-senha {
-    width: calc(100% - 40%); /* Botão ocupa toda a largura */
   }
   .label-login-esqueci-minha-senha {
     width: 100%;

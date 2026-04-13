@@ -147,7 +147,7 @@ function ResponderDuvidasDetalhe() {
                 <span className={`char-counter${isNearLimit ? " limite" : ""}`}>
                   {response.length}/{MAX_CHARS} caracteres
                 </span>
-                <button className="btn-enviar" onClick={handleSendResponse}>
+                <button className="btn btn-primary" onClick={handleSendResponse}>
                   Enviar Resposta
                 </button>
               </div>

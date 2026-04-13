@@ -8,6 +8,7 @@
   width: fit-content;
 }
 
+
 .auth-btn {
   border: none;
   background: none;
@@ -90,32 +91,7 @@
     box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
 }
 
-/* --- Botão de Submissão Único --- */
-.auth-btn-submit {
-    width: 55%; /* Padronizado entre os 52% e 65% anteriores */
-    padding: 11px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: background-color 0.3s ease, transform 0.1s;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-    margin-top: 10px;
-}
-
-.auth-btn-submit:hover {
-    background-color: #1972b5;
-}
-
-.auth-btn-submit:active {
-    transform: scale(0.98);
-}
-
-/* --- Logo UFMS Fixa --- */
+/* --- Logo UFMS Fixa --- *//* --- Logo UFMS Fixa --- */
 .auth-ufms-logo {
     width: 55px;
     margin-top: 20px;
@@ -143,3 +119,5 @@
     color: #008000;
     background-color: #e6ffe6;
 }
+
+

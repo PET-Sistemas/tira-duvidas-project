@@ -43,10 +43,7 @@ function EsqueciMinhaSenha() {
             className="logo-esqueci-minha-senha"
           />
           <p className="description-text-esqueci-minha-senha">
-            <em>
-              Tire suas dúvidas relacionadas à<br />
-              TIC's com estudantes da UFMS
-            </em>
+            <em>Um espaço aberto para esclarecer dúvidas,<br />compartilhar conhecimento e aprender juntos.</em>
           </p>
           <p className="footer-text-esqueci-minha-senha">
             Projeto de ensino - PET-Sistemas
@@ -81,12 +78,12 @@ function EsqueciMinhaSenha() {
               />
             </div>
             <div className="button-group-esqueci-minha-senha">
-              <button className="button-esqueci-minha-senha" type="submit">
+              <button className="btn btn-primary" type="submit">
                 Enviar
               </button>
               <button
                 type="button"
-                className="button-esqueci-minha-senha"
+                className="btn btn-danger"
                 onClick={() => navigate("/login")}
               >
                 Cancelar

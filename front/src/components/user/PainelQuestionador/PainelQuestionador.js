@@ -71,7 +71,7 @@ function PainelQuestionador() {
         </div>
 
         <button
-          className="logout-button"
+          className="btn btn-secondary"
           onClick={handleLogout}
         >
           Logout

@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
 /* Estilo global */
 body {
   margin: 0;
@@ -77,31 +78,154 @@ body {
   width: 500px;
 }
 
-.app-home-search-btn {
-  width: 10%;
-  background-color: white;
-  color: #3498db;
-  border: none;
-  padding: 8px;
+/*INÍCIO DA PADRONIZAÇÃO DOS BOTÕES*/
+.btn-padrao,
+.app-home-search-btn,
+.app-home-btn-login,
+.welcome-content button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--azul-principal);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border: 2px solid var(--azul-principal);
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  margin-left: 6px;
-  font-size: 14px;
-  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
-/* Botões de login/cadastro */
+.btn-padrao:hover,
+.app-home-search-btn:hover,
+.app-home-btn-login:hover,
+.welcome-content button:hover {
+  background-color: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+}
+
+.btn-padrao:active,
+.app-home-search-btn:active,
+.app-home-btn-login:active,
+.welcome-content button:active {
+  transform: scale(0.97);
+}
+
+.btn-padrao img,
+.app-home-search-btn img,
+.app-home-btn-login img,
+.welcome-content button img,
+.btn-padrao i,
+.app-home-search-btn i,
+.app-home-btn-login i,
+.welcome-content button i {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin: 0;
+}
+
+/* Margens específicas mantidas para não quebrar o layout original */
+.app-home-search-btn {
+  margin-left: 6px;
+  margin-bottom: 10px;
+}
+
 .app-home-btn-login {
-  background-color: #3498db;
-  color: #f9f9f9;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
   margin-left: 20px;
   margin-bottom: 10px;
-  font-size: 14px;
-  border: 2px solid #3498db;
+}
+
+/* Novas classes globais para botões padronizados */
+.btn { /* define a estrutura básica dos botões*/
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  padding: 8px 45px !important; 
+  border: 2px solid transparent;
+  border-radius: 7px !important; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/*define as características do botão primário, secundário, de perigo e de sucesso*/
+.btn-primary {
+  background-color: var(--azul-principal);
+  color: #fff;
+  border-color: var(--azul-principal);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: var(--azul-principal);
+  border-color: var(--azul-principal);
+  padding: 8px 20px !important;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--azul-principal);
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #ff6b69;
+  color: #fff;
+  border-color: #ff6b69;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #e55a58;
+  border-color: #e55a58;
+}
+
+.btn-success {
+  background-color: #3cb879;
+  color: #fff;
+  border-color: #3cb879;
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #35a86d;
+  border-color: #35a86d;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 12px;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+.btn img,
+.btn i {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
 /* Categorias */
@@ -208,19 +332,6 @@ body {
   color: #005187;
 }
 
-.welcome-content button {
-  padding: 10px 20px;
-  font-size: 1.55rem;
-  background-color: #004080;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.welcome-content button:hover {
-  background-color: #0066cc;
-}
 
 .welcome-illustration {
   align-items: center;

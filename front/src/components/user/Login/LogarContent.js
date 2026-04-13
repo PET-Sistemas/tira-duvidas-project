@@ -90,7 +90,7 @@ function LogarContent() {
                 Esqueci minha senha
             </a>
 
-            <button type="submit" className="auth-btn-submit">
+            <button type="submit" className="btn btn-primary">
                 Entrar
             </button>
         </form>

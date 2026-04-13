@@ -3,6 +3,7 @@ import { register } from "../../../services/user.service";
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import "../Cadastrar/Cadastro.css"; 
 import "../Auth/Auth.css";
+import "../../../App.css";
 function CadastroContent() {
   const [formData, setFormData] = useState({
     name: "",
@@ -142,7 +143,7 @@ return (
                 />
             </div>
 
-            <button type="submit" className="auth-btn-submit">
+            <button type="submit" className="btn btn-primary">
                 Cadastrar
             </button>
         </form>

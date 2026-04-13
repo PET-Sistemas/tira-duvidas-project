@@ -72,7 +72,7 @@ function PainelRespondente() {
           </a>
         </div>
 
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
+        <button className="btn btn-secondary" onClick={handleLogout}>Logout</button>
       </main>
 
     </UserLayout>

@@ -96,7 +96,7 @@ function PerfilUsuario() {
 
           {!isEditing && (
             <button
-              className="perfil-botao-editar"
+              className="btn btn-secondary perfil-botao-editar"
               onClick={() => setIsEditing(true)}
             >
               <img
@@ -166,12 +166,12 @@ function PerfilUsuario() {
 
               {isEditing && (
                 <div className="perfil-botoes-acao">
-                  <button type="submit" className="perfil-botao-salvar">
+                  <button type="submit" className="btn btn-success">
                     Salvar
                   </button>
                   <button
                     type="button"
-                    className="perfil-botao-cancelar"
+                    className="btn btn-danger"
                     onClick={() => setIsEditing(false)}
                   >
                     Cancelar

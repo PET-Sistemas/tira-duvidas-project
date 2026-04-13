@@ -87,7 +87,7 @@ footer img {
   margin: 1%;
 }
 
-/*estilos para o botão de perfil */
+/*estilos para o botão de ícone do perfil */
 .btn-profile {
   margin-right: 3rem;
   background: none;
@@ -136,7 +136,7 @@ footer img {
 
 .full-name {
   font-weight: 500;
-  color: #333;
+  color: #333333;
   margin:0;
 }
 
@@ -153,19 +153,6 @@ footer img {
   background-color: #bbdefb;
   border-top: 1px solid #90caf9;
   border-radius: 0 0 5px 5px;
-}
-
-.btn-action {
-  background-color: #e0e0e0;
-  border: 1px solid #999;
-  padding: 8px 10px !important;
-  cursor: pointer;
-  font-size: 0.8rem;
-  border-radius: 2px;
-}
-
-.btn-action:hover {
-  background-color: #d5d5d5;
 }
 
 .profile-img-nav {

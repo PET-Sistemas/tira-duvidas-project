@@ -104,7 +104,7 @@ function UsuarioDetalhes() {
     <>
     <AdminLayout>
       <div className="page-container-details">
-        <button className="btn-back-details" onClick={() => navigate('/admin/usuarios')}>
+        <button className="btn btn-secondary" onClick={() => navigate('/admin/usuarios')}>
           <i className="bi bi-arrow-left"></i>
           Voltar
         </button>
@@ -157,7 +157,7 @@ function UsuarioDetalhes() {
           {/* Botões de Ação */}
           <div className="actions-row">
             <button
-              className="btn-action"
+              className="btn btn-secondary"
               onClick={() => setmodalDesativar(true)}
             >
               <i className={`bi bi-${isUserActive ? "slash-circle" : "check-circle"}`}></i>
@@ -165,7 +165,7 @@ function UsuarioDetalhes() {
             </button>
 
             <button
-              className="btn-action"
+              className="btn btn-secondary"
               onClick={() => setmodalAlterar(true)}
             >
               <i className="bi bi-pencil"></i> Alterar perfil
@@ -184,13 +184,13 @@ function UsuarioDetalhes() {
           </div>
           <div className="div-botoes">
             <button
-              className="botao-branco"
+              className="btn btn-secondary"
               onClick={() => setmodalDesativar(false)}
             >
               Cancelar
             </button>
             <button
-              className={`botao-azul ${isUserActive ? "btn-confirm-danger" : "btn-confirm-success"}`}
+              className={`btn ${isUserActive ? "btn-danger" : "btn-success"}`}
               onClick={handleDisableUser}
             >
               {isUserActive ? "Desativar" : "Ativar"}

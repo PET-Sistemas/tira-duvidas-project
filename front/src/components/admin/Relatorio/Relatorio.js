@@ -54,7 +54,7 @@ function Relatorio() {
   return (
     <AdminLayout>
       <div className="table-report-manager">
-        <button className="btn-back-details" onClick={() => navigate('/admin')}>
+        <button className="btn btn-secondary" onClick={() => navigate('/admin')}>
           <i className="bi bi-arrow-left"></i>
           Voltar
         </button>
@@ -107,6 +107,7 @@ function Relatorio() {
             <div className="relatorio-action-centralized">
               <button
                 type="button"
+                className="btn btn-primary"
                 onClick={handleGenerateReport}
                 disabled={isLoading}
               >

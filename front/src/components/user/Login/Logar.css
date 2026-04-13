@@ -55,7 +55,7 @@
 /* ---- Painel esquerdo ---- */
 .login-logo {
   width: 300px;
-  margin-bottom: 24px;
+  margin-bottom: 2px;
 }
 
 .login-left-panel {
@@ -63,10 +63,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   padding: 36px 24px;
   box-sizing: border-box;
   text-align: center;
+  gap: 10px;
 }
 
 /* Estilo da imagem do painel esquerdo */
@@ -77,6 +78,7 @@
   line-height: 1.6;
   margin: 0;
   padding: 0 8px;
+  margin-top: 0;
 }
 
 .login-footer-text {
@@ -170,25 +172,7 @@
   text-decoration: underline;
 }
 
-/* ---- Botão Entrar ---- */
-.login-btn-submit {
-  width: 52%;
-  padding: 11px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  box-sizing: border-box;
-  transition: background-color 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-}
 
-.login-btn-submit:hover {
-  background-color: #1972b5;
-}
 
 /* ---- Cadastre-se ---- */
 .login-register-text {

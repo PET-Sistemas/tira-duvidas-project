@@ -48,28 +48,5 @@
   display: flex;
   justify-content: center;
   width: 300px;
-}
-
-.cadastro-duvida-button {
-  width: 100%;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 10px;
-  font-weight: 500;
-  background-color: #fff;
-  color: #008cba;
-  border: 1px solid #008cba;
-}
-
-#cancel-button:hover {
-  background-color: #ff8989;
-  font-weight: 600;
-  color: rgb(142, 14, 14);
-}
-#save-button:hover {
-  background-color: #89ff8d;
-  font-weight: 600;
-  color: rgb(0, 107, 21);
+  gap: 12px; /*espaço entre os botões*/
 }

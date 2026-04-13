@@ -192,7 +192,7 @@ function MinhasDuvidasDetalhe() {
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                 />
-                <button className="btn-enviar-feedback" onClick={handleSendFeedback}>
+                <button className="btn btn-primary" onClick={handleSendFeedback}>
                   Enviar Feedback
                 </button>
               </div>

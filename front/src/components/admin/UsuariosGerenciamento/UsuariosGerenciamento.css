@@ -89,23 +89,6 @@
     border: 2px solid #3498db
 }
 
-.btn-back-details {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #3498db;
-  background: #ffffff;
-  color: #3498db;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.btn-back-details:hover {
-  background-color: #F0F8FF;
-}
-
 .table-footer {
   padding: 20px 0;
   display: flex;
