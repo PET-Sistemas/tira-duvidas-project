@@ -3,6 +3,8 @@ import { register } from "../../../services/user.service";
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import "../Cadastrar/Cadastro.css"; 
 import "../Auth/Auth.css";
+import { useNavigate } from "react-router-dom";
+
 function CadastroContent() {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,6 +16,7 @@ function CadastroContent() {
   });
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,15 +45,11 @@ function CadastroContent() {
         status: "active",
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccessMessage(data.message || "Usuário cadastrado com sucesso!");
-        navigate('/login');
-      } else {
-        throw new Error(data.message || "Erro ao cadastrar usuário");
-      }
+      if (response.status === 201)
+        setSuccessMessage("Usuário cadastrado com sucesso!");
     } catch (err) {
+      console.log(err);
+      console.log('fodaseeeeeeeeeeeeee');
       if (err.message.includes("Email") || err.message.includes("CPF")) {
         setError("Email ou CPF já estão em uso.");
       } else {

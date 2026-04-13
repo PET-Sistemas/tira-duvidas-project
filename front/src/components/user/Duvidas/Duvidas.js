@@ -32,6 +32,7 @@ function Duvidas() {
         const data = await response.json();
 
         setDuvidas(data);
+        console.log(data);
         setFilteredDoubts(data);
       } catch (err) {
         setError(err.message);
@@ -200,7 +201,8 @@ const DoubtCard = ({ doubt }) => {
       </div>
       <div className="doubt-additional-info-minhas-duvidas">
         <p>
-          <strong>Categoria:</strong> {doubt.categories[0].name}
+          <strong>Categoria:</strong>{" "}
+          {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}
         </p>
         <p>
           <strong>Data:</strong>{" "}
@@ -212,7 +214,7 @@ const DoubtCard = ({ doubt }) => {
         </p>
         <p>
           {" "}
-          <strong>Usuário:</strong> {doubt.questioner.name}{" "}
+          <strong>Usuário:</strong> {doubt.questioner?.name ?? "Desconhecido"}{" "}
         </p>
       </div>
     </div>

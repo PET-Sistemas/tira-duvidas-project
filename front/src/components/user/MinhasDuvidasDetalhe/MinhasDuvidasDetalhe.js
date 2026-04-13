@@ -124,7 +124,7 @@ function MinhasDuvidasDetalhe() {
             <p><strong>Id:</strong> {doubt.id}</p>
             <p><strong>Questionador:</strong> {doubt.questioner.name}</p>
             <p><strong>Email do Questionador:</strong> {doubt.questioner.email}</p>
-            <p><strong>Categoria:</strong> {doubt.categories[0].name}</p>
+            <p><strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}</p>
             <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
           </div>
         </section>

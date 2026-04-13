@@ -25,6 +25,9 @@ export class Question {
   @Column({ type: 'text', name: 'description' })
   description: string;
 
+  @Column({ type: 'text', name: 'custom_category', nullable: true })
+  customCategory: string | null;
+
   @Column({ name: 'questioner_id' })
   questionerId: number;
 

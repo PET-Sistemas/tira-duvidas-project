@@ -14,11 +14,11 @@ function HomeAdmin() {
 
       <div className="cards">
         <div onClick={() => navigate("/admin/usuarios")} className="card">
-          <img src={imgCard2} alt="Usuários" className="card-img" />
+          <img src={imgCard2} alt="Usuários" className="card-img-admin" />
           <span className="card-title">Usuários</span>
         </div>
         <div onClick={() => navigate("/admin/relatorios")} className="card">
-          <img src={imgCard1} alt="Relatórios" className="card-img" />
+          <img src={imgCard1} alt="Relatórios" className="card-img-admin" />
           <span className="card-title">Relatórios</span> 
         </div>
       </div>

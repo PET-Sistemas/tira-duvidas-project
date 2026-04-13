@@ -178,7 +178,7 @@ const DoubtCard = ({ doubt }) => {
               <strong>Usuário:</strong> {doubt.questioner.name}
             </p>
             <p>
-              <strong>Categoria:</strong> {doubt.categories[0].name}
+              <strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}
             </p>
             <p>
               <strong>Data:</strong> {new Date(doubt.createdAt).toLocaleString()}

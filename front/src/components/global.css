@@ -91,7 +91,13 @@
   width: 50px;
   height: 50px;
   margin-bottom: 12%;
-  color: white;
+}
+
+.card-img-admin {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 12%;
+  filter: invert(100%);
 }
 
 .card-title {

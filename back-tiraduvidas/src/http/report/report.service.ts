@@ -65,6 +65,7 @@ export class ReportService extends GenericService<
       .addGroupBy('user.cpf')
       .addGroupBy('user.email')
       .addGroupBy('user.phone')
+      .having('COUNT(answer.id) > 0')
       .orderBy('user.name', 'ASC')
       .getRawMany();
 

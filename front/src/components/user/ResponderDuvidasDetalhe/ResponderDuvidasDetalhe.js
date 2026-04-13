@@ -97,9 +97,9 @@ function ResponderDuvidasDetalhe() {
 
         {/* Painel expansível */}
         <div className={`duvida-detalhes-painel${detalhesAbertos ? " aberto" : ""}`}>
-          {doubt.categories && doubt.categories.length > 0 && (
-            <p><strong>Categoria:</strong> {doubt.categories.join(", ")}</p>
-          )}
+          {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria") ? (
+            <p><strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}</p>
+          ) : null}
           {doubt.createdAt && (
             <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
           )}

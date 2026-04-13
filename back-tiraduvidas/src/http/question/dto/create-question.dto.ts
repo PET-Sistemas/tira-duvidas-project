@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsEnum, IsInt, IsString } from 'class-validator';
+import { IsArray, IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { QuestionStatus } from '../enums/question-status.enum';
 
 export class CreateQuestionDto {
@@ -18,6 +18,11 @@ export class CreateQuestionDto {
   @ApiProperty({ description: 'Categorias da dúvida' })
   @IsArray()
   categories: string[];
+
+  @ApiProperty({ description: 'Categoria personalizada (não salva no banco)', required: false })
+  @IsString()
+  @IsOptional()
+  customCategory?: string;
 
   @ApiProperty({ description: 'Status da dúvida' })
   @IsEnum(QuestionStatus)

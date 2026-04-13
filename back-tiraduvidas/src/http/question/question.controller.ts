@@ -34,6 +34,19 @@ export class QuestionController {
 
   @Post()
   async create(@Body() createQuestionDto: CreateQuestionDto) {
+    // When the user chose "Outra" no DB category is used; the free-text name
+    // is stored directly on the question as customCategory.
+    if (createQuestionDto.customCategory) {
+      return await this.questionService.insertOne({
+        title: createQuestionDto.title,
+        description: createQuestionDto.description,
+        questionerId: createQuestionDto.questionerId,
+        status: createQuestionDto.status,
+        customCategory: createQuestionDto.customCategory,
+        categories: [],
+      });
+    }
+
     const category = await this.categoryService.findOne({
       name: createQuestionDto.categories[0],
     });
