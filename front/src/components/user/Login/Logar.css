@@ -1,34 +1,35 @@
-/* Definição geral da página */
-.body-login {
+/* =============================================
+   Logar.css — classes prefixadas com login-*
+   Sem risco de vazar para outras páginas
+   ============================================= */
+
+.login-page {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  flex-direction: column;
+  min-height: 100vh;
   background: var(--gradiente-card);
 }
 
-/* Container principal */
-.container {
+/* ---- Container ---- */
+.login-container {
   display: flex;
   flex-direction: row;
-  width: 400px;         /* Reduzido para um comprimento menor */
-  max-width: 95vw;      /* Responsivo para telas pequenas */
+  width: 940px;
+  max-width: 95vw;
   min-height: 520px;
   background: var(--gradiente-fundo);
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
-  margin: 60px auto;
   overflow: hidden;
-  align-items: center;  /* Alinha verticalmente os painéis */
-  justify-content: center; /* Alinha horizontalmente */
+  align-items: stretch;
 }
 
-.container::before {
-  content: '';
+.login-container::before {
+  content: "";
   position: absolute;
   top: -10px;
   left: -10px;
@@ -40,360 +41,249 @@
   border-radius: 30px;
 }
 
-/* Divisão central (linha) */
-.divider {
+/* ---- Divisor ---- */
+.login-divider {
   width: 1.2px;
-  background-color: #3498DB;
-  /*height: 90%;*/
-  height: 80%;
+  background-color: #3498db;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  /*margin-top: 20px;*/
-  /*top: 5%;*/
   top: 10%;
+  height: 80%;
 }
 
-/* Lado esquerdo - Logo e Título */
-.left-panel{
+/* ---- Painel esquerdo ---- */
+.login-logo {
+  width: 300px;
+  margin-bottom: 24px;
+}
+
+.login-left-panel {
   width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;    /* Centraliza horizontalmente */
-  justify-content: center;/* Centraliza verticalmente */
-  padding: 30px 10px;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 36px 24px;
   box-sizing: border-box;
   text-align: center;
-  height: 100%;           /* Garante centralização vertical */
 }
 
 /* Estilo da imagem do painel esquerdo */
-.logo {
-  /*width: 200px;*/
-  width: 250px;
-  height: auto;
-  margin-top: 50px;
-  /*margin-bottom: 25px;*/
-  margin-bottom: 30px;
-  /*margin-left: 10px;*/
-}
-
-/* Estilos para o texto de descrição e footer no painel esquerdo */
-.description-text {
-  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+.login-description {
+  font-size: 1.15em;
   font-weight: bold;
-  color: #2c7bb1; 
-  line-height: 1.5;
-  margin-bottom: auto; /* Empurra o footer para baixo */
-  margin-top: 20px; /* Espaço acima do texto de descrição */
-  padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
+  color: #2c7bb1;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 8px;
 }
 
-.footer-text {
-  font-size: 0.85em; /* Tamanho da fonte */
-  color: #2c7bb1; 
-  margin-top: auto; /* Empurra para o final da seção */
-  padding-bottom: 20px; /* Espaço acima da borda inferior do container */
+.login-footer-text {
+  font-size: 0.85em;
+  color: #2c7bb1;
   font-weight: bold;
+  margin: 0;
 }
 
-/* Lado direito - Formulário de login */
-.right-panel {
+/* ---- Painel direito ---- */
+.login-right-panel {
   width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;    /* Centraliza horizontalmente */
-  justify-content: center;/* Centraliza verticalmente */
-  padding: 30px 10px;
+  align-items: center; /* Centraliza o switch e o form */
+  justify-content: flex-start; /* Alinha o conteúdo no topo para o switch ficar em cima */
+  padding: 40px 20px;
   box-sizing: border-box;
-  text-align: center;
-  height: 100%;           /* Garante centralização vertical */
 }
 
-.right-panel h2 {
-  color: #3498DB;
-  text-align: center;
-  /*margin-bottom: 30px;*/
-  margin-bottom: 40px;
-  font-size: 2.5em; /* Tamanho da fonte do título */
+.login-title {
+  color: #3498db;
+  font-size: 2.4em;
   font-weight: bold;
+  margin: 0 0 28px 0;
 }
 
-/* Estilo do formulário */
-form {
+/* ---- Formulário ---- */
+.login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-/* Wrapper para os inputs com ícones */
-.input-field {
+.login-input-field {
   position: relative;
-  width: 90%;
-  margin: 0 auto 15px auto;
-  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+  box-sizing: border-box;
 }
 
-/* Estilo do ícone dentro do input */
-.input-field .input-icon {
+.login-input-icon {
   position: absolute;
-  left: 50px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }
 
-.input-field .input-icon img {
-  width: 18px;   /* tamanho consistente */
+.login-input-icon img {
+  width: 18px;
   height: 18px;
 }
 
-/* Estilos para input de email e senha (com ícones) */
-input[type="email"],
-input[type="password"]{
-  width: 85%; /* Usa a largura total do .input-field menos 40px (20px de padding de cada lado) */
-  padding: 10px 10px 10px 45px; /* 45px padding-left para o ícone, 10px padding-right */
-  margin-bottom: 10px; /* Seu valor */
-  border: 4px solid #2b98e0; /* Sua borda */
-  border-radius: 8px; /* Seu border-radius */
-  font-size: 14px; /* Seu font-size */
-  outline: none; /* Remove o contorno azul ao focar */
-  box-sizing: border-box;
-  line-height: 1.2; /* Garante que padding e border não adicionem à largura total */
-}
-
-input[type="email"]::placeholder {
-  color: #999; 
-}
-
-input[type="password"]::placeholder {
-  color: #999; 
-  font-size: 14px; 
-  text-align: left; 
-  padding-top: 100px; 
-}
-
-
-
-/* Estilo para o link "Esqueci minha senha" */
-form .forgot-password { /* A regra continua dentro do form */
+.login-input {
+  width: 100%;
+  padding: 10px 10px 10px 38px;
+  border: 2px solid #2b98e0;
+  border-radius: 8px;
   font-size: 14px;
-  color: #FF0000; /* Cor vermelha como na imagem */
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  color: #333;
+  line-height: 1.4;
+}
+
+.login-input::placeholder {
+  color: #999;
+}
+
+.login-input:focus {
+  border-color: #1a7fc4;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* ---- Esqueci minha senha ---- */
+.login-forgot-password {
+  font-size: 13px;
+  color: #e00;
   text-decoration: none;
-  align-self:normal; /* Alinha à direita dentro do form */
-  margin-left: 180px;
-  margin-top: -20px; /* Ajuste para aproximar do input de senha */
-  margin-bottom: 10px; /* Espaço antes do botão */
+  align-self: flex-end;
+  margin-top: -6px;
+  margin-bottom: 18px;
 }
 
-/* Estilo para o botão de login */
-.btn-submit { /* Classe do seu botão */
-  width: 23%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
-  padding: 13px; /* Seu padding */
-  background-color: #3498DB; /* Sua cor */
-  color: #fff;
-  border: none;
-  border-radius: 6px; /* Seu border-radius */
-  font-size: 16px; /* Seu font-size */
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px; /* Seu margin-top */
-  box-sizing: border-box; /* Garante que padding não adicione à largura total */
-  transition: background-color 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.btn-submit:hover {
-  background-color: #1972b5; /* Sua cor de hover */
-}
-
-/* Estilo para o texto "Não tem uma conta? Cadastre-se" */
-.register-text {
-  font-size: 0.9em;
-  color: #555;
-  margin-top: 30px;
-  text-align: center;
-}
-
-.register-text .register-link {
-  color: #3498DB;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.register-text .register-link:hover {
+.login-forgot-password:hover {
   text-decoration: underline;
 }
 
-/* Estilo do logo UFMS no rodapé */
-.ufms-logo {
-  width: 60px; /* Sua largura */
-  margin-top: 20px; /* Seu margin-top */
-  display: block; /* Garante que margin-left/right auto funcionem */
-  margin-left: auto; /* Seu margin-left auto */
-  margin-right: auto; /* Seu margin-right auto */
-  opacity: 0.8; /* Mantido para ser mais fiel à imagem de referência */
+/* ---- Botão Entrar ---- */
+.login-btn-submit {
+  width: 52%;
+  padding: 11px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 }
 
-/*
-.label-login {
-  width: 90%;
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #3498DB;
-  text-align: left;
-}
-
-input[type="email"], input[type="password"] {
-  width: calc(100% - 40px); /* Subtrai o padding dos lados para evitar cortes */
-  /*padding: 10px;
-  /*margin-bottom: 15px;
-  /*border: 2px solid #3498DB;
-  /*border-radius: 10px;
-  /*font-size: 14px;
-}
-/*
-button {
-  width: calc(100% - 60px); /* Subtrai o padding dos lados para o botão */
-  /*padding: 10px;*/
-  /*background-color: #3498DB; */
-  /*color: #fff;*/
-  /*border: none;*/
-  /*border-radius: 10px;*/
-  /*font-size: 16px;*/
-  /*cursor: pointer;*/
-  /*margin-top: 10px;*/
-/*}*/
-/*
-button:hover {
+.login-btn-submit:hover {
   background-color: #1972b5;
-}*/
+}
 
-/* Estilo do logo UFMS no rodapé */
-/*
-.ufms-logo {
-  width: 60px;
-  margin-top: 20px;
+/* ---- Cadastre-se ---- */
+.login-register-text {
+  font-size: 0.88em;
+  color: #555;
+  margin-top: 18px;
+  text-align: center;
+}
+
+.login-register-link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-register-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Logo UFMS ---- */
+.login-ufms-logo {
+  width: 55px;
+  margin-top: 18px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}*/
+  opacity: 0.8;
+}
 
-.success-message {
+/* ---- Mensagens ---- */
+.login-success {
   color: #008000;
   background-color: #e6ffe6;
   padding: 10px;
   border-radius: 4px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
-.error-message {
+
+.login-error {
   color: #ff0000;
   background-color: #ffe6e6;
   padding: 10px;
   border-radius: 4px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Media Queries para tornar o design responsivo */
-
-/* Telas menores que 768px (tablets e celulares) */
+/* ============================================
+   RESPONSIVO
+   ============================================ */
 @media (max-width: 768px) {
-  /* Ajusta o tamanho do container */
-  .container {
-    flex-direction: column; /* Coloca os painéis em coluna */
-    width: 100%; /* Ajusta a largura */
-    height: auto;
-    align-items: center; /* Centraliza os itens no modo responsivo */
-    justify-content: center;
+  .login-container {
+    flex-direction: column;
+    width: 92%;
+    min-height: unset;
   }
 
-  /* Remove a linha divisória */
-  .divider {
+  .login-divider {
     display: none;
   }
 
-  /* Ajusta o tamanho dos painéis para 100% */
-  .left-panel, .right-panel {
-    width: 100%; /* Ambos os painéis ocupam 100% da largura */
-    display: flex;
-    justify-content: center; /* Centraliza o conteúdo */
-    align-items: center;
-  }
-
-  /* Ajusta o tamanho da logo no painel esquerdo */
-  .logo {
-    width: 120px;
-    margin: 0px;
-  }
-
-  .right-panel h2{
-    margin-top: 0px;
-    margin-bottom: 20px;
-    font-size: 18px;
-  }
-
-  /* Ajusta o padding do painel direito */
-  .right-panel {
-    padding: 10px;
-  }
-
-  /* Ajusta o tamanho do botão e dos inputs */
-  input[type="email"], input[type="password"] {
-    width: calc(100% - 30%); /* Inputs ocupam toda a largura */
-  }
-  
-  .label-login {
+  .login-left-panel,
+  .login-right-panel {
     width: 100%;
-    font-size: 40px;
-    margin-bottom: 5px;
-    color: #3498DB;
-    text-align: center;
+    padding: 24px 20px;
   }
 
-  button {
-    width: calc(100% - 30%); /* Botão ocupa toda a largura */
+  .login-logo { width: 30px; }
+
+  .login-title {
+    font-size: 1.8em;
+    margin-bottom: 16px;
+  }
+
+  .login-btn-submit {
+    width: 65%;
   }
 }
 
-/* Telas menores que 480px (celulares menores) */
 @media (max-width: 480px) {
-  /* Ajusta o tamanho do cabeçalho */
-  header {
-    font-size: 18px;
+  .login-title {
+    font-size: 1.5em;
   }
-
-  .right-panel h2{
-    margin-top: 0px;
-    margin-bottom: 20px;
-    font-size: 18px;
-  }
-
-  /* Ajusta o tamanho do botão e inputs */
-  input[type="email"], input[type="password"] {
-    width: calc(100% - 40%); /* Inputs ocupam toda a largura */
+  .login-input {
     font-size: 13px;
   }
-
-  button {
-    width: calc(100% - 40%); /* Botão ocupa toda a largura */
+  .login-btn-submit {
+    width: 75%;
   }
-  .label-login {
-    width: 100%;
-    font-size: 12px;
-    margin-bottom: 5px;
-    color: #3498DB;
-    text-align: center;
+  .login-logo {
+    width: 110px;
   }
-
-  /* Ajusta o tamanho da logo */
-  .logo {
-    width: 120px;
-    margin: 0px;
-  }
-
-  
-  
 }

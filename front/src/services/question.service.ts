@@ -74,8 +74,7 @@ export async function getAnsweredQuestions(user_id: string) {
   if(!response.ok) {
     throw new Error("Question not found");
   }
-  const question = await response.json();
-  return question;
+  return response;
 }
 
 export async function getQuestionByTitle(title: string) {

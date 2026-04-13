@@ -25,6 +25,9 @@ export class Question {
   @Column({ type: 'text', name: 'description' })
   description: string;
 
+  @Column({ type: 'text', name: 'custom_category', nullable: true })
+  customCategory: string | null;
+
   @Column({ name: 'questioner_id' })
   questionerId: number;
 
@@ -32,7 +35,11 @@ export class Question {
   @JoinColumn({ name: 'questioner_id' })
   questioner: User;
 
-  @Column({ type: 'enum', enum: QuestionStatus, default: QuestionStatus.NOT_ANSWERED })
+  @Column({
+    type: 'enum',
+    enum: QuestionStatus,
+    default: QuestionStatus.NOT_ANSWERED,
+  })
   status: QuestionStatus;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })

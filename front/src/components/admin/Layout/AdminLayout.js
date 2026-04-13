@@ -1,51 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminLayout.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import { NavLink } from "react-router-dom";
+import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
+import logoUfms from "../../../utils/images/logo-ufms.png";
+import {
+  BrowserRouter as Router,
+  useNavigate,
+} from "react-router-dom";
 
 function AdminLayout({ children }) {
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+
+  useEffect(() => {
+      const storedUsername = sessionStorage.getItem("username");
+      const storedEmail = sessionStorage.getItem("email");
+
+      if (storedUsername) {
+        setUsername(storedUsername);
+        setEmail(storedEmail || "usuario@gmail.com"); 
+      }
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    navigate("/login");
+  };
+
   return (
-    <div className="bodyAdmin">
-      <main className="mainAdmin">
-        <nav className="navAdmin">
-          <div className="links-nav">
-            <NavLink to="/admin" end>
-              <i className="bi bi-house-door"></i>
-              Home
-            </NavLink>
-            <NavLink to="/admin/usuarios">
-              <i className="bi bi-people"></i>
-              Usuários
-            </NavLink>
-            <NavLink to="/admin/categorias">
-              <i className="bi bi-list-nested"></i>
-              Categorias
-            </NavLink>
-            <a href="#">
-              <i className="bi bi-file-earmark-bar-graph"></i>
-              Relatórios (Em breve)
-            </a>
-          </div>
-          <div className="logo-nav">
-            <a href="/" className="tira-duvidas-logo">
-              <img
+    <main className="mainAdmin">
+      <header className="header">
+        <a href="/" className="logo-link">
+            <img
                 src={tiraDuvidasLogo}
                 alt="Tira Dúvidas Logo"
                 className="logo-cadasroDuvidas"
-              />
-            </a>
-          </div>
-        </nav>
+            />
+        </a>
+        <nav className="nav">
+        {username ? (
+            <div className="user-container"> {/* Container relativo */}
+                <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
+                    <button className="btn-profile">
+                        <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
+                    </button>
+                    <span className="username">Olá, {username}</span>
+                </div>
 
-        {/*area de conteudo principal */}
-        <section className="fundo-container-admin">
-          <div className="fundo-content-admin">
-            {/*'children' renderiza o conteudo especifico da pagina*/}
-            {children}
-          </div>
-        </section>
-      </main>
-    </div>
+                {/* O Card de Informações (Dropdown) */}
+                {isMenuOpen && (
+                    <div className="profile-dropdown">
+                        <div className="dropdown-header">
+                            <p className="full-name">{username}</p>
+                            <p className="email-text">Email: {email}</p>
+                        </div>
+                        <div className="dropdown-footer">
+                            <button className="btn-primary" onClick={handleLogout}>Sair</button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        ) : (
+            <div className="auth-buttons">
+                <button className="btn-primary" onClick={() => navigate("/login")}>Entrar</button>
+                <button className="btn-primary" onClick={() => navigate("/signup")}>Cadastrar-se</button>
+            </div>
+        )}
+    </nav>
+
+      </header>
+    {/*area de conteudo principal */}
+      <div className="fundo-content-admin">
+        {/*'children' renderiza o conteudo especifico da pagina*/}
+        {children}
+
+        <footer>
+          <img src={logoUfms} alt="Logo UFMS"/>
+        </footer>
+      </div>
+    </main>
   );
 }
 

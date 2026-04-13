@@ -1,99 +1,97 @@
-.cadastro-duvida-container {
-  width: 100%;
-  height: 100%;
-}
-
-.cadastro-duvida-user-icon {
-  font-size: 36px;
-  color: #008cba;
-}
-
-.cadastro-duvida-form {
+.cadastro-duvida-categoria-row {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.cadastro-duvida-form-group {
+.cadastro-duvida-categoria-row .form-input {
+  flex: 1;
+  width: auto;
+}
+
+/* Modal de categoria personalizada */
+.custom-category-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
-  flex-direction: column;
-  margin-top: 2%;
-  width: 70%;
-  height: 100%;
-}
-
-.cadastro-duvida-label {
-  font-size: 14px;
-  color: #008cba;
-  margin-bottom: 2px;
-}
-
-.cadastro-duvida-input {
-  width: 50%;
-  padding: 10px;
-  border: 2px solid #008cba;
-  border-radius: 4px;
-}
-
-.cadastro-duvida-titulo {
-  width: 100%;
-  border: 2px solid #008cba;
-  border-radius: 4px;
-  margin-bottom: 2%;
-  text-decoration: #153a8a;
-  padding: 10px;
-}
-.cadastro-duvida-textarea {
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  border: 2px solid #008cba;
-  border-radius: 4px;
-  margin-bottom: 2%;
-  text-decoration: #153a8a;
-}
-
-.cadastro-duvida-buttons {
-  display: flex;
+  align-items: center;
   justify-content: center;
-  width: 300px;
+  z-index: 1000;
 }
 
-.cadastro-duvida-button {
+.custom-category-modal {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px 28px 24px;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.custom-category-modal h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #008cba;
+}
+
+.custom-category-modal p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+}
+
+.custom-category-input {
   width: 100%;
-  font-size: 16px;
+  padding: 10px;
+  border: 2px solid #008cba;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.custom-category-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.custom-category-btn-cancel {
+  padding: 8px 18px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+}
+
+.custom-category-btn-cancel:hover {
+  background-color: #ff8989;
+  color: rgb(142, 14, 14);
+  border-color: #ff8989;
+}
+
+.custom-category-btn-confirm {
+  padding: 8px 18px;
   border: none;
   border-radius: 4px;
+  background: #008cba;
+  color: #fff;
   cursor: pointer;
-  margin: 10px;
-  font-weight: 500;
-  background-color: #fff;
-  color: #008cba;
-  border: 1px solid #008cba;
-}
-
-#cancel-button:hover {
-  background-color: #ff8989;
+  font-size: 14px;
   font-weight: 600;
-  color: rgb(142, 14, 14);
-}
-#save-button:hover {
-  background-color: #89ff8d;
-  font-weight: 600;
-  color: rgb(0, 107, 21);
 }
 
-.cadastro-duvida-footer {
-  text-align: center;
-  margin-top: 20px;
+.custom-category-btn-confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
-.cadastro-duvida-logo {
-  width: 50px;
+.custom-category-btn-confirm:not(:disabled):hover {
+  background: #006b8f;
 }
-
-.user-profile-pic-signup {
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-}
-

@@ -1,47 +1,47 @@
-name: Deploy TiraD��vidas
+# name: Deploy TiraDuvidas
 
-on:  
-  push: 
-    branches: 
-      - main      # Deploy para produção
-      - develop   # Deploy para homologação
+# on:  
+#   push: 
+#     branches: 
+#       - main      # Deploy para produção
+#       - develop   # Deploy para homologação
 
-jobs: 
-  deploy:  
-    runs-on:  self-hosted
+# jobs: 
+#   deploy:  
+#     runs-on:  self-hosted
     
-    steps: 
-      - name: Checkout código
-        uses:  actions/checkout@v4
+#     steps: 
+#       - name: Checkout código
+#         uses:  actions/checkout@v4
 
-      - name:  Deploy para Produção
-        if:  github.ref == 'refs/heads/main'
-        run:  |
-          cd /opt/apps/tiraduvidas/producao/tira-duvidas-project/
+#       - name:  Deploy para Produção
+#         if:  github.ref == 'refs/heads/main'
+#         run:  |
+#           cd /opt/apps/tiraduvidas/producao/tira-duvidas-project/
           
-          echo "📥 Atualizando código..."
-          git pull origin main
+#           echo "📥 Atualizando código..."
+#           git pull origin main
           
-          echo "🔨 Rebuild e restart dos containers..."
-          sudo docker compose -p tiraduvidas-prod -f docker-compose.prod.yml up -d --build
+#           echo "🔨 Rebuild e restart dos containers..."
+#           sudo docker compose -p tiraduvidas-prod -f docker-compose.prod.yml up -d --build
           
-          echo "🧹 Limpando imagens antigas..."
-          sudo docker image prune -f
+#           echo "🧹 Limpando imagens antigas..."
+#           sudo docker image prune -f
           
-          echo "✅ Deploy de produção concluído!"
+#           echo "✅ Deploy de produção concluído!"
 
-      - name: Deploy para Homologação
-        if: github. ref == 'refs/heads/develop'
-        run:  |
-          cd /opt/apps/tiraduvidas/homologacao/tira-duvidas-project/
+#       - name: Deploy para Homologação
+#         if: github. ref == 'refs/heads/develop'
+#         run:  |
+#           cd /opt/apps/tiraduvidas/homologacao/tira-duvidas-project/
           
-          echo "📥 Atualizando código..."
-          git pull origin develop
+#           echo "📥 Atualizando código..."
+#           git pull origin develop
           
-          echo "🔨 Rebuild e restart dos containers..."
-          sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog.yml up -d --build
+#           echo "🔨 Rebuild e restart dos containers..."
+#           sudo docker compose -p tiraduvidas-homolog -f docker-compose.homolog.yml up -d --build
           
-          echo "🧹 Limpando imagens antigas..."
-          sudo docker image prune -f
+#           echo "🧹 Limpando imagens antigas..."
+#           sudo docker image prune -f
           
-          echo "✅ Deploy de homologação concluído!"
+#           echo "✅ Deploy de homologação concluído!"

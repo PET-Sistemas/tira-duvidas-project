@@ -5,7 +5,6 @@ import { GenericService } from 'src/utils/generic-service.service'; // Verifique
 
 @Injectable()
 export class UserService extends GenericService<User, UserTypeormRepository> {
-  
   constructor(private readonly userRepository: UserTypeormRepository) {
     super(userRepository);
   }

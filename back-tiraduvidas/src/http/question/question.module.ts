@@ -7,7 +7,6 @@ import { QuestionTypeormRepository } from './repositories/question-typeorm-repos
 import { Category } from '../category/entities/category.entity';
 import { CategoryService } from '../category/category.service';
 import { CategoryTypeormRepository } from '../category/repositories/category-typeorm-repository';
-import { Repository } from 'typeorm';
 import { AnswerService } from '../answer/answer.service';
 import { AnswerTypeormRepository } from '../answer/repositories/answer-typeorm-repository';
 import { Answer } from '../answer/entities/answer.entity';
@@ -36,8 +35,8 @@ import { Answer } from '../answer/entities/answer.entity';
         new AnswerService(userRepository),
       inject: [AnswerTypeormRepository],
     },
-    AnswerTypeormRepository
+    AnswerTypeormRepository,
   ],
-  exports: [QuestionService, CategoryService],
+  exports: [QuestionService, CategoryService, AnswerService],
 })
 export class QuestionModule {}

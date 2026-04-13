@@ -1,0 +1,344 @@
+/* ═══════════════════════════════════════════════════════════
+   GLOBAL STYLES — Tira Dúvidas
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────
+   BASE
+───────────────────────────────────────── */
+
+.fundo-gradiente {
+  background: var(--gradiente-fundo);
+  min-height: 100vh;
+}
+
+
+/* ─────────────────────────────────────────
+   CABEÇALHO & TÍTULOS DE PÁGINA
+───────────────────────────────────────── */
+
+.header-global {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0px;
+  width: 100%;
+  background: var(--gradiente-fundo);
+}
+
+.header-global-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.nav-bar i {
+  font-size: 1.2rem;
+  margin-right: 3px;
+}
+
+.nav-bar-item {
+  color: var(--azul-principal);
+  margin-left: 2%;
+  font-size: 0.93rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+
+.header-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header-div h1 {
+  white-space: nowrap;
+  color: var(--azul-principal);
+}
+
+.header-div p {
+  color: var(--azul-escuro);
+  margin-top: 0.5rem;
+}
+
+.painel-titulo {
+  font-size: 1.8rem;
+  color: var(--azul-principal);
+}
+
+
+/* ─────────────────────────────────────────
+   BOTÕES
+───────────────────────────────────────── */
+
+.btn-primary {
+  padding: 11px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.1s;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: #1972b5;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.filtrar-button {
+  color: #3498db;
+  width: auto;
+  padding: 8px 12px;
+  background-color: #fff;
+  border: 1px solid #3498db;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0;
+}
+
+.filtrar-button:hover {
+  background-color: #4ea1fb29;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 2px solid red;
+  color: red;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  width: 11rem;
+  height: 3.15rem;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logout-button:hover {
+  background-color: red;
+  color: white;
+}
+
+
+/* ─────────────────────────────────────────
+   FORMULÁRIOS — LAYOUT
+───────────────────────────────────────── */
+
+.details-form-wrapper {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 30px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+
+/* ─────────────────────────────────────────
+   FORMULÁRIOS — CAMPOS
+───────────────────────────────────────── */
+
+/* Campo padrão: input, select, textarea */
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #2b98e0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+  color: #333;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+}
+
+.form-input:focus {
+  border-color: #1a7fc4;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.form-input:disabled {
+  background-color: #f3f4f6;
+  color: #888;
+  cursor: not-allowed;
+  border-color: #d1d5db;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Campo com modo leitura / edição alternável */
+.input-read-only {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #f3f4f6;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  color: #555;
+  font-size: 14px;
+  outline: none;
+  cursor: not-allowed;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+}
+
+.input-read-only:not(:disabled) {
+  background-color: #fff;
+  border-color: #2b98e0;
+  cursor: text;
+  color: #333;
+}
+
+.input-read-only:not(:disabled):focus {
+  border-color: #1a7fc4;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.card {
+  width: 15rem;
+  height: 15rem;
+  background: var(--gradiente-card);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  background: var(--gradiente-card-hover);
+}
+
+.card-img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 12%;
+}
+
+.card-img-admin {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 12%;
+  filter: invert(100%);
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+
+/* ─────────────────────────────────────────
+   RODAPÉ
+───────────────────────────────────────── */
+
+footer img {
+  height: 3rem;
+  object-fit: contain;
+  margin: 1%;
+}
+
+
+/* ─────────────────────────────────────────
+   RESPONSIVIDADE
+───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .nav-bar-item {
+    font-size: 2.25vw;
+  }
+
+  .pagina-titulo {
+    font-size: 1.5rem;
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 5vw;
+  }
+
+  .card {
+    width: 50%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .card-img {
+    width: 15%;
+    height: auto;
+    margin-bottom: 8%;
+  }
+
+  .card-title {
+    font-size: 4vw;
+  }
+
+  .logout-button {
+    width: 30%;
+    font-size: 4vw;
+    padding: 1.5% 0;
+  }
+}

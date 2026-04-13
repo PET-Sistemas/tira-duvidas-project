@@ -4,15 +4,15 @@ import { UserRoleService } from './user-role.service';
 
 describe('UserRoleController', () => {
   let controller: UserRoleController;
-  
+
   // Mock the UserRoleService
-  let mockUserRoleService = {
+  const mockUserRoleService = {
     findAll: jest.fn(),
     findOne: jest.fn(),
     create: jest.fn(),
     update: jest.fn(),
     remove: jest.fn(),
-  }
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
