@@ -1,12 +1,20 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { RoleEnum } from 'src/http/role/role.enum';
 import { UserStatus } from '../enums/user-status.enum';
 
 export class UpdateUserDto {
   @ApiProperty({ description: 'ID do usuário' })
-//  @IsNumber()
-//  @IsNotEmpty()
+  //  @IsNumber()
+  //  @IsNotEmpty()
   id: number;
 
   @ApiPropertyOptional({ description: 'E-mail do usuário' })
@@ -33,6 +41,11 @@ export class UpdateUserDto {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @ApiPropertyOptional({ description: 'CPF do usuário' })
+  @IsOptional()
+  @IsString()
+  cpf?: string;
 
   @ApiPropertyOptional({ description: 'Telefone do usuário' })
   @IsOptional()

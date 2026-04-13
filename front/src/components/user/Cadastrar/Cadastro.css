@@ -27,10 +27,14 @@
 }
 
 .top-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 60px; /* <-- Aumente/diminua conforme necessário */
+  justify-content: space-evenly;
+  padding: 36px 24px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .text-form{
@@ -39,13 +43,19 @@
 }
 /* Estilos para o texto de descrição e footer no painel esquerdo */
 .description-text {
-  font-size: 1.3em; /* Tamanho da fonte como na imagem */
+  font-size: 1.15em;
   font-weight: bold;
-  color: #2c7bb1; 
-  line-height: 1.5;
-  margin-bottom: auto; /* Empurra o footer para baixo */
-  margin-top: 20px; /* Espaço acima do texto de descrição */
-  padding: 0 10px; /* Pequeno padding para evitar que o texto encoste nas laterais se for muito longo */
+  color: #2c7bb1;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 8px;
+}
+
+.footer-text{
+  font-size: 1em;
+  color: #2c7bb1;
+  font-weight: bold;
+  margin: 0;
 }
 
 /* Divisão central */
@@ -73,7 +83,7 @@
 
 /* Estilo da imagem do painel esquerdo */
 .signup-logo-cadastro {
-    width: 220px;
+    width: 400px;
     height: auto;
     margin-bottom: 1px;
 }
@@ -103,14 +113,31 @@
 }
 
 /* Estilo do formulário */
+/* Força o formulário a ser uma coluna e não uma linha */
 .form-cadastro {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px; /* Evita que os inputs fiquem gigantes horizontalmente */
+    gap: 10px; /* Espaçamento entre os inputs */
+}
+
+.input-cadastro {
+    width: 100%;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura */
+    padding: 10px;
+    border: 2px solid #3498DB;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* Garante que o container interno do cadastro não herde comportamentos estranhos */
+.signup-right-panel-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 1rem;
 }
-
 /*.label-cadastro {
     width: 90%;
     font-size: 12px;
@@ -132,25 +159,21 @@
     box-sizing: border-box;
 }
 
+/* Não está usando
 .button-cadastro {
-  width: 35%; /* Ajustado para 90% do form, menos 20px de padding horizontal */
-  padding: 13px; /* Seu padding */
-  background-color: #3498DB; /* Sua cor */
+  width: 52%;
+  padding: 11px;
+  background-color: #63db34;
   color: #fff;
   border: none;
-  border-radius: 6px; /* Seu border-radius */
-  font-size: 20px; /* Seu font-size */
+  border-radius: 6px;
+  font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 10px; /* Seu margin-top */
-  box-sizing: border-box; /* Garante que padding não adicione à largura total */
+  box-sizing: border-box;
   transition: background-color 0.3s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.button-cadastro:hover {
-    background-color: #196292;
-}
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+} */
 
 /* Estilo do logo UFMS no rodapé */
 .signup-ufms-logo-cadastro {

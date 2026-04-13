@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./PainelQuestionador.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import fotoprofile from "../../../utils/images/Vector.png";
-import ufmsLogo from "../../../utils/images/ufms-logo.png";
-import logoUfms from "../../../utils/images/logo-ufms.png";
+import "../../global.css";
 import imgCard1 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard2 from "../../../utils/images/DadosPessoais.png";
 import UserLayout from "../Layout/UserLayout";
@@ -75,7 +71,7 @@ function PainelQuestionador() {
         </div>
 
         <button
-          className="logout-button"
+          className="btn btn-secondary"
           onClick={handleLogout}
         >
           Logout

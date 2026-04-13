@@ -181,7 +181,7 @@ body {
 
 .perfil-botao-editar:hover {
   background-color: #005187;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .perfil-icone-editar {

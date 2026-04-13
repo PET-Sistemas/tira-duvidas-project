@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./ResponderDuvidas.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 import { Link } from "react-router-dom"; // Importando Link do React Router
-import logoUfms from "../../../utils/images/logo-ufms.png";
 import { allQuestion } from "../../../services/question.service";
-import { all } from "axios";
 import UserLayout from "../Layout/UserLayout";
 
 const ResponderDuvidas = () => {
@@ -83,7 +79,7 @@ const ResponderDuvidas = () => {
       <h2 className="titulo-pagina">Responder Dúvidas</h2>
 
       <div className="filtrar-container">
-        <button className="filtrar-btn" onClick={toggleFiltroVisivel}>
+        <button className="btn btn-secondary" onClick={toggleFiltroVisivel}>
           <img
             src={FilterIcon}
             alt="Filter Icon"
@@ -108,7 +104,7 @@ const ResponderDuvidas = () => {
               <option value="naoRespondidas">Não Respondidas</option>
               <option value="respondidas">Respondidas</option>
             </select>
-            <button onClick={aplicarFiltro} className="button-filter">
+            <button onClick={aplicarFiltro} className="btn btn-primary">
               Aplicar filtro
             </button>
           </div>
@@ -152,7 +148,6 @@ const DoubtCard = ({ doubt }) => {
   }
 
   const handleResponder = (id) => {
-    console.log("Responder dúvida com ID: ${id}");
   };
 
   if(doubt.status === "answered"){
@@ -170,7 +165,7 @@ const DoubtCard = ({ doubt }) => {
                 <Link
                   to={{ pathname: `/responder-duvidas/${doubt.id}` }}
                   state={{ doubt }}
-                  className="responder-btn"
+                  className="btn btn-primary responder-btn"
                 >
                   {" "}
                   Responder{" "}

@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./Perfil.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png"; // Logo do Tira Dúvidas
 import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
 import editIcon from "../../../utils/images/Vector-edit.png"; // Ícone de edição
-import home from "../../../utils/images/home.png"; // Ícone de casa
-import sobre from "../../../utils/images/sobre.png"; // Ícone de sobre nós
-import duvidas from "../../../utils/images/duvidas.jpg"; // Ícone de dúvidas
-import logoUfms from "../../../utils/images/logo-ufms.png"; // Logo da UFMS
-import { getUserById } from "../../../services/user.service";
 import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
@@ -17,6 +10,7 @@ function PerfilUsuario() {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [nome, setNome] = useState(sessionStorage.getItem("username") || "");
+  const [cpf, setCpf] = useState(sessionStorage.getItem("cpf") || "");
   const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
   const [telefone, setTelefone] = useState(
     sessionStorage.getItem("telefone") || "",
@@ -41,7 +35,6 @@ function PerfilUsuario() {
     //     return;
     //   }
     //   const response = await getUserById(userId);
-    //   console.log("Dados do usuário:", response);
     //   setUsuario({
     //     email: response.email || "N/A",
     //     name: response.firstName || "N/A",
@@ -66,6 +59,7 @@ function PerfilUsuario() {
         name: nome,
         email: email,
         phone: telefone,
+        cpf: cpf,
       });
 
       alert("Dados atualizados com sucesso!");
@@ -74,6 +68,7 @@ function PerfilUsuario() {
       sessionStorage.setItem("username", nome);
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("telefone", telefone);
+      sessionStorage.setItem("cpf", cpf);
 
       navigate("/perfil");
     } catch (error) {
@@ -84,9 +79,12 @@ function PerfilUsuario() {
 
   return (
     <UserLayout>
+      <div className="header-div">
+        <h1>Meu Perfil</h1>
+        <p>Visualize e edite suas informações pessoais</p>
+      </div>
+      
       <main className="perfil-main-conteudo">
-        <h2 className="perfil-titulo-pagina">Meus Dados</h2>
-
         <div className="perfil-card-principal">
           <div className="perfil-foto-usuario">
             <img src={defaultProfilePic} alt="Foto de Perfil" />
@@ -98,7 +96,7 @@ function PerfilUsuario() {
 
           {!isEditing && (
             <button
-              className="perfil-botao-editar"
+              className="btn btn-secondary perfil-botao-editar"
               onClick={() => setIsEditing(true)}
             >
               <img
@@ -124,6 +122,19 @@ function PerfilUsuario() {
                   onChange={(e) => setNome(e.target.value)}
                   disabled={!isEditing}
                   placeholder={`${sessionStorage.getItem("username")}`}
+                />
+
+                <label className="perfil-label-campo" htmlFor="cpf">
+                  CPF:
+                </label>
+                <input
+                  id="cpf"
+                  type="text"
+                  className="perfil-input-campo"
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                  disabled={!isEditing}
+                  placeholder={`${sessionStorage.getItem("cpf")}`}
                 />
 
                 <label className="perfil-label-campo" htmlFor="email">
@@ -155,12 +166,12 @@ function PerfilUsuario() {
 
               {isEditing && (
                 <div className="perfil-botoes-acao">
-                  <button type="submit" className="perfil-botao-salvar">
+                  <button type="submit" className="btn btn-success">
                     Salvar
                   </button>
                   <button
                     type="button"
-                    className="perfil-botao-cancelar"
+                    className="btn btn-danger"
                     onClick={() => setIsEditing(false)}
                   >
                     Cancelar

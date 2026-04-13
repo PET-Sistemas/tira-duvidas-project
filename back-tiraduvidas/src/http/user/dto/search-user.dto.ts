@@ -34,14 +34,20 @@ export class SearchUserDto {
   @IsString()
   firstName?: string;
 
+  @ApiPropertyOptional({ description: 'CPF do usuário' })
+  @IsOptional()
+  @IsString()
+  cpf?: string;
+
   @ApiPropertyOptional({ description: 'Último nome do usuário' })
   @IsOptional()
   @IsString()
   lastName?: string;
 
   @ApiPropertyOptional({ description: 'Telefone do usuário' })
+  @IsOptional()
   @IsString()
-  phone: string;
+  phone?: string;
 
   @ApiPropertyOptional({ description: 'Papel do usuário' })
   @IsOptional()

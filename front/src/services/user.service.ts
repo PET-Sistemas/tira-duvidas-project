@@ -26,13 +26,13 @@ export function login(data: LoginDTO) {
   });
 }
 
-export async function getUserById(id: string){
+export async function getUserById(id: string) {
   const response = await fetch(`${API_URL}/user/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
   if (!response.ok) {
@@ -48,7 +48,7 @@ export async function allUser() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
   if (!response.ok) {
@@ -58,6 +58,35 @@ export async function allUser() {
   return users;
 }
 
+/**
+ * Busca um usuário pelo CPF.
+ * O CPF pode ser informado com ou sem formatação (123.456.789-09 ou 12345678909).
+ * 
+ * @param cpf - CPF do usuário
+ * @returns Dados do usuário ou null se não encontrado
+ */
+export async function getUserByCpf(cpf: string) {
+  const response = await fetch(`${API_URL}/user/cpf/${encodeURIComponent(cpf)}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new Error(errorData?.message || "Falha ao buscar usuário por CPF");
+  }
+
+  return await response.json();
+}
+
 export async function updateUser(data: Partial<UpdateUserDTO>) {
   const response = await fetch(`${API_URL}/user/${data.id}`, {
     method: "PATCH",
@@ -65,7 +94,7 @@ export async function updateUser(data: Partial<UpdateUserDTO>) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
   if (!response.ok) {
@@ -76,7 +105,7 @@ export async function updateUser(data: Partial<UpdateUserDTO>) {
 }
 
 export async function forgotPassword(email: string) {
-  const response = await fetch(`${API_URL}/v1/auth/forgot/password`, {
+  const response = await fetch(`${API_URL}/v1/auth/forgot-password`, {
     method: "POST",
     body: JSON.stringify({ email }),
     headers: {
@@ -85,7 +114,24 @@ export async function forgotPassword(email: string) {
     },
   });
   if (!response.ok) {
-    throw new Error('Erro ao processar solicitação');
+    throw new Error("Erro ao processar solicitação");
   }
+  return await response.json();
+}
+
+export async function resetPassword(token: string, password: string) {
+  const response = await fetch(`${API_URL}/v1/auth/reset-password`, {
+    method: "POST",
+    body: JSON.stringify({ token, password }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao processar solicitação");
+  }
+
   return await response.json();
 }

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./MinhasDuvidas.css";
-import "../global.css";
-import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
-import logoUfms from "../../../utils/images/logo-ufms.png";
 import { getQuestionByUserId } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
 
@@ -98,11 +95,14 @@ function MinhasDuvidas() {
 
   return (
     <UserLayout>
-        <div className="bodyminhasduvidas">
-          <h2 className="titulo-pagina">Minhas Dúvidas</h2>
+        <div className="header-div">
+          <h1>Minhas Dúvidas</h1>
+          <p>Acompanhe o status das suas dúvidas e veja as respostas</p>
+        </div>
 
+        <div className="bodyminhasduvidas">
           <div className="filtrar-container">
-            <button className="filtrar-button" onClick={toggleFiltroVisivel}>
+            <button className="btn btn-secondary" onClick={toggleFiltroVisivel}>
               <img
                 src={FilterIcon}
                 alt="Filter Icon"
@@ -127,7 +127,7 @@ function MinhasDuvidas() {
                   <option value="respondidas">Respondidas</option>
                   <option value="naoRespondidas">Não Respondidas</option>
                 </select>
-                <button onClick={aplicarFiltro} className="button-filter">
+                <button onClick={aplicarFiltro} className="btn btn-primary">
                   Aplicar filtro
                 </button>
               </div>

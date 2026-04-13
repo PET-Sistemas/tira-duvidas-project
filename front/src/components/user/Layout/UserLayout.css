@@ -36,7 +36,9 @@ body {
 }
 
 .logo-cadasroDuvidas {
-  width: 7rem;
+  width: 8rem !important;
+  height: auto !important;
+  object-fit: contain;
 }
 
 .nav {
@@ -53,14 +55,15 @@ body {
 .sobre-nav-link {
   color: #3498db;
   margin-left: 2%;
+  text-decoration: none;
 }
 
-.sobre-nav-link i{
+.sobre-nav-link i {
   font-size: 1.2rem;
   margin-right: 3px;
 }
 
-.sobre-nav-link{
+.sobre-nav-link {
   font-size: 0.93rem;
   font-weight: 700;
   margin-top: 1.5rem;
@@ -78,32 +81,83 @@ footer {
   z-index: 10;
 }
 
-footer img {
+footer img {  
   height: 3rem;
   object-fit: contain;
   margin: 1%;
 }
 
+/*estilos para o botão de ícone do perfil */
 .btn-profile {
+  margin-right: 3rem;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
 }
 
-.btn-profile img {
-  width: 40px; /* ou responsivo com unidades relativas */
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
 .user-info {
   display: flex;
   flex-direction: column;
-  align-items: center; /* opcional, centraliza */
+  align-items: center;
 }
 
 .username {
+  width: 100%;
+  margin-right: 3rem;
   text-align: center;
+}
+
+.user-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  width: 250px;
+  background-color: #e3f2fd;
+  border: 1px solid #1976d2;
+  border-radius: 5px;
+  z-index: 1000;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+.dropdown-header {
+  padding: 15px;
+  background-color: #f0f7ff;
+  text-align: center;
+  margin: 10px;
+}
+
+.full-name {
+  font-weight: 500;
+  color: #333333;
+  margin:0;
+}
+
+.email-text {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.dropdown-footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 5px;
+  background-color: #bbdefb;
+  border-top: 1px solid #90caf9;
+  border-radius: 0 0 5px 5px;
+}
+
+.profile-img-nav {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }

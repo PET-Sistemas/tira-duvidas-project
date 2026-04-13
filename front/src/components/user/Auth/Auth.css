@@ -1,0 +1,123 @@
+.auth-switch-container {
+  display: flex;
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  padding: 4px;
+  margin-bottom: 25px;
+  border: 1px solid #3498DB;
+  width: fit-content;
+}
+
+
+.auth-btn {
+  border: none;
+  background: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #3498DB;
+  transition: 0.3s;
+}
+
+.auth-btn.active {
+  background-color: #3498DB;
+  color: white;
+}
+
+/*Estilo padrão para login e cadastro*/
+
+/* --- Títulos Genéricos --- */
+.auth-title {
+    color: #3498db;
+    font-size: 2.4em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.auth-subtitle {
+    color: grey;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* --- Container Interno do Painel Direito --- */
+.auth-right-panel-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- Formulário Base --- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 12px;
+}
+
+/* --- Inputs Padronizados --- */
+.auth-input-field {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #2b98e0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+/* Se houver ícone (padrão Login), adicionamos o padding esquerdo */
+.auth-input.with-icon {
+    padding-left: 38px;
+}
+
+.auth-input:focus {
+    border-color: #1a7fc4;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* --- Logo UFMS Fixa --- *//* --- Logo UFMS Fixa --- */
+.auth-ufms-logo {
+    width: 55px;
+    margin-top: 20px;
+    display: block;
+    opacity: 0.8;
+}
+
+/* --- Mensagens de Feedback --- */
+.auth-message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+
+.auth-message.error {
+    color: #ff0000;
+    background-color: #ffe6e6;
+}
+
+.auth-message.success {
+    color: #008000;
+    background-color: #e6ffe6;
+}
+
+

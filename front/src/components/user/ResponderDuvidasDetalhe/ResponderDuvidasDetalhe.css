@@ -1,238 +1,541 @@
-/* Define que tudo ocupa 100% da largura */
-  
-  /* HEADER RESPONSIVO */
-  .responder-duvida-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #ccc;
-    flex-wrap: wrap;
-    
+/* =============================================
+   MinhasDuvidasDetalhe.css — Design moderno
+   Paleta: azul institucional + neutros refinados
+   ============================================= */
+
+:root {
+  --blue:        #2d8cca;
+  --blue-light:  #e8f4fb;
+  --blue-mid:    #c5dff0;
+  --blue-dark:   #1a6a9a;
+  --gold:        #c49a1a;
+  --gold-light:  #fdf6e3;
+  --gold-border: #e8cd70;
+  --text:        #1e2a35;
+  --text-muted:  #6b7c8d;
+  --surface:     #ffffff;
+  --border:      #e2eaf1;
+  --radius:      10px;
+  --shadow:      0 2px 12px rgba(45, 140, 202, 0.08);
+}
+
+/* ---- Navegação (não interferir) ---- */
+.logo-cadasroDuvidas { height: 40px; }
+.profile-btn { margin-right: 10px; }
+.user-profile-img { width: 40px; height: 40px; border-radius: 50%; }
+.titulo-pagina { flex-grow: 1; text-align: center; color: var(--blue); }
+
+/* ============================================
+   CARD BASE
+   ============================================ */
+.duvida-info,
+.respostas-anteriores,
+.resposta,
+.feedback {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-top: 16px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ============================================
+   DÚVIDA INFO
+   ============================================ */
+.duvida-info {
+  border-bottom: 3px solid var(--blue);
+}
+
+/* Título */
+.duvida-info h3 {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--blue);
+  margin: 0 0 10px 0;
+  letter-spacing: -0.2px;
+}
+
+/* Descrição — limpa, sem fundo azul */
+.duvida-descricao {
+  display: block !important;
+  font-size: 0.93em !important;
+  color: var(--text) !important;
+  margin: 0 0 14px 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* ---- Badges Categoria e Data ---- */
+.duvida-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.duvida-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78em;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 4px 12px;
+  letter-spacing: 0.2px;
+}
+
+.duvida-badge.categoria {
+  color: var(--blue-dark);
+  background: var(--blue-light);
+  border: 1px solid var(--blue-mid);
+}
+
+.duvida-badge.data {
+  color: var(--text-muted);
+  background: #f4f6f8;
+  border: 1px solid var(--border);
+}
+
+/* ---- Botão toggle "Detalhes da Dúvida" ---- */
+.btn-detalhes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78em;
+  font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-light);
+  border: 1px solid var(--blue-mid);
+  border-radius: 20px;
+  padding: 4px 14px;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.3px;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.btn-detalhes:hover {
+  background: var(--blue-mid);
+  box-shadow: 0 2px 8px rgba(45,140,202,0.12);
+}
+
+.btn-detalhes .chevron {
+  display: inline-block;
+  transition: transform 0.22s ease;
+  font-style: normal;
+  font-size: 0.9em;
+}
+
+.btn-detalhes.aberto .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Painel expansível ---- */
+.duvida-detalhes-painel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.2s;
+  margin-top: 0;
+}
+
+.duvida-detalhes-painel.aberto {
+  max-height: 400px;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.duvida-detalhes-painel p {
+  font-size: 0.86em !important;
+  color: var(--text) !important;
+  margin: 0 !important;
+  padding: 7px 12px !important;
+  border-left: 2px solid var(--blue-mid) !important;
+  background: var(--blue-light) !important;
+  line-height: 1.5 !important;
+  border-radius: 0 !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+.duvida-detalhes-painel p:first-child {
+  border-radius: 6px 6px 0 0 !important;
+}
+.duvida-detalhes-painel p:last-child {
+  border-radius: 0 0 6px 6px !important;
+  border-bottom: 1px solid var(--blue-mid) !important;
+}
+.duvida-detalhes-painel p:not(:first-child) {
+  border-top: 1px solid rgba(197,223,240,0.5) !important;
+}
+
+/* ============================================
+   RESPOSTAS ANTERIORES
+   ============================================ */
+.respostas-anteriores {
+  border-bottom: 3px solid var(--blue);
+}
+
+.respostas-anteriores > h3 {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.respostas-anteriores > p {
+  font-size: 0.88em;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.resposta-anterior {
+  background: var(--blue-light);
+  border: 1px solid var(--blue-mid);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.2s;
+}
+
+.resposta-anterior:hover {
+  box-shadow: 0 2px 10px rgba(45,140,202,0.12);
+}
+
+.resposta-anterior:last-child { margin-bottom: 0; }
+
+.resposta-anterior:nth-child(even) {
+  background: #f0f8ff;
+  border-left-color: var(--blue-dark);
+}
+
+.resposta-anterior p {
+  margin: 3px 0 !important;
+  font-size: 0.88em !important;
+  color: var(--text) !important;
+  line-height: 1.55 !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* ============================================
+   RESPOSTA ATUAL (MinhasDuvidasDetalhe)
+   ============================================ */
+.resposta {
+  border: 1px solid var(--border) !important;
+  border-bottom: 3px solid var(--gold-border) !important;
+  background: var(--surface) !important;
+}
+
+.resposta h3 {
+  font-size: 0.95em !important;
+  font-weight: 700 !important;
+  color: var(--gold) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 0 14px 0 !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid var(--gold-border) !important;
+  background: none !important;
+}
+
+.resposta p {
+  display: block !important;
+  font-size: 0.91em !important;
+  color: var(--text) !important;
+  line-height: 1.65 !important;
+  margin: 5px 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.resposta br { display: none !important; }
+
+/* ============================================
+   SEÇÃO RESPONDER (ResponderDuvidasDetalhe)
+   ============================================ */
+.responder {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom: 3px solid var(--blue);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-top: 16px;
+  box-shadow: var(--shadow);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.responder h3 {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Div interna .resposta dentro de .responder — sem card duplo */
+.responder > .resposta {
+  border: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Textarea */
+.resposta-input {
+  width: 100%;
+  height: 120px;
+  padding: 10px 12px;
+  border: 1px solid var(--blue-mid);
+  border-radius: 8px;
+  font-size: 13px;
+  resize: none;
+  box-sizing: border-box;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  display: block;
+}
+
+.resposta-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(45,140,202,0.12);
+}
+
+/* Rodapé: contador + botão */
+.resposta-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.char-counter {
+  align-self: flex-end;
+  font-size: 0.76em;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
+.char-counter.limite {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Botão enviar — centralizado */
+.btn-enviar {
+  color: #fff;
+  padding: 10px 48px;
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(45,140,202,0.2);
+}
+
+.btn-enviar:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(45,140,202,0.3);
+}
+
+/* ============================================
+   FEEDBACK / AVALIAÇÃO
+   ============================================ */
+.feedback {
+  width: fit-content !important;
+  min-width: 300px;
+  max-width: 460px;
+  margin: 16px auto 24px auto !important;
+  padding: 20px 28px;
+  border-bottom: 3px solid var(--blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avaliacao-titulo {
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 16px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  text-align: center;
+}
+
+.avaliacao {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-satisfatoria,
+.btn-insatisfatoria {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+}
+
+.btn-satisfatoria {
+  background: #22c55e;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.25);
+}
+.btn-satisfatoria:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(34,197,94,0.3);
+}
+
+.btn-insatisfatoria {
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.25);
+}
+.btn-insatisfatoria:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(239,68,68,0.3);
+}
+
+.feedback-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.feedback-visualizacao {
+  width: 100%;
+  font-size: 0.9em;
+  color: var(--text);
+  background: var(--blue-light);
+  border-radius: 8px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--blue);
+  box-sizing: border-box;
+}
+
+.feedback-input {
+  width: 100%;
+  height: 100px;
+  padding: 10px 12px;
+  border: 1px solid var(--blue-mid);
+  border-radius: 8px;
+  font-size: 13px;
+  resize: none;
+  box-sizing: border-box;
+  outline: none;
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.feedback-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(45,140,202,0.12);
+}
+
+.btn-enviar-feedback {
+  color: #fff;
+  padding: 10px 28px;
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  width: 60%;
+  transition: filter 0.2s, transform 0.15s;
+}
+.btn-enviar-feedback:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   ANIMAÇÕES
+   ============================================ */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
+@media (max-width: 600px) {
+  .duvida-info,
+  .respostas-anteriores,
+  .resposta,
+  .responder,
+  .feedback {
+    padding: 14px 14px;
   }
-  
-  /* LOGO */
-  .logo-cadasroDuvidas {
-    max-width: 200px; /* Garante ajuste proporcional */
-    height: auto;
+
+  .feedback {
+    min-width: unset;
+    width: 100% !important;
   }
-  
-  /* NAVBAR FLEXÍVEL */
-  .responder-duvidas-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    flex-wrap: wrap;
-  }
-  
-  /* Título Centralizado */
-  .titulo-pagina {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
-  /* Ícone de Perfil */
-  .profile-btn img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-  }
-  
-  /* ORGANIZAÇÃO DO CONTEÚDO */
-  .container {
-    width: 90%;  /* Ocupa 90% da tela */
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-  }
-  
-  /* BOX DA DÚVIDA */
-  .duvida-info {
-    height: 20vh;
-    width: 90%;
-    border: 1px solid #3498DB;
-    padding: 15px;
-    margin: 20px auto; /* Centraliza horizontalmente */
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    text-align: left; /* Mantém o alinhamento do texto */
-    overflow-y: auto;
-    
-    display: flex; /* Organiza elementos em coluna */
+
+  .avaliacao {
     flex-direction: column;
-    justify-content: space-between; 
+    align-items: center;
   }
 
-  .duvida-info-footer {
-      margin-top: auto; /* Empurra para o final */
-      font-size: 14px;
-      color: #666;
-      border-top: 1px solid #ccc;
-      padding-top: 10px;
-  }
-  
-  /* ÁREA DE RESPOSTA */
-  .respostas-anteriores {
-    height: 30vh;
-    width: 90%;
-    border: 1px solid #3498DB;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    overflow-y: auto;
-  }
-
-  .resposta-anterior {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-  }
-
-  .resposta {
-    height: 30vh;
-    width: 90%;
-    border: 1px solid #3498DB;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  /* TEXTAREA DA RESPOSTA */
-  .resposta-input {
-    height: 100%;
+  .btn-satisfatoria,
+  .btn-insatisfatoria {
     width: 100%;
-    min-height: 120px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    border-radius: 5px;
-    outline: none;
-    resize: vertical;
-    padding: 10px;
-  }
-  
-  /* BOTÃO DE ENVIO */
-  .btn-enviar {
-    width: 100%;
-    max-width: 200px;
-    margin-top: 1.5%;
-    background-color: #3498DB;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-  }
-  
-  .btn-enviar:hover {
-    background-color: #217dbb;
-  }
-
-  .responder{
-    margin: 0;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
   }
-  
-  /* RESPONSIVIDADE */
-  @media screen and (max-width: 1024px) {
-    .container {
-        width: 95%;
-    }
 
-    .duvida-info {
-        height: 25vh; /* Ajusta a altura da dúvida */
-        width: 95%;
-    }
-
-    .resposta {
-        height: 35vh; /* Ajusta a altura da resposta */
-        width: 95%;
-    }
-
-    .titulo-pagina {
-        font-size: 20px;
-    }
-
-    .profile-btn img {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .responder-duvida-header {
-        flex-direction: column; /* Empilha os itens */
-        align-items: center;
-        text-align: center;
-    }
-
-    .responder-duvidas-nav {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .titulo-pagina {
-        font-size: 18px;
-    }
-
-    .logo-cadasroDuvidas {
-        max-width: 140px;
-    }
-
-    .profile-btn img {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .container {
-        width: 98%;
-        padding: 10px;
-    }
-
-    .titulo-pagina {
-        font-size: 16px;
-    }
-
-    .btn-enviar {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .resposta-input {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    .duvida-info {
-        height: auto;
-        min-height: 18vh;
-        padding: 10px;
-    }
-
-    .resposta {
-        height: auto;
-        min-height: 20vh;
-        padding: 10px;
-    }
-
-    .duvida-info-footer {
-        font-size: 12px; /* Ajusta tamanho do rodapé */
-        padding-top: 8px;
-    }
+  .duvida-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
 }

@@ -129,13 +129,14 @@ border-radius: 4px;
 border: 1px solid #ddd;
 }
 
+/* não é mais utilizado, utiliza-se o padrão que está em app.css
 .button-filter{
   width: 85%;
   padding: 6px;
 border-radius: 4px;
 border: 1px solid #ddd;
 margin-bottom: 10px;
-}
+} 
 
 .filtro-container button {
 font-size:small;
@@ -147,7 +148,7 @@ transition: background-color 0.2s ease;
 
 .filtro-container button:hover {
 background-color: #0056b3;
-}
+}*/
 
 .filter-icon-profile{
   width: 12px; 
