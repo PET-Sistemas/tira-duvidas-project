@@ -25,16 +25,19 @@ import { AnswerService } from '../answer/answer.service';
 @UseGuards(AuthGuard('jwt'))
 export class QuestionController {
   constructor(
-    private readonly questionService: QuestionService, 
+    private readonly questionService: QuestionService,
     private categoryService: CategoryService,
     private answerService: AnswerService,
     @InjectRepository(Question)
-    private questionRepository: Repository<Question>) {}
+    private questionRepository: Repository<Question>,
+  ) {}
 
   @Post()
   async create(@Body() createQuestionDto: CreateQuestionDto) {
-    const category = await this.categoryService.findOne({ name: createQuestionDto.categories[0] });
-    
+    const category = await this.categoryService.findOne({
+      name: createQuestionDto.categories[0],
+    });
+
     if (!category) {
       throw new Error('Categoria não encontrada');
     }
@@ -45,15 +48,16 @@ export class QuestionController {
       questionerId: createQuestionDto.questionerId,
       status: createQuestionDto.status,
       categories: [category],
-     }
-    );
+    });
   }
 
   @Get()
   async findAll() {
-    return await this.questionRepository.find({ relations: ['categories', 'questioner'] });
+    return await this.questionRepository.find({
+      relations: ['categories', 'questioner'],
+    });
 
-//    return await this.questionService.findAll();
+    //    return await this.questionService.findAll();
   }
 
   // Busca por id
@@ -65,11 +69,11 @@ export class QuestionController {
   // Busca por id do usuário
   @Get('user/:questionerId')
   async findManyById(@Param('questionerId') questionerId: number) {
-    return await this.questionRepository.find({ 
-      where: { 
-        questionerId: questionerId 
-      }, 
-      relations: ['categories', 'questioner'] 
+    return await this.questionRepository.find({
+      where: {
+        questionerId: questionerId,
+      },
+      relations: ['categories', 'questioner'],
     });
 
     //return await this.questionService.findMany({ questionerId, relations: ['categories'] });
@@ -81,11 +85,11 @@ export class QuestionController {
     const answers = await this.answerService.findMany({ respondentId });
 
     return await this.questionRepository.find({
-      where: { 
-        id: In(answers.map(answer => parseInt(answer.questionId.toString()))) 
-      }, 
-        relations: ['categories', 'questioner']
-      });
+      where: {
+        id: In(answers.map((answer) => parseInt(answer.questionId.toString()))),
+      },
+      relations: ['categories', 'questioner'],
+    });
 
     //return await this.questionService.findMany({ questionerId, relations: ['categories'] });
   }
@@ -96,16 +100,14 @@ export class QuestionController {
     return await this.questionService.findMany({ title });
   }
 
-  // Busca por status 
+  // Busca por status
   @Get('status/:status')
   async findByStatus(@Param('status') status: string) {
     return await this.questionService.findMany({ status });
   }
-  
+
   @Patch(':id')
-  async update(
-    @Body() updateQuestionDto: UpdateQuestionDto,
-  ) {
+  async update(@Body() updateQuestionDto: UpdateQuestionDto) {
     console.log(updateQuestionDto);
     return await this.questionService.update(updateQuestionDto);
   }

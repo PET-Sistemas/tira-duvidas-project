@@ -15,8 +15,8 @@ describe('QuestionController', () => {
           provide: QuestionService,
           useValue: {
             Question,
-            QuestionTypeormRepository
-          }
+            QuestionTypeormRepository,
+          },
         },
       ],
     }).compile();

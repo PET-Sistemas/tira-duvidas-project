@@ -43,7 +43,10 @@ export class AnswerController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateAnswerDto: UpdateAnswerDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateAnswerDto: UpdateAnswerDto,
+  ) {
     return await this.answerService.update(updateAnswerDto);
   }
 

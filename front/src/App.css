@@ -15,7 +15,7 @@ body {
   --gradiente-card-hover: linear-gradient(135deg, #5dade2, #1a6fa5);
 }
 
-.app-home{
+.app-home {
   background: var(--gradiente-fundo);
   min-height: 100vh;
 }
@@ -53,12 +53,12 @@ body {
   margin-left: 2%;
 }
 
-.app-sobre-nav-link i{
+.app-sobre-nav-link i {
   font-size: 1.2rem;
   margin-right: 3px;
 }
 
-.app-sobre-nav-link{
+.app-sobre-nav-link {
   font-size: 0.93rem;
   font-weight: 700;
   margin-top: 1.5rem;
@@ -89,7 +89,6 @@ body {
   margin-left: 6px;
   font-size: 14px;
   border-radius: 8px;
-  
 }
 
 /* Botões de login/cadastro */
@@ -119,7 +118,7 @@ body {
 
 .items-header {
   display: flex;
-  align-items:center;
+  align-items: center;
   width: 100%;
 }
 
@@ -274,4 +273,46 @@ footer img {
 
 .app-home-username {
   text-align: center;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.card {
+  width: 20rem;
+  min-height: 20rem;
+  background: var(--gradiente-card);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  background: var(--gradiente-card-hover);
+}
+
+.card-img {
+  height: 70px;
+  object-fit: contain;
+  margin: 12%;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-align: center;
+  color: white !important;
 }

@@ -1,19 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // Importando useNavigate
 import "./Duvidas.css";
-import "../global.css";
+import "../../global.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
-import { allQuestion, getQuestionByUserId } from "../../../services/question.service";
+import { allQuestion } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
 
 function Duvidas() {
   const [duvidas, setDuvidas] = useState([]);
   const [filteredDoubts, setFilteredDoubts] = useState([]); // Renomeando para filteredDoubts
   const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [filtro, setFiltro] = useState("crescente");
+  const [filtro, setFiltro] = useState("");
   const [search, setSearch] = useState(""); // Definindo a variável search
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuestionador, setSearchQuestionador] = useState("");
+  const filtroRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        filtroVisivel &&
+        filtroRef.current &&
+        !filtroRef.current.contains(event.target)
+      ) {
+        setFiltroVisivel(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [filtroVisivel]);
 
   useEffect(() => {
     const fetchDuvidas = async () => {
@@ -30,7 +49,6 @@ function Duvidas() {
         }
 
         const data = await response.json();
-        console.log("Dados recebidos da API:", data); // Log dos dados recebidos
 
         setDuvidas(data);
         setFilteredDoubts(data);
@@ -68,25 +86,34 @@ function Duvidas() {
       result = result.filter(
         (duvida) =>
           duvida.title.toLowerCase().includes(search.toLowerCase()) ||
-          duvida.description.toLowerCase().includes(search.toLowerCase())
+          duvida.description.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
     // Filtrar por status
     if (filtro === "respondidas") {
-      result = result.filter((duvida) => duvida.status === "respondida");
+      result = result.filter((duvida) => duvida.status === "answered");
     } else if (filtro === "naoRespondidas") {
-      result = result.filter((duvida) => duvida.status !== "respondida");
+      result = result.filter((duvida) => duvida.status !== "answered");
     }
 
     // Ordenar por data de publicação
     if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.date) - new Date(b.date)); // Mais antigo primeiro
+      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Mais antigo primeiro
     } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recente primeiro
+      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Mais recente primeiro
+    }
+
+    if (searchQuestionador) {
+      result = result.filter((duvida) =>
+        duvida.questioner?.name
+          ?.toLowerCase()
+          .includes(searchQuestionador.toLowerCase()),
+      );
     }
 
     setFilteredDoubts(result); // Alterando para setFilteredDoubts
+    setFiltroVisivel(false);
   };
 
   if (loading) {
@@ -97,11 +124,22 @@ function Duvidas() {
     return <div>{error}</div>;
   }
 
+  const limparFiltro = () => {
+    setSearch(""); // Zera o campo de texto
+    setFiltro(""); // Volta o select para o padrão
+    setFilteredDoubts(duvidas); // Restaura a lista com todas as dúvidas originais
+    setSearchQuestionador("");
+    setFiltroVisivel(false);
+  };
+
   return (
     <UserLayout>
-        <h2 className="titulo-pagina">Todas as Dúvidas</h2>
-
-        <div className="filtrar-container">
+      <div className="header-div">
+        <h1>Todas as Dúvidas</h1>
+        <p>Veja todas as dúvidas cadastradas no sistema abaixo</p>
+      </div>
+      <div className="tamanho">
+        <div className="filtrar-container" ref={filtroRef}>
           <button className="filtrar-button" onClick={toggleFiltroVisivel}>
             <img
               src={FilterIcon}
@@ -120,8 +158,17 @@ function Duvidas() {
                 onChange={handleSearchChange}
                 className="search-input"
               />
+              <input
+                type="text"
+                placeholder="Nome do questionador"
+                value={searchQuestionador}
+                onChange={(e) => setSearchQuestionador(e.target.value)}
+                className="search-input"
+              />
               <select onChange={handleFiltroChange} value={filtro}>
-                <option value="">Selecione um filtro</option>
+                <option value="" disabled>
+                  Selecione um filtro
+                </option>
                 <option value="crescente">Mais antigos</option>
                 <option value="decrescente">Mais recentes</option>
                 <option value="respondidas">Respondidas</option>
@@ -129,6 +176,9 @@ function Duvidas() {
               </select>
               <button onClick={aplicarFiltro} className="button-filter">
                 Aplicar filtro
+              </button>
+              <button onClick={limparFiltro} className="button-clear">
+                Limpar filtros
               </button>
             </div>
           )}
@@ -150,6 +200,7 @@ function Duvidas() {
             )}
           </div>
         </section>
+      </div>
     </UserLayout>
   );
 }
@@ -179,7 +230,7 @@ const DoubtCard = ({ doubt }) => {
     if (status === "not_answered") return "Não Respondida";
     if (status === "answered") return "Respondida";
     return "Pendente";
-  }
+  };
 
   return (
     <div

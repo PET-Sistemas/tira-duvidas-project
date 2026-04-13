@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { QuestionStatus } from '../enums/question-status.enum';
 
 export class UpdateQuestionDto {
@@ -8,21 +8,26 @@ export class UpdateQuestionDto {
   id: number;
 
   @ApiPropertyOptional({ description: 'Título da dúvida' })
+  @IsOptional()
   @IsString()
   title?: string;
 
   @ApiPropertyOptional({ description: 'Descrição da dúvida' })
+  @IsOptional()
   @IsString()
   description?: string;
 
   @ApiPropertyOptional({ description: 'ID do questionador' })
+  @IsOptional()
   @IsInt()
   questionerId?: number;
 
   @ApiPropertyOptional({ description: 'Status da dúvida' })
+  @IsOptional()
   @IsEnum(QuestionStatus)
   status?: QuestionStatus;
 
-  @ApiProperty({ description: 'Categorias da dúvida' })
+  @ApiPropertyOptional({ description: 'Categorias da dúvida' })
+  @IsOptional()
   categories?: string[];
 }

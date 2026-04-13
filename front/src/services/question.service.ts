@@ -10,7 +10,7 @@ export function createQuestion(data: CreateQuestionDTO) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
 }
@@ -21,7 +21,7 @@ export async function allQuestion() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
   if (response.status !== 200) {
@@ -37,10 +37,10 @@ export async function getQuestion(id: UpdateQuestionDTO) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Question not found");
   }
   const question = await response.json();
@@ -53,10 +53,10 @@ export async function getQuestionByUserId(user_id: string) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Falha ao carregar dúvidas");
   }
   return response;
@@ -68,28 +68,25 @@ export async function getAnsweredQuestions(user_id: string) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Question not found");
   }
-  const question = await response.json();
-  return question;
+  return response;
 }
 
 export async function getQuestionByTitle(title: string) {
-  const response = await fetch(
-    `${API_URL}/question/title/${title}`,
-    { method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
-      },
-     }
-  );
-  if(!response.ok) {
+  const response = await fetch(`${API_URL}/question/title/${title}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+  });
+  if (!response.ok) {
     throw new Error("Question not found");
   }
   const question = await response.json();
@@ -102,10 +99,10 @@ export async function deleteQuestion(id: string) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Question not found");
   }
   const question = await response.json();
@@ -119,7 +116,7 @@ export async function updateQuestionAnswered(data: UpdateQuestionDTO) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
 }

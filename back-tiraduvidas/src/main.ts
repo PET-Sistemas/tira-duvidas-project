@@ -47,8 +47,12 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.use(json({ limit: '200mb' }));
-  app.useGlobalPipes(new ValidationPipe(validationOptions));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Remove campos extras que não estão no DTO (protege contra injeção de dados)
+      forbidNonWhitelisted: true, // Retorna erro se o usuário enviar campos não esperados
+    }),
+  );
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')
@@ -59,7 +63,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/api/docs', app, document);
 
-  app.getHttpAdapter().get('/api/openapi.json', (req, res) => res.json(document));
+  app
+    .getHttpAdapter()
+    .get('/api/openapi.json', (req, res) => res.json(document));
 
   await app.listen(process.env.APP_PORT ?? 8080);
 
@@ -70,16 +76,48 @@ async function bootstrap() {
 
     // Cria categorias iniciais
     const categorias = [
-      'Matemática',
-      'Física',
-      'Química',
-      'Biologia',
-      'História',
-      'Geografia',
-      'Literatura',
-      'Artes',
-      'Educação Física',
-      'Inglês',
+      'Matrícula',
+      'Rematrícula',
+      'Trancamento de disciplina/curso',
+      'Aproveitamento de disciplinas',
+      'Transferência interna e externa',
+      'Permuta interna',
+      'Grade curricular',
+      'Horários de aula',
+      'TCC',
+      'Estágio obrigatório',
+      'Estágio não-obrigatório',
+      'Sistema acadêmico',
+      'Ava (Ambiente virtual de aprendizagem)',
+      'Passaporte UFMS',
+      'Passaporte de ônibus',
+      'Portador de diploma',
+      'Editais e prazos',
+      'Pós-graduação (especialização, mestrado, doutorado)',
+      'Projetos de extensão, ensino e pesquisa',
+      'Horas complementares',
+      'Optativas',
+      'Bolsas (monitoria, extensão, pesquisa)',
+      'Auxílio permanência',
+      'Laboratórios UFMS',
+      'Biblioteca  (empréstimos, multas)',
+      'RU',
+      'Cad ùnico',
+      'Businho/busão',
+      'Atendimento psicológico',
+      'Acessibilidade',
+      'E-mail institucional',
+      'Declaração de matrícula',
+      'Histórico escolar',
+      'Diploma',
+      'Iniciação científica',
+      'Eventos acadêmicos',
+      'Grupos de pesquisa',
+      'Uso da biblioteca por não alunos',
+      'Como ingressar na universidade',
+      'Horário de funcionamento',
+      'Normas e regulamentos',
+      'Calendário acadêmico',
     ];
     for (const nome of categorias) {
       const categoriaExistente = await categoryService.findOne({ name: nome });
@@ -98,6 +136,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'admin',
+        cpf: '00000000001',
         phone: '123456789',
         role: RoleEnum.ADMIN,
         status: UserStatus.ACTIVE,
@@ -112,6 +151,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'respondent',
+        cpf: '00000000002',
         phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,
@@ -126,6 +166,7 @@ async function bootstrap() {
         password: '123',
         provider: 'email',
         name: 'respondent2',
+        cpf: '00000000003',
         phone: '123456789',
         role: RoleEnum.RESPONDENT,
         status: UserStatus.ACTIVE,

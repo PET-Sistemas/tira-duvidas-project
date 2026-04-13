@@ -10,14 +10,13 @@ import UsuariosGerenciamento from "./components/admin/UsuariosGerenciamento/Usua
 import CategoriasGerenciamento from "./components/admin/CategoriasGerenciamento/CategoriasGerenciamento.js";
 import CertificadosGerados from "./components/admin/CertificadosGerados/CertificadosGerados.js";
 import PerfilGerenciamento from "./components/admin/PerfilGerenciamento/PerfilGerenciamento.js";
-import Login from "./components/user/Login/Logar.js";
-import Signup from "./components/user/Cadastrar/Cadastro.js";
 import CadastroDuvidas from "./components/user/CadastrarDuvidas/CadastroDuvidas.js";
 import PerfilUsuario from "./components/user/Perfil/Perfil.js";
 import MinhasDuvidas from "./components/user/MinhasDuvidas/MinhasDuvidas.js";
 import ResponderDuvidas from "./components/user/ResponderDuvidas/ResponderDuvidas.js";
 import PainelQuestionador from "./components/user/PainelQuestionador/PainelQuestionador.js";
 import PainelRespondente from "./components/user/PainelRespondente/PainelRespondente.js";
+import Auth from "./components/user/Auth/Auth.js";
 import "./App.css";
 import {
   allQuestion,
@@ -33,40 +32,46 @@ import EsqueciMinhaSenha from "./components/user/EsqueciMinhaSenha/EsqueciMinhaS
 import UserLayout from "./components/user/Layout/UserLayout.js";
 import Duvidas from "./components/user/Duvidas/Duvidas.js";
 import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasRespondidas.js";
-import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js"
+import Relatorio from "./components/admin/Relatorio/Relatorio.js";
+import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js";
+import RedefinirSenha from "./components/user/EsqueciMinhaSenha/RedefinirSenha.js";
+import imgCard1 from "./utils/images/MinhasDuvidas.png";
+import imgCard2 from "./utils/images/todas-duvidas.png";
+import imgCard3 from "./utils/images/DuvidasRespondidas.png";
+import imgCard4 from "./utils/images/ResponderDuvidas.png";
 
 function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  const [questions, setQuestions] = useState([]); 
-  const [categories, setCategories] = useState([]); 
-  const [selectedCategory, setSelectedCategory] = useState(null); 
+  const [questions, setQuestions] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     const storedUsername = sessionStorage.getItem("username");
     if (storedUsername) {
       setUsername(storedUsername);
     }
-    
+
     const fetchData = async () => {
       try {
-        const fetchedCategories = await allCategory(); 
-        const fetchedQuestions = await allQuestion(); 
-        setCategories(fetchedCategories); 
-        setQuestions(fetchedQuestions); 
+        const fetchedCategories = await allCategory();
+        const fetchedQuestions = await allQuestion();
+        setCategories(fetchedCategories);
+        setQuestions(fetchedQuestions);
       } catch (error) {
         console.error("Erro ao buscar categorias ou perguntas:", error);
       }
     };
 
-    fetchData(); 
+    fetchData();
   }, []);
 
   const filterQuestionsByCategory = async (categoryName) => {
-    setSelectedCategory(categoryName); 
+    setSelectedCategory(categoryName);
     try {
       const filteredQuestions = await getQuestionByTitle(categoryName);
-      setQuestions(filteredQuestions); 
+      setQuestions(filteredQuestions);
     } catch (error) {
       console.error("Erro ao filtrar perguntas:", error);
     }
@@ -94,59 +99,96 @@ function App() {
   return (
     <UserLayout>
       {sessionStorage.getItem("role") === "questioner" && (
-        <div className="welcome-container">
-          <div className="welcome-content">
-            <h1>
-              Bem-vindo ao
-              <br />
-              <span>Tira Dúvidas</span>
-            </h1>
-            <p>
-              Envie perguntas, obtenha respostas
-              <br />e compartilhe conhecimento
-            </p>
-            <button
-              onClick={() => navigate("/cadastroduvidas")}
-              className="app-home-nav-link"
-            >
-              Faça uma pergunta
-            </button>
+        <div className="geral-container">
+          <div className="welcome-container">
+            <div className="welcome-content">
+              <h1>
+                Bem-vindo ao
+                <br />
+                <span>Tira Dúvidas</span>
+              </h1>
+              <p>
+                Envie perguntas, obtenha respostas
+                <br />e compartilhe conhecimento
+              </p>
+            </div>
+            <div className="welcome-illustration">
+              <img
+                src={ilustracaoPergunta}
+                alt="Pessoa com ponto de interrogação"
+              />
+            </div>
           </div>
-          <div className="welcome-illustration">
-            <img
-              src={ilustracaoPergunta}
-              alt="Pessoa com ponto de interrogação"
-            />
+
+          <div className="cards">
+            <div className="card" onClick={() => navigate("/cadastroduvidas")}>
+              <img src={imgCard4} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Cadastrar Dúvidas</span>
+            </div>
+            
+            <div className="card" onClick={() => navigate("/duvidas")}>
+              <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Todas as Dúvidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/minhas-duvidas")}>
+              <img src={imgCard1} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Minhas Dúvidas</span>
+            </div>
           </div>
-        </div>  
+        </div>
       )}
 
       {sessionStorage.getItem("role") === "respondent" && (
-        <div className="welcome-container">
-          <div className="welcome-content">
-            <h1>
-              Bem-vindo ao
-              <br />
-              <span>Tira Dúvidas</span>
-            </h1>
-            <p>
-              Responda perguntas
-              <br />e compartilhe conhecimento
-            </p>
-            <button
-              onClick={() => navigate("/responder-duvidas")}
-              className="app-home-nav-link"
+        <div className="geral-container">
+          <div className="welcome-container">
+            <div className="welcome-content">
+              <h1>
+                Bem-vindo ao
+                <br />
+                <span>Tira Dúvidas</span>
+              </h1>
+              <p>
+                Responda perguntas
+                <br />e compartilhe conhecimento
+              </p>
+            </div>
+            <div className="welcome-illustration">
+              <img
+                src={ilustracaoPergunta}
+                alt="Pessoa com ponto de interrogação"
+              />
+            </div>
+          </div>
+
+          <div className="cards">
+            <div className="card" onClick={() => navigate("/duvidas")}>
+              <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Todas as Dúvidas</span>
+            </div>
+
+            <div
+              className="card"
+              onClick={() => navigate("/duvidas-respondidas")}
             >
-              Perguntas
-            </button>
+              <img src={imgCard3} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Dúvidas Respondidas</span>
+            </div>
+
+            <div
+              className="card"
+              onClick={() => navigate("/responder-duvidas")}
+            >
+              <img src={imgCard4} alt="Todas as Dúvidas" className="card-img" />
+              <span className="card-title">Responder Dúvidas</span>
+            </div>
+
+            <div className="card" onClick={() => navigate("/minhas-duvidas")}>
+              <img src={imgCard1} alt="Minhas Dúvidas" className="card-img" />
+              <span className="card-title">Minhas Dúvidas</span>
+            </div>
           </div>
-          <div className="welcome-illustration">
-            <img
-              src={ilustracaoPergunta}
-              alt="Pessoa com ponto de interrogação"
-            />
-          </div>
-        </div>  
+        </div>
       )}
     </UserLayout>
   );
@@ -156,17 +198,17 @@ function AppWrapper() {
   return (
     <Router>
       <Routes>
-        {/* Rotas públicas */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* Rotas unificadas no novo componente Auth */}
+        <Route path="/login" element={<Auth />} />
+        <Route path="/signup" element={<Auth />} />
         <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
-
+        <Route path="/redefinir-senha" element={<RedefinirSenha />} />
         {/* Rotas protegidas */}
         <Route
           path="/"
           element={
             <ProtectedRoute roles={["questioner", "respondent"]}>
-              <App />,
+              <App />
             </ProtectedRoute>
           }
         />
@@ -279,8 +321,9 @@ function AppWrapper() {
           }
         />
 
+        {/* Rotas Admin */}
         <Route
-          path="/admin" 
+          path="/admin"
           element={
             <ProtectedRoute roles={["admin"]}>
               <HomeAdmin />
@@ -289,7 +332,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/usuarios" 
+          path="/admin/usuarios"
           element={
             <ProtectedRoute roles={["admin"]}>
               <UsuariosGerenciamento />
@@ -298,7 +341,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/categorias" 
+          path="/admin/categorias"
           element={
             <ProtectedRoute roles={["admin"]}>
               <CategoriasGerenciamento />
@@ -307,10 +350,19 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/certificados" 
+          path="/admin/certificados"
           element={
             <ProtectedRoute roles={["admin"]}>
               <CertificadosGerados />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/relatorios"
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <Relatorio />
             </ProtectedRoute>
           }
         />
@@ -325,7 +377,7 @@ function AppWrapper() {
         />
 
         <Route
-          path="/admin/usuarios/:id" // O URL que o usuário vai acessar
+          path="/admin/usuarios/:id"
           element={
             <ProtectedRoute roles={["admin"]}>
               <UsuarioDetalhes />
