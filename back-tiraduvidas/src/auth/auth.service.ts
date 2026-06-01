@@ -1,4 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+  UnprocessableEntityException,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/http/user/entities/user.entity';
 import * as bcrypt from 'bcryptjs';
@@ -32,11 +40,11 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException('Email not found', HttpStatus.FORBIDDEN);
+      throw new UnauthorizedException('Email ou senha incorretos');
     }
 
     if (user.status === UserStatus.INACTIVE) {
-      throw new HttpException('Inactivated user', 423);
+      throw new HttpException('Usuário inativo', 423);
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -53,31 +61,22 @@ export class AuthService {
       return { token, message: 'Login realizado com sucesso.', user: user };
     }
 
-    throw new HttpException(
-      {
-        statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-        message: ['Incorrect username or password'],
-        error: 'Unprocessable Entity',
-      },
-      HttpStatus.UNPROCESSABLE_ENTITY,
-    );
+    throw new UnauthorizedException('Email ou senha incorretos');
   }
 
   async register(registerDto: CreateUserDto) {
-    const existing = await this.userService.findOne({ email: registerDto.email });
+    const existing = await this.userService.findOne({
+      email: registerDto.email,
+    });
     if (existing) {
-      throw new HttpException(
-        { errors: { email: 'emailAlreadyExists' } },
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
+      throw new UnprocessableEntityException('emailAlreadyExists');
     }
 
-    const existingCpf = await this.userService.findOne({ cpf: registerDto.cpf });
+    const existingCpf = await this.userService.findOne({
+      cpf: registerDto.cpf,
+    });
     if (existingCpf) {
-      throw new HttpException(
-        { errors: { cpf: 'cpfAlreadyExists' } },
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
+      throw new UnprocessableEntityException('cpfAlreadyExists');
     }
 
     const hash = crypto
@@ -90,12 +89,20 @@ export class AuthService {
 
     const user = await this.userService.insertOne(registerDto);
 
-    await this.mailService.userSignUp({
-      to: user.email,
-      data: {
-        hash,
-      },
-    });
+    try {
+      await this.mailService.userSignUp({
+        to: user.email,
+        data: {
+          hash,
+        },
+      });
+    } catch (error) {
+      await this.userService.delete(user.id);
+
+      throw new InternalServerErrorException(
+        'Erro ao enviar o e-mail de confirmação. O cadastro foi cancelado, tente novamente.',
+      );
+    }
 
     return {
       user,
@@ -108,13 +115,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException(
-        {
-          status: HttpStatus.NOT_FOUND,
-          error: `notFound`,
-        },
-        HttpStatus.NOT_FOUND,
-      );
+      throw new NotFoundException(`notFound`);
     }
 
     user.hash = null;
@@ -203,8 +204,9 @@ export class AuthService {
       id: user.id,
     });
 
-    if (!foundedUser) return;
-
+    if (!foundedUser) {
+      throw new NotFoundException('Perfil não encontrado');
+    }
     return foundedUser;
   }
 
@@ -212,7 +214,9 @@ export class AuthService {
     const foundedUser = await this.userService.findOne({
       id: userDto.id,
     });
-
+    if (!foundedUser) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
     const isValidOldPassword = await bcrypt.compare(
       userDto.oldPassword,
       foundedUser.password,
