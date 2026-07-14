@@ -113,7 +113,7 @@
 }
 
 .login-input-field {
-  position: relative;
+  position: absolute;
   width: 100%;
   margin-bottom: 14px;
   box-sizing: border-box;
