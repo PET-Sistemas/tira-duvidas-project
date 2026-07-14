@@ -267,7 +267,7 @@
 
   /* Ajusta o tamanho do botão e dos inputs */
   .input-esqueci-minha-senha[type="email"], input[type="password"] {
-    width: calc(100% - 30%); /* Inputs ocupam toda a largura */
+    width: 100%;
   }
   
   .label-esqueci-minha-senha {
@@ -298,7 +298,7 @@
 
   /* Ajusta o tamanho do botão e inputs */
   .input-esqueci-minha-senha[type="email"], input[type="password"] {
-    width: calc(100% - 40%); /* Inputs ocupam toda a largura */
+    width: 100%;
     font-size: 13px;
   }
 

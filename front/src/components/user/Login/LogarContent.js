@@ -59,6 +59,7 @@ function LogarContent() {
         {successMessage && <div className="auth-message success">{successMessage}</div>}
 
         <form className="auth-form" onSubmit={handleSubmit}>
+        
             <div className="auth-input-field">
                 <span className="login-input-icon">
                     <img src={arroba} alt="arroba" />
