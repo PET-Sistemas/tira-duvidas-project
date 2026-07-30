@@ -160,9 +160,12 @@
   font-weight: 900;
 }
 
-.user-table{
+.user-table {
   width: 100%;
   border-collapse: separate;
+  table-layout: fixed;
+  padding-left: 4rem;
+  padding-right: 4rem;
   border-spacing: 0;
 }
 

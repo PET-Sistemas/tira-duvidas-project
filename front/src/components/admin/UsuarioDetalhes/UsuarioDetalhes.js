@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
-import { getUserById, updateUser} from "../../../services/user.service";
-import "../../modal/modal.css"
+import { getUserById, updateUser } from "../../../services/user.service";
+import "../../modal/modal.css";
 import "./UsuarioDetalhes.css";
 import "../UsuariosGerenciamento/UsuariosGerenciamento.css";
 import Modal from "../../modal/modal.js";
@@ -20,9 +20,9 @@ function UsuarioDetalhes() {
     document.body.classList.remove("active-modal");
   }
 
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -102,7 +102,7 @@ function UsuarioDetalhes() {
 
   return (
     <>
-    <AdminLayout>
+      <AdminLayout>
         <div className="header-div">
           <h1>Gerenciamento de Perfil</h1>
           <p>Informações do usuário e ações administrativas</p>
@@ -111,29 +111,49 @@ function UsuarioDetalhes() {
         <div className="details-form-wrapper">
           <div className="form-group">
             <label>Nome completo</label>
-            <input type="text" value={user.name} disabled className="input-read-only" />
+            <input
+              type="text"
+              value={user.name}
+              disabled
+              className="input-read-only"
+            />
           </div>
 
           <div className="form-group">
             <label>E-mail</label>
-            <input type="text" value={user.email} disabled className="input-read-only" />
+            <input
+              type="text"
+              value={user.email}
+              disabled
+              className="input-read-only"
+            />
           </div>
 
           <div className="form-group">
             <label>CPF</label>
-            <input type="text" value={user.cpf || '-'} disabled className="input-read-only" />
+            <input
+              type="text"
+              value={user.cpf || "-"}
+              disabled
+              className="input-read-only"
+            />
           </div>
 
           <div className="form-group">
             <label>Celular</label>
-            <input type="text" value={user.phone || '-'} disabled className="input-read-only" />
+            <input
+              type="text"
+              value={user.phone || "-"}
+              disabled
+              className="input-read-only"
+            />
           </div>
 
           <div className="form-group">
             <label>Data de Criação de Conta</label>
             <input
               type="text"
-              value={new Date(user.createdAt).toLocaleDateString('pt-BR')}
+              value={new Date(user.createdAt).toLocaleDateString("pt-BR")}
               disabled
               className="input-read-only"
             />
@@ -142,30 +162,29 @@ function UsuarioDetalhes() {
           <div className="form-group">
             <label>Perfil</label>
             <div className="profile-badge-container">
-              <span className={currentRole.className}>
-                {currentRole.text}
-              </span>
+              <span className={currentRole.className}>{currentRole.text}</span>
             </div>
           </div>
 
           {/* Botões de Ação */}
           <div className="actions-row">
             <button
-              className="btn-primary"
+              className="btn-action btn-secondary"
+              onClick={() => setmodalAlterar(true)}
+            >
+              Alterar permissões
+            </button>
+
+            <button
+              className={`btn-action ${isUserActive ? "btn-danger" : "btn-success"}`}
               onClick={() => setmodalDesativar(true)}
             >
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
             </button>
-
-            <button
-              className="btn-primary"
-              onClick={() => setmodalAlterar(true)}
-            >
-              Alterar perfil
-            </button>
           </div>
         </div>
-    </AdminLayout>
+
+      </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
           <div className={"icone-h1-container"}>
@@ -194,9 +213,9 @@ function UsuarioDetalhes() {
       <Modal isOpen={modalAlterar} onClose={() => setmodalAlterar(false)}>
         <div id={"conteudo"}>
           <div className="icone-h1-container">
-            <h1 className="modal-title">Alterar Perfil</h1>
+            <h1 className="modal-title">Alterar Permissões</h1>
             <p className="modal-text">
-              Selecione o tipo de perfil para este usuário.
+              Deseja tornar este usuário um {selectedRole === "questioner" ? "Respondente" : "Questionador"}?
             </p>
           </div>
           <div style={{ marginBottom: "20px", textAlign: "left" }}>

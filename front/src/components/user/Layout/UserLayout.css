@@ -1,9 +1,16 @@
 /* area de conteudo padrão de admin */
+.mainUser {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .fundo-content-user {
   background: var(--gradiente-fundo);
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: 1rem;
-  padding-bottom: 4rem;
 }
 
 body {

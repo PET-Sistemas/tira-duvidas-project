@@ -8,8 +8,9 @@
 }
 
 .details-form-wrapper {
+  height: 100%;
   width: 60%;
-  margin: 0 auto;
+  margin: 2rem auto;
 }
 
 /* Campos do Formulário */
@@ -38,35 +39,6 @@
   box-sizing: border-box;
 }
 
-/* Botões de Ação */
-.actions-row {
-  display: flex;
-  justify-content: flex-start;
-  margin-top: 30px;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
-.btn-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background-color: white;
-  border: 1px solid #3498db;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #3498db;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-action:hover {
-  background-color: #F0F8FF;
-}
-
 .bi-slash-circle {
   color: red;
 }
@@ -90,4 +62,74 @@
   color: #000;
   margin-bottom: 10px;
   font-weight: 600;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  width: 200px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+.btn-success {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}
+
+.btn-secondary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .page-container-details {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .details-form-wrapper {
+    width: 90%;
+  }
+
+  .actions-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-action {
+    width: 100%;
+    padding: 14px;
+  }
 }
