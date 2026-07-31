@@ -37,14 +37,12 @@ function UsuarioDetalhes() {
     },
     admin: { text: "Admin", className: "fbtn blue borda bg-white perfil" },
   };
-  const [selectedRole, setSelectedRole] = useState("");
 
   useEffect(() => {
     const loadData = async () => {
       try {
         const data = await getUserById(id);
         setUser(data);
-        setSelectedRole(data.role);
       } catch (error) {
         console.error("Erro ao carregar usuário", error);
       } finally {
@@ -73,7 +71,7 @@ function UsuarioDetalhes() {
     }
   };
 
-const handleChangeRole = async () => {
+  const handleChangeRole = async () => {
     const newRole = user.role === "questioner" ? "respondent" : "questioner";
 
     try {
@@ -81,9 +79,8 @@ const handleChangeRole = async () => {
         id: user.id,
         role: newRole,
       });
-      setUser((prevUser) => ({ ...prevUser, role: newRole }));
-      setSelectedRole(newRole);
 
+      setUser((prevUser) => ({ ...prevUser, role: newRole }));
       setmodalAlterar(false);
       setmodalAlterarSucesso(true);
     } catch (error) {
@@ -174,7 +171,6 @@ const handleChangeRole = async () => {
             </div>
           </div>
 
-          {/* Botões de Ação */}
           <div className="actions-row">
             <button
               className="btn-action btn-secondary"
@@ -238,12 +234,7 @@ const handleChangeRole = async () => {
             <i className="bi bi-arrow-repeat modal-icon-blue"></i>
             <h1 className="modal-title">Alterar Permissão</h1>
             <p className="modal-text">
-              Deseja alterar o perfil do usuário {" "} 
-              <strong>{user?.name}</strong> 
-            </p>
-            <p className="modal-text">
-              de <span className="badge-role"> {user?.role === "questioner" ? "Questionador" : "Respondente"}</span> 
-              para <span className="badge-role">{user?.role === "questioner" ? "Respondente" : "Questionador"}</span>?
+              Deseja alterar o perfil do usuário{" "} <strong>{user?.name}</strong> de <span className="badge-role">{user?.role === "questioner" ? "Questionador" : "Respondente"}</span>{" "} para <span className="badge-role">{user?.role === "questioner" ? "Respondente" : "Questionador"}</span>?
             </p>
           </div>
 
@@ -302,12 +293,13 @@ const handleChangeRole = async () => {
       >
         <div id={"sucesso"}>
           <div className={"icone-h1-container"}>
-            <i className={"bi bi-check-circle"}></i>
+            <i className={"bi bi-check-circle modal-icon-success"}></i>
             <h1>Perfil alterado com sucesso!</h1>
           </div>
           <div className="div-botoes">
             <button
-              className="botao-branco"
+              type="button"
+              className="btn-action btn-secondary"
               onClick={() => setmodalAlterarSucesso(false)}
             >
               Fechar
