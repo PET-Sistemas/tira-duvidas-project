@@ -29,12 +29,14 @@ body.active-modal {
 .modal-content {
   position: relative;
   padding: 0px;
-  margin: 0px;
+  margin: 15px; /* Adiciona margem de segurança nas bordas em mobile */
   line-height: 1.4;
-  max-width: 610px;
-  min-width: 500px;
+  width: 90%; /* Ocupa 90% da tela em dispositivos menores */
+  max-width: 610px; /* Mantém o limite máximo original */
+  min-width: unset; /* REMOVIDO min-width: 500px que quebrava o mobile */
   text-align: center;
   background-color: #f1f1f1;
+  box-sizing: border-box;
 }
 
 .div-botoes {
@@ -156,5 +158,24 @@ label {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .icone-h1-container {
+    padding: 1em 0.5em 1em 0.5em; /* Reduz espaçamentos internos */
+  }
+
+  .div-botoes {
+    flex-direction: column-reverse; /* Empilha os botões mantendo o principal acima */
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 1.5em;
+  }
+
+  .div-botoes > button {
+    margin: 0 !important; /* Remove margens laterais fixas em mobile */
+    width: 90% !important; /* Faz os botões ocuparem quase toda a largura */
   }
 }

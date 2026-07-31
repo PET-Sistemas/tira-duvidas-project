@@ -58,11 +58,14 @@ function UsuarioDetalhes() {
   const handleDisableUser = async () => {
     try {
       const newStatus = user.status === "active" ? "inactive" : "active";
+
       await updateUser({
         id: user.id,
         status: newStatus,
       });
-      setUser({ ...user, status: newStatus });
+
+      setUser((prevUser) => ({ ...prevUser, status: newStatus }));
+
       setmodalDesativar(false);
       setmodalDesativarSucesso(true);
     } catch (error) {
@@ -70,16 +73,21 @@ function UsuarioDetalhes() {
     }
   };
 
-  const handleChangeRole = async () => {
+const handleChangeRole = async () => {
+    const newRole = user.role === "questioner" ? "respondent" : "questioner";
+
     try {
       await updateUser({
         id: user.id,
-        role: selectedRole,
+        role: newRole,
       });
-      setUser({ ...user, role: selectedRole });
+      setUser((prevUser) => ({ ...prevUser, role: newRole }));
+      setSelectedRole(newRole);
+
       setmodalAlterar(false);
       setmodalAlterarSucesso(true);
     } catch (error) {
+      console.error("Erro ao alterar perfil", error);
       alert("Erro ao alterar perfil");
     }
   };
@@ -183,28 +191,42 @@ function UsuarioDetalhes() {
             </button>
           </div>
         </div>
-
       </AdminLayout>
+
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
-          <div className={"icone-h1-container"}>
-            <h1>
-              Tem certeza que deseja {isUserActive ? "desativar" : "ativar"}{" "}
-              esse usuário?
+          <div className="icone-h1-container">
+            <i
+              className={`bi ${isUserActive ? "bi-exclamation-triangle modal-icon-danger" : "bi-check-circle modal-icon-success"}`}
+            ></i>
+            <h1 className="modal-title">
+              {isUserActive ? "Desativar Usuário" : "Ativar Usuário"}
             </h1>
+            <p className="modal-text">
+              Tem certeza que deseja {isUserActive ? "desativar" : "ativar"}{" "}
+              <strong>{user?.name}</strong>?
+              {isUserActive && (
+                <p className="modal-subtext-danger">
+                  O usuário perderá o acesso ao sistema até ser reativado.
+                </p>
+              )}
+            </p>
           </div>
+
           <div className="div-botoes">
             <button
-              className="btn-primary"
+              type="button"
+              className="btn-action btn-danger"
               onClick={() => setmodalDesativar(false)}
             >
               Cancelar
             </button>
             <button
-              className={`btn-primary ${isUserActive ? "btn-confirm-danger" : "btn-confirm-success"}`}
+              type="button"
+              className={`btn-action ${isUserActive ? "btn-secondary" : "btn-success"}`}
               onClick={handleDisableUser}
             >
-              {isUserActive ? "Desativar" : "Ativar"}
+              {isUserActive ? "Confirmar Desativação" : "Confirmar Ativação"}
             </button>
           </div>
         </div>
@@ -213,51 +235,37 @@ function UsuarioDetalhes() {
       <Modal isOpen={modalAlterar} onClose={() => setmodalAlterar(false)}>
         <div id={"conteudo"}>
           <div className="icone-h1-container">
-            <h1 className="modal-title">Alterar Permissões</h1>
+            <i className="bi bi-arrow-repeat modal-icon-blue"></i>
+            <h1 className="modal-title">Alterar Permissão</h1>
             <p className="modal-text">
-              Deseja tornar este usuário um {selectedRole === "questioner" ? "Respondente" : "Questionador"}?
+              Deseja alterar o perfil do usuário {" "} 
+              <strong>{user?.name}</strong> 
             </p>
-          </div>
-          <div style={{ marginBottom: "20px", textAlign: "left" }}>
-            <label
-              className={`radio-option ${selectedRole === "questioner" ? "selected" : ""}`}
-            >
-              <input
-                type="radio"
-                name="roleProfile"
-                value="questioner"
-                checked={selectedRole === "questioner"}
-                onChange={(e) => setSelectedRole(e.target.value)}
-              />
-              <span className="radio-label-text">Questionador</span>
-            </label>
-            <label
-              className={`radio-option ${selectedRole === "respondent" ? "selected" : ""}`}
-            >
-              <input
-                type="radio"
-                name="roleProfile"
-                value="respondent"
-                checked={selectedRole === "respondent"}
-                onChange={(e) => setSelectedRole(e.target.value)}
-              />
-              <span className="radio-label-text">Respondente</span>
-            </label>
+            <p className="modal-text">
+              de <span className="badge-role"> {user?.role === "questioner" ? "Questionador" : "Respondente"}</span> 
+              para <span className="badge-role">{user?.role === "questioner" ? "Respondente" : "Questionador"}</span>?
+            </p>
           </div>
 
           <div className="div-botoes">
             <button
-              className="btn-primary"
+              type="button"
+              className="btn-action btn-danger"
               onClick={() => setmodalAlterar(false)}
             >
               Cancelar
             </button>
-            <button className="btn-primary" onClick={handleChangeRole}>
-              Salvar
+            <button
+              type="button"
+              className="btn-action btn-success"
+              onClick={handleChangeRole}
+            >
+              Confirmar
             </button>
           </div>
         </div>
       </Modal>
+
       <Modal
         isOpen={modalDesativarSucesso}
         onClose={() => setmodalDesativarSucesso(false)}
@@ -265,13 +273,21 @@ function UsuarioDetalhes() {
         <div id={"sucesso"}>
           <div className={"icone-h1-container"}>
             <i
-              className={`bi bi-${isUserActive ? "slash-circle" : "check-circle"}`}
+              className={`bi ${
+                user?.status === "inactive"
+                  ? "bi-slash-circle modal-icon-danger"
+                  : "bi-check-circle modal-icon-success"
+              }`}
             ></i>
-            <h1>Usuário {isUserActive ? "Desativado" : "Ativado"}!</h1>
+            <h1>
+              Usuário {user?.status === "inactive" ? "Desativado" : "Ativado"}{" "}
+              com sucesso!
+            </h1>
           </div>
           <div className="div-botoes">
             <button
-              className="botao-branco"
+              type="button"
+              className="btn-action btn-secondary"
               onClick={() => setmodalDesativarSucesso(false)}
             >
               Fechar
