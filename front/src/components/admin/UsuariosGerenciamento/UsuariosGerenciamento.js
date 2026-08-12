@@ -93,32 +93,35 @@ function UsuariosGerenciamento() {
       const statusDisplay = statusMap[user.status];
       const roleDisplay = roleMap[user.role];
 
-      return (
-        <tr key={user.id}>
-          <td id="nome">
-            <Link to={`/admin/usuarios/${user.id}`} className="user-name">
-              {user.name}
-            </Link>
-          </td>
-          <td>{new Date(user.createdAt).toLocaleDateString("pt-BR")}</td>
+    return (
+      <tr key={user.id}>
+        <td id="nome" data-label="Nome">
+          <Link to={`/admin/usuarios/${user.id}`} className="user-name">
+          {user.name}
+        </Link>
+        </td>
+      <td data-label="Data Criação">
+        {new Date(user.createdAt).toLocaleDateString("pt-BR")}
+      </td>
 
-          <td>
-            {user.lastResponse
-              ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
-              : "-"}
-          </td>
-          <td>
-            <span className={`${statusDisplay.className}`}>
-              {statusDisplay.text}
-            </span>
-          </td>
-          <td>
-            <span className={`${roleDisplay.className}`}>
-              {roleDisplay.text}
-            </span>
-          </td>
-        </tr>
-      );
+      <td data-label="Última Resposta">
+          {user.lastResponse
+          ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
+          : "-"}
+        </td>
+      <td data-label="Status">
+        <span className={`${statusDisplay.className}`}>
+        {statusDisplay.text}
+        </span>
+      </td>
+
+      <td data-label="Tipo">
+        <span className={`${roleDisplay.className}`}>
+        {roleDisplay.text}
+      </span>
+    </td>
+  </tr>
+);
     });
   };
 

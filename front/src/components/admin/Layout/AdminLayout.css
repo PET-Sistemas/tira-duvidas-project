@@ -1,6 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 
-
 .mainAdmin {
   background: var(--gradiente-fundo);
   display: flex;
@@ -25,6 +24,7 @@
   align-items: stretch;
   box-sizing: border-box;
   padding: 2rem;
+  padding-bottom: 5rem;
 }
 
 /* Cabeçalho */
@@ -61,12 +61,12 @@
   margin-left: 2%;
 }
 
-.sobre-nav-link i{
+.sobre-nav-link i {
   font-size: 1.2rem;
   margin-right: 3px;
 }
 
-.sobre-nav-link{
+.sobre-nav-link {
   font-size: 0.93rem;
   font-weight: 700;
   margin-top: 1.5rem;
@@ -76,12 +76,14 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 3.5rem; /* altura do rodapé, responsiva via rem */
+  height: 3.5rem; 
   background-color: #004990;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   z-index: 10;
+  margin-top: auto; 
+  position:relative;
 }
 
 footer img {
