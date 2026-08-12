@@ -243,3 +243,81 @@
   border-color: #3B9AE8;
   background-color: white;
 }
+
+@media (max-width: 768px) {
+  .table-user-manager {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .search-field {
+    flex-direction: column;
+  }
+
+  /* Esconde o cabeçalho da tabela */
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table,
+  .user-table tbody,
+  .user-table tr,
+  .user-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .user-table tr {
+    margin-bottom: 16px;
+    border: 1px solid #3498db;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
+
+  .user-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+  }
+
+  .user-table tr td:last-child {
+    border-bottom: none;
+  }
+
+  /* Mostra o rótulo do campo usando o data-label */
+  .user-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #3498db;
+    font-size: 13px;
+    text-align: left;
+  }
+
+  #nome {
+    padding-left: 16px !important;
+    justify-content: space-between;
+  }
+
+  .status,
+  .tipo {
+    width: auto;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-table td {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}
