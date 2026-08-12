@@ -7,6 +7,7 @@ import { forgotPassword } from "../../../services/user.service";
 import "../Login/Logar.css";
 import "../Auth/Auth.css";
 import "../../global.css";
+import BackButton from "../../shared/BackButton";
 
 function EsqueciMinhaSenha() {
   const navigate = useNavigate();

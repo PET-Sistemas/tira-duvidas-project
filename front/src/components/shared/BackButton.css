@@ -1,0 +1,55 @@
+/* Botão de Voltar Reutilizável (tamanho médio) */
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: #0188b5;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.back-button:hover {
+  background-color: #005187;
+  transform: translateX(-2px);
+  box-shadow: 0 2px 8px rgba(1, 136, 181, 0.3);
+}
+
+.back-button:active {
+  transform: translateX(-1px);
+}
+
+.back-button i {
+  font-size: 1rem;
+}
+
+/* Container do botão no canto superior esquerdo, abaixo do header */
+.back-button-container {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  z-index: 100;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .back-button {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  .back-button i {
+    font-size: 0.9rem;
+  }
+
+  .back-button-container {
+    top: 70px;
+    left: 10px;
+  }
+}

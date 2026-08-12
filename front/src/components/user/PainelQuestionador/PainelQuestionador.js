@@ -5,6 +5,7 @@ import "../../global.css";
 import imgCard1 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard2 from "../../../utils/images/DadosPessoais.png";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 function PainelQuestionador() {
   const [username, setUsername] = useState("");
@@ -37,6 +38,7 @@ function PainelQuestionador() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       <main className="painel-questionador-main">
         <h1 className="painel-titulo">Painel de Questionador</h1>
 
@@ -51,7 +53,7 @@ function PainelQuestionador() {
               className="card-img"
             />
             <span className="card-title">
-              Minhas Dúvidas
+              Cadastrar Dúvida
             </span>
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./AdminLayout.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
@@ -12,7 +12,8 @@ function AdminLayout({ children }) {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null); // Referência para o container do menu
 
   useEffect(() => {
       const storedUsername = sessionStorage.getItem("username");
@@ -23,6 +24,22 @@ function AdminLayout({ children }) {
         setEmail(storedEmail || "usuario@gmail.com"); 
       }
   }, []);
+
+  // Fechar menu ao clicar fora do container
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -43,7 +60,7 @@ function AdminLayout({ children }) {
         </a>
         <nav className="nav">
         {username ? (
-            <div className="user-container"> {/* Container relativo */}
+            <div className="user-container" ref={menuRef}> {/* Container relativo */}
                 <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
                     <button className="btn-profile">
                         <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />

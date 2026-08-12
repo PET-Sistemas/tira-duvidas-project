@@ -6,6 +6,7 @@ import { createFeedback } from "../../../services/feedback.service";
 import { updateQuestionAnswered } from "../../../services/question.service";
 import { getFeedbacks } from "../../../services/feedback.service";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -102,6 +103,7 @@ function MinhasDuvidasDetalhe() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       {/* Wrapper com classe de escopo — evita vazamento de CSS */}
       <div className="pagina-detalhe-duvida">
         <h2 style={{ textAlign: "center", color: "#3498DB" }}>Detalhes da Dúvida</h2>

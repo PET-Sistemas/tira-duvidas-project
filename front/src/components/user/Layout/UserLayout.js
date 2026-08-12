@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./UserLayout.css";
 import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
@@ -13,6 +13,7 @@ function UserLayout({ children }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState(""); // Novo estado para o email
     const [isMenuOpen, setIsMenuOpen] = useState(false); // Controle do dropdown
+    const menuRef = useRef(null); // Referência para o container do menu
 
     useEffect(() => {
         const storedUsername = sessionStorage.getItem("username");
@@ -22,6 +23,22 @@ function UserLayout({ children }) {
             setEmail(storedEmail || "usuario@gmail.com"); 
         }
     }, []);
+
+    // Fechar menu ao clicar fora do container
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        if (isMenuOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }
+    }, [isMenuOpen]);
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -45,7 +62,7 @@ function UserLayout({ children }) {
 
                     <nav className="nav">
                         {username ? (
-                            <div className="user-container"> {/* Container relativo */}
+                            <div className="user-container" ref={menuRef}> {/* Container relativo */}
                                 <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
                                     <button className="btn-profile">
                                         <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />

@@ -7,6 +7,7 @@ import integrante3 from "../../../utils/images/integrante3.jpg";
 import integrante4 from "../../../utils/images/integrante4.jpg";
 import integrante5 from "../../../utils/images/integrante5.jpg";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 const exIntegrantes = [
   {
@@ -54,6 +55,7 @@ function SobreNos() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       <main className="sobre-nos-main">
         <section className="sobre-nos-introducao">
           <h2>Sobre o Projeto Tira Dúvidas</h2>

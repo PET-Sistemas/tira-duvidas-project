@@ -7,6 +7,7 @@ import imgCard2 from "../../../utils/images/ResponderDuvidas.png";
 import imgCard3 from "../../../utils/images/MinhasDuvidas.png";
 import imgCard4 from "../../../utils/images/DadosPessoais.png";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 function PainelRespondente() {
   const [username, setUsername] = useState("");
@@ -39,6 +40,7 @@ function PainelRespondente() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       <main className="painel-main">
         <h1 className="painel-titulo">Painel do Usuário</h1>
 
