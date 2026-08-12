@@ -167,7 +167,11 @@ function CadastroDuvidas() {
               <select
                 id="categoria"
                 className="form-input"
-                value={selectedCategory === "__outra__" ? "__outra__" : selectedCategory}
+                value={
+                  selectedCategory === "__outra__"
+                    ? "__outra__"
+                    : selectedCategory
+                }
                 onChange={handleCategoryChange}
               >
                 <option value="" disabled>
@@ -185,7 +189,11 @@ function CadastroDuvidas() {
               <button
                 type="button"
                 className="btn-primary"
-                style={{ whiteSpace: "nowrap", padding: "8px 16px", fontSize: "14px" }}
+                style={{
+                  whiteSpace: "nowrap",
+                  padding: "8px 16px",
+                  fontSize: "14px",
+                }}
                 onClick={() => setShowCustomModal(true)}
               >
                 Outra Categoria

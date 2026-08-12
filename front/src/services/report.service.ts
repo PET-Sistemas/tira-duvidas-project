@@ -18,24 +18,35 @@ export async function downloadRespondentsReport({
     endDate,
     format,
   });
+  try {
+    const response = await fetch(
+      `${API_URL}/report/export?${query.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      },
+    );
 
-  const response = await fetch(`${API_URL}/report/export?${query.toString()}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw new Error(errorData?.message || "Falha ao gerar relatório");
+    }
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(errorData?.message || "Falha ao gerar relatório");
+    const blob = await response.blob();
+    const contentDisposition =
+      response.headers.get("content-disposition") || "";
+    const fileNameMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
+    const fileName =
+      fileNameMatch?.[1] ||
+      `relatorio-respondentes.${format === "pdf" ? "pdf" : "csv"}`;
+
+    return { blob, fileName };
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error("Erro de conexão. Verifique sua internet.");
+    }
+    throw error;
   }
-
-  const blob = await response.blob();
-  const contentDisposition = response.headers.get("content-disposition") || "";
-  const fileNameMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
-  const fileName =
-    fileNameMatch?.[1] || `relatorio-respondentes.${format === "pdf" ? "pdf" : "csv"}`;
-
-  return { blob, fileName };
 }

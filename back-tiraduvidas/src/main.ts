@@ -13,6 +13,7 @@ import { CategoryService } from './http/category/category.service';
 import { emit } from 'process';
 import { ClassSerializerInterceptor } from '@nestjs/common'; // Importe isso
 import { Reflector } from '@nestjs/core'; // Importe isso
+import { HttpExceptionFilter } from './utils/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -37,6 +38,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: false,
   });
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   const configService = app.get(ConfigService);
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableShutdownHooks();
