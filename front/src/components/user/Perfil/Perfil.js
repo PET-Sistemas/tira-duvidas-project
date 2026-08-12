@@ -104,7 +104,7 @@ function PerfilUsuario() {
               className="input-read-only"
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
-              disabled={!isEditing}
+              disabled
             />
           </div>
 
@@ -116,7 +116,7 @@ function PerfilUsuario() {
               className="input-read-only"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              disabled={!isEditing}
+              disabled
             />
           </div>
 
@@ -142,7 +142,7 @@ function PerfilUsuario() {
                   setIsEditing(true);
                 }}
               >
-               Editar Dados
+                Editar Dados
               </button>
             ) : (
               <>

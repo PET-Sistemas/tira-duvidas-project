@@ -41,10 +41,19 @@
 /* Botões de Ação */
 .actions-row {
   display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
   justify-content: flex-start;
-  margin-top: 30px;
-  gap: 15px;
-  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.actions-row .btn-primary {
+  display: inline-flex !important; /* Garante visibilidade em desktop */
+  align-items: center;
+  justify-content: center;
+  visibility: visible !important;
 }
 
 .btn-action {
