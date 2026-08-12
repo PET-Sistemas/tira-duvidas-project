@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../Layout/AdminLayout";
+import BackButton from "../../shared/BackButton";
 import "../globalAdmin.css";
 import "./Relatorio.css";
 import { downloadRespondentsReport } from "../../../services/report.service";
@@ -65,6 +66,7 @@ function Relatorio() {
   return (
     <AdminLayout>
       <div className="header-div">
+        <BackButton label="Voltar" />
         <h1>Relatórios</h1>
         <p>Relatório de apoio a emissão de certificado</p>
       </div>

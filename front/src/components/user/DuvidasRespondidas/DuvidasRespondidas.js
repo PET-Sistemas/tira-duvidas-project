@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../global.css";
 import { getAnsweredQuestions } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 import { useDuvidasFilter, DuvidasFilter, DoubtCard } from "../shared/DuvidasShared";
 
 function DuvidasRespondidas() {
@@ -41,6 +42,7 @@ function DuvidasRespondidas() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       <div className="header-div">
         <h1>Dúvidas Respondidas</h1>
         <p>Veja as dúvidas que já foram respondidas</p>
@@ -54,6 +56,7 @@ function DuvidasRespondidas() {
         onFiltroChange={handleFiltroChange}
         onSearchChange={handleSearchChange}
         onAplicar={aplicarFiltro}
+        onClose={() => setFiltroVisivel(false)}
       />
 
       <div className="doubt-list-shared">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdminLayout from "../Layout/AdminLayout";
+import BackButton from "../../shared/BackButton";
 import { getUserById, updateUser} from "../../../services/user.service";
 import "../../modal/modal.css"
 import "./UsuarioDetalhes.css";
@@ -118,6 +119,7 @@ function formatDate(dateString) {
     <>
     <AdminLayout>
         <div className="header-div">
+          <BackButton label="Voltar" />
           <h1>Gerenciamento de Perfil</h1>
           <p>Informações do usuário e ações administrativas</p>
         </div>
