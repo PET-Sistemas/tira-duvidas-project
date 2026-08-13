@@ -70,14 +70,23 @@ function CadastroDuvidas() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const trimmedTitle = title.trim();
+    const trimmedDescription = description.trim();
+
+    if (!trimmedTitle || !trimmedDescription || !selectedCategory) {
+      setShowErrors(true);
+      return;
+    }
+    setShowErrors(false);
+
     const questionerId = Number(sessionStorage.getItem("id"));
     const status = "not_answered";
 
     const isCustom = selectedCategory === "__outra__" && customCategory;
 
     const newQuestion = {
-      title,
-      description,
+      title: trimmedTitle,
+      description: trimmedDescription,
       questionerId,
       status,
       ...(isCustom
@@ -158,7 +167,11 @@ function CadastroDuvidas() {
               <select
                 id="categoria"
                 className="form-input"
-                value={selectedCategory === "__outra__" ? "__outra__" : selectedCategory}
+                value={
+                  selectedCategory === "__outra__"
+                    ? "__outra__"
+                    : selectedCategory
+                }
                 onChange={handleCategoryChange}
               >
                 <option value="" disabled>
@@ -176,7 +189,11 @@ function CadastroDuvidas() {
               <button
                 type="button"
                 className="btn-primary"
-                style={{ whiteSpace: "nowrap", padding: "8px 16px", fontSize: "14px" }}
+                style={{
+                  whiteSpace: "nowrap",
+                  padding: "8px 16px",
+                  fontSize: "14px",
+                }}
                 onClick={() => setShowCustomModal(true)}
               >
                 Outra Categoria
@@ -226,7 +243,7 @@ function CadastroDuvidas() {
             <button
               type="submit"
               className="btn-primary"
-              disabled={!title && !description}
+              disabled={!title.trim() || !description.trim() || !selectedCategory}
             >
               Salvar
             </button>
@@ -238,4 +255,3 @@ function CadastroDuvidas() {
 }
 
 export default CadastroDuvidas;
-

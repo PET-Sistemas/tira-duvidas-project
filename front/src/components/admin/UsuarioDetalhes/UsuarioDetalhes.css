@@ -1,10 +1,12 @@
 .page-container-details {
-  width: 70%;
+  width: 100%;
+  max-width: 900px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .details-form-wrapper {
@@ -14,6 +16,7 @@
 }
 
 /* Campos do Formulário */
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -56,12 +59,12 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  cursor: pointer;
   width: 100%;
-  box-sizing: border-box;
-  color: #000;
+  cursor: pointer;
   margin-bottom: 10px;
   font-weight: 600;
+  color: #000;
+  box-sizing: border-box;
 }
 
 .actions-row {

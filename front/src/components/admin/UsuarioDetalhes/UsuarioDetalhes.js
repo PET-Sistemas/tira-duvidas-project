@@ -20,7 +20,21 @@ function UsuarioDetalhes() {
     document.body.classList.remove("active-modal");
   }
 
-  const { id } = useParams();
+ function maskCPF(cpf) {
+  if (!cpf) return '-';
+  const digits = cpf.replace(/\D/g, '');
+  if (digits.length !== 11) return '-';
+  return `${digits.slice(0, 3)}.***.***-**`;
+}
+
+function formatDate(dateString) {
+  if (!dateString) return '-';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return '-'; // data inválida
+  return date.toLocaleDateString('pt-BR');
+}
+
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null);
@@ -136,12 +150,7 @@ function UsuarioDetalhes() {
 
           <div className="form-group">
             <label>CPF</label>
-            <input
-              type="text"
-              value={user.cpf || "-"}
-              disabled
-              className="input-read-only"
-            />
+            <input type="text" value={maskCPF(user.cpf)} disabled className="input-read-only" />
           </div>
 
           <div className="form-group">
@@ -156,9 +165,9 @@ function UsuarioDetalhes() {
 
           <div className="form-group">
             <label>Data de Criação de Conta</label>
-            <input
+           <input
               type="text"
-              value={new Date(user.createdAt).toLocaleDateString("pt-BR")}
+              value={formatDate(user.createdAt)}
               disabled
               className="input-read-only"
             />

@@ -46,14 +46,23 @@ cd ..
 ## ✅ Como rodar cada serviço isoladamente no Docker
 
 ### Rodando apenas o Backend
-
-Para rodar somente o backend (API + Migrations + banco de dados), utilize:
-
+ 
+Confira o `.env` na raiz do projeto antes de subir (copie de `.env.example` se não existir).
+ 
 ```bash
-docker compose -f docker-compose.yml up db migrations api
+docker compose -f docker-compose.yml up db redis migrations api
 ```
-
-O backend será iniciado na porta `8080` e o swagger estará disponível em `http://localhost:8080/docs`.
+ 
+O backend será iniciado na porta `8080` e o swagger estará disponível em `http://localhost:8080/api/docs`.
+ 
+**Se der erro na etapa de migrations** (ex: `column "..." does not exist`), o volume do banco ficou com um estado desatualizado. Resete e suba de novo:
+ 
+```bash
+docker compose down -v
+docker compose -f docker-compose.yml up db redis migrations api
+```
+ 
+> Um erro de `Missing credentials for PLAIN` no log da API é esperado 
 
 ### Rodando apenas o Frontend
 
