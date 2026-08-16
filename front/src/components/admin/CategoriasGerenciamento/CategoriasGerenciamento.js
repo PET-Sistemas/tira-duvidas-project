@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../Layout/AdminLayout"; 
+import AdminLayout from "../layout/AdminLayout"; 
 
 function CategoriasGerenciamento() {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import "../globalAdmin.css";
 import "./Relatorio.css";
 import { downloadRespondentsReport } from "../../../services/report.service";

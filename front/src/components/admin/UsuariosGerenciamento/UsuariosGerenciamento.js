@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminLayout from "../Layout/AdminLayout"; 
+import AdminLayout from "../layout/AdminLayout"; 
 import "../globalAdmin.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { allUser} from "../../../services/user.service";
