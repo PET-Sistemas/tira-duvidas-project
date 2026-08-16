@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import { getUserById, updateUser} from "../../../services/user.service";
 import "../../modal/modal.css"
 import "./UsuarioDetalhes.css";
@@ -164,12 +164,14 @@ function formatDate(dateString) {
 
           {/* Botões de Ação */}
           <div className="actions-row">
+
+          { user.role !== "admin" && (
             <button
               className="btn-primary"
               onClick={() => setmodalDesativar(true)}
             >
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
-            </button>
+            </button>)}
 
             <button
               className="btn-primary"
