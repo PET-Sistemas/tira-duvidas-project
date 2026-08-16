@@ -164,12 +164,14 @@ function formatDate(dateString) {
 
           {/* Botões de Ação */}
           <div className="actions-row">
+
+          { user.role !== "admin" && (
             <button
               className="btn-primary"
               onClick={() => setmodalDesativar(true)}
             >
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
-            </button>
+            </button>)}
 
             <button
               className="btn-primary"
