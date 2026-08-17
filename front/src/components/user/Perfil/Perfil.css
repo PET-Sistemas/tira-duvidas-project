@@ -15,7 +15,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 50%;
   overflow-x: hidden;
 }
 
@@ -189,7 +189,110 @@ body {
   height: 14px;
 }
 
-/* FORMULÁRIO */
+/* ========================================
+   FORMULÁRIO DA TELA DE PERFIL
+   ======================================== */
+
+.details-form-wrapper {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  /*justify-content: center;*/
+}
+
+.details-form-wrapper form {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* GRUPO DE CADA CAMPO */
+
+.form-group {
+  width: 100%;
+  margin-bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* LABEL */
+
+.form-group label {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: #272424;
+}
+
+/* INPUTS */
+
+.input-read-only {
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0 0.8rem;
+  box-sizing: border-box;
+
+  font-size: 0.9rem;
+  color: #272424;
+
+  background-color: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-read-only:focus {
+  border-color: #0188B5;
+}
+
+.input-read-only:disabled {
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* BOTÕES */
+
+
+.actions-row {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  display: block;
+  width: auto;
+  min-width: 130px;
+  margin: 0;
+  padding: 0.65rem 1.5rem;
+
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0188B5;
+}
+
+/* ========================================
+   CLASSES ANTIGAS DO FORMULÁRIO
+   ======================================== */
 
 .perfil-conteudo-formulario {
   width: 100%;
@@ -216,7 +319,8 @@ body {
 
 .perfil-input-campo {
   width: 100%;
-  padding: 0.65rem;
+  height: 48px;
+  padding: 0 1rem;
   font-size: 0.95rem;
   color: #272424;
   background-color: white;
@@ -260,8 +364,8 @@ body {
 }
 
 .perfil-botao-salvar:hover {
-  background-color:  #0188B5;
-  border-color:  #0188B5;
+  background-color: #0188B5;
+  border-color: #0188B5;
 }
 
 .perfil-botao-cancelar {
@@ -293,9 +397,13 @@ body {
   width: auto;
 }
 
-/* RESPONSIVIDADE */
+
+/* ========================================
+   RESPONSIVIDADE
+   ======================================== */
 
 @media (max-width: 768px) {
+
   main {
     padding: 1rem;
   }
@@ -351,9 +459,65 @@ body {
     font-size: 1.05rem;
   }
 
-  .perfil-input-campo {
+  /* ========================================
+     FORMULÁRIO
+     ======================================== */
+
+  .details-form-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+  }
+
+  .details-form-wrapper form {
+    width: 100%;
+  }
+
+  .form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
     font-size: 0.9rem;
-    padding: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .input-read-only {
+    width: 100%;
+    height: 42px;
+    padding: 0 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  /* ========================================
+     BOTÕES
+     ======================================== */
+
+   .actions-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+  .btn-primary {
+    width: auto;
+    min-width: 130px;
+    margin: 0;
+  }
+
+  /* ========================================
+     CLASSES ANTIGAS
+     ======================================== */
+
+  .perfil-input-campo {
+    width: 100%;
+    height: 42px;
+    font-size: 0.9rem;
+    padding: 0 0.8rem;
   }
 
   .perfil-botao-salvar,
