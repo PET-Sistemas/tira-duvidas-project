@@ -5,10 +5,12 @@ import { QuestionStatus } from '../enums/question-status.enum';
 export class CreateQuestionDto {
   @ApiProperty({ description: 'Título da dúvida' })
   @IsString()
+  @IsNotEmpty({message: 'O título da dúvida não pode estar vazio'})
   title: string;
 
   @ApiProperty({ description: 'Descrição da dúvida' })
   @IsString()
+  @IsNotEmpty({message: 'A descrição da dúvida não pode estar vazia'})
   description: string;
 
   @ApiProperty({ description: 'ID do questionador' })

@@ -316,3 +316,43 @@ footer img {
   text-align: center;
   color: white !important;
 }
+
+@media (max-width: 768px) {
+  .welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .welcome-content {
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .welcome-content h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-content p {
+    font-size: 1rem;
+  }
+
+  .welcome-illustration {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .welcome-illustration img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    display: block;
+  }
+}

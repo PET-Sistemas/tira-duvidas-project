@@ -13,6 +13,8 @@ function Relatorio() {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const dataDeHoje = new Date().toISOString().split("T")[0];
+
   const handleGenerateReport = async () => {
     setFeedbackMessage("");
 
@@ -21,8 +23,15 @@ function Relatorio() {
       return;
     }
 
+    if (dataInicial > dataDeHoje || dataFinal > dataDeHoje) {
+      setFeedbackMessage("Não é possível gerar relatórios com datas futuras.");
+      return;
+    }
+
     if (new Date(dataInicial) > new Date(dataFinal)) {
-      setFeedbackMessage("A data inicial deve ser menor ou igual à data final.");
+      setFeedbackMessage(
+        "A data inicial deve ser menor ou igual à data final.",
+      );
       return;
     }
 
@@ -45,7 +54,9 @@ function Relatorio() {
 
       setFeedbackMessage("Relatório gerado com sucesso.");
     } catch (error) {
-      setFeedbackMessage(error.message || "Não foi possível gerar o relatório.");
+      setFeedbackMessage(
+        error.message || "Não foi possível gerar o relatório.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -53,65 +64,69 @@ function Relatorio() {
 
   return (
     <AdminLayout>
-        <div className="header-div">
-          <h1>Relatórios</h1>
-          <p>Relatório de apoio a emissão de certificado</p>
-        </div>
+      <div className="header-div">
+        <h1>Relatórios</h1>
+        <p>Relatório de apoio a emissão de certificado</p>
+      </div>
 
-        <div className="relatorio-card">
-          {/* NOVA ÁREA DE FILTRO E BOTÃO CENTRALIZADO */}
-          <div className="relatorio-gerar-container">
-            <div className="relatorio-datas-group">
-              <div className="form-group">
-                <label htmlFor="dataInicial">Data Inicial</label>
-                <input
-                  type="date"
-                  id="dataInicial"
-                  value={dataInicial}
-                  onChange={(e) => setDataInicial(e.target.value)}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="dataFinal">Data Final</label>
-                <input
-                  type="date"
-                  id="dataFinal"
-                  value={dataFinal}
-                  onChange={(e) => setDataFinal(e.target.value)}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="formato">Formato</label>
-                <select
-                  id="formato"
-                  value={formato}
-                  onChange={(e) => setFormato(e.target.value)}
-                  className="form-input"
-                >
-                  <option value="csv">CSV</option>
-                  <option value="pdf">PDF</option>
-                </select>
-              </div>
+      <div className="relatorio-card">
+        {/* NOVA ÁREA DE FILTRO E BOTÃO CENTRALIZADO */}
+        <div className="relatorio-gerar-container">
+          <div className="relatorio-datas-group">
+            <div className="form-group">
+              <label htmlFor="dataInicial">Data Inicial</label>
+              <input
+                type="date"
+                id="dataInicial"
+                value={dataInicial}
+                max={dataDeHoje}
+                onChange={(e) => setDataInicial(e.target.value)}
+                className="form-input"
+              />
             </div>
 
-            <div className="relatorio-action-centralized">
-              <button
-                type="button"
-                className="btn-primary"
-                onClick={handleGenerateReport}
-                disabled={isLoading}
+            <div className="form-group">
+              <label htmlFor="dataFinal">Data Final</label>
+              <input
+                type="date"
+                id="dataFinal"
+                value={dataFinal}
+                max={dataDeHoje}
+                onChange={(e) => setDataFinal(e.target.value)}
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="formato">Formato</label>
+              <select
+                id="formato"
+                value={formato}
+                onChange={(e) => setFormato(e.target.value)}
+                className="form-input"
               >
-                {isLoading ? "Gerando..." : "Gerar Relatório"}
-              </button>
+                <option value="csv">CSV</option>
+                <option value="pdf">PDF</option>
+              </select>
             </div>
           </div>
 
-          {feedbackMessage && <p className="relatorio-feedback">{feedbackMessage}</p>}
+          <div className="relatorio-action-centralized">
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={handleGenerateReport}
+              disabled={isLoading}
+            >
+              {isLoading ? "Gerando..." : "Gerar Relatório"}
+            </button>
+          </div>
         </div>
+
+        {feedbackMessage && (
+          <p className="relatorio-feedback">{feedbackMessage}</p>
+        )}
+      </div>
     </AdminLayout>
   );
 }
