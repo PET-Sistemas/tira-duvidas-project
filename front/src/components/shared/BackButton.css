@@ -1,14 +1,13 @@
-/* Botão de Voltar Reutilizável (tamanho médio) */
 .back-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: clamp(0.3rem, 1vw, 0.45rem);
   background-color: #0188b5;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: clamp(0.35rem, 1.2vw, 0.5rem) clamp(0.6rem, 2vw, 1rem);
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -26,30 +25,32 @@
 }
 
 .back-button i {
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 2vw, 1rem);
 }
 
-/* Container do botão no canto superior esquerdo, abaixo do header */
+/* Container do botão: sem position absolute — fica no fluxo normal */
 .back-button-container {
   position: absolute;
-  top: 90px;
+  top: 120px;
   left: 20px;
   z-index: 100;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
-  .back-button {
-    padding: 0.45rem 0.9rem;
-    font-size: 0.85rem;
-  }
-
-  .back-button i {
-    font-size: 0.9rem;
-  }
-
   .back-button-container {
-    top: 70px;
+    top: 85px; /* valor menor pro mobile, ajuste até encaixar antes do título */
     left: 10px;
+  }
+
+  .details-form-wrapper {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .details-form-wrapper input,
+  .details-form-wrapper textarea,
+  .details-form-wrapper select {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
