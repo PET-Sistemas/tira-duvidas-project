@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import AdminLayout from "../layout/AdminLayout"; 
+import React, { useState, useEffect } from "react";
+import AdminLayout from "../Layout/AdminLayout";
 import "../globalAdmin.css";
-import { Link, useNavigate } from 'react-router-dom';
-import { allUser} from "../../../services/user.service";
-import "./UsuariosGerenciamento.css"
+import { Link, useNavigate } from "react-router-dom";
+import { allUser } from "../../../services/user.service";
+import "./UsuariosGerenciamento.css";
 
 function UsuariosGerenciamento() {
   const navigate = useNavigate();
@@ -93,128 +93,117 @@ function UsuariosGerenciamento() {
       const statusDisplay = statusMap[user.status];
       const roleDisplay = roleMap[user.role];
 
-    return (
-      <tr key={user.id}>
-        <td id="nome" data-label="Nome">
-          <Link to={`/admin/usuarios/${user.id}`} className="user-name">
-          {user.name}
-        </Link>
-        </td>
-      <td data-label="Data Criação">
-        {new Date(user.createdAt).toLocaleDateString("pt-BR")}
-      </td>
+      return (
+        <tr key={user.id}>
+          <td id="nome" data-label="Nome">
+            <Link to={`/admin/usuarios/${user.id}`} className="user-name">
+              {user.name}
+            </Link>
+          </td>
+          <td data-label="Data Criação">
+            {new Date(user.createdAt).toLocaleDateString("pt-BR")}
+          </td>
 
-      <td data-label="Última Resposta">
-          {user.lastResponse
-          ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
-          : "-"}
-        </td>
-      <td data-label="Status">
-        <span className={`${statusDisplay.className}`}>
-        {statusDisplay.text}
-        </span>
-      </td>
+          <td data-label="Última Resposta">
+            {user.lastResponse
+              ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
+              : "-"}
+          </td>
+          <td data-label="Status">
+            <span className={`${statusDisplay.className}`}>
+              {statusDisplay.text}
+            </span>
+          </td>
 
-      <td data-label="Tipo">
-        <span className={`${roleDisplay.className}`}>
-        {roleDisplay.text}
-      </span>
-    </td>
-  </tr>
-);
+          <td data-label="Tipo">
+            <span className={`${roleDisplay.className}`}>
+              {roleDisplay.text}
+            </span>
+          </td>
+        </tr>
+      );
     });
   };
 
   return (
     <AdminLayout>
-        <div className='header-div'>
-          <h1>Gerenciamento de Usuários</h1>
-          <p>Informações do usuário e ações administrativas</p>
+      <div className="header-div">
+        <h1>Gerenciamento de Usuários</h1>
+        <p>Informações do usuário e ações administrativas</p>
+      </div>
+
+      <div className="search-field" >
+        <div className="search-wrapper">
+          <i className="bi bi-search search-icon"></i>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Pesquisar por nome..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
         </div>
-        
-        <div className="search-field" style={{ display: 'flex', gap: '10px', padding: '0' }}>
-          
-          <div className="search-wrapper">
-            <i className="bi bi-search search-icon"></i>
-            <input
-              type="search"
-              id="search-input"
-              placeholder="Pesquisar por nome..."
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-          </div>
+      </div>
 
+      <table className="user-table">
+        <thead>
+          <tr>
+            <th id="nome">
+              <span>Nome</span>
+            </th>
+            <th className="sortable">
+              <span className="center">
+                Data Criação <i className="bi bi-arrow-up"></i>
+              </span>{" "}
+            </th>
+            <th className="sortable">
+              <span className="center">
+                Última Resposta <i className="bi bi-arrow-up"></i>
+              </span>
+            </th>
+            <th>
+              <span className="center">Status</span>
+            </th>
+            <th>
+              <span className="center">Tipo</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>{renderTableBody()}</tbody>
+      </table>
+      
+      {totalPages > 0 && (
+        <div className="table-footer">
+          <div className="pagination">
+            <button
+              onClick={goToPrevPage}
+              disabled={currentPage === 1}
+              className="page-link-"
+            >
+              &lt;
+            </button>
+
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+                className={`page-link-${currentPage === index + 1 ? "active" : ""}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              className={"page-link-"}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
-
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th id="nome">
-                <span>
-                  Nome
-                </span>              
-              </th>
-              <th className="sortable">
-                <span className="center">
-                  Data Criação <i className="bi bi-arrow-up"></i>
-                </span>              </th>
-              <th className="sortable">
-                <span className="center">
-                  Última Resposta <i className="bi bi-arrow-up"></i>
-                </span>
-              </th>
-              <th>
-                <span className="center">
-                  Status
-                </span>
-              </th>
-              <th >
-                <span className="center">
-                  Tipo
-                </span>
-              </th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            {renderTableBody()}
-          </tbody>
-
-        </table>
-        {totalPages > 0 && (
-          <div className="table-footer">
-            <div className="pagination">
-              
-              <button 
-                onClick={goToPrevPage} 
-                disabled={currentPage === 1}
-                className='page-link-'
-              >
-                &lt;
-              </button>
-
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => paginate(index + 1)}
-                  className={ `page-link-${currentPage === index + 1 ? 'active' : ''}`}
-                >
-                  {index + 1}
-                </button>
-              ))}
-
-              <button 
-                onClick={goToNextPage} 
-                disabled={currentPage === totalPages}
-                className={'page-link-'}
-              >
-                &gt;
-              </button>
-
-            </div>
-          </div>
-          )}
+      )}
     </AdminLayout>
   );
 }
