@@ -181,23 +181,26 @@ function formatDate(dateString) {
           </div>
 
           <div className="actions-row">
-            <button
+            {user.role !== "admin" && (
+              <button
               className="btn-action btn-secondary"
               onClick={() => setmodalAlterar(true)}
-            >
-              Alterar permissões
-            </button>
-
-            <button
+              >
+                Alterar permissões
+              </button>
+            )}
+            {user.role !== "admin" && (
+              <button
               className={`btn-action ${isUserActive ? "btn-danger" : "btn-success"}`}
               onClick={() => setmodalDesativar(true)}
-            >
+              >
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
-            </button>
-          </div>
+              </button>
+            )}
+            </div>
         </div>
-      </AdminLayout>
-
+        
+    </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
           <div className="icone-h1-container">
