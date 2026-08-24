@@ -2,21 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./UserLayout.css";
 import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
-import defaultProfilePic from "../../../utils/images/default-profile.png"; // Imagem padrão
+import defaultProfilePic from "../../../utils/images/default-profile.png";
 import logoUfms from "../../../utils/images/logo-ufms.png";
-import {
-  BrowserRouter as Router,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function UserLayout({ children }) {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState(""); // Novo estado para o email
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // Controle do dropdown
+    const [email, setEmail] = useState("");
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const storedUsername = sessionStorage.getItem("username");
-        const storedEmail = sessionStorage.getItem("email"); // Supondo que você salve o email no login
+        const storedEmail = sessionStorage.getItem("email");
         if (storedUsername) {
             setUsername(storedUsername);
             setEmail(storedEmail || "usuario@gmail.com"); 
@@ -30,6 +28,8 @@ function UserLayout({ children }) {
         navigate("/login");
     };
 
+    const firstName = username ? username.trim().split(" ")[0] : "";
+
     return (
         <div className="bodyUser">
             <main className="mainUser">
@@ -39,49 +39,43 @@ function UserLayout({ children }) {
                             <img src={tiraDuvidasLogo} alt="Logo" className="logo-cadasroDuvidas" />
                         </a>
                         <a href="/sobrenos" className="sobre-nav-link">
-                            <i className="bi bi-info-circle-fill"></i>Sobre nós
+                            <i className="bi bi-info-circle-fill"></i>Equipe
                         </a>
                     </div>
 
                     <nav className="nav">
-                        {username ? (
-                            <div className="user-container"> {/* Container relativo */}
-                                <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
-                                    <button className="btn-profile">
-                                        <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
-                                    </button>
-                                    <span className="username">Olá, {username}</span>
-                                </div>
+                        <div className="user-container">
+                            <div className="user-info" onClick={toggleMenu} style={{ cursor: 'pointer' }}>
+                                <button className="btn-profile">
+                                    <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
+                                </button>
+                                <span className="username">Olá, {firstName || "Usuário"}</span>
+                            </div>
 
-                                {/* O Card de Informações (Dropdown) */}
-                                {isMenuOpen && (
-                                    <div className="profile-dropdown">
-                                        <div className="dropdown-header">
-                                            <p className="full-name">{username}</p>
-                                            <p className="email-text">Email: {email}</p>
-                                        </div>
-                                        <div className="dropdown-footer">
-                                            <button className="btn-primary" onClick={() => navigate("/perfil")}>Perfil</button>
-                                            <button className="btn-primary" onClick={handleLogout}>Sair</button>
-                                        </div>
+                            {/* Dropdown de Perfil */}
+                            {isMenuOpen && (
+                                <div className="profile-dropdown">
+                                    <div className="dropdown-header">
+                                        <p className="full-name">{username || "Usuário"}</p>
+                                        <p className="email-text">Email: {email}</p>
                                     </div>
-                                )}
-                            </div>
-                        ) : (
-                            <div className="auth-buttons">
-                                <button className="btn-primary" onClick={() => navigate("/login")}>Entrar</button>
-                                <button className="btn-primary" onClick={() => navigate("/signup")}>Cadastrar-se</button>
-                            </div>
-                        )}
+                                    <div className="dropdown-footer">
+                                        <button className="btn-primary" onClick={() => navigate("/perfil")}>Perfil</button>
+                                        <button className="btn-primary" onClick={handleLogout}>Sair</button>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </nav>
                 </header>
 
                 <div className="fundo-content-user">
                     {children}
-                    <footer>
-                        <img src={logoUfms} alt="Logo UFMS" />
-                    </footer>
                 </div>
+
+                <footer>
+                    <img src={logoUfms} alt="Logo UFMS" />
+                </footer>
             </main>
         </div>
     );
