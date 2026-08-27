@@ -177,6 +177,7 @@
    RESPONSIVIDADE - TABLETS
    ========================================================= */
 
+
 @media (max-width: 768px) {
 
     /* ---------- HEADER ---------- */
@@ -270,9 +271,7 @@
 
     .logout-button {
         margin-top: 20px;
-
         padding: 7px 18px;
-
         font-size: 13px;
     }
 
@@ -281,10 +280,8 @@
 
     .footer {
         position: relative;
-
         width: 100%;
         height: 3.5rem;
-
         margin-top: auto;
     }
 }
@@ -302,10 +299,8 @@
 
     .painel-titulo {
         font-size: 1.3rem;
-
         margin-bottom: 18px;
     }
-
 
     /*
      * Em telas muito pequenas, dois cards por linha
@@ -314,17 +309,13 @@
 
     .cards {
         grid-template-columns: repeat(2, 1fr);
-
         gap: 12px;
-
         max-width: 350px;
     }
 
     .card {
         width: 100%;
-
         max-width: 150px;
-
         height: 115px;
     }
 
@@ -355,7 +346,6 @@
 
     .card {
         height: 105px;
-
         max-width: 135px;
     }
 

@@ -14,7 +14,7 @@ import { RoleEnum } from 'src/http/role/role.enum';
 import { UserStatus } from '../enums/user-status.enum';
 import * as bcrypt from 'bcryptjs';
 import { AuthProvidersEnum } from 'src/auth/auth-providers.enum';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity({ name: 'user' })
 export class User {
@@ -72,7 +72,7 @@ export class User {
   hash: string | null;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
-  @Exclude()
+  @Expose()
   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
