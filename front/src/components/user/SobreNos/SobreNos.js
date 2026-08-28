@@ -6,6 +6,10 @@ import integrante2 from "../../../utils/images/integrante2.jpg";
 import integrante3 from "../../../utils/images/integrante3.jpg";
 import integrante4 from "../../../utils/images/integrante4.jpg";
 import integrante5 from "../../../utils/images/integrante5.jpg";
+import integrante6 from "../../../utils/images/integrante6.png";
+import integrante7 from "../../../utils/images/integrante7.jpg";
+import integrante8 from "../../../utils/images/integrante8.jpeg";
+import integrante9 from "../../../utils/images/integrante9.jpg";
 import UserLayout from "../Layout/UserLayout";
 
 const exIntegrantes = [
@@ -24,6 +28,11 @@ const exIntegrantes = [
     papel: "Ex Desenvolvedor Back-End",
     foto: integrante3,
   },
+  {
+    nome: "Gabriel Wolf",
+    papel: "Desenvolvedor Full-Stack",
+    foto: integrante6,
+  },
 ];
 
 const integrantes = [
@@ -38,15 +47,20 @@ const integrantes = [
     foto: integrante5,
   },
   {
-    nome: "Gabriel Wolf",
-    papel: "Desenvolvedor Full-Stack",
-    foto: null,
-  },
-  {
     nome: "Rebeca Dias Rocha",
     papel: "Desenvolvedora Full-Stack",
-    foto: null,
+    foto: integrante7,
   },
+  {
+    nome: "Lara Eridan",
+    papel: "Desenvolvedora Front-End",
+    foto: integrante8,
+  },
+  {
+    nome: "Luiz Gabriel",
+    papel: "Desenvolvedor Back-End",
+    foto: integrante9,
+  }
 ];
 
 function SobreNos() {
@@ -60,7 +74,7 @@ function SobreNos() {
           <p>
             O <strong>Tira Dúvidas</strong> é uma plataforma Web desenvolvida
             por alunos do grupo PET-Sistemas da UFMS com o objetivo de aproximar
-            a comunidade – interna e externa à Universidade – do conhecimento em
+            a comunidade - interna e externa à Universidade - do conhecimento em
             Tecnologias da Informação e Comunicação (TIC).
           </p>
           <p>
