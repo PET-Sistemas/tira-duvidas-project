@@ -35,6 +35,7 @@ import DuvidasRespondidas from "./components/user/DuvidasRespondidas/DuvidasResp
 import Relatorio from "./components/admin/Relatorio/Relatorio.js";
 import UsuarioDetalhes from "./components/admin/UsuarioDetalhes/UsuarioDetalhes.js";
 import RedefinirSenha from "./components/user/EsqueciMinhaSenha/RedefinirSenha.js";
+import ConfirmarEmail from "./components/user/ConfirmarEmail/ConfirmarEmail.js";
 import imgCard1 from "./utils/images/MinhasDuvidas.png";
 import imgCard2 from "./utils/images/todas-duvidas.png";
 import imgCard3 from "./utils/images/DuvidasRespondidas.png";
@@ -203,6 +204,7 @@ function AppWrapper() {
         <Route path="/signup" element={<Auth />} />
         <Route path="/esqueci-minha-senha" element={<EsqueciMinhaSenha />} />
         <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+        <Route path="/confirmar-email" element={<ConfirmarEmail />} />
         {/* Rotas protegidas */}
         <Route
           path="/"

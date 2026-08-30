@@ -105,8 +105,10 @@ function CadastroContent({ onSuccess }) {
         status: "active",
       });
 
-      if (response.status === 201) {
-        onSuccess();
+      if (response.status === 201) { 
+        setSuccessMessage(
+          "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta."
+        );
         return;
       }
 
