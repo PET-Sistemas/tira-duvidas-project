@@ -5,6 +5,7 @@ import { createQuestion } from "../../../services/question.service";
 import { allCategory } from "../../../services/category.service";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 function CadastroDuvidas() {
   const [userProfilePic, setUserProfilePic] = useState(null);
@@ -154,6 +155,7 @@ function CadastroDuvidas() {
         </div>
       )}
 
+      <BackButton label="Voltar" />
       <div className="header-div">
         <h1>Cadastrar Dúvida</h1>
         <p>Insira os detalhes da sua dúvida abaixo</p>

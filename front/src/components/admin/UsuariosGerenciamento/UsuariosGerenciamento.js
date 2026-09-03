@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import AdminLayout from "../layout/AdminLayout";
+import React, { useState, useEffect } from 'react';
+import AdminLayout from "../Layout/AdminLayout";
+import BackButton from "../../shared/BackButton"; 
 import "../globalAdmin.css";
 import { Link, useNavigate } from "react-router-dom";
 import { allUser } from "../../../services/user.service";
@@ -154,6 +155,10 @@ const getSortIcon = (field) => {
 
   return (
     <AdminLayout>
+        <div className='header-div'>
+          <BackButton label="Voltar" />
+          <h1>Gerenciamento de Usuários</h1>
+          <p>Informações do usuário e ações administrativas</p>
       <div className="header-div">
         <h1>Gerenciamento de Usuários</h1>
         <p>Informações do usuário e ações administrativas</p>

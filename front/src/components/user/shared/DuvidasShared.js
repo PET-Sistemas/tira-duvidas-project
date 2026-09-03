@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./DuvidasShared.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 
@@ -52,6 +52,7 @@ export function useDuvidasFilter(duvidas) {
     handleFiltroChange,
     handleSearchChange,
     aplicarFiltro,
+    setFiltroVisivel, // Expor a função para fechar programaticamente
   };
 }
 
@@ -66,9 +67,30 @@ export function DuvidasFilter({
   onFiltroChange,
   onSearchChange,
   onAplicar,
+  onClose, // Callback para fechar o filtro
 }) {
+  const filterRef = useRef(null);
+
+  // Fechar filtro ao clicar fora do container
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        if (filtroVisivel && onClose) {
+          onClose();
+        }
+      }
+    };
+
+    if (filtroVisivel) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [filtroVisivel, onClose]);
+
   return (
-    <div className="filtrar-container-shared">
+    <div className="filtrar-container-shared" ref={filterRef}>
       <button className="btn-primary" onClick={onToggle}>
         <i className="bi bi-filter filter-icon-shared"></i>
         {" "}Filtrar

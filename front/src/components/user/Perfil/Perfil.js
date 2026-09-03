@@ -3,6 +3,7 @@ import "./Perfil.css";
 import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
@@ -84,6 +85,7 @@ function PerfilUsuario() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       <div className="header-div">
         <h1>Meu Perfil</h1>
         <p>Visualize e edite suas informações pessoais</p>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./AdminLayout.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../../utils/images/default-profile.png";
@@ -9,6 +9,7 @@ function AdminLayout({ children }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null); // Referência para o container do menu
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +25,22 @@ function AdminLayout({ children }) {
     setUsername(storedUsername);
     setEmail(storedEmail || "usuario@gmail.com");
   }, [navigate]);
+
+  // Fechar menu ao clicar fora do container
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -43,20 +60,27 @@ function AdminLayout({ children }) {
           />
         </a>
         <nav className="nav">
-          <div className="user-container">
-            <div
-              className="user-info"
-              onClick={toggleMenu}
-              style={{ cursor: "pointer" }}
-            >
-              <button className="btn-profile">
-                <img
-                  src={defaultProfilePic}
-                  alt="Perfil"
-                  className="profile-img-nav"
-                />
-              </button>
-              <span className="username">Olá, {username}</span>
+        {username ? (
+            <div className="user-container" ref={menuRef}> {/* Container relativo */}
+                <div className="user-info" onClick={toggleMenu} style={{cursor: 'pointer'}}>
+                    <button className="btn-profile">
+                        <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
+                    </button>
+                    <span className="username">Olá, {username}</span>
+                </div>
+
+                {/* O Card de Informações (Dropdown) */}
+                {isMenuOpen && (
+                    <div className="profile-dropdown">
+                        <div className="dropdown-header">
+                            <p className="full-name">{username}</p>
+                            <p className="email-text">Email: {email}</p>
+                        </div>
+                        <div className="dropdown-footer">
+                            <button className="btn-primary" onClick={handleLogout}>Sair</button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Menu Dropdown do Perfil */}

@@ -1,10 +1,12 @@
 import React from "react";
-import AdminLayout from "../layout/AdminLayout"; 
+import AdminLayout from "../Layout/AdminLayout";
+import BackButton from "../../shared/BackButton"; 
 
 function CategoriasGerenciamento() {
   return (
     <>
       <header className="header-admin">
+        <BackButton label="Voltar" />
         <h1>Gerenciamento de Categorias</h1>
         <p>Adicione, edite ou remova categorias de perguntas.</p>
       </header>

@@ -4,6 +4,7 @@ import "./ResponderDuvidasDetalhe.css";
 import { createAnswers, getAnswers } from "../../../services/answers.service";
 import { updateQuestionAnswered } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
+import BackButton from "../../shared/BackButton";
 
 const MAX_CHARS = 1000;
 
@@ -78,6 +79,7 @@ function ResponderDuvidasDetalhe() {
 
   return (
     <UserLayout>
+      <BackButton label="Voltar" />
       {/* ── Card da dúvida ── */}
       <section className="duvida-info">
         <h3>{doubt.title}</h3>

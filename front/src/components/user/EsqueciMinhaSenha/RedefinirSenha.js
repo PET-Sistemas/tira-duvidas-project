@@ -4,6 +4,7 @@ import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.p
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { resetPassword } from "../../../services/user.service";
+import BackButton from "../../shared/BackButton";
 
 function RedefinirSenha() {
   const navigate = useNavigate();
