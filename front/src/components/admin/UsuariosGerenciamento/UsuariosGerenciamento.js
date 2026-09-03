@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import "../globalAdmin.css";
 import { Link, useNavigate } from "react-router-dom";
 import { allUser } from "../../../services/user.service";
@@ -13,6 +13,10 @@ function UsuariosGerenciamento() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  const [sortField, setSortField] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -31,16 +35,39 @@ function UsuariosGerenciamento() {
     return nome.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    if (!sortField) return 0;
+
+    const dateA = a[sortField] ? new Date(a[sortField]).getTime() : 0;
+    const dateB = b[sortField] ? new Date(b[sortField]).getTime() : 0;
+
+    return sortDirection === "asc" ? dateA - dateB : dateB - dateA;
+  });
+
   const indexOfLastUser = currentPage * itemsPerPage;
   const indexOfFirstUser = indexOfLastUser - itemsPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(sortedUsers.length / itemsPerPage);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
+
+  const handleSort = (field) => {
+  if (sortField === field) {
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  } else {
+    setSortField(field);
+    setSortDirection("asc");
+  }
+  setCurrentPage(1);
+};
+
+const getSortIcon = (field) => {
+  if (sortField !== field) return "bi-arrow-up";
+  return sortDirection === "asc" ? "bi-arrow-up" : "bi-arrow-down";
+};
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -132,7 +159,7 @@ function UsuariosGerenciamento() {
         <p>Informações do usuário e ações administrativas</p>
       </div>
 
-      <div className="search-field" >
+      <div className="search-field">
         <div className="search-wrapper">
           <i className="bi bi-search search-icon"></i>
           <input
@@ -151,14 +178,24 @@ function UsuariosGerenciamento() {
             <th id="nome">
               <span>Nome</span>
             </th>
-            <th className="sortable">
+            <th
+              className="sortable"
+              onClick={() => handleSort("createdAt")}
+              style={{ cursor: "pointer" }}
+            >
               <span className="center">
-                Data Criação <i className="bi bi-arrow-up"></i>
+                Data Criação{" "}
+                <i className={`bi ${getSortIcon("createdAt")}`}></i>
               </span>{" "}
             </th>
-            <th className="sortable">
+            <th
+              className="sortable"
+              onClick={() => handleSort("lastResponse")}
+              style={{ cursor: "pointer" }}
+            >
               <span className="center">
-                Última Resposta <i className="bi bi-arrow-up"></i>
+                Última Resposta{" "}
+                <i className={`bi ${getSortIcon("lastResponse")}`}></i>
               </span>
             </th>
             <th>
@@ -172,7 +209,7 @@ function UsuariosGerenciamento() {
 
         <tbody>{renderTableBody()}</tbody>
       </table>
-      
+
       {totalPages > 0 && (
         <div className="table-footer">
           <div className="pagination">

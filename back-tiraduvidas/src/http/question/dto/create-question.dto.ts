@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  ArrayNotEmpty,
 } from 'class-validator';
 import { QuestionStatus } from '../enums/question-status.enum';
 
@@ -41,7 +42,3 @@ export class CreateQuestionDto {
   @IsEnum(QuestionStatus)
   status: QuestionStatus;
 }
-function ArrayNotEmpty(arg0: { message: string; }): (target: CreateQuestionDto, propertyKey: "categories") => void {
-  throw new Error('Function not implemented.');
-}
-
