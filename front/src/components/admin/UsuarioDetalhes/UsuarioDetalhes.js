@@ -122,12 +122,13 @@ function formatDate(dateString) {
   return (
     <>
       <AdminLayout>
-        <div className="header-div">
-          <h1>Gerenciamento de Perfil</h1>
-          <p>Informações do usuário e ações administrativas</p>
-        </div>
+        <div className="page-container-details">
+          <div className="header-div">
+            <h1>Gerenciamento de Perfil</h1>
+            <p>Informações do usuário e ações administrativas</p>
+          </div>
 
-        <div className="details-form-wrapper">
+          <div className="details-form-wrapper">
           <div className="form-group">
             <label>Nome completo</label>
             <input
@@ -197,10 +198,10 @@ function formatDate(dateString) {
               {isUserActive ? "Desativar usuário" : "Ativar usuário"}
               </button>
             )}
-            </div>
+          </div>
         </div>
-        
-    </AdminLayout>
+        </div>
+      </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
         <div id={"conteudo"}>
           <div className="icone-h1-container">
