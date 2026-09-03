@@ -25,7 +25,7 @@ export class MailService {
     const subject = 'Confirmação de cadastro';
     const confirmBase =
       process.env.WEB_URL || process.env.APP_URL || 'http://localhost:3000';
-    const confirmLink = `${confirmBase}/confirm-email?hash=${mailData.data.hash}`;
+    const confirmLink = `${confirmBase}/confirmar-email?hash=${mailData.data.hash}`;
 
     try {
       await this.transporter.sendMail({

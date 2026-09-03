@@ -82,4 +82,7 @@ export class User {
   @DeleteDateColumn({ type: 'timestamptz', name: 'deleted_at' })
   @Exclude()
   deletedAt: Date;
+
+  @Column({ name: 'email_verified', default: false })
+  emailVerified: boolean;
 }
