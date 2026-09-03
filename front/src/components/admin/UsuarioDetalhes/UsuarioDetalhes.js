@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import { getUserById, updateUser } from "../../../services/user.service";
 import "../../modal/modal.css";
 import "./UsuarioDetalhes.css";
