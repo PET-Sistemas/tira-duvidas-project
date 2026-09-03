@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../Layout/AdminLayout";
+import AdminLayout from "../layout/AdminLayout";
 import { NavLink, useNavigate } from "react-router-dom";
 import imgCard1 from "../../../utils/images/file-earmark-bar-graph.svg";
 import imgCard2 from "../../../utils/images/people.svg";

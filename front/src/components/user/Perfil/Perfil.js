@@ -52,6 +52,13 @@ function PerfilUsuario() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!nome.trim() || !telefone.trim()) {
+      alert(
+        "Erro: Os campos Nome e Telefone são obrigatórios e não podem ficar em branco.",
+      );
+      return;
+    }
+
     try {
       await updateUser({
         id: sessionStorage.getItem("id"),
@@ -95,6 +102,7 @@ function PerfilUsuario() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               disabled={!isEditing}
+              required
             />
           </div>
 
@@ -131,6 +139,7 @@ function PerfilUsuario() {
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               disabled={!isEditing}
+              required
             />
           </div>
 
@@ -154,7 +163,11 @@ function PerfilUsuario() {
                 <button
                   type="button"
                   className="btn-primary"
-                  onClick={() => setIsEditing(false)}
+                  onClick={() => {
+                    setNome(sessionStorage.getItem("username") || "");
+                    setTelefone(sessionStorage.getItem("telefone") || "");
+                    setIsEditing(false);
+                  }}
                 >
                   Cancelar
                 </button>

@@ -47,7 +47,7 @@ function CadastroContent({ onSuccess }) {
     if (name === "cpf") {
       value = maskCPF(value);
     }
-    
+
     if (name === "phone") {
       value = maskPhone(value);
     }
@@ -105,23 +105,28 @@ function CadastroContent({ onSuccess }) {
         status: "active",
       });
 
-      if (response.status === 201) {
-        onSuccess();
+      if (response.status === 201) { 
+        setSuccessMessage(
+          "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta."
+        );
         return;
       }
 
       const errorData = await response.json().catch(() => ({}));
-      const emailError = errorData?.errors?.email;
-      const cpfError = errorData?.errors?.cpf;
-      if (emailError === "emailAlreadyExists") {
+      const backendMessage = errorData?.message;
+      if (backendMessage === "emailAlreadyExists") {
         setError("Este e-mail já está cadastrado.");
-      } else if (cpfError === "cpfAlreadyExists") {
+      } else if (backendMessage === "cpfAlreadyExists") {
         setError("Este CPF já está cadastrado.");
       } else {
-        setError("Ocorreu um erro durante o cadastro.");
+        setError(
+          typeof backendMessage === "string"
+            ? backendMessage
+            : "Ocorreu um erro durante o cadastro.",
+        );
       }
     } catch (err) {
-      setError("Ocorreu um erro durante o cadastro.");
+      setError("Erro de conexão com o servidor. Tente novamente mais tarde.");
     }
   };
 
@@ -170,7 +175,7 @@ function CadastroContent({ onSuccess }) {
             className="auth-input"
             value={formData.cpf}
             onChange={handleChange}
-            maxLength="14" 
+            maxLength="14"
             required
           />
         </div>
@@ -183,7 +188,7 @@ function CadastroContent({ onSuccess }) {
             className="auth-input"
             value={formData.phone}
             onChange={handleChange}
-            maxLength="15" 
+            maxLength="15"
             required
           />
         </div>

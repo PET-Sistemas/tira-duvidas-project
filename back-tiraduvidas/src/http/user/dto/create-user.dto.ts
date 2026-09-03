@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { UserStatus } from '../enums/user-status.enum';
-import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsOptional, IsString, Matches, MinLength } from 'class-validator';
 import { RoleEnum } from 'src/http/role/role.enum';
 
 export class CreateUserDto {
@@ -10,6 +10,11 @@ export class CreateUserDto {
 
   @ApiProperty({ description: 'Senha do usuário' })
   @IsString()
+  @MinLength(8, { message: 'Senha deve ter no mínimo 8 caracteres' })
+  @Matches(/[A-Z]/, { message: 'Senha deve conter pelo menos uma letra maiúscula' })
+  @Matches(/[a-z]/, { message: 'Senha deve conter pelo menos uma letra minúscula' })
+  @Matches(/\d/, { message: 'Senha deve conter pelo menos um número' })
+  @Matches(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/, { message: 'Senha deve conter pelo menos um caractere especial (!@#$%^&*)' })
   password: string;
 
   @IsOptional()

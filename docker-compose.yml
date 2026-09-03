@@ -85,6 +85,7 @@ services:
 
       EMAIL_USER: ${EMAIL_USER}
       EMAIL_PASS: ${EMAIL_PASS}
+      WEB_URL: ${WEB_URL}
       MAIL_MAILER: ${MAIL_MAILER:-resend}
       MAIL_FROM: ${MAIL_FROM}
       RESEND_API_KEY: ${RESEND_API_KEY}
