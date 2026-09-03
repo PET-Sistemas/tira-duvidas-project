@@ -1,31 +1,187 @@
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
 .container-respondente {
     margin: 0;
     padding: 0;
 }
 
-/* --- HEADER --- */
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .icone-perfil {
     height: auto;
-    width: 35%; 
-    max-width: 45px;       
-    min-width: 25px;      
-  
+    width: 35%;
+    max-width: 45px;
+    min-width: 25px;
     border-radius: 50%;
     object-fit: cover;
 }
+
 .ola-user {
     font-size: 1vw;
     color: #0188B5;
     font-weight: 500;
 }
 
+
+/* =========================================================
+   PAINEL PRINCIPAL
+   ========================================================= */
+
 .painel-main {
+    width: 100%;
+    min-height: calc(100vh - 3.5rem);
     padding: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/*RESPONSIVIDADE*/
+.painel-titulo {
+    margin: 0 0 25px 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.cards {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    /*
+     * Mantém os quatro cards na mesma linha
+     * enquanto houver espaço suficiente.
+     */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* =========================================================
+   CARD INDIVIDUAL
+   ========================================================= */
+
+.card {
+    width: 100%;
+    max-width: 170px;
+    height: 135px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        to bottom,
+        #1d83bb,
+        #126ca3
+    );
+    border-radius: 4px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.20);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Efeito ao passar o mouse */
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   IMAGEM / ÍCONE DO CARD
+   ========================================================= */
+
+.card-img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   TEXTO DO CARD
+   ========================================================= */
+
+.card-title {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   BOTÃO LOGOUT
+   ========================================================= */
+
+.logout-button {
+    margin-top: 25px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #126ca3;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #0d5785;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3.5rem;
+    background-color: var(--azul-escuro);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 10;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE - TABLETS
+   ========================================================= */
+
+
 @media (max-width: 768px) {
+
+    /* ---------- HEADER ---------- */
+
     .perfil-respondente-header {
         flex-direction: row;
         flex-wrap: nowrap;
@@ -54,11 +210,13 @@
 
     .header-link {
         font-size: 3.5vw;
+
         white-space: nowrap;
     }
 
     .header-direita {
         width: 30%;
+
         flex-direction: column;
         align-items: center;
     }
@@ -71,9 +229,140 @@
         font-size: 3vw;
     }
 
-    .painel-respondente-title {
-        font-size: 3.2vw;
+
+    /* ---------- PAINEL ---------- */
+
+    .painel-main {
+        padding: 15px;
     }
 
-    /* MAIN - cards em coluna */
+    .painel-titulo {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+
+    /* ---------- CARDS ---------- */
+
+    .cards {
+        width: 100%;
+        max-width: 700px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        max-width: 150px;
+        height: 120px;
+    }
+
+    .card-img {
+        width: 38px;
+        height: 38px;
+        margin-bottom: 8px;
+    }
+
+    .card-title {
+        font-size: 12px;
+    }
+
+
+    /* ---------- LOGOUT ---------- */
+
+    .logout-button {
+        margin-top: 20px;
+        padding: 7px 18px;
+        font-size: 13px;
+    }
+
+
+    /* ---------- FOOTER ---------- */
+
+    .footer {
+        position: relative;
+        width: 100%;
+        height: 3.5rem;
+        margin-top: auto;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE - TELAS PEQUENAS
+   ========================================================= */
+
+@media (max-width: 500px) {
+
+    .painel-main {
+        padding: 12px;
+    }
+
+    .painel-titulo {
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+    }
+
+    /*
+     * Em telas muito pequenas, dois cards por linha
+     * evitam que os botões fiquem estreitos demais.
+     */
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        max-width: 350px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 150px;
+        height: 115px;
+    }
+
+    .card-img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .card-title {
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE - TELAS MUITO PEQUENAS
+   ========================================================= */
+
+@media (max-width: 350px) {
+
+    .painel-main {
+        padding: 10px;
+    }
+
+    .cards {
+        gap: 8px;
+    }
+
+    .card {
+        height: 105px;
+        max-width: 135px;
+    }
+
+    .card-img {
+        width: 32px;
+        height: 32px;
+
+        margin-bottom: 6px;
+    }
+
+    .card-title {
+        font-size: 10px;
+    }
+
+    .logout-button {
+        font-size: 12px;
+
+        padding: 6px 15px;
+    }
 }
