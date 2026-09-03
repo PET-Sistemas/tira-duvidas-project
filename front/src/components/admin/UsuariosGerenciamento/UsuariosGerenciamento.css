@@ -75,6 +75,12 @@
 .btn-back-details:hover { background-color: #f0f8ff; }
 
 /* Input de Pesquisa */
+.search-field {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .search-wrapper {
   position: relative;
   width: 100%;
@@ -106,6 +112,35 @@
 #search-input:focus {
   border-color: #3b9ae8;
   background-color: white;
+}
+
+.role-filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-filter-btn {
+  padding: 8px 14px;
+  border: 1px solid #3498db;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #3498db;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.role-filter-btn:hover,
+.role-filter-btn.active {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+.role-filter-btn:focus-visible {
+  outline: 2px solid #1f6fa8;
+  outline-offset: 2px;
 }
 
 /* Paginação */

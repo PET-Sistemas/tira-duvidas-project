@@ -10,6 +10,7 @@ function UsuariosGerenciamento() {
   const [users, setUsers] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [roleFilter, setRoleFilter] = useState("respondent");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -32,7 +33,12 @@ function UsuariosGerenciamento() {
 
   const filteredUsers = users.filter((user) => {
     const nome = user.name || user.user_name || "";
-    return nome.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = user.role === roleFilter;
+    const matchesSearch = nome
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    return matchesRole && matchesSearch;
   });
 
   const sortedUsers = [...filteredUsers].sort((a, b) => {
@@ -51,6 +57,11 @@ function UsuariosGerenciamento() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleRoleFilter = (role) => {
+    setRoleFilter(role);
     setCurrentPage(1);
   };
 
@@ -90,26 +101,15 @@ const getSortIcon = (field) => {
     },
   };
 
-  const roleMap = {
-    questioner: {
-      text: "Questionador",
-      className: "fbtn blue borda bg-white tipo",
-    },
-    respondent: {
-      text: "Respondente",
-      className: "fbtn white borda bg-blue tipo",
-    },
-    admin: {
-      text: "Admin",
-      className: "fbtn blue borda bg-white tipo",
-    },
-  };
-
   const renderTableBody = () => {
     if (currentUsers.length === 0) {
       return (
         <tr>
-          <td colSpan="5" className="center-text" style={{ padding: "20px" }}>
+          <td
+            colSpan={roleFilter === "respondent" ? 4 : 3}
+            className="center-text"
+            style={{ padding: "20px" }}
+          >
             Nenhum usuário encontrado.
           </td>
         </tr>
@@ -118,8 +118,6 @@ const getSortIcon = (field) => {
 
     return currentUsers.map((user) => {
       const statusDisplay = statusMap[user.status];
-      const roleDisplay = roleMap[user.role];
-
       return (
         <tr key={user.id}>
           <td id="nome" data-label="Nome">
@@ -131,20 +129,16 @@ const getSortIcon = (field) => {
             {new Date(user.createdAt).toLocaleDateString("pt-BR")}
           </td>
 
-          <td data-label="Última Resposta">
-            {user.lastResponse
-              ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
-              : "-"}
-          </td>
+          {roleFilter === "respondent" && (
+            <td data-label="Última Resposta">
+              {user.lastResponse
+                ? new Date(user.lastResponse).toLocaleDateString("pt-BR")
+                : "-"}
+            </td>
+          )}
           <td data-label="Status">
             <span className={`${statusDisplay.className}`}>
               {statusDisplay.text}
-            </span>
-          </td>
-
-          <td data-label="Tipo">
-            <span className={`${roleDisplay.className}`}>
-              {roleDisplay.text}
             </span>
           </td>
         </tr>
@@ -170,6 +164,29 @@ const getSortIcon = (field) => {
             onChange={handleSearch}
           />
         </div>
+
+        <div className="role-filter-controls" aria-label="Filtrar usuários por tipo">
+          <button
+            type="button"
+            className={`role-filter-btn ${
+              roleFilter === "respondent" ? "active" : ""
+            }`}
+            aria-pressed={roleFilter === "respondent"}
+            onClick={() => handleRoleFilter("respondent")}
+          >
+            Respondentes
+          </button>
+          <button
+            type="button"
+            className={`role-filter-btn ${
+              roleFilter === "questioner" ? "active" : ""
+            }`}
+            aria-pressed={roleFilter === "questioner"}
+            onClick={() => handleRoleFilter("questioner")}
+          >
+            Questionadores
+          </button>
+        </div>
       </div>
 
       <table className="user-table">
@@ -188,21 +205,20 @@ const getSortIcon = (field) => {
                 <i className={`bi ${getSortIcon("createdAt")}`}></i>
               </span>{" "}
             </th>
-            <th
-              className="sortable"
-              onClick={() => handleSort("lastResponse")}
-              style={{ cursor: "pointer" }}
-            >
-              <span className="center">
-                Última Resposta{" "}
-                <i className={`bi ${getSortIcon("lastResponse")}`}></i>
-              </span>
-            </th>
+            {roleFilter === "respondent" && (
+              <th
+                className="sortable"
+                onClick={() => handleSort("lastResponse")}
+                style={{ cursor: "pointer" }}
+              >
+                <span className="center">
+                  Última Resposta{" "}
+                  <i className={`bi ${getSortIcon("lastResponse")}`}></i>
+                </span>
+              </th>
+            )}
             <th>
               <span className="center">Status</span>
-            </th>
-            <th>
-              <span className="center">Tipo</span>
             </th>
           </tr>
         </thead>
