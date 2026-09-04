@@ -31,6 +31,7 @@ function LogarContent() {
       }
 
       const data = await response.json();
+      
       if (!data.token || !data.user) {
         setError(data.message || "Credenciais inválidas.");
       } else {
@@ -46,7 +47,13 @@ function LogarContent() {
         data.user.role === "admin" ? navigate("/admin") : navigate("/");
       }
     } catch (err) {
+      if (err.message === "emailNotVerified") {
+      setError(
+        "Seu e-mail ainda não foi confirmado. Verifique sua caixa de entrada para ativar sua conta."
+      );
+    } else {
       setError(err.message || "Ocorreu um erro durante o login");
+    }
     }
   };
 
