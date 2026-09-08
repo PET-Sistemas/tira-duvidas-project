@@ -404,10 +404,6 @@ body {
 
 @media (max-width: 768px) {
   
-  main {
-    padding: 1rem;
-  }
-  
   .perfil-header-top {
     flex-direction: column;
     align-items: stretch;
