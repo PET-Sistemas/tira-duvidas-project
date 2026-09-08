@@ -13,7 +13,7 @@ const ResponderDuvidas = () => {
   const {
     filtroVisivel, filtro, search, filteredDoubts,
     toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
-  } = useDuvidasFilter(duvidas);
+  } = useDuvidasFilter(duvidas, "filtro-responder-duvidas");
 
   useEffect(() => {
     const fetchDuvidas = async () => {

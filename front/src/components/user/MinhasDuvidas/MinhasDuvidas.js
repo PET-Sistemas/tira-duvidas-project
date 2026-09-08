@@ -15,7 +15,7 @@ function MinhasDuvidas() {
   const {
     filtroVisivel, filtro, search, filteredDoubts,
     toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
-  } = useDuvidasFilter(duvidas);
+  } = useDuvidasFilter(duvidas, "filtro-minhas-duvidas");
 
   useEffect(() => {
     const fetchDuvidas = async () => {

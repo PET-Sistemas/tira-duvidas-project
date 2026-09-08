@@ -164,7 +164,10 @@ export async function deleteQuestion(id: string) {
       throw new Error("Question not found");
     }
 
-    return await response.json();
+    if (response.status === 204) return true;
+
+    const responseText = await response.text();
+    return responseText ? JSON.parse(responseText) : true;
   } catch (error) {
     throw error;
   }

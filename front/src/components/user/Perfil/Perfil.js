@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Perfil.css";
 import { updateUser } from "../../../services/user.service";
-import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
+import { useNavigate } from "react-router-dom";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
@@ -13,6 +13,7 @@ function PerfilUsuario() {
   const [telefone, setTelefone] = useState(
     sessionStorage.getItem("telefone") || "",
   );
+
 
   const [usuario, setUsuario] = useState({
     email: "",
@@ -89,14 +90,14 @@ function PerfilUsuario() {
         <p>Visualize e edite suas informações pessoais</p>
       </div>
 
-      <div className="details-form-wrapper">
+      <div className="perfil-details-form-wrapper">
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className="perfil-form-group">
             <label htmlFor="nome">Nome:</label>
             <input
               id="nome"
               type="text"
-              className="input-read-only"
+              className="perfil-input-read-only"
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               disabled={!isEditing}
@@ -104,36 +105,36 @@ function PerfilUsuario() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="perfil-form-group">
             <label htmlFor="cpf">CPF:</label>
             <input
               id="cpf"
               type="text"
-              className="input-read-only"
+              className="perfil-input-read-only"
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
               disabled
             />
           </div>
 
-          <div className="form-group">
+          <div className="perfil-form-group">
             <label htmlFor="email">Email:</label>
             <input
               id="email"
               type="text"
-              className="input-read-only"
+              className="perfil-input-read-only"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled
             />
           </div>
 
-          <div className="form-group">
+          <div className="perfil-form-group">
             <label htmlFor="telefone">Telefone:</label>
             <input
               id="telefone"
               type="tel"
-              className="input-read-only"
+              className="perfil-input-read-only"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               disabled={!isEditing}
@@ -141,11 +142,11 @@ function PerfilUsuario() {
             />
           </div>
 
-          <div className="actions-row">
+          <div className="perfil-actions-row">
             {!isEditing ? (
               <button
                 type="button"
-                className="btn-primary"
+                className="perfil-btn-primary"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsEditing(true);
@@ -155,12 +156,12 @@ function PerfilUsuario() {
               </button>
             ) : (
               <>
-                <button type="submit" className="btn-primary">
+                <button type="submit" className="perfil-btn-primary">
                   Salvar
                 </button>
                 <button
                   type="button"
-                  className="btn-primary"
+                  className="perfil-btn-primary"
                   onClick={() => {
                     setNome(sessionStorage.getItem("username") || "");
                     setTelefone(sessionStorage.getItem("telefone") || "");
@@ -174,6 +175,7 @@ function PerfilUsuario() {
           </div>
         </form>
       </div>
+
     </UserLayout>
   );
 }
