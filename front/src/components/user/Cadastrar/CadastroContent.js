@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { register } from "../../../services/user.service";
 import ufmsLogo from "../../../utils/images/ufms-logo.png";
+
 import "../Cadastrar/Cadastro.css";
 import "../Auth/Auth.css";
+
 import { useNavigate } from "react-router-dom";
+import Modal from "../../modal/modal.js";
+import "../../modal/modal.css";
 
 // Função para mascarar o CPF: 000.000.000-00
 const maskCPF = (value) => {
@@ -15,9 +19,10 @@ const maskCPF = (value) => {
     .replace(/(-\d{2})\d+?$/, "$1");
 };
 
-// Função para mascarar o Telefone: (00) 00000-0000 ou (00) 0000-0000
+// Função para mascarar o Telefone
 const maskPhone = (value) => {
   let v = value.replace(/\D/g, "");
+
   if (v.length <= 10) {
     v = v.replace(/(\d{2})(\d)/, "($1) $2");
     v = v.replace(/(\d{4})(\d{1,4})$/, "$1-$2");
@@ -25,6 +30,7 @@ const maskPhone = (value) => {
     v = v.replace(/(\d{2})(\d)/, "($1) $2");
     v = v.replace(/(\d{5})(\d{1,4})$/, "$1-$2");
   }
+
   return v.substring(0, 15);
 };
 
@@ -37,8 +43,14 @@ function CadastroContent({ onSuccess }) {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+
+  const [modal, setModal] = useState({
+    isOpen: false,
+    type: "",
+    title: "",
+    message: "",
+  });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -52,44 +64,90 @@ function CadastroContent({ onSuccess }) {
       value = maskPhone(value);
     }
 
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleCloseModal = () => {
+    const wasSuccess = modal.type === "success";
+
+    setModal({
+      isOpen: false,
+      type: "",
+      title: "",
+      message: "",
+    });
+
+    // Depois de fechar o modal de sucesso,
+    // pode voltar para a tela de login.
+    if (wasSuccess) {
+      navigate("/login");
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccessMessage("");
 
-    // 1. Validação de E-mail (Verifica se tem o formato de email válido)
+    // 1. Validação de E-mail
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(formData.email)) {
-      setError("Por favor, insira um e-mail válido.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "E-mail inválido",
+        message: "Por favor, insira um e-mail válido.",
+      });
       return;
     }
 
-    // 2. Validação de CPF (Verifica se está completo no formato 000.000.000-00)
+    // 2. Validação de CPF
     const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+
     if (!cpfRegex.test(formData.cpf)) {
-      setError("Por favor, insira um CPF válido e completo.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "CPF inválido",
+        message: "Por favor, insira um CPF válido e completo.",
+      });
       return;
     }
 
-    // 3. Validação de Telefone (Verifica se tem o DDD e está completo: (00) 0000-0000 ou (00) 00000-0000)
+    // 3. Validação de Telefone
     const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+
     if (!phoneRegex.test(formData.phone)) {
-      setError("Por favor, insira um telefone válido com o DDD.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Telefone inválido",
+        message: "Por favor, insira um telefone válido com o DDD.",
+      });
       return;
     }
 
-    // 4. Validação de Senha (Mínimo de 8 caracteres)
+    // 4. Validação de Senha
     if (formData.password.length < 8) {
-      setError("A senha deve ter no mínimo 8 caracteres.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Senha inválida",
+        message: "A senha deve ter no mínimo 8 caracteres.",
+      });
       return;
     }
 
-    // 5. Validação de Confirmação de Senha
+    // 5. Confirmação de Senha
     if (formData.password !== formData.confirmPassword) {
-      setError("As senhas não coincidem.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Senhas diferentes",
+        message: "As senhas não coincidem.",
+      });
       return;
     }
 
@@ -105,42 +163,71 @@ function CadastroContent({ onSuccess }) {
         status: "active",
       });
 
+      if (response.status === 201) {
+        onSuccess();
+        setModal({
+          isOpen: true,
+          type: "success",
+          title: "Cadastro realizado!",
+          message:
+            "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta.",
+        });
+
+
       if (response.status === 201) { 
         setSuccessMessage(
           "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta."
         );
+
         return;
       }
 
       const errorData = await response.json().catch(() => ({}));
       const backendMessage = errorData?.message;
+
       if (backendMessage === "emailAlreadyExists") {
-        setError("Este e-mail já está cadastrado.");
+        setModal({
+          isOpen: true,
+          type: "error",
+          title: "E-mail já cadastrado",
+          message: "Este e-mail já está cadastrado.",
+        });
       } else if (backendMessage === "cpfAlreadyExists") {
-        setError("Este CPF já está cadastrado.");
+        setModal({
+          isOpen: true,
+          type: "error",
+          title: "CPF já cadastrado",
+          message: "Este CPF já está cadastrado.",
+        });
       } else {
-        setError(
-          typeof backendMessage === "string"
-            ? backendMessage
-            : "Ocorreu um erro durante o cadastro.",
-        );
+        setModal({
+          isOpen: true,
+          type: "error",
+          title: "Erro no cadastro",
+          message:
+            typeof backendMessage === "string"
+              ? backendMessage
+              : "Ocorreu um erro durante o cadastro.",
+        });
       }
     } catch (err) {
-      setError("Erro de conexão com o servidor. Tente novamente mais tarde.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Erro de conexão",
+        message:
+          "Erro de conexão com o servidor. Tente novamente mais tarde.",
+      });
     }
   };
 
   return (
     <div className="auth-right-panel-inner">
       <h2 className="auth-title">Cadastrar-se</h2>
+
       <p className="auth-subtitle">
         Informe os dados abaixo para criar a sua nova conta.
       </p>
-
-      {error && <div className="auth-message error">{error}</div>}
-      {successMessage && (
-        <div className="auth-message success">{successMessage}</div>
-      )}
 
       <form className="auth-form" onSubmit={handleSubmit}>
         <div className="auth-input-field">
@@ -222,7 +309,46 @@ function CadastroContent({ onSuccess }) {
         </button>
       </form>
 
-      <img src={ufmsLogo} alt="UFMS Logo" className="auth-ufms-logo" />
+      <img
+        src={ufmsLogo}
+        alt="UFMS Logo"
+        className="auth-ufms-logo"
+      />
+
+      {/* Modal de mensagens */}
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={handleCloseModal}
+      >
+        <div id={modal.type === "success" ? "sucesso" : "conteudo"}>
+          <div className="icone-h1-container">
+
+            {modal.type === "success" ? (
+              <i className="bi bi-check-circle modal-icon-success"></i>
+            ) : (
+              <i className="bi bi-exclamation-circle modal-icon-danger"></i>
+            )}
+
+            <h1 className="modal-title">
+              {modal.title}
+            </h1>
+
+            <p className="modal-text">
+              {modal.message}
+            </p>
+          </div>
+
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={handleCloseModal}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

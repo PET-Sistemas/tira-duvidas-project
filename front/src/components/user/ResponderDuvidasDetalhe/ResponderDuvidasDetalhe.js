@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
+
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { useLocation } from "react-router-dom";
 import "./ResponderDuvidasDetalhe.css";
+
 import { createAnswers, getAnswers } from "../../../services/answers.service";
+
 import { updateQuestionAnswered } from "../../../services/question.service";
+
 import UserLayout from "../Layout/UserLayout";
+
+import Modal from "../../modal/modal.js";
+
+import "../../modal/modal.css";
 
 const MAX_CHARS = 1000;
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const doubt = location.state?.doubt;
 
   const [response, setResponse] = useState("");
@@ -17,28 +29,69 @@ function ResponderDuvidasDetalhe() {
   const [answers, setAnswers] = useState([]);
   const [detalhesAbertos, setDetalhesAbertos] = useState(false);
 
+  const [modal, setModal] = useState({
+    isOpen: false,
+    type: "",
+    title: "",
+    message: "",
+  });
 
   useEffect(() => {
+    if (!doubt) return;
+
     const verifyAnswer = async () => {
       try {
         const answerResp = await getAnswers(doubt.id);
+
         setAnswers(answerResp);
+
         if (doubt.status === "answered") {
           setAlreadyAnswered(true);
         }
       } catch (err) {
         console.error("Erro ao verificar resposta:", err);
-        alert("Ocorreu um erro ao verificar a resposta. Por favor, tente novamente.");
+
+        setModal({
+          isOpen: true,
+          type: "error",
+          title: "Erro",
+          message:
+            "Ocorreu um erro ao verificar a resposta. Por favor, tente novamente.",
+        });
       }
     };
-    verifyAnswer();
-  }, [doubt.id]);
 
-  if (!doubt) return <p>Dúvida não encontrada.</p>;
+    verifyAnswer();
+  }, [doubt]);
+
+  if (!doubt) {
+    return <p>Dúvida não encontrada.</p>;
+  }
+
+  const handleCloseModal = () => {
+    const modalType = modal.type;
+
+    setModal({
+      isOpen: false,
+      type: "",
+      title: "",
+      message: "",
+    });
+
+    if (modalType === "success") {
+      navigate("/responder-duvidas");
+    }
+  };
 
   const handleSendResponse = async () => {
     if (response.trim() === "") {
-      alert("Por favor, escreva uma resposta antes de enviar.");
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Atenção",
+        message: "Por favor, escreva uma resposta antes de enviar.",
+      });
+
       return;
     }
 
@@ -53,7 +106,9 @@ function ResponderDuvidasDetalhe() {
       });
 
       if (!responseSend.ok) {
-        throw new Error("Falha ao enviar a resposta: " + responseSend.status);
+        throw new Error(
+          "Falha ao enviar a resposta: " + responseSend.status
+        );
       }
 
       const createdAnswer = await responseSend.json();
@@ -64,15 +119,33 @@ function ResponderDuvidasDetalhe() {
       });
 
       if (!updateResponse.ok) {
-        throw new Error("Falha ao atualizar o status da dúvida: " + updateResponse.status);
+        throw new Error(
+          "Falha ao atualizar o status da dúvida: " +
+            updateResponse.status
+        );
       }
 
+      setAlreadyAnswered(true);
+      setResponseSent(true);
+
+      setModal({
+        isOpen: true,
+        type: "success",
+        title: "Resposta Enviada!",
+        message: "Sua resposta foi enviada com sucesso.",
+      });
       setLatestAnswer(createdAnswer);
       setResponse("");
       setAlreadyAnswered(true);
       alert("Resposta enviada com sucesso!");
     } catch (error) {
-      alert("Ocorreu um erro ao enviar a resposta: " + error.message);
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Erro",
+        message:
+          "Ocorreu um erro ao enviar a resposta: " + error.message,
+      });
     }
   };
 
@@ -81,52 +154,95 @@ function ResponderDuvidasDetalhe() {
 
   return (
     <UserLayout>
-      {/* ── Card da dúvida ── */}
+      {/* Card da dúvida */}
       <section className="duvida-info">
         <h3>{doubt.title}</h3>
 
-        {/* Descrição limpa, fora do azul */}
-        <p className="duvida-descricao">{doubt.description}</p>
+        <p className="duvida-descricao">
+          {doubt.description}
+        </p>
 
-        {/* Badges de categoria e data */}
         {/* Botão toggle detalhes */}
         <button
-          className={`btn-detalhes${detalhesAbertos ? " aberto" : ""}`}
-          onClick={() => setDetalhesAbertos((prev) => !prev)}
+          className={`btn-detalhes${
+            detalhesAbertos ? " aberto" : ""
+          }`}
+          onClick={() =>
+            setDetalhesAbertos((prev) => !prev)
+          }
         >
           Detalhes da Dúvida
           <span className="chevron">▾</span>
         </button>
 
         {/* Painel expansível */}
-        <div className={`duvida-detalhes-painel${detalhesAbertos ? " aberto" : ""}`}>
-          {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria") ? (
-            <p><strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}</p>
+        <div
+          className={`duvida-detalhes-painel${
+            detalhesAbertos ? " aberto" : ""
+          }`}
+        >
+          {doubt.customCategory ||
+          (doubt.categories?.[0]?.name ?? "Sem categoria") ? (
+            <p>
+              <strong>Categoria:</strong>{" "}
+              {doubt.customCategory ||
+                (doubt.categories?.[0]?.name ??
+                  "Sem categoria")}
+            </p>
           ) : null}
+
           {doubt.createdAt && (
-            <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
+            <p>
+              <strong>Data:</strong>{" "}
+              {new Date(
+                doubt.createdAt
+              ).toLocaleDateString("pt-BR")}
+            </p>
           )}
         </div>
       </section>
 
-      {/* ── Respostas anteriores ── */}
+      {/* Respostas anteriores */}
       <section className="respostas-anteriores">
         <h3>Respostas Anteriores</h3>
+
         {answers.length > 0 ? (
           answers.map((answer) => (
-            <div key={answer.id} className="resposta-anterior">
-              <p><strong>Resposta:</strong> {answer.description}</p>
-              <p><strong>Nome do Respondente:</strong> {answer.respondentName}</p>
-              <p><strong>Email do Respondente:</strong> {answer.respondentEmail}</p>
-              <p><strong>Data da Resposta:</strong> {new Date(answer.createdAt).toLocaleDateString("pt-BR")}</p>
+            <div
+              key={answer.id}
+              className="resposta-anterior"
+            >
+              <p>
+                <strong>Resposta:</strong>{" "}
+                {answer.description}
+              </p>
+
+              <p>
+                <strong>Nome do Respondente:</strong>{" "}
+                {answer.respondentName}
+              </p>
+
+              <p>
+                <strong>Email do Respondente:</strong>{" "}
+                {answer.respondentEmail}
+              </p>
+
+              <p>
+                <strong>Data da Resposta:</strong>{" "}
+                {new Date(
+                  answer.createdAt
+                ).toLocaleDateString("pt-BR")}
+              </p>
             </div>
           ))
         ) : (
-          <p>Esta dúvida ainda não possui respostas anteriores.</p>
+          <p>
+            Esta dúvida ainda não possui respostas anteriores.
+          </p>
         )}
       </section>
 
-      {/* ── Área de responder ou mensagem de já respondida ── */}
+      {/* Área de responder */}
       {alreadyAnswered ? (
         <section className="resposta">
           <h3>Resposta</h3>
@@ -143,6 +259,41 @@ function ResponderDuvidasDetalhe() {
       ) : (
         <section className="responder">
           <h3>Responder</h3>
+
+          {responseSent ? (
+            <p className="resposta-enviada">
+              Resposta enviada com sucesso!
+            </p>
+          ) : (
+            <>
+              <textarea
+                className="resposta-input"
+                placeholder="Digite sua resposta aqui..."
+                value={response}
+                maxLength={MAX_CHARS}
+                onChange={(e) =>
+                  setResponse(e.target.value)
+                }
+              />
+
+              <div className="resposta-footer">
+                <span
+                  className={`char-counter${
+                    isNearLimit ? " limite" : ""
+                  }`}
+                >
+                  {response.length}/{MAX_CHARS} caracteres
+                </span>
+
+                <button
+                  className="btn-enviar"
+                  onClick={handleSendResponse}
+                >
+                  Enviar Resposta
+                </button>
+              </div>
+            </>
+          )}
           <textarea
             className="resposta-input"
             placeholder="Digite sua resposta aqui..."
@@ -160,6 +311,46 @@ function ResponderDuvidasDetalhe() {
           </div>
         </section>
       )}
+
+      {/* Modal de mensagens */}
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={handleCloseModal}
+      >
+        <div
+          id={
+            modal.type === "success"
+              ? "sucesso"
+              : "conteudo"
+          }
+        >
+          <div className="icone-h1-container">
+            {modal.type === "success" ? (
+              <i className="bi bi-check-circle modal-icon-success"></i>
+            ) : (
+              <i className="bi bi-exclamation-circle modal-icon-danger"></i>
+            )}
+
+            <h1 className="modal-title">
+              {modal.title}
+            </h1>
+
+            <p className="modal-text">
+              {modal.message}
+            </p>
+          </div>
+
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={handleCloseModal}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
     </UserLayout>
 
   );
