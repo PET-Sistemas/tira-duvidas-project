@@ -14,16 +14,6 @@ function UsuarioDetalhes() {
   const [modalDesativarSucesso, setmodalDesativarSucesso] = useState(false);
   const [modalAlterarSucesso, setmodalAlterarSucesso] = useState(false);
 
-  useEffect(() => {
-    if (!modalDesativarSucesso && !modalAlterarSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setmodalDesativarSucesso(false);
-      setmodalAlterarSucesso(false);
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalDesativarSucesso, modalAlterarSucesso]);
 
   if (modalDesativar || modalAlterar) {
     document.body.classList.add("active-modal");
@@ -214,53 +204,65 @@ function formatDate(dateString) {
         </div>
       </AdminLayout>
       <Modal isOpen={modalDesativar} onClose={() => setmodalDesativar(false)}>
-        <div className="modal-duvida">
-          <i className={`bi ${isUserActive ? "bi-person-x" : "bi-person-check"} modal-duvida-icone`} aria-hidden="true"></i>
-          <h2>{isUserActive ? "Desativar usuário?" : "Ativar usuário?"}</h2>
-          <p>
-            Confirma que deseja {isUserActive ? "desativar" : "ativar"}{" "}
-            <strong>{user?.name}</strong>?
-            {isUserActive && " O acesso ao sistema ficará suspenso até a reativação."}
-          </p>
-          <div className="modal-duvida-acoes">
+        <div id={"conteudo"}>
+          <div className="icone-h1-container">
+            <i
+              className={`bi ${isUserActive ? "bi-exclamation-triangle modal-icon-danger" : "bi-check-circle modal-icon-success"}`}
+            ></i>
+            <h1 className="modal-title">
+              {isUserActive ? "Desativar Usuário" : "Ativar Usuário"}
+            </h1>
+            <p className="modal-text">
+              Tem certeza que deseja {isUserActive ? "desativar" : "ativar"}{" "}
+              <strong>{user?.name}</strong>?
+              {isUserActive && (
+                <p className="modal-subtext-danger">
+                  O usuário perderá o acesso ao sistema até ser reativado.
+                </p>
+              )}
+            </p>
+          </div>
+
+          <div className="div-botoes">
             <button
               type="button"
-              className="modal-duvida-btn secundario"
+              className="btn-action btn-danger"
               onClick={() => setmodalDesativar(false)}
             >
               Cancelar
             </button>
             <button
               type="button"
-              className={`modal-duvida-btn ${isUserActive ? "perigo" : "primario"}`}
+              className={`btn-action ${isUserActive ? "btn-secondary" : "btn-success"}`}
               onClick={handleDisableUser}
             >
-              {isUserActive ? "Desativar" : "Ativar"}
+              {isUserActive ? "Confirmar Desativação" : "Confirmar Ativação"}
             </button>
           </div>
         </div>
       </Modal>
 
       <Modal isOpen={modalAlterar} onClose={() => setmodalAlterar(false)}>
-        <div className="modal-duvida">
-          <i className="bi bi-arrow-repeat modal-duvida-icone" aria-hidden="true"></i>
-          <h2>Alterar permissão?</h2>
-          <p>
-            Alterar o perfil de <strong>{user?.name}</strong> de{" "}
-            <strong>{user?.role === "questioner" ? "Questionador" : "Respondente"}</strong>{" "}
-            para <strong>{user?.role === "questioner" ? "Respondente" : "Questionador"}</strong>?
-          </p>
-          <div className="modal-duvida-acoes">
+        <div id={"conteudo"}>
+          <div className="icone-h1-container">
+            <i className="bi bi-arrow-repeat modal-icon-blue"></i>
+            <h1 className="modal-title">Alterar Permissão</h1>
+            <p className="modal-text">
+              Deseja alterar o perfil do usuário{" "} <strong>{user?.name}</strong> de <span className="badge-role">{user?.role === "questioner" ? "Questionador" : "Respondente"}</span>{" "} para <span className="badge-role">{user?.role === "questioner" ? "Respondente" : "Questionador"}</span>?
+            </p>
+          </div>
+
+          <div className="div-botoes">
             <button
               type="button"
-              className="modal-duvida-btn secundario"
+              className="btn-action btn-danger"
               onClick={() => setmodalAlterar(false)}
             >
               Cancelar
             </button>
             <button
               type="button"
-              className="modal-duvida-btn primario"
+              className="btn-action btn-success"
               onClick={handleChangeRole}
             >
               Confirmar
@@ -271,23 +273,52 @@ function formatDate(dateString) {
 
       <Modal
         isOpen={modalDesativarSucesso}
-        onClose={() => {}}
+        onClose={() => setmodalDesativarSucesso(false)}
       >
-        <div className="modal-duvida modal-duvida-sucesso" role="status">
-          <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-          <h2>Usuário {user?.status === "inactive" ? "desativado" : "ativado"}</h2>
-          <p>A alteração foi realizada com sucesso.</p>
+        <div id={"sucesso"}>
+          <div className={"icone-h1-container"}>
+            <i
+              className={`bi ${
+                user?.status === "inactive"
+                  ? "bi-slash-circle modal-icon-danger"
+                  : "bi-check-circle modal-icon-success"
+              }`}
+            ></i>
+            <h1>
+              Usuário {user?.status === "inactive" ? "Desativado" : "Ativado"}{" "}
+              com sucesso!
+            </h1>
+          </div>
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={() => setmodalDesativarSucesso(false)}
+            >
+              Fechar
+            </button>
+          </div>
         </div>
       </Modal>
 
       <Modal
         isOpen={modalAlterarSucesso}
-        onClose={() => {}}
+        onClose={() => setmodalAlterarSucesso(false)}
       >
-        <div className="modal-duvida modal-duvida-sucesso" role="status">
-          <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-          <h2>Permissão alterada</h2>
-          <p>O perfil do usuário foi atualizado com sucesso.</p>
+        <div id={"sucesso"}>
+          <div className={"icone-h1-container"}>
+            <i className={"bi bi-check-circle modal-icon-success"}></i>
+            <h1>Perfil alterado com sucesso!</h1>
+          </div>
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={() => setmodalAlterarSucesso(false)}
+            >
+              Fechar
+            </button>
+          </div>
         </div>
       </Modal>
     </>

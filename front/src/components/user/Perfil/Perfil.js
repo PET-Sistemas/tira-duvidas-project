@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Perfil.css";
 import { updateUser } from "../../../services/user.service";
 import UserLayout from "../Layout/UserLayout";
-import Modal from "../../modal/modal.js";
+import { useNavigate } from "react-router-dom";
 
 function PerfilUsuario() {
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [nome, setNome] = useState(sessionStorage.getItem("username") || "");
   const [cpf, setCpf] = useState(sessionStorage.getItem("cpf") || "");
@@ -12,17 +13,7 @@ function PerfilUsuario() {
   const [telefone, setTelefone] = useState(
     sessionStorage.getItem("telefone") || "",
   );
-  const [modalPerfilSucesso, setModalPerfilSucesso] = useState(false);
 
-  useEffect(() => {
-    if (!modalPerfilSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalPerfilSucesso(false);
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalPerfilSucesso]);
 
   const [usuario, setUsuario] = useState({
     email: "",
@@ -77,6 +68,7 @@ function PerfilUsuario() {
         cpf: cpf,
       });
 
+      alert("Dados atualizados com sucesso!");
       setIsEditing(false);
 
       sessionStorage.setItem("username", nome);
@@ -84,7 +76,7 @@ function PerfilUsuario() {
       sessionStorage.setItem("telefone", telefone);
       sessionStorage.setItem("cpf", cpf);
 
-      setModalPerfilSucesso(true);
+      navigate("/perfil");
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error.message);
       alert(`Erro: ${error.message}`);
@@ -184,13 +176,6 @@ function PerfilUsuario() {
         </form>
       </div>
 
-      <Modal isOpen={modalPerfilSucesso} onClose={() => {}}>
-        <div className="modal-duvida modal-duvida-sucesso" role="status">
-          <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-          <h2>Perfil atualizado</h2>
-          <p>Seus dados foram atualizados com sucesso.</p>
-        </div>
-      </Modal>
     </UserLayout>
   );
 }

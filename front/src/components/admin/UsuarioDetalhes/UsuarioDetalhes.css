@@ -116,6 +116,25 @@
   background-color: #2563eb;
 }
 
+.modal-text {
+  font-size: 15px;
+  color: #333;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.badge-role {
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.modal-icon-blue {
+  font-size: 2.2rem;
+  color: #3b82f6;
+}
+
 .modal-icon-danger {
   font-size: 2.2rem;
   color: #ef4444;
@@ -124,6 +143,14 @@
 .modal-icon-success {
   font-size: 2.2rem;
   color: #10b981;
+}
+
+.modal-subtext-danger {
+  display: block;
+  font-size: 13px;
+  color: #dc2626;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 .div-botoes {
@@ -158,4 +185,12 @@
     box-sizing: border-box;
   }
 
+  .modal-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-text {
+    font-size: 14px;
+    padding: 0 5px;
+  }
 }

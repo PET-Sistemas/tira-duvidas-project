@@ -4,7 +4,6 @@ import "./ResponderDuvidasDetalhe.css";
 import { createAnswers, getAnswers } from "../../../services/answers.service";
 import { updateQuestionAnswered } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
-import Modal from "../../modal/modal.js";
 
 const MAX_CHARS = 1000;
 
@@ -17,17 +16,7 @@ function ResponderDuvidasDetalhe() {
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [detalhesAbertos, setDetalhesAbertos] = useState(false);
-  const [modalRespostaSucesso, setModalRespostaSucesso] = useState(false);
 
-  useEffect(() => {
-    if (!modalRespostaSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalRespostaSucesso(false);
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalRespostaSucesso]);
 
   useEffect(() => {
     const verifyAnswer = async () => {
@@ -81,7 +70,7 @@ function ResponderDuvidasDetalhe() {
       setLatestAnswer(createdAnswer);
       setResponse("");
       setAlreadyAnswered(true);
-      setModalRespostaSucesso(true);
+      alert("Resposta enviada com sucesso!");
     } catch (error) {
       alert("Ocorreu um erro ao enviar a resposta: " + error.message);
     }
@@ -91,7 +80,6 @@ function ResponderDuvidasDetalhe() {
   const isNearLimit = charsLeft <= 100;
 
   return (
-    <>
     <UserLayout>
       {/* ── Card da dúvida ── */}
       <section className="duvida-info">
@@ -174,14 +162,6 @@ function ResponderDuvidasDetalhe() {
       )}
     </UserLayout>
 
-    <Modal isOpen={modalRespostaSucesso} onClose={() => {}}>
-      <div className="modal-duvida modal-duvida-sucesso" role="status">
-        <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-        <h2>Resposta enviada</h2>
-        <p>A resposta foi enviada com sucesso.</p>
-      </div>
-    </Modal>
-    </>
   );
 }
 

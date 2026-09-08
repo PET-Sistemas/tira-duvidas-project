@@ -5,7 +5,6 @@ import { getAnswers } from "../../../services/answers.service";
 import { createFeedback, getFeedbacks } from "../../../services/feedback.service";
 import { deleteQuestion, updateQuestionAnswered } from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
-import Modal from "../../modal/modal.js";
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
@@ -25,41 +24,6 @@ function MinhasDuvidasDetalhe() {
   const [editedTitle, setEditedTitle] = useState(doubt?.title ?? "");
   const [editedDescription, setEditedDescription] = useState(doubt?.description ?? "");
   const [isSaving, setIsSaving] = useState(false);
-  const [modalEdicaoSucesso, setModalEdicaoSucesso] = useState(false);
-  const [modalConfirmarExclusao, setModalConfirmarExclusao] = useState(false);
-  const [modalExclusaoSucesso, setModalExclusaoSucesso] = useState(false);
-  const [modalFeedbackSucesso, setModalFeedbackSucesso] = useState(false);
-
-  useEffect(() => {
-    if (!modalFeedbackSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalFeedbackSucesso(false);
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalFeedbackSucesso]);
-
-  useEffect(() => {
-    if (!modalEdicaoSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalEdicaoSucesso(false);
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalEdicaoSucesso]);
-
-  useEffect(() => {
-    if (!modalExclusaoSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalExclusaoSucesso(false);
-      navigate("/minhas-duvidas", { replace: true });
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalExclusaoSucesso, navigate]);
 
   useEffect(() => {
     const fetchAnswers = async () => {
@@ -126,7 +90,7 @@ function MinhasDuvidasDetalhe() {
       }
 
       setShowFeedbackInput(false);
-      setModalFeedbackSucesso(true);
+      alert("Feedback enviado com sucesso!");
     } catch (err) {
       alert(err.message || "Erro ao enviar a avaliação.");
     }
@@ -166,7 +130,7 @@ function MinhasDuvidasDetalhe() {
 
       setDoubt((current) => ({ ...current, title, description }));
       setIsEditing(false);
-      setModalEdicaoSucesso(true);
+      alert("Dúvida atualizada com sucesso!");
     } catch (err) {
       alert(err.message || "Erro ao atualizar a dúvida.");
     } finally {
@@ -175,22 +139,15 @@ function MinhasDuvidasDetalhe() {
   };
 
   const handleDeleteQuestion = async () => {
-    if (!canManageQuestion) return;
+    if (!canManageQuestion || isSaving) return;
     setMenuAcoesAberto(false);
-    setModalConfirmarExclusao(true);
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!canManageQuestion) {
-      setModalConfirmarExclusao(false);
-      return;
-    }
+    if (!window.confirm(`Excluir a dúvida "${doubt.title}"? Esta ação não pode ser desfeita.`)) return;
 
     setIsSaving(true);
     try {
       await deleteQuestion(String(doubt.id));
-      setModalConfirmarExclusao(false);
-      setModalExclusaoSucesso(true);
+      alert("Dúvida excluída com sucesso!");
+      navigate("/minhas-duvidas", { replace: true });
     } catch (err) {
       alert(err.message || "Erro ao excluir a dúvida.");
       setIsSaving(false);
@@ -198,7 +155,6 @@ function MinhasDuvidasDetalhe() {
   };
 
   return (
-    <>
     <UserLayout>
       {/* Wrapper com classe de escopo — evita vazamento de CSS */}
       <div className="pagina-detalhe-duvida">
@@ -335,70 +291,6 @@ function MinhasDuvidasDetalhe() {
         )}
       </div>
     </UserLayout>
-
-    <Modal
-      isOpen={modalConfirmarExclusao}
-      onClose={() => !isSaving && setModalConfirmarExclusao(false)}
-    >
-      <div className="modal-duvida modal-duvida-confirmacao">
-        <i className="bi bi-trash modal-duvida-icone" aria-hidden="true"></i>
-        <h2>Excluir dúvida?</h2>
-        <p>
-          A dúvida <strong>{doubt.title}</strong> será excluída permanentemente.
-          Esta ação não pode ser desfeita.
-        </p>
-        <div className="modal-duvida-acoes">
-          <button
-            type="button"
-            className="modal-duvida-btn secundario"
-            onClick={() => setModalConfirmarExclusao(false)}
-            disabled={isSaving}
-          >
-            Cancelar
-          </button>
-          <button
-            type="button"
-            className="modal-duvida-btn perigo"
-            onClick={handleConfirmDelete}
-            disabled={isSaving}
-          >
-            {isSaving ? "Excluindo..." : "Excluir"}
-          </button>
-        </div>
-      </div>
-    </Modal>
-
-    <Modal
-      isOpen={modalEdicaoSucesso}
-      onClose={() => setModalEdicaoSucesso(false)}
-    >
-      <div className="modal-duvida modal-duvida-sucesso" role="status">
-        <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-        <h2>Dúvida atualizada</h2>
-        <p>As alterações foram salvas com sucesso.</p>
-      </div>
-    </Modal>
-
-    <Modal isOpen={modalExclusaoSucesso} onClose={() => {}}>
-      <div className="modal-duvida modal-duvida-sucesso" role="status">
-        <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-        <h2>Dúvida excluída</h2>
-        <p>A dúvida foi excluída com sucesso.</p>
-      </div>
-    </Modal>
-
-    <Modal
-      isOpen={modalFeedbackSucesso}
-      onClose={() => setModalFeedbackSucesso(false)}
-    >
-      <div className="modal-duvida modal-duvida-sucesso" role="status">
-        <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-        <h2>Avaliação enviada</h2>
-        <p>Sua avaliação foi registrada com sucesso.</p>
-      </div>
-    </Modal>
-
-    </>
   );
 }
 

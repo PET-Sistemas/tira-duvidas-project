@@ -5,7 +5,6 @@ import { createQuestion } from "../../../services/question.service";
 import { allCategory } from "../../../services/category.service";
 import { useNavigate } from "react-router-dom";
 import UserLayout from "../Layout/UserLayout";
-import Modal from "../../modal/modal.js";
 
 function CadastroDuvidas() {
   const [userProfilePic, setUserProfilePic] = useState(null);
@@ -15,23 +14,11 @@ function CadastroDuvidas() {
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
   const [showErrors, setShowErrors] = useState(false);
-  const [modalCadastroSucesso, setModalCadastroSucesso] = useState(false);
 
   // Estado para a categoria personalizada ("Outra")
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [customCategoryInput, setCustomCategoryInput] = useState("");
   const [customCategory, setCustomCategory] = useState("");
-
-  useEffect(() => {
-    if (!modalCadastroSucesso) return undefined;
-
-    const timeoutId = window.setTimeout(() => {
-      setModalCadastroSucesso(false);
-      navigate("/", { replace: true });
-    }, 1500);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [modalCadastroSucesso, navigate]);
 
   useEffect(() => {
     const fetchUserProfilePic = async () => {
@@ -114,11 +101,12 @@ function CadastroDuvidas() {
         throw new Error("Erro ao cadastrar dúvida");
       }
 
+      alert("Dúvida cadastrada com sucesso!");
       setTitle("");
       setSelectedCategory("");
       setDescription("");
       setCustomCategory("");
-      setModalCadastroSucesso(true);
+      navigate("/");
     } catch (error) {
       console.error("Erro ao cadastrar dúvida:", error);
       alert("Erro ao cadastrar dúvida. Tente novamente.");
@@ -262,14 +250,6 @@ function CadastroDuvidas() {
           </div>
         </form>
       </div>
-
-      <Modal isOpen={modalCadastroSucesso} onClose={() => {}}>
-        <div className="modal-duvida modal-duvida-sucesso" role="status">
-          <i className="bi bi-check-circle modal-duvida-icone" aria-hidden="true"></i>
-          <h2>Dúvida cadastrada</h2>
-          <p>A dúvida foi cadastrada com sucesso.</p>
-        </div>
-      </Modal>
     </UserLayout>
   );
 }
