@@ -288,7 +288,7 @@ function CadastroDuvidas() {
         </p>
       </div>
 
-      <div className="details-form-wrapper">
+      <div className="cadastro-duvida-form-wrapper">
         <form onSubmit={handleSubmit}>
 
           <div className="form-group">

@@ -42,33 +42,33 @@ function PainelRespondente() {
       <main className="painel-main">
         <h1 className="painel-titulo">Painel do Usuário</h1>
 
-        <div className="cards">
-          <a href="/duvidas-respondidas" className="card">
+        <div className="respondente-cards">
+          <a href="/duvidas-respondidas" className="respondente-card">
             <img
               src={imgCard1}
               alt="Dúvidas Respondidas"
-              className="card-img"
+              className="respondente-card-img"
             />
-            <span className="card-title">Dúvidas Respondidas</span>
+            <span className="respondente-card-title">Dúvidas Respondidas</span>
           </a>
 
-          <a href="/responder-duvidas" className="card">
-            <img src={imgCard2} alt="Responder Dúvidas" className="card-img" />
-            <span className="card-title">Responder Dúvidas</span>
+          <a href="/responder-duvidas" className="respondente-card">
+            <img src={imgCard2} alt="Responder Dúvidas" className="respondente-card-img" />
+            <span className="respondente-card-title">Responder Dúvidas</span>
           </a>
 
-          <a href="/minhas-duvidas" className="card">
-            <img src={imgCard3} alt="Minhas Dúvidas" className="card-img" />
-            <span className="card-title">Minhas Dúvidas</span>
+          <a href="/minhas-duvidas" className="respondente-card">
+            <img src={imgCard3} alt="Minhas Dúvidas" className="respondente-card-img" />
+            <span className="respondente-card-title">Minhas Dúvidas</span>
           </a>
 
-          <a href="/perfil" className="card">
+          <a href="/perfil" className="respondente-card">
             <img
               src={imgCard4}
               alt="Meus Dados Pessoais"
-              className="card-img"
+              className="respondente-card-img"
             />
-            <span className="card-title">Meus Dados Pessoais</span>
+            <span className="respondente-card-title">Meus Dados Pessoais</span>
           </a>
         </div>
 
