@@ -192,3 +192,28 @@ export async function resetPassword(token: string, password: string) {
     throw error;
   }
 }
+
+export async function confirmarEmail(hash:string) {
+  if (!hash) {
+    throw new Error("Hash de confirmação não informado.");
+  }
+
+  const response = await fetch(`${API_URL}/v1/auth/email/confirm`, {
+    method: "POST",
+    body: JSON.stringify({ hash }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+
+    throw new Error(
+      errorData?.message || "Não foi possível confirmar o e-mail."
+    );
+  }
+
+  return await response.json();
+}

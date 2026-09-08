@@ -94,8 +94,6 @@ function PerfilUsuario() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-<<<<<<< Updated upstream
-=======
     if (!nome.trim() || !telefone.trim()) {
       setModal({
         isOpen: true,
@@ -108,7 +106,15 @@ function PerfilUsuario() {
       return;
     }
 
->>>>>>> Stashed changes
+
+    if (!nome.trim() || !telefone.trim()) {
+      alert(
+        "Erro: Os campos Nome e Telefone são obrigatórios e não podem ficar em branco.",
+      );
+      return;
+    }
+
+
     try {
       await updateUser({
         id: sessionStorage.getItem("id"),
@@ -214,6 +220,7 @@ function PerfilUsuario() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               disabled={!isEditing}
+              required
             />
           </div>
 
@@ -228,7 +235,7 @@ function PerfilUsuario() {
               className="input-read-only"
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
-              disabled={!isEditing}
+              disabled
             />
           </div>
 
@@ -243,7 +250,7 @@ function PerfilUsuario() {
               className="input-read-only"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              disabled={!isEditing}
+              disabled
             />
           </div>
 
@@ -261,6 +268,7 @@ function PerfilUsuario() {
                 setTelefone(e.target.value)
               }
               disabled={!isEditing}
+              required
             />
           </div>
 
@@ -276,7 +284,7 @@ function PerfilUsuario() {
                   setIsEditing(true);
                 }}
               >
-               Editar Dados
+                Editar Dados
               </button>
 
             ) : (
@@ -292,9 +300,7 @@ function PerfilUsuario() {
                 <button
                   type="button"
                   className="btn-primary"
-<<<<<<< Updated upstream
                   onClick={() => setIsEditing(false)}
-=======
                   onClick={() => {
                     setNome(
                       sessionStorage.getItem("username") || ""
@@ -306,7 +312,13 @@ function PerfilUsuario() {
 
                     setIsEditing(false);
                   }}
->>>>>>> Stashed changes
+
+                  onClick={() => {
+                    setNome(sessionStorage.getItem("username") || "");
+                    setTelefone(sessionStorage.getItem("telefone") || "");
+                    setIsEditing(false);
+                  }}
+
                 >
                   Cancelar
                 </button>

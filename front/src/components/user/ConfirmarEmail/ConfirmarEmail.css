@@ -1,0 +1,238 @@
+.confirm-email-page {
+min-height: 100vh;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #3498db;
+padding: 20px;
+box-sizing: border-box;
+}
+
+/* --- Card principal --- */
+.confirm-email-container {
+width: 100%;
+max-width: 900px;
+min-height: 520px;
+display: flex;
+background-color: #fff;
+border-radius: 12px;
+overflow: hidden;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* --- Painel esquerdo --- */
+.confirm-email-left-panel {
+width: 42%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 40px;
+box-sizing: border-box;
+}
+
+.confirm-email-logo {
+width: 220px;
+max-width: 100%;
+margin-bottom: 25px;
+}
+
+.confirm-email-description {
+color: grey;
+font-size: 0.85rem;
+line-height: 1.5;
+margin: 0;
+}
+
+.confirm-email-footer {
+color: grey;
+font-size: 0.75rem;
+margin-top: 40px;
+}
+
+/* --- Divisória entre os painéis --- */
+.confirm-email-divider {
+width: 1px;
+background-color: #e0e0e0;
+margin: 40px 0;
+}
+
+/* --- Painel direito --- */
+.confirm-email-right-panel {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+position: relative;
+padding: 40px;
+box-sizing: border-box;
+}
+
+/* --- Conteúdo da confirmação --- */
+.confirm-email-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 400px;
+text-align: center;
+}
+
+/* --- Ícone --- */
+.confirm-icon {
+width: 70px;
+height: 70px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+font-size: 35px;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.confirm-icon.success {
+color: #008000;
+background-color: #e6ffe6;
+border: 2px solid #008000;
+}
+
+.confirm-icon.error {
+color: #ff0000;
+background-color: #ffe6e6;
+border: 2px solid #ff0000;
+}
+
+/* --- Loading --- */
+.confirm-icon.loading {
+background-color: #eef7ff;
+border: 2px solid #3498db;
+}
+
+.confirm-icon.loading span {
+width: 30px;
+height: 30px;
+border: 3px solid #b9ddf5;
+border-top-color: #3498db;
+border-radius: 50%;
+animation: confirm-loading 0.8s linear infinite;
+}
+
+@keyframes confirm-loading {
+from {
+transform: rotate(0deg);
+}
+to {
+    transform: rotate(360deg);
+}
+}
+
+/* --- Título --- */
+.confirm-email-content h1 {
+color: #3498db;
+font-size: 2.2em;
+font-weight: bold;
+margin: 0 0 10px 0;
+text-align: center;
+}
+
+/* --- Texto --- */
+.confirm-email-content p {
+color: grey;
+font-size: 0.9rem;
+line-height: 1.5;
+margin: 0;
+max-width: 350px;
+}
+
+/* --- Botão --- */
+.confirm-email-button {
+width: 55%;
+padding: 11px;
+margin-top: 25px;
+background-color: #3498db;
+color: #fff;
+border: none;
+border-radius: 6px;
+font-size: 15px;
+font-weight: bold;
+cursor: pointer;
+box-sizing: border-box;
+transition:
+    background-color 0.3s ease,
+    transform 0.1s;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.confirm-email-button:hover {
+    background-color: #1972b5;
+}
+
+.confirm-email-button:active {
+transform: scale(0.98);
+}
+
+/* --- Logo UFMS --- */
+
+.confirm-email-ufms-logo {
+width: 55px;
+position: absolute;
+bottom: 20px;
+opacity: 0.8;
+}
+
+/* --- Responsividade --- */
+
+@media (max-width: 700px) {
+
+.confirm-email-page {
+    padding: 15px;
+}
+
+.confirm-email-container {
+    max-width: 500px;
+    flex-direction: column;
+    min-height: auto;
+}
+
+.confirm-email-left-panel {
+    width: 100%;
+    padding: 30px 25px 20px;
+}
+
+.confirm-email-logo {
+    width: 170px;
+    margin-bottom: 15px;
+}
+
+.confirm-email-description {
+    font-size: 0.8rem;
+}
+
+.confirm-email-footer {
+    display: none;
+}
+
+.confirm-email-divider {
+    width: calc(100% - 50px);
+    height: 1px;
+    margin: 0 25px;
+}
+
+.confirm-email-right-panel {
+    min-height: 400px;
+    padding: 30px 25px 80px;
+}
+
+.confirm-email-content h1 {
+    font-size: 1.8em;
+}
+
+.confirm-email-button {
+    width: 70%;
+}
+
+}

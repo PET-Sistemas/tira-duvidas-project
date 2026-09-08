@@ -95,3 +95,86 @@
 .custom-category-btn-confirm:not(:disabled):hover {
   background: #006b8f;
 }
+
+/* ===== RESPONSIVIDADE MOBILE ===== */
+@media (max-width: 480px) {
+  .cadastro-duvida-categoria-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .cadastro-duvida-categoria-row .form-input {
+    width: 100%;
+  }
+
+  .custom-category-modal {
+    width: 100%;
+    max-width: 92vw;
+    padding: 24px 20px 20px;
+    border-radius: 10px;
+  }
+
+  .custom-category-modal h3 {
+    font-size: 16px;
+  }
+
+  .custom-category-modal p {
+    font-size: 13px;
+  }
+
+  .custom-category-input {
+    padding: 12px 10px;
+    font-size: 16px; /* evita zoom automático no iOS */
+  }
+
+  .custom-category-modal-buttons {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .custom-category-btn-cancel,
+  .custom-category-btn-confirm {
+    width: 100%;
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+}
+/* Container principal da tela "Cadastrar Dúvida" */
+.cadastro-duvida-container,
+.cadastro-duvida-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 24px 20px;
+}
+
+.form-input,
+textarea.form-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 16px; /* evita zoom no iOS */
+}
+
+.cadastro-duvida-botoes {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .cadastro-duvida-container,
+  .cadastro-duvida-card {
+    padding: 16px;
+    border-radius: 0;
+    max-width: 100%;
+  }
+
+  .cadastro-duvida-botoes {
+    flex-direction: column-reverse;
+  }
+
+  .cadastro-duvida-botoes button {
+    width: 100%;
+  }
+}

@@ -104,13 +104,12 @@ function CadastroDuvidas() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-<<<<<<< Updated upstream
-=======
     const trimmedTitle = title.trim();
     const trimmedDescription = description.trim();
 
     if (!trimmedTitle || !trimmedDescription || !selectedCategory) {
       setShowErrors(true);
+
 
       setModal({
         isOpen: true,
@@ -124,7 +123,11 @@ function CadastroDuvidas() {
 
     setShowErrors(false);
 
->>>>>>> Stashed changes
+
+      return;
+    }
+    setShowErrors(false);
+
     const questionerId = Number(sessionStorage.getItem("id"));
     const status = "not_answered";
 
@@ -132,8 +135,8 @@ function CadastroDuvidas() {
       selectedCategory === "__outra__" && customCategory;
 
     const newQuestion = {
-      title,
-      description,
+      title: trimmedTitle,
+      description: trimmedDescription,
       questionerId,
       status,
       ...(isCustom
@@ -394,15 +397,15 @@ function CadastroDuvidas() {
             <button
               type="submit"
               className="btn-primary"
-<<<<<<< Updated upstream
               disabled={!title && !description}
-=======
               disabled={
                 !title.trim() ||
                 !description.trim() ||
                 !selectedCategory
               }
->>>>>>> Stashed changes
+
+              disabled={!title.trim() || !description.trim() || !selectedCategory}
+
             >
               Salvar
             </button>

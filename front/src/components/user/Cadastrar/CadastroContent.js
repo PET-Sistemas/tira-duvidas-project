@@ -164,9 +164,7 @@ function CadastroContent({ onSuccess }) {
       });
 
       if (response.status === 201) {
-<<<<<<< Updated upstream
         onSuccess();
-=======
         setModal({
           isOpen: true,
           type: "success",
@@ -175,7 +173,12 @@ function CadastroContent({ onSuccess }) {
             "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta.",
         });
 
->>>>>>> Stashed changes
+
+      if (response.status === 201) { 
+        setSuccessMessage(
+          "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta."
+        );
+
         return;
       }
 

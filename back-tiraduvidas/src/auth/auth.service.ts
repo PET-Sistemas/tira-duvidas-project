@@ -47,6 +47,12 @@ export class AuthService {
       throw new HttpException('Usuário inativo', 423);
     }
 
+    if (!user.emailVerified) {
+      throw new UnauthorizedException(
+        'emailNotVerified',
+      );
+    }
+
     const isValidPassword = await bcrypt.compare(
       loginDto.password,
       user.password,
@@ -115,12 +121,16 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new NotFoundException(`notFound`);
+      throw new NotFoundException('notFound');
     }
 
-    user.hash = null;
-    user.status = UserStatus.ACTIVE;
-    const result = await this.userService.update(user);
+    const result = await this.userService.update({
+      id: user.id,
+      hash: null,
+      status: UserStatus.ACTIVE,
+      emailVerified: true,
+    });
+
     return result;
   }
 

@@ -5,9 +5,14 @@
   margin: 1.5rem 0;
 }
 
-.header-admin p,
-h1 {
+.header-admin p, h1 {
   margin: 0.5rem;
+}
+
+.fundo-content-admin {
+  width: 100%;
+  min-width: 0; /* Impede o Flexbox de estourar no mobile */
+  box-sizing: border-box;
 }
 
 .fundo-content-admin h1 {
@@ -16,9 +21,8 @@ h1 {
 }
 
 .fundo-content-admin p {
-  color: rgb(141, 137, 137, 0.59);
+  color: rgba(141, 137, 137, 0.59);
   font-weight: bold;
-
 }
 
 .table-admin {
@@ -30,20 +34,12 @@ h1 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
-/* Cabeçalho: Pesquisa e Filtro */
+
+/* Cabeçalho de Ações/Busca */
 .search-field {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-}
-
-#search-input {
-  flex-grow: 1;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-right: 15px;
 }
 
 .filter-btn {
@@ -57,68 +53,21 @@ h1 {
   color: #555;
 }
 
-/* Tabela */
-
-.user-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-}
-
-.user-table th,
-.user-table td {
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.user-table #nome {
-  text-align: left;
-}
-
-.user-table thead {
-  border-top-left-radius: 5px;
-  color: white;
-}
-.user-table tbody {
-  max-width: 100%;
-}
-
-.user-table th {
-  font-weight: bold;
-}
-
-.user-table th.sortable {
-  cursor: pointer;
-}
-
-/* Estilo do botão de excluir */
-#button{
-    width: 70%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: end;
+/* Ações genéricas */
+#button {
+  width: 70%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: end;
 }
 
 .bi-trash {
-    color: red;
-    margin-right: 0.3rem;
+  color: red;
+  margin-right: 0.3rem;
 }
 
-#excluir{
-    color: red;
-}
-
-/* Estilos para Status (Ativo/Inativo) */
-.status {
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  min-width: 60px;
+#excluir {
+  color: red;
 }
 
 .btn-tipo {
@@ -146,4 +95,13 @@ h1 {
 #cadastrar-categoria-btn:hover {
   background-color: #3498db;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .search-field {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+  }
 }

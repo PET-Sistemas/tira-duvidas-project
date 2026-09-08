@@ -37,18 +37,21 @@ export class UpdateUserDto {
   provider?: string;
 
   @ApiPropertyOptional({ description: 'Nome do usuário' })
-  @IsOptional()
+  @IsOptional() //only validate if the property is present, even if it is empty string
   @IsString()
+  @IsNotEmpty({message: 'O nome não pode ser vazio'}) //it rejects empty strings
   name?: string;
 
   @ApiPropertyOptional({ description: 'CPF do usuário' })
   @IsOptional()
   @IsString()
+  @IsNotEmpty({message: 'O CPF não pode ser vazio'})
   cpf?: string;
 
   @ApiPropertyOptional({ description: 'Telefone do usuário' })
   @IsOptional()
   @IsString()
+  @IsNotEmpty({message: 'O telefone não pode ser vazio'})
   phone?: string;
 
   @ApiPropertyOptional({ description: 'Papel do usuário' })
