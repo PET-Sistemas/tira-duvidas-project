@@ -286,8 +286,8 @@ footer img {
 }
 
 .card {
-  width: 20rem;
-  min-height: 20rem;
+  width: 55rem;
+  min-height: 10rem;
   background: var(--gradiente-card);
   border-radius: 4px;
   display: flex;

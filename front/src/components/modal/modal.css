@@ -6,8 +6,11 @@ body.active-modal {
   position: fixed;
   top: 0;
   left: 0;
+<<<<<<< Updated upstream
   width: 100vw;
   height: 100vh;
+=======
+>>>>>>> Stashed changes
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,11 +31,20 @@ body.active-modal {
 
 .modal-content {
   position: relative;
+<<<<<<< Updated upstream
   padding: 0px;
   margin: 0px;
   line-height: 1.4;
   max-width: 610px;
   min-width: 500px;
+=======
+  padding: 0;
+  margin: 15px;
+  line-height: 1.4;
+  width: 90%;
+  max-width: 400px;
+  min-width: unset;
+>>>>>>> Stashed changes
   text-align: center;
   background-color: #f1f1f1;
 }
@@ -108,7 +120,7 @@ label {
 .bi-trash-fill,
 .bi-check-circle {
   font-size: 32px;
-  margin-top: 2em;
+  margin-top: 0.5em;
 }
 
 .bi-trash-fill {
@@ -120,8 +132,12 @@ label {
 
 #conteudo,
 #sucesso {
+<<<<<<< Updated upstream
   padding: 1em;
   padding-bottom: 0;
+=======
+  padding: 16px 24px;
+>>>>>>> Stashed changes
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,6 +148,7 @@ label {
 }
 
 .icone-h1-container {
+<<<<<<< Updated upstream
   padding: 1em 1.5em 1.5em 1.5em;
 }
 
@@ -142,6 +159,52 @@ label {
 
 .div-botoes > button {
   margin: 0 1em 2em 1em;
+=======
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.icone-h1-container h1 {
+  font-size: 1.9rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.icone-h1-container i {
+  display: block;
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 8px;
+}
+
+.icone-h1-container p {
+  margin: 0;
+}
+
+.div-botoes > button {
+  margin: 0 1em 1rem;
+}
+
+/* Botões padrão dos modais */
+.btn-action {
+  min-width: 100px;
+  height: 42px;
+  padding: 0.6rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: none;
+}
+
+.btn-secondary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #2980b9;
+  cursor: pointer;
+>>>>>>> Stashed changes
 }
 
 .w3-animate-top {
@@ -158,3 +221,26 @@ label {
     transform: translateY(0);
   }
 }
+<<<<<<< Updated upstream
+=======
+
+@media (max-width: 768px) {
+  .icone-h1-container {
+    padding: 0.5rem;
+  }
+
+  .div-botoes {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 8px;
+    align-items: center;
+    padding-bottom: 0.5rem;
+  }
+
+  .div-botoes > button {
+    margin: 0 !important;
+    width: 200px !important;
+    min-width: 200px !important;
+  }
+}
+>>>>>>> Stashed changes

@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
+
 import "./Perfil.css";
+
 import { updateUser } from "../../../services/user.service";
+
 import { useNavigate } from "react-router-dom";
+
 import UserLayout from "../Layout/UserLayout";
+
+import Modal from "../../modal/modal.js";
 
 function PerfilUsuario() {
   const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
-  const [nome, setNome] = useState(sessionStorage.getItem("username") || "");
-  const [cpf, setCpf] = useState(sessionStorage.getItem("cpf") || "");
-  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
+
+  const [nome, setNome] = useState(
+    sessionStorage.getItem("username") || ""
+  );
+
+  const [cpf, setCpf] = useState(
+    sessionStorage.getItem("cpf") || ""
+  );
+
+  const [email, setEmail] = useState(
+    sessionStorage.getItem("email") || ""
+  );
+
   const [telefone, setTelefone] = useState(
-    sessionStorage.getItem("telefone") || "",
+    sessionStorage.getItem("telefone") || ""
   );
 
   const [usuario, setUsuario] = useState({
@@ -24,15 +41,25 @@ function PerfilUsuario() {
     fotoPerfil: "",
   });
 
+  const [modal, setModal] = useState({
+    isOpen: false,
+    type: "",
+    title: "",
+    message: "",
+  });
+
   useEffect(() => {
     // const fetchUserData = async () => {
     //   // Busca as informações do usuário no banco de dados
-    //   const userId = sessionStorage.getItem("id"); // Obtém o ID do usuário do sessionStorage
+    //   const userId = sessionStorage.getItem("id");
+
     //   if (!userId) {
     //     console.error("Usuário não autenticado");
     //     return;
     //   }
+
     //   const response = await getUserById(userId);
+
     //   setUsuario({
     //     email: response.email || "N/A",
     //     name: response.firstName || "N/A",
@@ -42,15 +69,46 @@ function PerfilUsuario() {
     //     fotoPerfil: response.fotoPerfil || "N/A",
     //   });
     // };
+
     // fetchUserData();
   }, []);
 
-  // Define a imagem de perfil para exibir (usa a foto do banco ou a imagem padrão)
+  // Define a imagem de perfil para exibir
   // const fotoPerfil = usuario.fotoPerfil || defaultProfilePic;
+
+  const handleCloseModal = () => {
+    const shouldNavigate = modal.type === "success";
+
+    setModal({
+      isOpen: false,
+      type: "",
+      title: "",
+      message: "",
+    });
+
+    if (shouldNavigate) {
+      navigate("/perfil");
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+<<<<<<< Updated upstream
+=======
+    if (!nome.trim() || !telefone.trim()) {
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Campos obrigatórios",
+        message:
+          "Os campos Nome e Telefone são obrigatórios e não podem ficar em branco.",
+      });
+
+      return;
+    }
+
+>>>>>>> Stashed changes
     try {
       await updateUser({
         id: sessionStorage.getItem("id"),
@@ -60,7 +118,6 @@ function PerfilUsuario() {
         cpf: cpf,
       });
 
-      alert("Dados atualizados com sucesso!");
       setIsEditing(false);
 
       sessionStorage.setItem("username", nome);
@@ -68,24 +125,88 @@ function PerfilUsuario() {
       sessionStorage.setItem("telefone", telefone);
       sessionStorage.setItem("cpf", cpf);
 
-      navigate("/perfil");
+      setModal({
+        isOpen: true,
+        type: "success",
+        title: "Dados atualizados!",
+        message: "Seus dados foram atualizados com sucesso.",
+      });
     } catch (error) {
-      console.error("Erro ao atualizar usuário:", error.message);
-      alert(`Erro: ${error.message}`);
+      console.error(
+        "Erro ao atualizar usuário:",
+        error.message
+      );
+
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Erro",
+        message: `Não foi possível atualizar seus dados. ${error.message}`,
+      });
     }
   };
 
   return (
     <UserLayout>
+
+      {/* Modal de mensagens */}
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={handleCloseModal}
+      >
+        <div
+          id={
+            modal.type === "success"
+              ? "sucesso"
+              : "conteudo"
+          }
+        >
+          <div className="icone-h1-container">
+
+            {modal.type === "success" ? (
+              <i className="bi bi-check-circle modal-icon-success"></i>
+            ) : (
+              <i className="bi bi-exclamation-circle modal-icon-danger"></i>
+            )}
+
+            <h1 className="modal-title">
+              {modal.title}
+            </h1>
+
+            <p className="modal-text">
+              {modal.message}
+            </p>
+
+          </div>
+
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={handleCloseModal}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
+
       <div className="header-div">
         <h1>Meu Perfil</h1>
-        <p>Visualize e edite suas informações pessoais</p>
+
+        <p>
+          Visualize e edite suas informações pessoais
+        </p>
       </div>
 
       <div className="details-form-wrapper">
         <form onSubmit={handleSubmit}>
+
           <div className="form-group">
-            <label htmlFor="nome">Nome:</label>
+            <label htmlFor="nome">
+              Nome:
+            </label>
+
             <input
               id="nome"
               type="text"
@@ -97,7 +218,10 @@ function PerfilUsuario() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="cpf">CPF:</label>
+            <label htmlFor="cpf">
+              CPF:
+            </label>
+
             <input
               id="cpf"
               type="text"
@@ -109,7 +233,10 @@ function PerfilUsuario() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">
+              Email:
+            </label>
+
             <input
               id="email"
               type="text"
@@ -121,19 +248,26 @@ function PerfilUsuario() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="telefone">Telefone:</label>
+            <label htmlFor="telefone">
+              Telefone:
+            </label>
+
             <input
               id="telefone"
               type="tel"
               className="input-read-only"
               value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
+              onChange={(e) =>
+                setTelefone(e.target.value)
+              }
               disabled={!isEditing}
             />
           </div>
 
           <div className="actions-row">
+
             {!isEditing ? (
+
               <button
                 type="button"
                 className="btn-primary"
@@ -144,23 +278,47 @@ function PerfilUsuario() {
               >
                Editar Dados
               </button>
+
             ) : (
+
               <>
-                <button type="submit" className="btn-primary">
+                <button
+                  type="submit"
+                  className="btn-primary"
+                >
                   Salvar
                 </button>
+
                 <button
                   type="button"
                   className="btn-primary"
+<<<<<<< Updated upstream
                   onClick={() => setIsEditing(false)}
+=======
+                  onClick={() => {
+                    setNome(
+                      sessionStorage.getItem("username") || ""
+                    );
+
+                    setTelefone(
+                      sessionStorage.getItem("telefone") || ""
+                    );
+
+                    setIsEditing(false);
+                  }}
+>>>>>>> Stashed changes
                 >
                   Cancelar
                 </button>
               </>
+
             )}
+
           </div>
+
         </form>
       </div>
+
     </UserLayout>
   );
 }

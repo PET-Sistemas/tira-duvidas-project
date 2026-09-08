@@ -1,24 +1,43 @@
 import React, { useEffect, useState } from "react";
+
 import "./CadastroDuvidas.css";
 import "../../global.css";
+
 import { createQuestion } from "../../../services/question.service";
 import { allCategory } from "../../../services/category.service";
+
 import { useNavigate } from "react-router-dom";
+
 import UserLayout from "../Layout/UserLayout";
+
+import Modal from "../../modal/modal.js";
+import "../../modal/modal.css";
 
 function CadastroDuvidas() {
   const [userProfilePic, setUserProfilePic] = useState(null);
+
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+
   const navigate = useNavigate();
+
   const [showErrors, setShowErrors] = useState(false);
 
   // Estado para a categoria personalizada ("Outra")
   const [showCustomModal, setShowCustomModal] = useState(false);
   const [customCategoryInput, setCustomCategoryInput] = useState("");
   const [customCategory, setCustomCategory] = useState("");
+
+  // Estado do modal de mensagens
+  const [modal, setModal] = useState({
+    isOpen: false,
+    type: "",
+    title: "",
+    message: "",
+  });
 
   useEffect(() => {
     const fetchUserProfilePic = async () => {
@@ -39,11 +58,6 @@ function CadastroDuvidas() {
     fetchCategories();
   }, []);
 
-  const translate = {
-    active: "ativo",
-    inactive: "inativo",
-  };
-
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
     setCustomCategory("");
@@ -51,7 +65,9 @@ function CadastroDuvidas() {
 
   const handleCustomModalConfirm = () => {
     const trimmed = customCategoryInput.trim();
+
     if (!trimmed) return;
+
     setCustomCategory(trimmed);
     setSelectedCategory("__outra__");
     setCustomCategoryInput("");
@@ -61,19 +77,59 @@ function CadastroDuvidas() {
   const handleCustomModalCancel = () => {
     setCustomCategoryInput("");
     setShowCustomModal(false);
+
     // Se não havia categoria selecionada antes, reseta o select
     if (selectedCategory === "__outra__" && !customCategory) {
       setSelectedCategory("");
     }
   };
 
+  // Fecha o modal de mensagem
+  const handleCloseModal = () => {
+    const wasSuccess = modal.type === "success";
+
+    setModal({
+      isOpen: false,
+      type: "",
+      title: "",
+      message: "",
+    });
+
+    // Após fechar o modal de sucesso, volta para a tela inicial
+    if (wasSuccess) {
+      navigate("/");
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+<<<<<<< Updated upstream
+=======
+    const trimmedTitle = title.trim();
+    const trimmedDescription = description.trim();
+
+    if (!trimmedTitle || !trimmedDescription || !selectedCategory) {
+      setShowErrors(true);
+
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Campos obrigatórios",
+        message: "Por favor, preencha todos os campos.",
+      });
+
+      return;
+    }
+
+    setShowErrors(false);
+
+>>>>>>> Stashed changes
     const questionerId = Number(sessionStorage.getItem("id"));
     const status = "not_answered";
 
-    const isCustom = selectedCategory === "__outra__" && customCategory;
+    const isCustom =
+      selectedCategory === "__outra__" && customCategory;
 
     const newQuestion = {
       title,
@@ -81,8 +137,13 @@ function CadastroDuvidas() {
       questionerId,
       status,
       ...(isCustom
-        ? { categories: [], customCategory }
-        : { categories: [selectedCategory] }),
+        ? {
+            categories: [],
+            customCategory,
+          }
+        : {
+            categories: [selectedCategory],
+          }),
     };
 
     try {
@@ -92,39 +153,108 @@ function CadastroDuvidas() {
         throw new Error("Erro ao cadastrar dúvida");
       }
 
-      alert("Dúvida cadastrada com sucesso!");
       setTitle("");
       setSelectedCategory("");
       setDescription("");
       setCustomCategory("");
-      navigate("/");
+
+      setModal({
+        isOpen: true,
+        type: "success",
+        title: "Dúvida cadastrada!",
+        message: "Sua dúvida foi cadastrada com sucesso.",
+      });
     } catch (error) {
       console.error("Erro ao cadastrar dúvida:", error);
-      alert("Erro ao cadastrar dúvida. Tente novamente.");
+
+      setModal({
+        isOpen: true,
+        type: "error",
+        title: "Erro",
+        message:
+          "Não foi possível cadastrar a dúvida. Tente novamente.",
+      });
     }
   };
 
   return (
     <UserLayout>
+
+      {/* Modal de mensagens */}
+      <Modal
+        isOpen={modal.isOpen}
+        onClose={handleCloseModal}
+      >
+        <div
+          id={
+            modal.type === "success"
+              ? "sucesso"
+              : "conteudo"
+          }
+        >
+          <div className="icone-h1-container">
+
+            {modal.type === "success" ? (
+              <i className="bi bi-check-circle modal-icon-success"></i>
+            ) : (
+              <i className="bi bi-exclamation-circle modal-icon-danger"></i>
+            )}
+
+            <h1 className="modal-title">
+              {modal.title}
+            </h1>
+
+            <p className="modal-text">
+              {modal.message}
+            </p>
+
+          </div>
+
+          <div className="div-botoes">
+            <button
+              type="button"
+              className="btn-action btn-secondary"
+              onClick={handleCloseModal}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </Modal>
+
       {/* Modal para categoria personalizada */}
       {showCustomModal && (
         <div className="custom-category-overlay">
           <div className="custom-category-modal">
+
             <h3>Categoria personalizada</h3>
-            <p>Digite o nome da categoria para esta dúvida:</p>
+
+            <p>
+              Digite o nome da categoria para esta dúvida:
+            </p>
+
             <input
               type="text"
               className="custom-category-input"
               placeholder="Nome da categoria..."
               value={customCategoryInput}
-              onChange={(e) => setCustomCategoryInput(e.target.value)}
+              onChange={(e) =>
+                setCustomCategoryInput(e.target.value)
+              }
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleCustomModalConfirm();
-                if (e.key === "Escape") handleCustomModalCancel();
+                if (e.key === "Enter") {
+                  handleCustomModalConfirm();
+                }
+
+                if (e.key === "Escape") {
+                  handleCustomModalCancel();
+                }
               }}
               autoFocus
             />
+
             <div className="custom-category-modal-buttons">
+
               <button
                 type="button"
                 className="btn-primary"
@@ -132,6 +262,7 @@ function CadastroDuvidas() {
               >
                 Cancelar
               </button>
+
               <button
                 type="button"
                 className="btn-primary"
@@ -140,6 +271,7 @@ function CadastroDuvidas() {
               >
                 Confirmar
               </button>
+
             </div>
           </div>
         </div>
@@ -147,14 +279,22 @@ function CadastroDuvidas() {
 
       <div className="header-div">
         <h1>Cadastrar Dúvida</h1>
-        <p>Insira os detalhes da sua dúvida abaixo</p>
+
+        <p>
+          Insira os detalhes da sua dúvida abaixo
+        </p>
       </div>
 
       <div className="details-form-wrapper">
         <form onSubmit={handleSubmit}>
+
           <div className="form-group">
-            <label htmlFor="categoria">Categoria:</label>
+            <label htmlFor="categoria">
+              Categoria:
+            </label>
+
             <div className="cadastro-duvida-categoria-row">
+
               <select
                 id="categoria"
                 className="form-input"
@@ -168,15 +308,24 @@ function CadastroDuvidas() {
                 <option value="" disabled>
                   Selecione uma categoria...
                 </option>
+
                 {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
+                  <option
+                    key={category.id}
+                    value={category.name}
+                  >
                     {category.name}
                   </option>
                 ))}
-                {selectedCategory === "__outra__" && customCategory && (
-                  <option value="__outra__">Outra: {customCategory}</option>
-                )}
+
+                {selectedCategory === "__outra__" &&
+                  customCategory && (
+                    <option value="__outra__">
+                      Outra: {customCategory}
+                    </option>
+                  )}
               </select>
+
               <button
                 type="button"
                 className="btn-primary"
@@ -189,6 +338,7 @@ function CadastroDuvidas() {
               >
                 Outra Categoria
               </button>
+
             </div>
           </div>
 
@@ -201,7 +351,10 @@ function CadastroDuvidas() {
           )}
 
           <div className="form-group">
-            <label htmlFor="titulo">Título:</label>
+            <label htmlFor="titulo">
+              Título:
+            </label>
+
             <input
               id="titulo"
               type="text"
@@ -213,17 +366,23 @@ function CadastroDuvidas() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="descricao">Descrição:</label>
+            <label htmlFor="descricao">
+              Descrição:
+            </label>
+
             <textarea
               id="descricao"
               className="form-input"
               placeholder="Digite aqui a sua dúvida..."
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) =>
+                setDescription(e.target.value)
+              }
             />
           </div>
 
           <div className="actions-row">
+
             <button
               type="button"
               className="btn-primary"
@@ -231,16 +390,28 @@ function CadastroDuvidas() {
             >
               Cancelar
             </button>
+
             <button
               type="submit"
               className="btn-primary"
+<<<<<<< Updated upstream
               disabled={!title && !description}
+=======
+              disabled={
+                !title.trim() ||
+                !description.trim() ||
+                !selectedCategory
+              }
+>>>>>>> Stashed changes
             >
               Salvar
             </button>
+
           </div>
+
         </form>
       </div>
+
     </UserLayout>
   );
 }
