@@ -54,7 +54,7 @@
    CARDS
    ========================================================= */
 
-.cards {
+.respondente-cards {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -74,7 +74,7 @@
    CARD INDIVIDUAL
    ========================================================= */
 
-.card {
+.respondente-card {
     width: 100%;
     max-width: 170px;
     height: 135px;
@@ -99,7 +99,7 @@
 
 /* Efeito ao passar o mouse */
 
-.card:hover {
+.respondente-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
@@ -109,7 +109,7 @@
    IMAGEM / ÍCONE DO CARD
    ========================================================= */
 
-.card-img {
+.respondente-card-img {
     width: 42px;
     height: 42px;
     object-fit: contain;
@@ -121,7 +121,7 @@
    TEXTO DO CARD
    ========================================================= */
 
-.card-title {
+.respondente-card-title {
     color: #ffffff;
     font-size: 13px;
     font-weight: 600;
@@ -244,25 +244,25 @@
 
     /* ---------- CARDS ---------- */
 
-    .cards {
+    .respondente-cards {
         width: 100%;
         max-width: 700px;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 10px;
     }
 
-    .card {
+    .respondente-card {
         max-width: 150px;
         height: 120px;
     }
 
-    .card-img {
+    .respondente-card-img {
         width: 38px;
         height: 38px;
         margin-bottom: 8px;
     }
 
-    .card-title {
+    .respondente-card-title {
         font-size: 12px;
     }
 
@@ -307,24 +307,24 @@
      * evitam que os botões fiquem estreitos demais.
      */
 
-    .cards {
+    .respondente-cards {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
         max-width: 350px;
     }
 
-    .card {
+    .respondente-card {
         width: 100%;
         max-width: 150px;
         height: 115px;
     }
 
-    .card-img {
+    .respondente-card-img {
         width: 36px;
         height: 36px;
     }
 
-    .card-title {
+    .respondente-card-title {
         font-size: 11px;
     }
 }
@@ -340,23 +340,23 @@
         padding: 10px;
     }
 
-    .cards {
+    .respondente-cards {
         gap: 8px;
     }
 
-    .card {
+    .respondente-card {
         height: 105px;
         max-width: 135px;
     }
 
-    .card-img {
+    .respondente-card-img {
         width: 32px;
         height: 32px;
 
         margin-bottom: 6px;
     }
 
-    .card-title {
+    .respondente-card-title {
         font-size: 10px;
     }
 

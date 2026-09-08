@@ -171,6 +171,78 @@ label {
   }
 }
 
+/* Variação neutra reutilizada nos fluxos de dúvidas. */
+.modal-duvida {
+  padding: 32px;
+  border: 1px solid #d9e1e8;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #252525;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+
+.modal-duvida .modal-duvida-icone {
+  display: block;
+  margin: 0 0 14px;
+  color: #2f80b9;
+  font-size: 34px;
+}
+
+.modal-duvida h2 {
+  margin: 0 0 10px;
+  color: #252525;
+  font-size: 1.5rem;
+}
+
+.modal-duvida p {
+  margin: 0 auto;
+  max-width: 460px;
+  color: #5b5b5b;
+  line-height: 1.55;
+}
+
+.modal-duvida-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.modal-duvida-btn {
+  min-width: 130px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modal-duvida-btn:disabled { cursor: not-allowed; opacity: 0.65; }
+
+.modal-duvida-btn.secundario {
+  border-color: #c8cdd2;
+  background-color: #fff;
+  color: #333;
+}
+
+.modal-duvida-btn.secundario:hover { background-color: #f3f4f5; }
+
+.modal-duvida-btn.primario {
+  background-color: #2f80b9;
+  color: #fff;
+}
+
+.modal-duvida-btn.primario:hover { background-color: #266b9b; }
+
+.modal-duvida-btn.perigo { background-color: #b83434; color: #fff; }
+.modal-duvida-btn.perigo:hover { background-color: #982b2b; }
+
+.modal-duvida-sucesso {
+  padding-top: 38px;
+  padding-bottom: 38px;
+}
+
 @media (max-width: 768px) {
   .icone-h1-container {
     padding: 1em 0.5em 1em 0.5em;
@@ -188,4 +260,8 @@ label {
     margin: 0 !important;
     width: 90% !important;
   }
+
+  .modal-duvida { padding: 26px 20px; }
+  .modal-duvida-acoes { flex-direction: column-reverse; }
+  .modal-duvida-btn { width: 100%; }
 }

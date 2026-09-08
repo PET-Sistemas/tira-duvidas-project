@@ -1,46 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./DuvidasShared.css";
 import FilterIcon from "../../../utils/images/filtrar.png";
 
 /**
  * Hook compartilhado para gerenciar estado e lógica de filtros de dúvidas.
  */
-export function useDuvidasFilter(duvidas) {
+function filterDoubts(duvidas, filtro, search) {
+  let result = [...duvidas];
+
+  if (search) {
+    const normalizedSearch = search.toLowerCase();
+    result = result.filter(
+      (d) =>
+        d.title.toLowerCase().includes(normalizedSearch) ||
+        d.description.toLowerCase().includes(normalizedSearch),
+    );
+  }
+
+  if (filtro === "respondidas") {
+    result = result.filter((d) => d.status === "answered");
+  } else if (filtro === "naoRespondidas") {
+    result = result.filter((d) => d.status !== "answered");
+  } else if (filtro === "crescente") {
+    result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  } else if (filtro === "decrescente") {
+    result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
+  return result;
+}
+
+function getSavedFilter(storageKey) {
+  if (!storageKey) return { filtro: "crescente", search: "" };
+
+  try {
+    const savedFilter = JSON.parse(sessionStorage.getItem(storageKey));
+    return {
+      filtro: savedFilter?.filtro || "crescente",
+      search: savedFilter?.search || "",
+    };
+  } catch {
+    return { filtro: "crescente", search: "" };
+  }
+}
+
+export function useDuvidasFilter(duvidas, storageKey) {
+  const savedFilter = getSavedFilter(storageKey);
   const [filtroVisivel, setFiltroVisivel] = useState(false);
-  const [filtro, setFiltro] = useState("crescente");
-  const [search, setSearch] = useState("");
+  const [filtro, setFiltro] = useState(savedFilter.filtro);
+  const [search, setSearch] = useState(savedFilter.search);
   const [filteredDoubts, setFilteredDoubts] = useState([]);
 
   useEffect(() => {
-    setFilteredDoubts(duvidas);
-  }, [duvidas]);
+    const appliedFilter = getSavedFilter(storageKey);
+    setFiltro(appliedFilter.filtro);
+    setSearch(appliedFilter.search);
+    setFilteredDoubts(
+      filterDoubts(duvidas, appliedFilter.filtro, appliedFilter.search),
+    );
+  }, [duvidas, storageKey]);
 
   const toggleFiltroVisivel = () => setFiltroVisivel((v) => !v);
   const handleFiltroChange = (e) => setFiltro(e.target.value);
   const handleSearchChange = (e) => setSearch(e.target.value);
 
   const aplicarFiltro = () => {
-    let result = [...duvidas];
-
-    if (search) {
-      result = result.filter(
-        (d) =>
-          d.title.toLowerCase().includes(search.toLowerCase()) ||
-          d.description.toLowerCase().includes(search.toLowerCase())
-      );
+    if (storageKey) {
+      sessionStorage.setItem(storageKey, JSON.stringify({ filtro, search }));
     }
 
-    if (filtro === "respondidas") {
-      result = result.filter((d) => d.status === "answered");
-    } else if (filtro === "naoRespondidas") {
-      result = result.filter((d) => d.status !== "answered");
-    } else if (filtro === "crescente") {
-      result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    } else if (filtro === "decrescente") {
-      result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    }
-
-    setFilteredDoubts(result);
+    setFilteredDoubts(filterDoubts(duvidas, filtro, search));
+    setFiltroVisivel(false);
   };
 
   return {
@@ -67,8 +97,26 @@ export function DuvidasFilter({
   onSearchChange,
   onAplicar,
 }) {
+  const filterContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (!filtroVisivel) return undefined;
+
+    const handleClickOutside = (event) => {
+      if (
+        filterContainerRef.current &&
+        !filterContainerRef.current.contains(event.target)
+      ) {
+        onToggle();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [filtroVisivel, onToggle]);
+
   return (
-    <div className="filtrar-container-shared">
+    <div className="filtrar-container-shared" ref={filterContainerRef}>
       <button className="btn-primary" onClick={onToggle}>
         <i className="bi bi-filter filter-icon-shared"></i>
         {" "}Filtrar
