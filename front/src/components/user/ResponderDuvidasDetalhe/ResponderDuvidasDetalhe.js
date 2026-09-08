@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "./ResponderDuvidasDetalhe.css";
 import { createAnswers, getAnswers } from "../../../services/answers.service";
 import { updateQuestionAnswered } from "../../../services/question.service";
@@ -9,14 +9,14 @@ const MAX_CHARS = 1000;
 
 function ResponderDuvidasDetalhe() {
   const location = useLocation();
-  const navigate = useNavigate();
   const doubt = location.state?.doubt;
 
   const [response, setResponse] = useState("");
-  const [responseSent, setResponseSent] = useState(false);
+  const [latestAnswer, setLatestAnswer] = useState(null);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
   const [answers, setAnswers] = useState([]);
   const [detalhesAbertos, setDetalhesAbertos] = useState(false);
+
 
   useEffect(() => {
     const verifyAnswer = async () => {
@@ -56,6 +56,8 @@ function ResponderDuvidasDetalhe() {
         throw new Error("Falha ao enviar a resposta: " + responseSend.status);
       }
 
+      const createdAnswer = await responseSend.json();
+
       const updateResponse = await updateQuestionAnswered({
         id: doubt.id,
         status: "answered",
@@ -65,9 +67,10 @@ function ResponderDuvidasDetalhe() {
         throw new Error("Falha ao atualizar o status da dúvida: " + updateResponse.status);
       }
 
-      alert("Resposta enviada com sucesso!");
+      setLatestAnswer(createdAnswer);
+      setResponse("");
       setAlreadyAnswered(true);
-      navigate("/responder-duvidas");
+      alert("Resposta enviada com sucesso!");
     } catch (error) {
       alert("Ocorreu um erro ao enviar a resposta: " + error.message);
     }
@@ -127,35 +130,38 @@ function ResponderDuvidasDetalhe() {
       {alreadyAnswered ? (
         <section className="resposta">
           <h3>Resposta</h3>
-          <p>Esta dúvida já foi respondida.</p>
+          {latestAnswer ? (
+            <>
+              <p><strong>{latestAnswer.description}</strong></p>
+              <p><strong>Respondente:</strong> {latestAnswer.respondentName}</p>
+              <p><strong>Data:</strong>{" "}{new Date(latestAnswer.createdAt).toLocaleDateString("pt-BR")}</p>
+            </>
+          ) : (
+            <p>Esta dúvida já foi respondida.</p>
+          )}
         </section>
       ) : (
         <section className="responder">
           <h3>Responder</h3>
-          {responseSent ? (
-            <p className="resposta-enviada">Resposta enviada com sucesso!</p>
-          ) : (
-            <>
-              <textarea
-                className="resposta-input"
-                placeholder="Digite sua resposta aqui..."
-                value={response}
-                maxLength={MAX_CHARS}
-                onChange={(e) => setResponse(e.target.value)}
-              />
-              <div className="resposta-footer">
-                <span className={`char-counter${isNearLimit ? " limite" : ""}`}>
-                  {response.length}/{MAX_CHARS} caracteres
-                </span>
-                <button className="btn-enviar" onClick={handleSendResponse}>
-                  Enviar Resposta
-                </button>
-              </div>
-            </>
-          )}
+          <textarea
+            className="resposta-input"
+            placeholder="Digite sua resposta aqui..."
+            value={response}
+            maxLength={MAX_CHARS}
+            onChange={(e) => setResponse(e.target.value)}
+          />
+          <div className="resposta-footer">
+            <span className={`char-counter${isNearLimit ? " limite" : ""}`}>
+              {response.length}/{MAX_CHARS} caracteres
+            </span>
+            <button className="btn-enviar" onClick={handleSendResponse}>
+              Enviar Resposta
+            </button>
+          </div>
         </section>
       )}
     </UserLayout>
+
   );
 }
 

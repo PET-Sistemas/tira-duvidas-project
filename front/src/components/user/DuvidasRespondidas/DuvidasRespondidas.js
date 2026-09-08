@@ -14,7 +14,7 @@ function DuvidasRespondidas() {
   const {
     filtroVisivel, filtro, search, filteredDoubts,
     toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
-  } = useDuvidasFilter(duvidas);
+  } = useDuvidasFilter(duvidas, "filtro-duvidas-respondidas");
 
   useEffect(() => {
     const fetchDuvidas = async () => {
