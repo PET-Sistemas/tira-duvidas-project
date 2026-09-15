@@ -7,8 +7,6 @@ import { updateUser } from "../../../services/user.service";
 import { useNavigate } from "react-router-dom";
 
 import UserLayout from "../Layout/UserLayout";
-import { useNavigate } from "react-router-dom";
-
 import Modal from "../../modal/modal.js";
 
 function PerfilUsuario() {
@@ -16,32 +14,15 @@ function PerfilUsuario() {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const [nome, setNome] = useState(
-    sessionStorage.getItem("username") || ""
-  );
+  const [nome, setNome] = useState(sessionStorage.getItem("username") || "");
 
-  const [cpf, setCpf] = useState(
-    sessionStorage.getItem("cpf") || ""
-  );
+  const [cpf, setCpf] = useState(sessionStorage.getItem("cpf") || "");
 
-  const [email, setEmail] = useState(
-    sessionStorage.getItem("email") || ""
-  );
+  const [email, setEmail] = useState(sessionStorage.getItem("email") || "");
 
   const [telefone, setTelefone] = useState(
-    sessionStorage.getItem("telefone") || ""
+    sessionStorage.getItem("telefone") || "",
   );
-
-
-  const [usuario, setUsuario] = useState({
-    email: "",
-    name: "",
-    provider: "",
-    phone: "",
-    role: "",
-    status: "",
-    fotoPerfil: "",
-  });
 
   const [modal, setModal] = useState({
     isOpen: false,
@@ -51,32 +32,8 @@ function PerfilUsuario() {
   });
 
   useEffect(() => {
-    // const fetchUserData = async () => {
-    //   // Busca as informações do usuário no banco de dados
-    //   const userId = sessionStorage.getItem("id");
-
-    //   if (!userId) {
-    //     console.error("Usuário não autenticado");
-    //     return;
-    //   }
-
-    //   const response = await getUserById(userId);
-
-    //   setUsuario({
-    //     email: response.email || "N/A",
-    //     name: response.firstName || "N/A",
-    //     phone: response.phone || "N/A",
-    //     role: response.role || "N/A",
-    //     status: response.status || "N/A",
-    //     fotoPerfil: response.fotoPerfil || "N/A",
-    //   });
-    // };
-
-    // fetchUserData();
+    // Mantém a estrutura de uso do efeito, sem lógica extra por enquanto.
   }, []);
-
-  // Define a imagem de perfil para exibir
-  // const fotoPerfil = usuario.fotoPerfil || defaultProfilePic;
 
   const handleCloseModal = () => {
     const shouldNavigate = modal.type === "success";
@@ -108,15 +65,6 @@ function PerfilUsuario() {
       return;
     }
 
-
-    if (!nome.trim() || !telefone.trim()) {
-      alert(
-        "Erro: Os campos Nome e Telefone são obrigatórios e não podem ficar em branco.",
-      );
-      return;
-    }
-
-
     try {
       await updateUser({
         id: sessionStorage.getItem("id"),
@@ -140,10 +88,7 @@ function PerfilUsuario() {
         message: "Seus dados foram atualizados com sucesso.",
       });
     } catch (error) {
-      console.error(
-        "Erro ao atualizar usuário:",
-        error.message
-      );
+      console.error("Erro ao atualizar usuário:", error.message);
 
       setModal({
         isOpen: true,
@@ -170,21 +115,14 @@ function PerfilUsuario() {
           }
         >
           <div className="icone-h1-container">
-
             {modal.type === "success" ? (
               <i className="bi bi-check-circle modal-icon-success"></i>
             ) : (
               <i className="bi bi-exclamation-circle modal-icon-danger"></i>
             )}
 
-            <h1 className="modal-title">
-              {modal.title}
-            </h1>
-
-            <p className="modal-text">
-              {modal.message}
-            </p>
-
+            <h1 className="modal-title">{modal.title}</h1>
+            <p className="modal-text">{modal.message}</p>
           </div>
 
           <div className="div-botoes">
@@ -201,20 +139,11 @@ function PerfilUsuario() {
 
       <div className="header-div">
         <h1>Meu Perfil</h1>
-
-        <p>
-          Visualize e edite suas informações pessoais
-        </p>
+        <p>Visualize e edite suas informações pessoais</p>
       </div>
 
       <div className="perfil-details-form-wrapper">
         <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label htmlFor="nome">
-              Nome:
-            </label>
-
           <div className="perfil-form-group">
             <label htmlFor="nome">Nome:</label>
             <input
@@ -228,11 +157,6 @@ function PerfilUsuario() {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="cpf">
-              CPF:
-            </label>
-
           <div className="perfil-form-group">
             <label htmlFor="cpf">CPF:</label>
             <input
@@ -244,11 +168,6 @@ function PerfilUsuario() {
               disabled
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="email">
-              Email:
-            </label>
 
           <div className="perfil-form-group">
             <label htmlFor="email">Email:</label>
@@ -262,11 +181,6 @@ function PerfilUsuario() {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="telefone">
-              Telefone:
-            </label>
-
           <div className="perfil-form-group">
             <label htmlFor="telefone">Telefone:</label>
             <input
@@ -274,76 +188,43 @@ function PerfilUsuario() {
               type="tel"
               className="perfil-input-read-only"
               value={telefone}
-              onChange={(e) =>
-                setTelefone(e.target.value)
-              }
+              onChange={(e) => setTelefone(e.target.value)}
               disabled={!isEditing}
               required
             />
           </div>
 
-          <div className="actions-row">
-
           <div className="perfil-actions-row">
             {!isEditing ? (
-
               <button
                 type="button"
                 className="perfil-btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsEditing(true);
-                }}
+                onClick={() => setIsEditing(true)}
               >
                 Editar Dados
               </button>
-
             ) : (
-
               <>
-                <button
-                  type="submit"
-                  className="btn-primary"
-                >
                 <button type="submit" className="perfil-btn-primary">
                   Salvar
                 </button>
 
                 <button
                   type="button"
-                  className="btn-primary"
-                  onClick={() => setIsEditing(false)}
-                  onClick={() => {
-                    setNome(
-                      sessionStorage.getItem("username") || ""
-                    );
-
-                    setTelefone(
-                      sessionStorage.getItem("telefone") || ""
-                    );
-
-                    setIsEditing(false);
-                  }}
-
                   className="perfil-btn-primary"
                   onClick={() => {
                     setNome(sessionStorage.getItem("username") || "");
                     setTelefone(sessionStorage.getItem("telefone") || "");
                     setIsEditing(false);
                   }}
-
                 >
                   Cancelar
                 </button>
               </>
-
             )}
-
           </div>
-
         </form>
       </div>
-
     </UserLayout>
   );
 }

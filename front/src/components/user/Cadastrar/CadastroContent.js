@@ -172,13 +172,6 @@ function CadastroContent({ onSuccess }) {
           message:
             "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta.",
         });
-
-
-      if (response.status === 201) { 
-        setSuccessMessage(
-          "Cadastro realizado com sucesso! Enviamos um link de confirmação para o seu e-mail. Verifique sua caixa de entrada para ativar sua conta."
-        );
-
         return;
       }
 
@@ -309,33 +302,21 @@ function CadastroContent({ onSuccess }) {
         </button>
       </form>
 
-      <img
-        src={ufmsLogo}
-        alt="UFMS Logo"
-        className="auth-ufms-logo"
-      />
+      <img src={ufmsLogo} alt="UFMS Logo" className="auth-ufms-logo" />
 
       {/* Modal de mensagens */}
-      <Modal
-        isOpen={modal.isOpen}
-        onClose={handleCloseModal}
-      >
+      <Modal isOpen={modal.isOpen} onClose={handleCloseModal}>
         <div id={modal.type === "success" ? "sucesso" : "conteudo"}>
           <div className="icone-h1-container">
-
             {modal.type === "success" ? (
               <i className="bi bi-check-circle modal-icon-success"></i>
             ) : (
               <i className="bi bi-exclamation-circle modal-icon-danger"></i>
             )}
 
-            <h1 className="modal-title">
-              {modal.title}
-            </h1>
+            <h1 className="modal-title">{modal.title}</h1>
 
-            <p className="modal-text">
-              {modal.message}
-            </p>
+            <p className="modal-text">{modal.message}</p>
           </div>
 
           <div className="div-botoes">

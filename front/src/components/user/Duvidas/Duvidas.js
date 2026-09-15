@@ -14,7 +14,7 @@ function Duvidas() {
   const {
     filtroVisivel, filtro, search, filteredDoubts,
     toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
-  } = useDuvidasFilter(duvidas, "filtro-todas-duvidas");
+  } = useDuvidasFilter(duvidas);
 
   useEffect(() => {
     const fetchDuvidas = async () => {
@@ -63,7 +63,14 @@ function Duvidas() {
               key={doubt.id}
               doubt={doubt}
               showQuestioner
-              onClick={() => navigate(`/duvida/${doubt.id}`, { state: { doubt } })}
+              onClick={() => {
+                const role = sessionStorage.getItem("role");
+                if (role === "respondent" && doubt.status === "not_answered") {
+                  navigate(`/responder-duvidas/${doubt.id}`, { state: { doubt } });
+                } else {
+                  navigate(`/duvida/${doubt.id}`, { state: { doubt } });
+                }
+              }}
             />
           ))
         ) : (

@@ -38,9 +38,6 @@ const ResponderDuvidas = () => {
     handleFiltroChange,
     handleSearchChange,
     aplicarFiltro,
-  } = useDuvidasFilter(duvidas);
-    filtroVisivel, filtro, search, filteredDoubts,
-    toggleFiltroVisivel, handleFiltroChange, handleSearchChange, aplicarFiltro,
   } = useDuvidasFilter(duvidas, "filtro-responder-duvidas");
 
   useEffect(() => {
