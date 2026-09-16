@@ -1,28 +1,20 @@
 import React, { useState, useEffect } from "react";
-
-import { useLocation } from "react-router-dom";
-
 import { useLocation, useNavigate } from "react-router-dom";
 import "./MinhasDuvidasDetalhe.css";
-
 import { getAnswers } from "../../../services/answers.service";
-
-import { createFeedback } from "../../../services/feedback.service";
-
-import { updateQuestionAnswered } from "../../../services/question.service";
-
-import { getFeedbacks } from "../../../services/feedback.service";
-
-import { createFeedback, getFeedbacks } from "../../../services/feedback.service";
-import { deleteQuestion, updateQuestionAnswered } from "../../../services/question.service";
+import {
+  createFeedback,
+  getFeedbacks,
+} from "../../../services/feedback.service";
+import {
+  deleteQuestion,
+  updateQuestionAnswered,
+} from "../../../services/question.service";
 import UserLayout from "../Layout/UserLayout";
-
 import Modal from "../../modal/modal.js";
 
 function MinhasDuvidasDetalhe() {
   const location = useLocation();
-
-  const doubt = location.state?.doubt;
   const navigate = useNavigate();
   const [doubt, setDoubt] = useState(location.state?.doubt);
 
@@ -37,7 +29,9 @@ function MinhasDuvidasDetalhe() {
   const [menuAcoesAberto, setMenuAcoesAberto] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(doubt?.title ?? "");
-  const [editedDescription, setEditedDescription] = useState(doubt?.description ?? "");
+  const [editedDescription, setEditedDescription] = useState(
+    doubt?.description ?? "",
+  );
   const [isSaving, setIsSaving] = useState(false);
 
   const [modal, setModal] = useState({
@@ -58,13 +52,9 @@ function MinhasDuvidasDetalhe() {
           throw new Error("Usuário não autenticado");
         }
 
-        const response = await getAnswers(doubt.id);
-        const answerResp = response[response.length - 1];
-
-        setAnswer(answerResp);
-
         const answersResp = await getAnswers(doubt.id);
         const answerResp = answersResp[answersResp.length - 1];
+
         setAnswer(answerResp);
         setAnswers(answersResp);
 
@@ -104,10 +94,13 @@ function MinhasDuvidasDetalhe() {
       message: "",
     });
   };
+
   const authenticatedUserId = sessionStorage.getItem("id");
   const questionAuthorId = doubt.questionerId ?? doubt.questioner?.id;
-  const isQuestionAuthor = String(questionAuthorId) === String(authenticatedUserId);
-  const canManageQuestion = !loading && answers.length === 0 && isQuestionAuthor;
+  const isQuestionAuthor =
+    String(questionAuthorId) === String(authenticatedUserId);
+  const canManageQuestion =
+    !loading && answers.length === 0 && isQuestionAuthor;
 
   const handleFeedbackClick = (type) => {
     setShowFeedbackInput(true);
@@ -126,15 +119,15 @@ function MinhasDuvidasDetalhe() {
     }
 
     try {
-      const feedbackSend = createFeedback({
-        userId: sessionStorage.getItem("id"),
+      const feedbackResponse = await createFeedback({
+        userId: Number(authenticatedUserId),
         answerId: answer.id,
         justification: feedback,
         status: feedbackType,
       });
 
-      if (!feedbackSend) {
-        throw new Error("Falha ao enviar o feedback: " + feedbackSend);
+      if (!feedbackResponse.ok) {
+        throw new Error("Não foi possível registrar a avaliação.");
       }
 
       setModal({
@@ -158,8 +151,7 @@ function MinhasDuvidasDetalhe() {
 
         if (!updateResponse.ok) {
           throw new Error(
-            "Falha ao atualizar o status da dúvida: " +
-              updateResponse.status
+            "Falha ao atualizar o status da dúvida: " + updateResponse.status,
           );
         }
       }
@@ -170,21 +162,6 @@ function MinhasDuvidasDetalhe() {
         title: "Erro",
         message: "Ocorreu um erro ao enviar o feedback: " + error.message,
       });
-      const feedbackResponse = await createFeedback({
-        userId: Number(authenticatedUserId),
-        answerId: answer.id,
-        justification: feedback,
-        status: feedbackType,
-      });
-
-      if (!feedbackResponse.ok) {
-        throw new Error("Não foi possível registrar a avaliação.");
-      }
-
-      setShowFeedbackInput(false);
-      alert("Feedback enviado com sucesso!");
-    } catch (err) {
-      alert(err.message || "Erro ao enviar a avaliação.");
     }
   };
 
@@ -217,7 +194,11 @@ function MinhasDuvidasDetalhe() {
 
     setIsSaving(true);
     try {
-      const response = await updateQuestionAnswered({ id: doubt.id, title, description });
+      const response = await updateQuestionAnswered({
+        id: doubt.id,
+        title,
+        description,
+      });
       if (!response.ok) throw new Error("Não foi possível atualizar a dúvida.");
 
       setDoubt((current) => ({ ...current, title, description }));
@@ -233,7 +214,12 @@ function MinhasDuvidasDetalhe() {
   const handleDeleteQuestion = async () => {
     if (!canManageQuestion || isSaving) return;
     setMenuAcoesAberto(false);
-    if (!window.confirm(`Excluir a dúvida "${doubt.title}"? Esta ação não pode ser desfeita.`)) return;
+    if (
+      !window.confirm(
+        `Excluir a dúvida "${doubt.title}"? Esta ação não pode ser desfeita.`,
+      )
+    )
+      return;
 
     setIsSaving(true);
     try {
@@ -255,18 +241,40 @@ function MinhasDuvidasDetalhe() {
         </h2>
 
         <section className="duvida-info">
-          <h3>{doubt.title}</h3>
-
-          <h4>{doubt.description}</h4>
           {isEditing ? (
             <form className="edicao-duvida-form" onSubmit={handleSaveQuestion}>
               <label htmlFor="titulo-duvida">Título</label>
-              <input id="titulo-duvida" value={editedTitle} onChange={(event) => setEditedTitle(event.target.value)} disabled={isSaving} autoFocus />
+              <input
+                id="titulo-duvida"
+                value={editedTitle}
+                onChange={(event) => setEditedTitle(event.target.value)}
+                disabled={isSaving}
+                autoFocus
+              />
               <label htmlFor="descricao-duvida">Descrição</label>
-              <textarea id="descricao-duvida" value={editedDescription} onChange={(event) => setEditedDescription(event.target.value)} disabled={isSaving} rows={5} />
+              <textarea
+                id="descricao-duvida"
+                value={editedDescription}
+                onChange={(event) => setEditedDescription(event.target.value)}
+                disabled={isSaving}
+                rows={5}
+              />
               <div className="acoes-edicao-duvida">
-                <button type="button" className="btn-cancelar-edicao" onClick={handleCancelEdit} disabled={isSaving}>Cancelar</button>
-                <button type="submit" className="btn-salvar-duvida" disabled={isSaving}>{isSaving ? "Salvando..." : "Salvar alterações"}</button>
+                <button
+                  type="button"
+                  className="btn-cancelar-edicao"
+                  onClick={handleCancelEdit}
+                  disabled={isSaving}
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="btn-salvar-duvida"
+                  disabled={isSaving}
+                >
+                  {isSaving ? "Salvando..." : "Salvar alterações"}
+                </button>
               </div>
             </form>
           ) : (
@@ -286,8 +294,21 @@ function MinhasDuvidasDetalhe() {
                     </button>
                     {menuAcoesAberto && (
                       <div className="opcoes-acoes-duvida" role="menu">
-                        <button type="button" role="menuitem" onClick={handleStartEdit}>Editar dúvida</button>
-                        <button type="button" role="menuitem" className="opcao-excluir" onClick={handleDeleteQuestion}>Excluir dúvida</button>
+                        <button
+                          type="button"
+                          role="menuitem"
+                          onClick={handleStartEdit}
+                        >
+                          Editar dúvida
+                        </button>
+                        <button
+                          type="button"
+                          role="menuitem"
+                          className="opcao-excluir"
+                          onClick={handleDeleteQuestion}
+                        >
+                          Excluir dúvida
+                        </button>
                       </div>
                     )}
                   </div>
@@ -321,8 +342,7 @@ function MinhasDuvidasDetalhe() {
             </p>
 
             <p>
-              <strong>Email do Questionador:</strong>{" "}
-              {doubt.questioner.email}
+              <strong>Email do Questionador:</strong> {doubt.questioner.email}
             </p>
 
             <p>
@@ -335,10 +355,6 @@ function MinhasDuvidasDetalhe() {
               <strong>Data:</strong>{" "}
               {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}
             </p>
-          <div className={`duvida-detalhes-painel${detalhesAbertos ? " aberto" : ""}`}>
-            <p><strong>Questionador:</strong> {doubt.questioner.name}</p>
-            <p><strong>Categoria:</strong> {doubt.customCategory || (doubt.categories?.[0]?.name ?? "Sem categoria")}</p>
-            <p><strong>Data:</strong> {new Date(doubt.createdAt).toLocaleDateString("pt-BR")}</p>
           </div>
         </section>
 
@@ -353,8 +369,7 @@ function MinhasDuvidasDetalhe() {
                 </p>
 
                 <p>
-                  <strong>Nome do Respondente:</strong>{" "}
-                  {answer.respondentName}
+                  <strong>Nome do Respondente:</strong> {answer.respondentName}
                 </p>
 
                 <p>
@@ -366,9 +381,6 @@ function MinhasDuvidasDetalhe() {
                   <strong>Data da Resposta:</strong>{" "}
                   {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
                 </p>
-                <p><strong>Resposta:</strong> {answer.description}</p>
-                <p><strong>Nome do Respondente:</strong> {answer.respondentName}</p>
-                <p><strong>Data da Resposta:</strong>{" "}{new Date(answer.createdAt).toLocaleDateString("pt-BR")}</p>
               </div>
             ))}
           </section>
@@ -397,79 +409,70 @@ function MinhasDuvidasDetalhe() {
               </p>
 
               <p>
-                <strong>Email do Respondente:</strong>{" "}
-                {answer.respondentEmail}
+                <strong>Email do Respondente:</strong> {answer.respondentEmail}
               </p>
 
               <p>
                 <strong>Data:</strong>{" "}
                 {new Date(answer.createdAt).toLocaleDateString("pt-BR")}
               </p>
-              <p><strong>Respondente:</strong> {answer.respondentName}</p>
-              <p><strong>Data:</strong>{" "}{new Date(answer.createdAt).toLocaleDateString("pt-BR")}</p>
             </>
           )}
         </section>
 
-        {doubt.status === "answered" &&
-          doubt.questioner.id == sessionStorage.getItem("id") && (
-            <section className="feedback">
-              <h3 className="avaliacao-titulo">Avaliação</h3>
+        {doubt.status === "answered" && isQuestionAuthor && (
+          <section className="feedback">
+            <h3 className="avaliacao-titulo">Avaliação</h3>
 
-              {feedback ? (
-                <div className="feedback-container">
-                  <p className="feedback-visualizacao">
-                    <strong>Feedback: </strong> {feedback}
-                  </p>
-                </div>
-              ) : (
-                <div className="avaliacao">
-                  <button
-                    className="btn-satisfatoria"
-                    onClick={() => handleFeedbackClick("satisfactory")}
-                  >
-                    👍 Satisfatória
-                  </button>
+            {feedback && !showFeedbackInput ? (
+              <div className="feedback-container">
+                <p className="feedback-visualizacao">
+                  <strong>Feedback: </strong> {feedback}
+                </p>
+              </div>
+            ) : (
+              <>
+                {!showFeedbackInput && (
+                  <div className="avaliacao">
+                    <button
+                      className="btn-satisfatoria"
+                      onClick={() => handleFeedbackClick("satisfactory")}
+                    >
+                      👍 Satisfatória
+                    </button>
+                    <button
+                      className="btn-insatisfatoria"
+                      onClick={() => handleFeedbackClick("unsatisfactory")}
+                    >
+                      👎 Insatisfatória
+                    </button>
+                  </div>
+                )}
 
-                  <button
-                    className="btn-insatisfatoria"
-                    onClick={() =>
-                      handleFeedbackClick("unsatisfactory")
-                    }
-                  >
-                    👎 Insatisfatória
-                  </button>
-                </div>
-              )}
-
-              {showFeedbackInput && (
-                <div className="feedback-container">
-                  <textarea
-                    className="feedback-input"
-                    placeholder={`Explique por que a resposta foi ${feedbackType.toLowerCase()}...`}
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                  />
-
-                  <button
-                    className="btn-enviar-feedback"
-                    onClick={handleSendFeedback}
-                  >
-                    Enviar Feedback
-                  </button>
-                </div>
-              )}
-            </section>
-          )}
+                {showFeedbackInput && (
+                  <div className="feedback-container">
+                    <textarea
+                      className="feedback-input"
+                      placeholder={`Explique por que a resposta foi ${feedbackType === "satisfactory" ? "satisfatória" : "insatisfatória"}...`}
+                      value={feedback}
+                      onChange={(event) => setFeedback(event.target.value)}
+                    />
+                    <button
+                      className="btn-enviar-feedback"
+                      onClick={handleSendFeedback}
+                    >
+                      Enviar avaliação
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+        )}
 
         {/* Modal de mensagens */}
-        <Modal
-          isOpen={modal.isOpen}
-          onClose={handleCloseModal}
-        >
-          <div
-            id={modal.type === "success" ? "sucesso" : "conteudo"}
-          >
+        <Modal isOpen={modal.isOpen} onClose={handleCloseModal}>
+          <div id={modal.type === "success" ? "sucesso" : "conteudo"}>
             <div className="icone-h1-container">
               <i
                 className={
@@ -495,46 +498,6 @@ function MinhasDuvidasDetalhe() {
             </div>
           </div>
         </Modal>
-        {doubt.status === "answered" && isQuestionAuthor && (
-          <section className="feedback">
-            <h3 className="avaliacao-titulo">Avaliação</h3>
-
-            {feedback && !showFeedbackInput ? (
-              <div className="feedback-container">
-                <p className="feedback-visualizacao">
-                  <strong>Feedback: </strong> {feedback}
-                </p>
-              </div>
-            ) : (
-              <>
-                {!showFeedbackInput && (
-                  <div className="avaliacao">
-                    <button className="btn-satisfatoria" onClick={() => handleFeedbackClick("satisfactory")}>
-                      👍 Satisfatória
-                    </button>
-                    <button className="btn-insatisfatoria" onClick={() => handleFeedbackClick("unsatisfactory")}>
-                      👎 Insatisfatória
-                    </button>
-                  </div>
-                )}
-
-                {showFeedbackInput && (
-                  <div className="feedback-container">
-                    <textarea
-                      className="feedback-input"
-                      placeholder={`Explique por que a resposta foi ${feedbackType === "satisfactory" ? "satisfatória" : "insatisfatória"}...`}
-                      value={feedback}
-                      onChange={(event) => setFeedback(event.target.value)}
-                    />
-                    <button className="btn-enviar-feedback" onClick={handleSendFeedback}>
-                      Enviar avaliação
-                    </button>
-                  </div>
-                )}
-              </>
-            )}
-          </section>
-        )}
       </div>
     </UserLayout>
   );

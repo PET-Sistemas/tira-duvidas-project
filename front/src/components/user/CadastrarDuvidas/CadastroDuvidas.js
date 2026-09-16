@@ -110,7 +110,6 @@ function CadastroDuvidas() {
     if (!trimmedTitle || !trimmedDescription || !selectedCategory) {
       setShowErrors(true);
 
-
       setModal({
         isOpen: true,
         type: "error",
@@ -121,11 +120,6 @@ function CadastroDuvidas() {
       return;
     }
 
-    setShowErrors(false);
-
-
-      return;
-    }
     setShowErrors(false);
 
     const questionerId = Number(sessionStorage.getItem("id"));
@@ -397,15 +391,11 @@ function CadastroDuvidas() {
             <button
               type="submit"
               className="btn-primary"
-              disabled={!title && !description}
               disabled={
                 !title.trim() ||
                 !description.trim() ||
                 !selectedCategory
               }
-
-              disabled={!title.trim() || !description.trim() || !selectedCategory}
-
             >
               Salvar
             </button>
