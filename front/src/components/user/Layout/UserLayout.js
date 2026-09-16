@@ -4,10 +4,11 @@ import "../../global.css";
 import tiraDuvidasLogo from "../../../utils/images/Logo-Tira-Dúvidas-removebg.png";
 import defaultProfilePic from "../../../utils/images/default-profile.png";
 import logoUfms from "../../../utils/images/logo-ufms.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UserLayout({ children }) {
     const navigate = useNavigate();
+    const location = useLocation();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,15 +36,26 @@ function UserLayout({ children }) {
             <main className="mainUser">
                 <header className="header">
                     <div className="items-header">
+                        {location.pathname !== "/" && (
+                            <button
+                                type="button"
+                                className="back-button"
+                                onClick={() => navigate(-1)}
+                                aria-label="Voltar para a página anterior"
+                            >
+                                <i className="bi bi-chevron-left"></i>
+                                Voltar
+                            </button>
+                        )}
                         <a href="/" className="logo-link">
                             <img src={tiraDuvidasLogo} alt="Logo" className="logo-cadasroDuvidas" />
-                        </a>
-                        <a href="/sobrenos" className="sobre-nav-link">
-                            <i className="bi bi-info-circle-fill"></i>Equipe
                         </a>
                     </div>
 
                     <nav className="nav">
+                        <a href="/sobrenos" className="sobre-nav-link">
+                            <i className="bi bi-info-circle-fill"></i>Equipe
+                        </a>
                         <div className="user-container">
                             <div className="user-info" onClick={toggleMenu} style={{ cursor: 'pointer' }}>
                                 <button className="btn-profile">

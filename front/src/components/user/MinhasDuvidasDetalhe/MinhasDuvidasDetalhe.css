@@ -2,6 +2,13 @@
    MinhasDuvidasDetalhe.css
    ============================================= */
 
+.pagina-detalhe-duvida {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 0 1rem 2rem;
+  box-sizing: border-box;
+}
+
 .duvida-detalhada { width: 100%; height: 100%; }
 
 .duvida-detalhada-header {
@@ -348,6 +355,20 @@
   width: fit-content;
   min-width: 320px;
   max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .pagina-detalhe-duvida {
+    width: 100%;
+    padding: 0 0.25rem 1.5rem;
+  }
+
+  .duvida-info,
+  .respostas-anteriores,
+  .resposta,
+  .feedback {
+    padding: 1rem;
+  }
 }
 
 .avaliacao-titulo {

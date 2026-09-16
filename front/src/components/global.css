@@ -256,12 +256,30 @@ textarea.form-input {
 .mainAdmin .cards > .card {
   width: min(100%, 20rem);
   min-width: 0;
-  min-height: 0;
-  height: auto;
-  aspect-ratio: 1;
+  height: 8.5rem;
+  min-height: 8.5rem;
+  aspect-ratio: auto;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 0.9rem;
+  border-radius: 18px;
   overflow-wrap: anywhere;
+}
+
+.mainUser .cards > .card .card-img,
+.mainAdmin .cards > .card .card-img {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 0 0.65rem;
+  padding: 0.55rem;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.mainUser .cards > .card .card-title,
+.mainAdmin .cards > .card .card-title {
+  font-size: 1rem;
 }
 
 .card {
@@ -334,18 +352,19 @@ footer img {
   }
 
   .card {
-    width: 50%;
-    aspect-ratio: 1 / 1;
+    width: min(100%, 20rem);
+    height: 8rem;
+    aspect-ratio: auto;
   }
 
   .card-img {
-    width: 15%;
-    height: auto;
-    margin-bottom: 8%;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.5rem;
   }
 
   .card-title {
-    font-size: 4vw;
+    font-size: 1rem;
   }
 
   .logout-button {

@@ -139,8 +139,9 @@ function ResponderDuvidasDetalhe() {
 
   return (
     <UserLayout>
-      {/* Card da dúvida */}
-      <section className="duvida-info">
+      <div className="pagina-detalhe-duvida">
+        {/* Card da dúvida */}
+        <section className="duvida-info">
         <h3>{doubt.title}</h3>
 
         <p className="duvida-descricao">{doubt.description}</p>
@@ -176,10 +177,10 @@ function ResponderDuvidasDetalhe() {
             </p>
           )}
         </div>
-      </section>
+        </section>
 
       {/* Respostas anteriores */}
-      <section className="respostas-anteriores">
+        <section className="respostas-anteriores">
         <h3>Respostas Anteriores</h3>
 
         {answers.length > 0 ? (
@@ -208,11 +209,11 @@ function ResponderDuvidasDetalhe() {
         ) : (
           <p>Esta dúvida ainda não possui respostas anteriores.</p>
         )}
-      </section>
+        </section>
 
       {/* Área de responder */}
-      {alreadyAnswered ? (
-        <section className="resposta">
+        {alreadyAnswered ? (
+          <section className="resposta">
           <h3>Resposta</h3>
           {latestAnswer ? (
             <>
@@ -230,9 +231,9 @@ function ResponderDuvidasDetalhe() {
           ) : (
             <p>Esta dúvida já foi respondida.</p>
           )}
-        </section>
-      ) : (
-        <section className="responder">
+          </section>
+        ) : (
+          <section className="responder">
           <h3>Responder</h3>
 
           <textarea
@@ -252,8 +253,9 @@ function ResponderDuvidasDetalhe() {
               Enviar Resposta
             </button>
           </div>
-        </section>
-      )}
+          </section>
+        )}
+      </div>
 
       {/* Modal de mensagens */}
       <Modal isOpen={modal.isOpen} onClose={handleCloseModal}>
