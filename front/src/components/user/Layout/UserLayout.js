@@ -52,17 +52,24 @@ function UserLayout({ children }) {
                         </a>
                     </div>
 
-                    <nav className="nav">
+                    <nav className="nav" aria-label="Navegação do usuário">
                         <a href="/sobrenos" className="sobre-nav-link">
                             <i className="bi bi-info-circle-fill"></i>Equipe
                         </a>
                         <div className="user-container">
-                            <div className="user-info" onClick={toggleMenu} style={{ cursor: 'pointer' }}>
-                                <button className="btn-profile">
+                            <button
+                                type="button"
+                                className="user-info"
+                                onClick={toggleMenu}
+                                aria-expanded={isMenuOpen}
+                                aria-label={`Menu do perfil de ${firstName || "Usuário"}`}
+                            >
+                                <span className="btn-profile">
                                     <img src={defaultProfilePic} alt="Perfil" className="profile-img-nav" />
-                                </button>
+                                </span>
                                 <span className="username">Olá, {firstName || "Usuário"}</span>
-                            </div>
+                                <i className="bi bi-chevron-down profile-chevron" aria-hidden="true"></i>
+                            </button>
 
                             {/* Dropdown de Perfil */}
                             {isMenuOpen && (

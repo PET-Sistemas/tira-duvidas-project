@@ -56,6 +56,16 @@
   text-align: center;
 }
 
+.mainUser .fundo-content-user > .header-div {
+  margin-bottom: 14px;
+}
+
+.mainUser .fundo-content-user > .header-div h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  white-space: normal;
+}
+
 .header-div h1 {
   white-space: nowrap;
   color: var(--azul-principal);
@@ -282,6 +292,46 @@ textarea.form-input {
   font-size: 1rem;
 }
 
+.mainUser .geral-container > .cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  width: 100%;
+  max-width: 960px;
+  margin: 30px auto 10px;
+}
+
+.mainUser .geral-container > .cards.cards-questioner {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1120px;
+}
+
+.mainUser .geral-container > .cards.cards-respondent {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 1120px;
+}
+
+.mainUser .geral-container > .cards > .card {
+  width: 100%;
+  min-width: 0;
+  height: 8rem;
+  min-height: 8rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+}
+
+.mainUser .geral-container > .cards > .card .card-img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0 0.5rem;
+  padding: 0.4rem;
+}
+
+.mainUser .geral-container > .cards > .card .card-title {
+  font-size: 0.875rem;
+  line-height: 1.25;
+}
+
 .card {
   width: 15rem;
   height: 15rem;
@@ -371,5 +421,22 @@ footer img {
     width: 30%;
     font-size: 4vw;
     padding: 1.5% 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .mainUser .geral-container > .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .mainUser .geral-container > .cards.cards-questioner,
+  .mainUser .geral-container > .cards.cards-respondent {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mainUser .geral-container > .cards > .card {
+    height: 7.5rem;
+    min-height: 7.5rem;
   }
 }

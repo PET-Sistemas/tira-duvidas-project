@@ -92,13 +92,13 @@
 
 /* --- Botão de Submissão Único --- */
 .auth-btn-submit {
-    width: 55%; /* Padronizado entre os 52% e 65% anteriores */
-    padding: 11px;
+    width: min(100%, 170px);
+    padding: 9px 14px;
     background-color: #3498db;
     color: #fff;
     border: none;
     border-radius: 6px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     box-sizing: border-box;

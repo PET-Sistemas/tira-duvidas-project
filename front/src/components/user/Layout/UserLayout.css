@@ -153,6 +153,10 @@ body {
   justify-content: center;
   gap: 0.6rem;
   min-width: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .btn-profile {
@@ -177,12 +181,53 @@ body {
   text-align: center;
   font-weight: 500;
   font-size: 1rem;
-  color: #333;
+  color: #004990;
   line-height: 1.1;
   white-space: nowrap;
   max-width: min(120px, 30vw);
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.user-info {
+  padding: 5px 9px 5px 5px;
+  border: 1px solid #dce6ee;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.user-info:hover,
+.user-info:focus-visible,
+.user-info[aria-expanded="true"] {
+  background: #f5f9fc;
+  outline: 2px solid #b8d8f2;
+  outline-offset: 1px;
+}
+
+.user-info .btn-profile {
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #1769b2;
+}
+
+.user-info .profile-img-nav {
+  width: 100%;
+  height: 100%;
+}
+
+.user-info .username {
+  max-width: 140px;
+  color: #27384a;
+  font-size: 0.875rem;
+}
+
+.profile-chevron {
+  margin-left: 0.1rem;
+  color: #526477;
+  font-size: 0.75rem;
 }
 
 /* Dropdown */
@@ -314,25 +359,28 @@ body {
 
 @media (max-width: 480px) {
   .mainUser > .header {
-    flex-wrap: wrap;
-    row-gap: 0.65rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
   }
 
   .mainUser .items-header {
-    flex: 1 0 100%;
+    flex: 0 1 auto;
     justify-content: flex-start;
+    gap: 0.25rem;
   }
 
   .mainUser .logo-cadasroDuvidas {
-    width: 6rem !important;
+    width: clamp(2.75rem, 15vw, 4rem) !important;
   }
 
   .mainUser .header > .nav {
-    width: 100%;
+    flex: 0 1 auto;
+    width: auto;
     justify-content: flex-end;
     margin-left: 0;
+    gap: 0.25rem;
   }
 
   .nav-link {
@@ -345,20 +393,31 @@ body {
   }
 
   .mainUser .sobre-nav-link {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .mainUser .username {
-    max-width: 4rem;
-    font-size: 0.75rem;
+    max-width: 3rem;
+    font-size: 0.68rem;
+  }
+
+  .mainUser .user-info {
+    gap: 0.25rem;
+    padding: 3px 5px 3px 3px;
   }
 
   .mainUser .profile-img-nav {
-    width: 2.1rem;
-    height: 2.1rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .mainUser .profile-chevron {
+    font-size: 0.65rem;
   }
 
   .dropdown-footer button {
     flex: 1 1 100%;
   }
 }
+
+

@@ -62,16 +62,21 @@
 }
 
 .filter-icon-shared {
-  font-size: 20px;
+  font-size: 18px;
+}
+
+.filtrar-container-shared > .btn-primary {
+  padding: 7px 12px;
+  font-size: 14px;
 }
 
 /* ---- Lista ---- */
 .doubt-list-shared {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 24px 32px;
   box-sizing: border-box;
@@ -91,8 +96,9 @@
   justify-content: space-between;
   background-color: #fff;
   border: 1px solid #dde6f0;
-  border-radius: 12px;
-  padding: 0;
+  border-radius: 8px;
+  min-height: 80px;
+  padding: 2px 0;
   box-shadow: 0 2px 10px rgba(52, 152, 219, 0.08);
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.15s;
@@ -124,8 +130,8 @@
 .doubt-card-header-shared {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 18px 20px;
+  gap: 12px;
+  padding: 12px 16px;
   flex: 1;
 }
 
@@ -150,30 +156,35 @@
 
 .doubt-description-shared {
   margin: 0;
-  font-size: 0.88em;
+  font-size: 0.86em;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 /* ---- Lado direito ---- */
 .doubt-additional-info-shared {
-  text-align: right;
-  font-size: 13px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  gap: 4px 12px;
+  text-align: left;
+  font-size: 12px;
   color: #555;
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 3px;
+  padding: 11px 14px;
   background-color: #f7fbff;
   border-left: 1px solid #e8eef5;
-  min-width: 200px;
+  min-width: 292px;
   flex-shrink: 0;
 }
 
 .doubt-additional-info-shared p {
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .doubt-additional-info-shared strong {
