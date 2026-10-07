@@ -121,7 +121,7 @@ function App() {
             </div>
           </div>
 
-          <div className="cards">
+          <div className="cards cards-questioner">
             <div className="card" onClick={() => navigate("/cadastroduvidas")}>
               <img src={imgCard4} alt="Minhas Dúvidas" className="card-img" />
               <span className="card-title">Cadastrar Dúvidas</span>
@@ -162,7 +162,7 @@ function App() {
             </div>
           </div>
 
-          <div className="cards">
+          <div className="cards cards-respondent">
             <div className="card" onClick={() => navigate("/duvidas")}>
               <img src={imgCard2} alt="Todas as Dúvidas" className="card-img" />
               <span className="card-title">Todas as Dúvidas</span>

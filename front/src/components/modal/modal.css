@@ -172,14 +172,15 @@ label {
     transform: translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
   }
 
   .div-botoes {
     flex-direction: column-reverse;
     width: 100%;
-    gap: 8px;
-    align-items: center;
-    padding-bottom: 0.5rem;
     gap: 10px;
     align-items: center;
     padding-bottom: 1.5em;
@@ -189,10 +190,6 @@ label {
     margin: 0 !important;
     width: 200px !important;
     min-width: 200px !important;
-  }
-}
-
-    width: 90% !important;
   }
 }
 

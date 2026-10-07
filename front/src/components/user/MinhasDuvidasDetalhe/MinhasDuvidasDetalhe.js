@@ -236,7 +236,7 @@ function MinhasDuvidasDetalhe() {
     <UserLayout>
       {/* Wrapper com classe de escopo — evita vazamento de CSS */}
       <div className="pagina-detalhe-duvida">
-        <h2 style={{ textAlign: "center", color: "#3498DB" }}>
+        <h2 className="titulo-detalhe-duvida">
           Detalhes da Dúvida
         </h2>
 
@@ -314,13 +314,16 @@ function MinhasDuvidasDetalhe() {
                   </div>
                 )}
               </div>
-              <h4>{doubt.description}</h4>
+              <p className="descricao-detalhe-duvida">{doubt.description}</p>
             </>
           )}
 
           {/* Botão toggle */}
           <button
+            type="button"
             className={`btn-detalhes${detalhesAbertos ? " aberto" : ""}`}
+            aria-expanded={detalhesAbertos}
+            aria-controls="painel-detalhes-duvida"
             onClick={() => setDetalhesAbertos((prev) => !prev)}
           >
             Detalhes da Dúvida
@@ -329,14 +332,11 @@ function MinhasDuvidasDetalhe() {
 
           {/* Painel expansível */}
           <div
+            id="painel-detalhes-duvida"
             className={`duvida-detalhes-painel${
               detalhesAbertos ? " aberto" : ""
             }`}
           >
-            <p>
-              <strong>Id:</strong> {doubt.id}
-            </p>
-
             <p>
               <strong>Questionador:</strong> {doubt.questioner.name}
             </p>

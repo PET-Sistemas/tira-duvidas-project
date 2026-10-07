@@ -256,6 +256,16 @@ body {
   opacity: 1;
 }
 
+.perfil-input-read-only:not(:disabled) {
+  background-color: #fff;
+  border-color: #0188B5;
+  cursor: text;
+}
+
+.perfil-input-read-only:not(:disabled):focus {
+  box-shadow: 0 0 0 3px rgba(1, 136, 181, 0.16);
+}
+
 /* BOTÕES */
 
 
