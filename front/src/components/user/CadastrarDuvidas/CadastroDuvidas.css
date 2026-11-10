@@ -1,8 +1,37 @@
 .cadastro-duvida-form-wrapper {
   width: 100%;
-  max-width: 960px;
-  margin: 2rem auto;
+  max-width: 560px;
+  margin: 1rem auto;
+  padding: clamp(0.9rem, 2.5vw, 1.25rem);
+  border: 1px solid #d6e5f0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 73, 144, 0.08);
   box-sizing: border-box;
+}
+
+.cadastro-duvida-form-wrapper .form-input {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #9bbbd2;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.cadastro-duvida-form-wrapper textarea.form-input {
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.cadastro-duvida-form-wrapper .form-input:focus {
+  border-color: #17659c;
+  box-shadow: 0 0 0 3px rgba(23, 101, 156, 0.15);
+}
+
+.cadastro-duvida-form-wrapper .actions-row .btn-primary {
+  min-width: 88px;
+  padding: 8px 14px;
+  font-size: 14px;
 }
 
 .cadastro-duvida-categoria-row {
@@ -112,6 +141,11 @@
 
 /* ===== RESPONSIVIDADE MOBILE ===== */
 @media (max-width: 480px) {
+  .cadastro-duvida-form-wrapper {
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
   .cadastro-duvida-categoria-row {
     flex-direction: column;
     align-items: stretch;

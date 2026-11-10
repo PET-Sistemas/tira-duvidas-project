@@ -53,6 +53,17 @@ function PerfilUsuario() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!isEditing) return;
+
+    const hasChanges =
+      nome !== (sessionStorage.getItem("username") || "") ||
+      telefone !== (sessionStorage.getItem("telefone") || "");
+
+    if (!hasChanges) {
+      setIsEditing(false);
+      return;
+    }
+
     if (!nome.trim() || !telefone.trim()) {
       setModal({
         isOpen: true,
@@ -139,7 +150,11 @@ function PerfilUsuario() {
 
       <div className="header-div">
         <h1>Meu Perfil</h1>
-        <p>Visualize e edite suas informações pessoais</p>
+        <p>
+          {isEditing
+            ? "Edite seu nome e telefone"
+            : "Visualize e edite suas informações pessoais"}
+        </p>
       </div>
 
       <div className="perfil-details-form-wrapper">
